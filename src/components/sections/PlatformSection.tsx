@@ -30,7 +30,7 @@ const features = [
 
 export default function PlatformSection() {
   return (
-    <section id="plataforma" className="relative overflow-hidden px-4 py-24 sm:px-6 md:py-32 lg:px-8">
+    <section id="plataforma" className="relative overflow-hidden bg-[#08091A] px-4 py-24 sm:px-6 md:py-32 lg:px-8">
       <MeshGradientBg variant="cool" />
 
       <div className="relative mx-auto max-w-6xl">

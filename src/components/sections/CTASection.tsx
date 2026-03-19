@@ -7,7 +7,7 @@ import MeshGradientBg from '@/components/common/MeshGradientBg'
 
 export default function CTASection() {
   return (
-    <section id="contacto" className="relative overflow-hidden px-4 py-24 sm:px-6 md:py-32 lg:px-8">
+    <section id="contacto" className="relative overflow-hidden bg-[#08091A] px-4 py-24 sm:px-6 md:py-32 lg:px-8">
       <MeshGradientBg variant="default" />
 
       <div className="relative mx-auto max-w-3xl text-center">

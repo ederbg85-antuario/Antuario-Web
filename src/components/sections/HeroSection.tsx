@@ -160,18 +160,18 @@ export default function HeroSection() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.45 }}
-              className="mb-8 flex items-center gap-2"
+              className="mb-8 flex items-center gap-3"
             >
-              <span className="text-[13px] font-medium text-text-muted">Perfecto para:</span>
-              <span className="relative inline-block h-[20px] w-[200px] overflow-hidden">
+              <span className="text-[14px] font-semibold text-text-secondary">Perfecto para:</span>
+              <span className="relative inline-block h-[28px] w-[220px] overflow-hidden">
                 <AnimatePresence mode="wait">
                   <motion.span
                     key={currentIndex}
-                    initial={{ y: 18, opacity: 0, filter: 'blur(4px)' }}
+                    initial={{ y: 20, opacity: 0, filter: 'blur(4px)' }}
                     animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
-                    exit={{ y: -18, opacity: 0, filter: 'blur(4px)' }}
+                    exit={{ y: -20, opacity: 0, filter: 'blur(4px)' }}
                     transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
-                    className="absolute left-0 top-0 whitespace-nowrap text-[13px] font-semibold text-antuario-green"
+                    className="absolute left-0 top-0 whitespace-nowrap rounded-full bg-antuario-green/15 px-3 py-0.5 text-[14px] font-bold text-antuario-green ring-1 ring-antuario-green/25"
                   >
                     {audienceItems[currentIndex]}
                   </motion.span>

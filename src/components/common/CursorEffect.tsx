@@ -22,24 +22,24 @@ export default function CursorEffect() {
     const handleMouseMove = (e: MouseEvent) => {
       mouseX = e.clientX
       mouseY = e.clientY
-      dot.style.transform = `translate(${mouseX - 7}px, ${mouseY - 7}px)`
+      dot.style.transform = `translate(${mouseX - 11}px, ${mouseY - 11}px)`
     }
 
     const setHover = (hovering: boolean) => {
       isHovering = hovering
       if (hovering) {
-        dot.style.width = '18px'
-        dot.style.height = '18px'
-        dot.style.transform = `translate(${mouseX - 9}px, ${mouseY - 9}px)`
-        ring.style.width = '60px'
-        ring.style.height = '60px'
-        ring.style.borderColor = 'rgba(0, 214, 143, 0.5)'
+        dot.style.width = '28px'
+        dot.style.height = '28px'
+        dot.style.transform = `translate(${mouseX - 14}px, ${mouseY - 14}px)`
+        ring.style.width = '80px'
+        ring.style.height = '80px'
+        ring.style.borderColor = 'rgba(0, 214, 143, 0.55)'
       } else {
-        dot.style.width = '14px'
-        dot.style.height = '14px'
-        ring.style.width = '48px'
-        ring.style.height = '48px'
-        ring.style.borderColor = 'rgba(255, 255, 255, 0.18)'
+        dot.style.width = '22px'
+        dot.style.height = '22px'
+        ring.style.width = '64px'
+        ring.style.height = '64px'
+        ring.style.borderColor = 'rgba(255, 255, 255, 0.22)'
       }
     }
 
@@ -49,7 +49,7 @@ export default function CursorEffect() {
     const animateRing = () => {
       ringX += (mouseX - ringX) * 0.12
       ringY += (mouseY - ringY) * 0.12
-      const size = isHovering ? 30 : 24
+      const size = isHovering ? 40 : 32
       ring.style.transform = `translate(${ringX - size}px, ${ringY - size}px)`
       requestAnimationFrame(animateRing)
     }
@@ -78,13 +78,13 @@ export default function CursorEffect() {
     <>
       <div
         ref={dotRef}
-        className="pointer-events-none fixed left-0 top-0 z-[9999] hidden h-[14px] w-[14px] rounded-full bg-white mix-blend-difference will-change-transform md:block"
-        style={{ transition: 'width 0.25s, height 0.25s' }}
+        className="pointer-events-none fixed left-0 top-0 z-[9999] hidden h-[22px] w-[22px] rounded-full bg-white mix-blend-difference will-change-transform md:block"
+        style={{ transition: 'width 0.2s, height 0.2s' }}
       />
       <div
         ref={ringRef}
-        className="pointer-events-none fixed left-0 top-0 z-[9998] hidden h-12 w-12 rounded-full border-2 border-white/[0.18] mix-blend-difference will-change-transform md:block"
-        style={{ transition: 'width 0.35s, height 0.35s, border-color 0.35s' }}
+        className="pointer-events-none fixed left-0 top-0 z-[9998] hidden h-16 w-16 rounded-full border-2 border-white/[0.22] mix-blend-difference will-change-transform md:block"
+        style={{ transition: 'width 0.3s, height 0.3s, border-color 0.3s' }}
       />
     </>
   )

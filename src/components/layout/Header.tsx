@@ -38,7 +38,7 @@ export default function Header() {
           'mx-auto flex max-w-[1400px] items-center justify-between rounded-2xl px-5 py-3 transition-all duration-500 sm:px-7',
           isScrolled
             ? 'bg-white/90 shadow-elevated backdrop-blur-2xl'
-            : 'border border-white/[0.08] bg-[#1A1D2B]/90 shadow-[0_4px_32px_rgba(0,0,0,0.4)] backdrop-blur-xl'
+            : 'border border-white/[0.06] bg-[#080A14]/95 shadow-[0_4px_40px_rgba(0,0,0,0.6)] backdrop-blur-xl'
         )}
       >
         {/* Logo */}
