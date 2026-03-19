@@ -31,88 +31,16 @@ export default function HeroSection() {
     <section className="relative overflow-hidden pb-0 pt-24 sm:pt-28">
       <MeshGradientBg variant="lsd" />
 
-      {/* Extra gradient boost — más vivido y rápido que el base */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div
-          className="absolute rounded-full"
-          style={{
-            width: '85%',
-            height: '75%',
-            left: '5%',
-            top: '65%',
-            background: 'radial-gradient(circle, rgba(0,214,143,0.62) 0%, transparent 65%)',
-            transform: 'translate(-50%, -50%)',
-            filter: 'blur(90px)',
-            animation: 'heroBoost0 3.8s ease-in-out infinite',
-          }}
-        />
-        <div
-          className="absolute rounded-full"
-          style={{
-            width: '75%',
-            height: '70%',
-            left: '88%',
-            top: '50%',
-            background: 'radial-gradient(circle, rgba(139,92,246,0.55) 0%, transparent 65%)',
-            transform: 'translate(-50%, -50%)',
-            filter: 'blur(85px)',
-            animation: 'heroBoost1 4.2s ease-in-out infinite',
-            animationDelay: '1s',
-          }}
-        />
-        <div
-          className="absolute rounded-full"
-          style={{
-            width: '65%',
-            height: '60%',
-            left: '50%',
-            top: '80%',
-            background: 'radial-gradient(circle, rgba(0,201,219,0.52) 0%, transparent 65%)',
-            transform: 'translate(-50%, -50%)',
-            filter: 'blur(80px)',
-            animation: 'heroBoost2 3.5s ease-in-out infinite',
-            animationDelay: '0.6s',
-          }}
-        />
-        <div
-          className="absolute rounded-full"
-          style={{
-            width: '60%',
-            height: '55%',
-            left: '75%',
-            top: '90%',
-            background: 'radial-gradient(circle, rgba(244,114,182,0.45) 0%, transparent 65%)',
-            transform: 'translate(-50%, -50%)',
-            filter: 'blur(75px)',
-            animation: 'heroBoost3 4.8s ease-in-out infinite',
-            animationDelay: '1.8s',
-          }}
-        />
-        <style jsx>{`
-          @keyframes heroBoost0 {
-            0%, 100% { transform: translate(-50%, -50%) scale(1); }
-            35% { transform: translate(-38%, -62%) scale(1.25); }
-            70% { transform: translate(-62%, -40%) scale(0.85); }
-          }
-          @keyframes heroBoost1 {
-            0%, 100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
-            30% { transform: translate(-62%, -40%) scale(1.22) rotate(6deg); }
-            65% { transform: translate(-40%, -60%) scale(0.82) rotate(-4deg); }
-          }
-          @keyframes heroBoost2 {
-            0%, 100% { transform: translate(-50%, -50%) scale(1); }
-            40% { transform: translate(-42%, -60%) scale(1.28); }
-            75% { transform: translate(-58%, -42%) scale(0.80); }
-          }
-          @keyframes heroBoost3 {
-            0%, 100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
-            45% { transform: translate(-60%, -42%) scale(1.18) rotate(-5deg); }
-            80% { transform: translate(-42%, -58%) scale(0.88) rotate(4deg); }
-          }
-        `}</style>
-      </div>
+      {/* White fade overlay — colors emerge from bottom, clean white at top */}
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          zIndex: 1,
+          background: 'linear-gradient(to bottom, rgba(250,250,250,1) 0%, rgba(250,250,250,0.90) 22%, rgba(250,250,250,0.50) 48%, transparent 68%)',
+        }}
+      />
 
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
           {/* Left: Copy */}
           <div className="pb-10 sm:pb-20 lg:pb-28">
