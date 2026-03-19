@@ -297,7 +297,7 @@ export default function StepsSection() {
           </p>
         </motion.div>
 
-        <div className="space-y-24">
+        <div className="space-y-14 sm:space-y-24">
           {steps.map((step, i) => (
             <motion.div
               key={step.number}

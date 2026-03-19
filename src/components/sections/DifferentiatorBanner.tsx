@@ -10,7 +10,7 @@ export default function DifferentiatorBanner() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-40px' }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className="relative overflow-hidden rounded-[32px] bg-[#1A1D2B] px-8 py-10 shadow-[0_8px_40px_rgba(0,0,0,0.22),0_24px_80px_rgba(0,0,0,0.18),0_0_0_1px_rgba(255,255,255,0.05)] sm:px-14 sm:py-12"
+        className="relative overflow-hidden rounded-[24px] bg-[#1A1D2B] px-6 py-8 shadow-[0_8px_40px_rgba(0,0,0,0.22),0_24px_80px_rgba(0,0,0,0.18),0_0_0_1px_rgba(255,255,255,0.05)] sm:rounded-[32px] sm:px-14 sm:py-12"
         style={{ transform: 'perspective(1400px) rotateX(1.5deg)' }}
       >
         {/* Ambient inner glows */}
@@ -46,7 +46,7 @@ export default function DifferentiatorBanner() {
               animate={{ y: [0, -10, 0] }}
               transition={{ duration: 3.8, repeat: Infinity, ease: [0.45, 0, 0.55, 1] }}
             >
-              <div className="relative flex h-24 w-24 items-center justify-center rounded-2xl bg-white/[0.07] shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_0_50px_rgba(0,214,143,0.18)] ring-1 ring-white/[0.08]">
+              <div className="relative flex h-16 w-16 items-center justify-center rounded-2xl bg-white/[0.07] shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_0_50px_rgba(0,214,143,0.18)] ring-1 ring-white/[0.08] sm:h-24 sm:w-24">
                 {/* Rotating shimmer ring */}
                 <motion.div
                   className="absolute inset-0 rounded-2xl"
@@ -61,7 +61,7 @@ export default function DifferentiatorBanner() {
                 <img
                   src="/logos/isotipo.svg"
                   alt="Antuario"
-                  className="relative z-10 h-14 w-14"
+                  className="relative z-10 h-10 w-10 sm:h-14 sm:w-14"
                 />
               </div>
             </motion.div>
@@ -69,7 +69,7 @@ export default function DifferentiatorBanner() {
 
           {/* Text content */}
           <div className="text-center sm:text-left">
-            <h3 className="mb-3 font-heading text-2xl font-bold text-white sm:text-[28px] lg:text-[30px]">
+            <h3 className="mb-3 font-heading text-xl font-bold text-white sm:text-[28px] lg:text-[30px]">
               Somos muy diferentes al{' '}
               <span className="gradient-text-multicolor">99%</span>{' '}
               de las agencias

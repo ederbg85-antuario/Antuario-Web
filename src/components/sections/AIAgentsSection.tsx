@@ -42,7 +42,7 @@ const capabilities = [
 export default function AIAgentsSection() {
   return (
     <section id="ia" className="relative overflow-hidden px-4 py-24 sm:px-6 md:py-32 lg:px-8">
-      <MeshGradientBg variant="light-warm" />
+      <MeshGradientBg variant="lsd" />
 
       <div className="relative mx-auto max-w-6xl">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
