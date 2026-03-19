@@ -1,0 +1,1 @@
+Use the X Form from Shadcn ui in React Hook Form to make the B2B lead capture form
