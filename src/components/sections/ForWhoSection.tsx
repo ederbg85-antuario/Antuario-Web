@@ -1,4 +1,4 @@
-import SectionWrapper from 'A/components/common/SectionWrapper'
+import SectionWrapper from '@/components/common/SectionWrapper'
 import { CheckCircle2, XCircle } from 'lucide-react'
 
 const idealFor = [
@@ -63,5 +63,5 @@ export default function ForWhoSection() {
         </div>
       </div>
     </SectionWrapper>
-  
-  }
+  )
+}

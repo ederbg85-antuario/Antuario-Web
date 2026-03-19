@@ -13,6 +13,26 @@ export interface Lead {
   estado: LeadEstado
 }
 
-export type ServiceInterest = 'generacion-leads'|'plataforma'|'ia'|'consultoria'|'otro'
-export type LeadEstado = 'nuevo'|'contactado'|'calificado'|'descartado'
-export interface FormState { status:'idle'|'loading'|'success'|'error'; message:string|null }
+export type ServiceInterest =
+  | 'generacion-leads'
+  | 'plataforma'
+  | 'ia'
+  | 'consultoria'
+  | 'otro'
+
+export type LeadEstado = 'nuevo' | 'contactado' | 'calificado' | 'descartado'
+
+export interface FormState {
+  status: 'idle' | 'loading' | 'success' | 'error'
+  message: string | null
+}
+
+export interface NavItem {
+  label: string
+  href: string
+}
+
+export interface SocialLinks {
+  linkedin: string
+  instagram: string
+}

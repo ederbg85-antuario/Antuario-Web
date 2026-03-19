@@ -1,4 +1,4 @@
-import SectionWrapper from 'A/components/common/SectionWrapper'
+import SectionWrapper from '@/components/common/SectionWrapper'
 import AnimatedCounter from '@/components/common/AnimatedCounter'
 
 const metrics = [
@@ -128,5 +128,5 @@ export default function MetricsSection() {
         </div>
       </div>
     </SectionWrapper>
-  
-  }
+  )
+}

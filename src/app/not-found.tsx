@@ -23,5 +23,5 @@ export default function NotFound() {
         </Link>
       </div>
     </div>
-  
-(#Š("t
+  )
+}

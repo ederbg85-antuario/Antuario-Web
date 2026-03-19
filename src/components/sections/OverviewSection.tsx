@@ -1,4 +1,4 @@
-import SectionWrapper from 'A/components/common/SectionWrapper'
+import SectionWrapper from '@/components/common/SectionWrapper'
 import { Globe, LayoutDashboard, Bot, TrendingUp, ArrowRight } from 'lucide-react'
 
 const pillars = [
@@ -8,7 +8,7 @@ const pillars = [
     title: '3 Activos Digitales',
     subtitle: 'Página web + SEO + Google Ads',
     description:
-      'Implementamos tres activos valiopísimo en el mes 1: una página web diseñada para convertir, SEO para generar demanda recurrente gratuita, y Google Ads para activar demanda inmediata.',
+      'Implementamos tres activos valiosísimos en el mes 1: una página web diseñada para convertir, SEO para generar demanda recurrente gratuita, y Google Ads para activar demanda inmediata.',
     color: 'primary' as const,
   },
   {
@@ -20,7 +20,7 @@ const pillars = [
       'Tu propio dashboard donde puedes medir todo el embudo: desde la primera impresión hasta el cierre del cliente. Sesiones, leads, propuestas, cierres — todo en un solo lugar, 24/7.',
     color: 'cyan' as const,
   },
-   {
+  {
     icon: Bot,
     number: '03',
     title: 'Agente IA en WhatsApp',
@@ -35,7 +35,7 @@ const pillars = [
     title: 'Optimización Continua',
     subtitle: 'Mejoramos mes con mes',
     description:
-      'Nos encargamos de mejorar tus resultados específicos cada mes. Nuestro KPI: reducir tu Costo por Lead Relevante (CPLR) mientras incrementamos el volumen de prospectos calificados',
+      'Nos encargamos de mejorar tus resultados específicos cada mes. Nuestro KPI: reducir tu Costo por Lead Relevante (CPLR) mientras incrementamos el volumen de prospectos calificados.',
     color: 'green' as const,
   },
 ]
@@ -43,7 +43,7 @@ const pillars = [
 const colorMap = {
   primary: {
     bg: 'bg-primary/10',
-    text: 'text-primary",
+    text: 'text-primary',
     border: 'border-primary/20',
     iconBg: 'bg-primary/10',
   },
@@ -76,7 +76,7 @@ export default function OverviewSection() {
           ¿Qué incluye el sistema?
         </span>
         <h2 className="mb-5 font-heading text-3xl font-bold text-text-primary sm:text-4xl lg:text-4.5xl">
-          Todo lo que necesitas para{ ' '}
+          Todo lo que necesitas para{' '}
           <span className="text-primary">generar clientes B2B.</span>
         </h2>
         <p className="mx-auto max-w-2xl text-lg text-text-secondary">
@@ -128,11 +128,11 @@ export default function OverviewSection() {
         <a
           href="#activos"
           className="inline-flex items-center gap-2 text-sm font-semibold text-primary transition-colors hover:text-primary-dark"
-          >
-            Conoce cada activo a detalle
-            <ArrowRight className="h-4 w-4" />
-          </a>
+        >
+          Conoce cada activo a detalle
+          <ArrowRight className="h-4 w-4" />
+        </a>
       </div>
     </SectionWrapper>
-  
-  }
+  )
+}

@@ -26,7 +26,7 @@ const columns = [
     highlight: true,
   },
   {
-    label: 'El resultado",
+    label: 'El resultado',
     icon: Sparkles,
     iconBg: 'bg-antuario-green/10',
     iconColor: 'text-antuario-green',
@@ -80,13 +80,13 @@ export default function DifferentiatorSection() {
               </p>
 
               {/* Highlight glow for "Nosotros" */}
-                {col.highlight && (
-                  <div className="pointer-events-none absolute -bottom-10 -right-10 h-40 w-40 rounded-full bg-antuario-green/5 blur-3xl" />
-                )}
+              {col.highlight && (
+                <div className="pointer-events-none absolute -bottom-10 -right-10 h-40 w-40 rounded-full bg-antuario-green/5 blur-3xl" />
+              )}
             </motion.div>
           ))}
         </div>
       </div>
     </section>
-  
-  }
+  )
+}

@@ -6,9 +6,9 @@ const plans = [
     icon: Zap,
     name: 'Lanzamiento',
     description: 'Para negocios que inician su sistema de generación de clientes B2B.',
-    range: '$15,000 - $25,000 MXN/mes',
+    range: '$15,000 — $25,000 MXN/mes',
     features: [
-      'PÁgina web optimizada para conversión',
+      'Página web optimizada para conversión',
       'Google Ads con tracking end-to-end',
       'SEO básico y Google Business Profile',
       'Dashboard con métricas clave',
@@ -21,7 +21,7 @@ const plans = [
     icon: Crown,
     name: 'Crecimiento',
     description: 'El sistema completo para escalar con datos, IA y accountability.',
-    range: '$25,000 - $50,000 MXN/mes',
+    range: '$25,000 — $50,000 MXN/mes',
     features: [
       'Todo lo de Lanzamiento',
       'Multi-canal: Ads + SEO + Maps + LinkedIn',
@@ -54,7 +54,89 @@ const plans = [
 export default function PricingSection() {
   return (
     <SectionWrapper>
-      <p>Pricing Section</p>
+      <div className="mb-16 text-center">
+        <span className="mb-4 inline-flex items-center gap-2 rounded-full bg-primary/10 px-5 py-2 text-sm font-semibold text-primary-dark">
+          <span className="h-2 w-2 rounded-full bg-primary" />
+          Inversión
+        </span>
+        <h2 className="mb-5 font-heading text-3xl font-bold text-text-primary sm:text-4xl lg:text-4.5xl">
+          Planes diseñados para{' '}
+          <span className="text-primary">generar ROI</span>
+        </h2>
+        <p className="mx-auto max-w-2xl text-lg text-text-secondary">
+          La inversión incluye los 3 activos, plataforma, estrategia, ejecución y optimización continua.
+          Sin costos ocultos.
+        </p>
+      </div>
+
+      <div className="grid gap-6 lg:grid-cols-3">
+        {plans.map((plan) => {
+          const Icon = plan.icon
+          return (
+            <div
+              key={plan.name}
+              className={`relative flex flex-col rounded-[2rem] p-8 transition-all duration-500 ${
+                plan.highlight
+                  ? 'bg-navy text-white shadow-[0_20px_60px_rgba(11,17,33,0.3)]'
+                  : 'border border-border-light bg-white shadow-card hover:-translate-y-1 hover:shadow-card-3d'
+              }`}
+            >
+              {plan.highlight && (
+                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-gradient-to-r from-primary to-primary-light px-5 py-1.5 text-xs font-bold text-white shadow-glow">
+                  Más popular
+                </div>
+              )}
+
+              <div className={`mb-5 flex h-14 w-14 items-center justify-center rounded-2xl shadow-soft ${
+                plan.highlight ? 'bg-white/10' : 'bg-primary/10'
+              }`}>
+                <Icon className={`h-6 w-6 ${plan.highlight ? 'text-primary-light' : 'text-primary'}`} />
+              </div>
+
+              <h3 className={`mb-2 text-xl font-bold ${plan.highlight ? 'text-white' : 'text-text-primary'}`}>
+                {plan.name}
+              </h3>
+              <p className={`mb-5 text-sm ${plan.highlight ? 'text-white/55' : 'text-text-secondary'}`}>
+                {plan.description}
+              </p>
+
+              <p className={`mb-6 text-lg font-bold ${plan.highlight ? 'text-primary-light' : 'text-primary'}`}>
+                {plan.range}
+              </p>
+
+              <ul className="mb-8 flex-grow space-y-3">
+                {plan.features.map((feature) => (
+                  <li key={feature} className="flex items-start gap-2.5">
+                    <Check className={`mt-0.5 h-4 w-4 flex-shrink-0 ${
+                      plan.highlight ? 'text-accent-green-light' : 'text-accent-green'
+                    }`} />
+                    <span className={`text-sm ${plan.highlight ? 'text-white/65' : 'text-text-secondary'}`}>
+                      {feature}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+
+              <a
+                href="#contacto"
+                className={`group flex items-center justify-center gap-2 rounded-2xl px-6 py-4 text-sm font-semibold transition-all duration-300 ${
+                  plan.highlight
+                    ? 'bg-white text-navy shadow-card hover:shadow-card-hover'
+                    : 'bg-navy text-white shadow-card hover:shadow-card-hover'
+                }`}
+              >
+                Agendar llamada
+                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+              </a>
+            </div>
+          )
+        })}
+      </div>
+
+      <p className="mt-10 text-center text-sm text-text-muted">
+        Los rangos de inversión no incluyen presupuesto de pauta publicitaria, que se define según objetivos.
+        El presupuesto de Ads se paga directo a las plataformas.
+      </p>
     </SectionWrapper>
   )
 }

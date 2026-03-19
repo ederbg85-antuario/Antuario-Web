@@ -41,5 +41,5 @@ export default function SectionWrapper({
     >
       <div className="mx-auto max-w-7xl">{children}</div>
     </Component>
-  
-(#Š("t
+  )
+}

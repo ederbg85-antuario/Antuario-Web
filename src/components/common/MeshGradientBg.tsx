@@ -67,7 +67,7 @@ export default function MeshGradientBg({ variant = 'default' }: { variant?: 'def
             top: `${blob.y}%`,
             background: `radial-gradient(circle, ${blob.color} 0%, transparent 70%)`,
             transform: 'translate(-50%, -50%)',
-            animation: `antuarioBlob {i % 4} ${isLight ? 5 + i * 0.8 : 14 + i * 2}s ease-in-out infinite`,
+            animation: `antuarioBlob${i % 4} ${isLight ? 5 + i * 0.8 : 14 + i * 2}s ease-in-out infinite`,
             animationDelay: `${blob.delay}s`,
             filter: isLight ? 'blur(70px)' : 'blur(60px)',
           }}

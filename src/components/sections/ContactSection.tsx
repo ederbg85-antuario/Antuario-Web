@@ -1,4 +1,4 @@
-import SectionWrapper from 'A/components/common/SectionWrapper'
+import SectionWrapper from '@/components/common/SectionWrapper'
 import LeadForm from '@/components/common/LeadForm'
 import { Mail, Clock, ArrowRight } from 'lucide-react'
 
@@ -41,7 +41,7 @@ export default function ContactSection() {
               <div>
                 <h3 className="font-bold text-text-primary">Propuesta personalizada</h3>
                 <p className="text-sm text-text-secondary">
-                  Si somos el fit correcto, preparamos una propuesta con  objetivos, KPIs y plan* de acción claros.
+                  Si somos el fit correcto, preparamos una propuesta con objetivos, KPIs y plan de acción claros.
                 </p>
               </div>
             </div>
@@ -53,7 +53,7 @@ export default function ContactSection() {
               <div>
                 <h3 className="font-bold text-text-primary">Contacto directo</h3>
                 <p className="text-sm text-text-secondary">
-                  ¿Prefieres escribirnos directamente? Envíanos un correo a{ ' '}
+                  ¿Prefieres escribirnos directamente? Envíanos un correo a{' '}
                   <a
                     href="mailto:hola@antuario.mx"
                     className="font-semibold text-primary transition-colors hover:text-primary-dark"

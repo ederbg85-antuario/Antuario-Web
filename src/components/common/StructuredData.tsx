@@ -1,41 +1,57 @@
-'use client'
-
-import { useEffect } from 'react'
-import { siteConfig } from 'A/config/site'
+import { siteConfig } from '@/config/site'
 
 export default function StructuredData() {
-  useEffect(() => {
-    const schema = {
-      '@context': 'https://schema.org',
+  const localBusiness = {
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    name: siteConfig.name,
+    description: siteConfig.description,
+    url: siteConfig.url,
+    email: siteConfig.email,
+    areaServed: {
+      '@type': 'Country',
+      name: 'MX',
+    },
+    serviceType: 'Marketing B2B',
+    address: {
+      '@type': 'PostalAddress',
+      addressCountry: 'MX',
+    },
+    sameAs: [siteConfig.social.linkedin, siteConfig.social.instagram],
+  }
+
+  const service = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'Sistema Comercial Integral B2B',
+    provider: {
       '@type': 'Organization',
       name: siteConfig.name,
-      description: siteConfig.description,
       url: siteConfig.url,
-      logo: {
-        '@type': 'ImageObject',
-        url: `${siteConfig.url}/logo.png`,
-        width: 120,
-        height: 60,
-      },
-      sameAs: [],
-      socialProfile: [
-        siteConfig.social.linkedin,
-        siteConfig.social.instagram,
-      ],
-      contactPoint: {WnCopx— AXrÉ é tyón acceso 24/7 a tu plataforma com IA, dashboard y agente en WhatsApp para todas tus operaciones de marketing y ventas. Trabaja coo resultados, noda de carsas 3páginas de reportes que nadie entiende. Cote tarifa rasonable.'}
-  };
+    },
+    areaServed: {
+      '@type': 'Country',
+      name: 'MX',
+    },
+    description:
+      'Sistema comercial integral que genera clientes para negocios B2B de servicios high-ticket. Incluye generación de demanda, plataforma de control y automatización con IA.',
+    serviceType: [
+      'Generación de Leads B2B',
+      'Plataforma de Control Comercial',
+      'Automatización con Inteligencia Artificial',
+    ],
+  }
 
-    const jsonld = JSON.stringify(schema);
-
-    const script = document.createElement('script');
-    script.type = 'application/ld+json';
-    script.textContent = jsonld;
-    document.head.appendChild(script);
-
-    return () => {
-      script.parentNode?.removeChild(script);
-    };
-  }, []);
-
-  return null;
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusiness) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(service) }}
+      />
+    </>
+  )
 }

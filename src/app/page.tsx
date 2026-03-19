@@ -1,14 +1,14 @@
-import HeroSection from 'A/components/sections/HeroSection'
+import HeroSection from '@/components/sections/HeroSection'
 import StepsSection from '@/components/sections/StepsSection'
-import ActivosSection from 'A/components/sections/ActivosSection'
-import AIAgentsSection from 'A/components/sections/AIAgentsSection'
-import PlatformSection from 'A/components/sections/PlatformSection'
-import PainSection from 'A/components/sections/PainSection'
+import ActivosSection from '@/components/sections/ActivosSection'
+import AIAgentsSection from '@/components/sections/AIAgentsSection'
+import PlatformSection from '@/components/sections/PlatformSection'
+import PainSection from '@/components/sections/PainSection'
 import DifferentiatorSection from '@/components/sections/DifferentiatorSection'
-import IncludesSection from 'A/components/sections/IncludesSection'
-import CTASection from 'A/components/sections/CTASection'
-import SectionDivider from 'A/components/common/SectionDivider'
-import StructuredData from 'A/components/common/StructuredData'
+import IncludesSection from '@/components/sections/IncludesSection'
+import CTASection from '@/components/sections/CTASection'
+import SectionDivider from '@/components/common/SectionDivider'
+import StructuredData from '@/components/common/StructuredData'
 
 export default function HomePage() {
   return (
@@ -32,5 +32,5 @@ export default function HomePage() {
       <SectionDivider variant="alt-to-dark" />
       <CTASection />
     </>
-  
-(#Š("t
+  )
+}

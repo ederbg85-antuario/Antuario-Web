@@ -1,4 +1,4 @@
-import SectionWrapper from 'A/components/common/SectionWrapper'
+import SectionWrapper from '@/components/common/SectionWrapper'
 import { Globe, Search, Zap, ArrowRight, TrendingUp, Target, BarChart3 } from 'lucide-react'
 
 const assets = [

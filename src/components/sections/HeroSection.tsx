@@ -71,7 +71,7 @@ export default function HeroSection() {
               transition={{ duration: 0.5, delay: 0.35 }}
               className="mb-5 max-w-lg text-[14px] leading-relaxed text-text-secondary sm:text-[15px]"
             >
-              Combinamos IA, marketing, estrategia de ventas y nuestra propia plataforma para que tu área comercial funcione con îٵeros claros, resultados reales y total transparencia.
+              Combinamos IA, marketing, estrategia de ventas y nuestra propia plataforma para que tu área comercial funcione con números claros, resultados reales y total transparencia.
             </motion.p>
 
             {/* Rotating audience text */}
@@ -204,8 +204,8 @@ export default function HeroSection() {
             {/* Text */}
             <div className="text-center sm:text-left">
               <h3 className="mb-2 font-heading text-xl font-bold text-white sm:text-2xl">
-                Somos muy diferentes al{7 '}
-                <span className="gradient-text-multicolor">99%</span>{ ' }
+                Somos muy diferentes al{' '}
+                <span className="gradient-text-multicolor">99%</span>{' '}
                 de las agencias
               </h3>
               <p className="max-w-xl text-[13px] leading-relaxed text-white/50">
