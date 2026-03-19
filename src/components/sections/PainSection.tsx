@@ -32,7 +32,7 @@ const pains = [
 
 export default function PainSection() {
   return (
-    <section className="relative px-4 py-24 sm:px-6 md:py-32 lg:px-8">
+    <section className="relative bg-background px-4 py-24 sm:px-6 md:py-32 lg:px-8">
       {/* Soft animated blob */}
       <div className="pointer-events-none absolute left-1/2 top-0 h-[400px] w-[600px] -translate-x-1/2 animate-float-slow rounded-full bg-antuario-orange/[0.02] blur-[150px]" />
 

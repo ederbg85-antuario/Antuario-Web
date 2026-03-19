@@ -39,7 +39,7 @@ const columns = [
 
 export default function DifferentiatorSection() {
   return (
-    <section id="diferencia" className="relative px-4 py-24 sm:px-6 md:py-32 lg:px-8">
+    <section id="diferencia" className="relative bg-background px-4 py-24 sm:px-6 md:py-32 lg:px-8">
       {/* Subtle background */}
       <div className="pointer-events-none absolute left-0 top-1/3 h-[400px] w-[500px] animate-float-slow rounded-full bg-antuario-green/[0.02] blur-[150px]" />
 

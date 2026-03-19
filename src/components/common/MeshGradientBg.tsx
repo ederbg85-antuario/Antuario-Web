@@ -54,14 +54,14 @@ export default function MeshGradientBg({
      * Opacity 0.20-0.32 → very soft. Hue cycles slowly for the living feel.
      */
     lsd: [
-      { color: 'rgba(0, 214, 143, 0.30)',  size: 78, x: 8,  y: 72, delay: 0   },
-      { color: 'rgba(139, 92, 246, 0.26)', size: 72, x: 85, y: 68, delay: 1.0 },
-      { color: 'rgba(0, 201, 219, 0.28)',  size: 70, x: 50, y: 82, delay: 1.8 },
-      { color: 'rgba(251, 191, 36, 0.22)', size: 65, x: 22, y: 90, delay: 2.4 },
-      { color: 'rgba(79, 142, 255, 0.25)', size: 68, x: 68, y: 88, delay: 0.7 },
-      { color: 'rgba(255, 122, 69, 0.20)', size: 60, x: 38, y: 78, delay: 1.4 },
-      { color: 'rgba(0, 180, 110, 0.22)',  size: 55, x: 88, y: 85, delay: 2.1 },
-      { color: 'rgba(90, 140, 255, 0.20)', size: 52, x: 14, y: 86, delay: 3.0 },
+      { color: 'rgba(0, 214, 143, 0.40)',  size: 80, x: 8,  y: 72, delay: 0   },
+      { color: 'rgba(139, 92, 246, 0.36)', size: 75, x: 85, y: 68, delay: 1.0 },
+      { color: 'rgba(0, 201, 219, 0.38)',  size: 72, x: 50, y: 82, delay: 1.8 },
+      { color: 'rgba(251, 191, 36, 0.30)', size: 67, x: 22, y: 90, delay: 2.4 },
+      { color: 'rgba(79, 142, 255, 0.34)', size: 70, x: 68, y: 88, delay: 0.7 },
+      { color: 'rgba(255, 122, 69, 0.28)', size: 62, x: 38, y: 78, delay: 1.4 },
+      { color: 'rgba(0, 180, 110, 0.30)',  size: 58, x: 88, y: 85, delay: 2.1 },
+      { color: 'rgba(90, 140, 255, 0.28)', size: 55, x: 14, y: 86, delay: 3.0 },
     ],
   }
 

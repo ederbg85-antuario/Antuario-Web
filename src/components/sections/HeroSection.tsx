@@ -28,7 +28,7 @@ export default function HeroSection() {
   }, [])
 
   return (
-    <section className="relative overflow-hidden pb-0 pt-24 sm:pt-28">
+    <section className="relative overflow-hidden bg-background pb-0 pt-24 sm:pt-28">
       <MeshGradientBg variant="lsd" />
 
       {/* White fade overlay — colors emerge from bottom, clean white at top */}
@@ -41,7 +41,7 @@ export default function HeroSection() {
       />
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
+        <div className="grid items-center gap-8 sm:gap-10 lg:grid-cols-2 lg:gap-14">
           {/* Left: Copy */}
           <div className="pb-10 sm:pb-20 lg:pb-28">
             {/* Badge */}
@@ -99,7 +99,7 @@ export default function HeroSection() {
                     animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
                     exit={{ y: -20, opacity: 0, filter: 'blur(4px)' }}
                     transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
-                    className="absolute left-0 top-0 whitespace-nowrap rounded-full bg-antuario-green/15 px-3 py-0.5 text-[14px] font-bold text-antuario-green ring-1 ring-antuario-green/25"
+                    className="absolute left-0 top-0 whitespace-nowrap rounded-full bg-[#1A1D2B]/[0.07] px-3 py-0.5 text-[14px] font-bold text-[#1A1D2B] ring-1 ring-[#1A1D2B]/10 backdrop-blur-sm"
                   >
                     {audienceItems[currentIndex]}
                   </motion.span>
@@ -139,7 +139,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 30, scale: 0.97 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.9, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="relative hidden lg:block"
+            className="relative w-full"
             style={{ perspective: '1200px' }}
           >
             <div className="pointer-events-none absolute -inset-8 rounded-[40px] bg-gradient-to-br from-antuario-green/20 via-antuario-cyan/10 to-antuario-purple/15 blur-3xl" style={{ zIndex: -1 }} />
@@ -166,7 +166,7 @@ export default function HeroSection() {
                   src="/screenshot-dashboard.png"
                   alt="Antuario Dashboard — Bandeja de entrada con agente IA"
                   className="block w-full"
-                  style={{ maxHeight: '420px', objectFit: 'cover', objectPosition: 'top' }}
+                  style={{ maxHeight: 'clamp(200px, 40vw, 420px)', objectFit: 'cover', objectPosition: 'top' }}
                 />
               </div>
             </motion.div>
@@ -175,7 +175,7 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.1, duration: 0.5 }}
-              className="absolute -bottom-4 -right-4 flex items-center gap-2 rounded-xl border border-black/[0.06] bg-white/90 px-3.5 py-2 shadow-elevated backdrop-blur-md"
+              className="absolute -bottom-4 -right-4 hidden items-center gap-2 rounded-xl border border-black/[0.06] bg-white/90 px-3.5 py-2 shadow-elevated backdrop-blur-md sm:flex"
             >
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-antuario-green opacity-75" />

@@ -21,7 +21,7 @@ export default function SectionDivider({ variant = 'light-to-dark' }: SectionDiv
   const { top, bottom } = fills[variant]
 
   return (
-    <div className="relative z-10 overflow-hidden" style={{ height: '56px', marginTop: '-2px', marginBottom: '-2px' }}>
+    <div className="relative z-10 overflow-hidden" style={{ height: '56px', marginTop: '-4px', marginBottom: '-4px' }}>
       <svg
         viewBox="0 0 1440 56"
         fill="none"
