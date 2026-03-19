@@ -1,4 +1,5 @@
 import HeroSection from '@/components/sections/HeroSection'
+import DifferentiatorBanner from '@/components/sections/DifferentiatorBanner'
 import StepsSection from '@/components/sections/StepsSection'
 import ActivosSection from '@/components/sections/ActivosSection'
 import AIAgentsSection from '@/components/sections/AIAgentsSection'
@@ -15,7 +16,7 @@ export default function HomePage() {
     <>
       <StructuredData />
       <HeroSection />
-      {/* Hero has its own rounded bottom built-in */}
+      <DifferentiatorBanner />
       <StepsSection />
       <SectionDivider variant="light-to-alt" />
       <ActivosSection />

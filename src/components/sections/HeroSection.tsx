@@ -31,10 +31,91 @@ export default function HeroSection() {
     <section className="relative overflow-hidden pb-0 pt-24 sm:pt-28">
       <MeshGradientBg variant="light" />
 
+      {/* Extra gradient boost — más vivido y rápido que el base */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div
+          className="absolute rounded-full"
+          style={{
+            width: '85%',
+            height: '75%',
+            left: '5%',
+            top: '65%',
+            background: 'radial-gradient(circle, rgba(0,214,143,0.62) 0%, transparent 65%)',
+            transform: 'translate(-50%, -50%)',
+            filter: 'blur(90px)',
+            animation: 'heroBoost0 3.8s ease-in-out infinite',
+          }}
+        />
+        <div
+          className="absolute rounded-full"
+          style={{
+            width: '75%',
+            height: '70%',
+            left: '88%',
+            top: '50%',
+            background: 'radial-gradient(circle, rgba(139,92,246,0.55) 0%, transparent 65%)',
+            transform: 'translate(-50%, -50%)',
+            filter: 'blur(85px)',
+            animation: 'heroBoost1 4.2s ease-in-out infinite',
+            animationDelay: '1s',
+          }}
+        />
+        <div
+          className="absolute rounded-full"
+          style={{
+            width: '65%',
+            height: '60%',
+            left: '50%',
+            top: '80%',
+            background: 'radial-gradient(circle, rgba(0,201,219,0.52) 0%, transparent 65%)',
+            transform: 'translate(-50%, -50%)',
+            filter: 'blur(80px)',
+            animation: 'heroBoost2 3.5s ease-in-out infinite',
+            animationDelay: '0.6s',
+          }}
+        />
+        <div
+          className="absolute rounded-full"
+          style={{
+            width: '60%',
+            height: '55%',
+            left: '75%',
+            top: '90%',
+            background: 'radial-gradient(circle, rgba(244,114,182,0.45) 0%, transparent 65%)',
+            transform: 'translate(-50%, -50%)',
+            filter: 'blur(75px)',
+            animation: 'heroBoost3 4.8s ease-in-out infinite',
+            animationDelay: '1.8s',
+          }}
+        />
+        <style jsx>{`
+          @keyframes heroBoost0 {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            35% { transform: translate(-38%, -62%) scale(1.25); }
+            70% { transform: translate(-62%, -40%) scale(0.85); }
+          }
+          @keyframes heroBoost1 {
+            0%, 100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+            30% { transform: translate(-62%, -40%) scale(1.22) rotate(6deg); }
+            65% { transform: translate(-40%, -60%) scale(0.82) rotate(-4deg); }
+          }
+          @keyframes heroBoost2 {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            40% { transform: translate(-42%, -60%) scale(1.28); }
+            75% { transform: translate(-58%, -42%) scale(0.80); }
+          }
+          @keyframes heroBoost3 {
+            0%, 100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+            45% { transform: translate(-60%, -42%) scale(1.18) rotate(-5deg); }
+            80% { transform: translate(-42%, -58%) scale(0.88) rotate(4deg); }
+          }
+        `}</style>
+      </div>
+
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
           {/* Left: Copy */}
-          <div className="pb-28 sm:pb-36">
+          <div className="pb-20 sm:pb-28">
             {/* Badge */}
             <motion.div
               initial={{ opacity: 0, y: 12 }}
@@ -98,7 +179,7 @@ export default function HeroSection() {
               </span>
             </motion.div>
 
-            {/* CTAs — Black matte buttons */}
+            {/* CTAs */}
             <motion.div
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
@@ -178,46 +259,8 @@ export default function HeroSection() {
         </div>
       </div>
 
-      {/* Floating 3D Dark Differentiator Container */}
-      <div className="relative z-10 mx-auto -mt-8 max-w-5xl px-4 pb-12 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-40px' }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="relative overflow-hidden rounded-[28px] bg-[#1A1D2B] px-8 py-8 shadow-[0_8px_40px_rgba(0,0,0,0.2),0_20px_80px_rgba(0,0,0,0.15),0_0_0_1px_rgba(255,255,255,0.05)] sm:px-12 sm:py-10"
-          style={{ transform: 'perspective(1200px) rotateX(2deg)' }}
-        >
-          {/* Inner glow */}
-          <div className="pointer-events-none absolute -bottom-20 -right-20 h-60 w-60 rounded-full bg-antuario-green/10 blur-3xl" />
-          <div className="pointer-events-none absolute -left-20 -top-20 h-60 w-60 rounded-full bg-antuario-purple/8 blur-3xl" />
-
-          <div className="relative flex flex-col items-center gap-6 sm:flex-row sm:gap-8">
-            {/* Antuario isotipo */}
-            <div className="flex-shrink-0">
-              <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-white/[0.08] p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.1)]">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/logos/isotipo.svg" alt="Antuario" className="h-10 w-10" />
-              </div>
-            </div>
-
-            {/* Text */}
-            <div className="text-center sm:text-left">
-              <h3 className="mb-2 font-heading text-xl font-bold text-white sm:text-2xl">
-                Somos muy diferentes al{' '}
-                <span className="gradient-text-multicolor">99%</span>{' '}
-                de las agencias
-              </h3>
-              <p className="max-w-xl text-[13px] leading-relaxed text-white/50">
-                No solo ejecutamos campañas. Construimos tu sistema comercial completo con tecnología propia, agentes de IA y métricas reales que puedes ver en tiempo real.
-              </p>
-            </div>
-          </div>
-        </motion.div>
-      </div>
-
       {/* Rounded divider */}
-      <div className="relative z-10 -mb-1">
+      <div className="relative z-10 -mb-1 mt-8">
         <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full" preserveAspectRatio="none">
           <path d="M0 60V24C0 10.7452 10.7452 0 24 0H1416C1429.25 0 1440 10.7452 1440 24V60H0Z" fill="#FAFAFA" />
         </svg>

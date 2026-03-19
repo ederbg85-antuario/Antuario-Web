@@ -9,18 +9,16 @@ import Logo from '@/components/common/Logo'
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
-  const [isOnDark, setIsOnDark] = useState(false)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 40)
-      setIsOnDark(false)
+      setIsScrolled(window.scrollY > 60)
     }
+    handleScroll()
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
-
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   const scrollToSection = (href: string) => {
     setIsMobileMenuOpen(false)
@@ -33,16 +31,14 @@ export default function Header() {
     }
   }
 
-  const logoVariant = isScrolled ? 'dark' : isOnDark ? 'light' : 'dark'
-
   return (
     <header className="fixed left-0 right-0 top-0 z-50 px-3 pt-3 sm:px-5 sm:pt-4">
       <nav
         className={cn(
           'mx-auto flex max-w-[1400px] items-center justify-between rounded-2xl px-5 py-3 transition-all duration-500 sm:px-7',
           isScrolled
-            ? 'bg-white/85 shadow-elevated backdrop-blur-2xl'
-            : 'bg-white/50 shadow-[0_2px_20px_rgba(0,0,0,0.04)] backdrop-blur-xl'
+            ? 'bg-white/90 shadow-elevated backdrop-blur-2xl'
+            : 'border border-white/[0.08] bg-[#1A1D2B]/90 shadow-[0_4px_32px_rgba(0,0,0,0.4)] backdrop-blur-xl'
         )}
       >
         {/* Logo */}
@@ -54,7 +50,7 @@ export default function Header() {
           }}
           className="flex items-center"
         >
-          <Logo variant={logoVariant} height={28} />
+          <Logo variant={isScrolled ? 'dark' : 'light'} height={28} />
         </a>
 
         {/* Desktop Navigation */}
@@ -67,7 +63,7 @@ export default function Header() {
                 'rounded-lg px-3 py-1.5 text-[13px] font-medium transition-all duration-300',
                 isScrolled
                   ? 'text-text-secondary hover:bg-background hover:text-text-primary'
-                  : 'text-text-secondary hover:bg-black/[0.03] hover:text-text-primary'
+                  : 'text-white/65 hover:bg-white/[0.08] hover:text-white'
               )}
             >
               {item.label}
@@ -81,10 +77,10 @@ export default function Header() {
           target="_blank"
           rel="noopener noreferrer"
           className={cn(
-            'hidden rounded-xl px-5 py-1.5 text-[13px] font-semibold transition-all duration-300 md:block',
+            'hidden rounded-xl px-5 py-1.5 text-[13px] font-semibold transition-all duration-300 hover:scale-[1.02] md:block',
             isScrolled
-              ? 'btn-shine overflow-hidden bg-[#1A1D2B] text-white shadow-[0_4px_16px_rgba(0,0,0,0.15)] hover:shadow-[0_6px_24px_rgba(0,0,0,0.25)] hover:scale-[1.02]'
-              : 'btn-shine overflow-hidden bg-[#1A1D2B] text-white shadow-[0_4px_16px_rgba(0,0,0,0.15)] hover:shadow-[0_6px_24px_rgba(0,0,0,0.25)] hover:scale-[1.02]'
+              ? 'btn-shine overflow-hidden bg-[#1A1D2B] text-white shadow-[0_4px_16px_rgba(0,0,0,0.15)] hover:shadow-[0_6px_24px_rgba(0,0,0,0.25)]'
+              : 'bg-white text-[#1A1D2B] shadow-[0_2px_12px_rgba(255,255,255,0.18)] hover:bg-white/90 hover:shadow-[0_4px_20px_rgba(255,255,255,0.25)]'
           )}
         >
           Diagnóstico gratis
@@ -94,10 +90,10 @@ export default function Header() {
         <button
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           className={cn(
-            'rounded-lg p-1.5 md:hidden',
+            'rounded-lg p-1.5 transition-colors duration-300 md:hidden',
             isScrolled
               ? 'text-text-secondary hover:bg-background'
-              : 'text-text-secondary hover:bg-black/[0.03]'
+              : 'text-white/65 hover:bg-white/[0.08] hover:text-white'
           )}
           aria-label={isMobileMenuOpen ? 'Cerrar menú' : 'Abrir menú'}
         >
