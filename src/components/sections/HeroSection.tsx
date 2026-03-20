@@ -43,7 +43,7 @@ export default function HeroSection() {
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid items-center gap-8 sm:gap-10 lg:grid-cols-2 lg:gap-14">
           {/* Left: Copy */}
-          <div className="pb-10 sm:pb-20 lg:pb-28">
+          <div className="pb-6 sm:pb-10 lg:pb-14">
             {/* Badge */}
             <motion.div
               initial={{ opacity: 0, y: 12 }}
@@ -51,12 +51,12 @@ export default function HeroSection() {
               transition={{ duration: 0.5, delay: 0.1 }}
               className="mb-6"
             >
-              <div className="inline-flex items-center gap-2 rounded-full border border-black/[0.06] bg-white/60 px-4 py-2 shadow-soft backdrop-blur-md">
-                <span className="relative flex h-2 w-2">
+              <div className="inline-flex items-center gap-2.5 rounded-full border border-black/[0.10] bg-white px-4 py-2 shadow-elevated backdrop-blur-md">
+                <span className="relative flex h-2.5 w-2.5">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-antuario-green opacity-75" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-antuario-green" />
+                  <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-antuario-green" />
                 </span>
-                <span className="text-xs font-medium tracking-wide text-text-secondary">
+                <span className="text-[13px] font-semibold tracking-wide text-text-primary">
                   IA + Marketing + Ventas
                 </span>
               </div>
@@ -67,7 +67,7 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="mb-5 font-heading text-[26px] font-bold leading-[1.14] tracking-tight text-text-primary sm:text-[32px] lg:text-[38px]"
+              className="mb-5 font-heading text-[26px] font-extrabold leading-[1.14] tracking-tight text-text-primary sm:text-[32px] lg:text-[40px]"
             >
               Impulsamos las ventas y el crecimiento de tu empresa de servicios{' '}
               <span className="gradient-text-multicolor">B2B</span>
@@ -166,7 +166,7 @@ export default function HeroSection() {
                   src="/screenshot-dashboard.png"
                   alt="Antuario Dashboard — Bandeja de entrada con agente IA"
                   className="block w-full"
-                  style={{ maxHeight: 'clamp(200px, 40vw, 420px)', objectFit: 'cover', objectPosition: 'top' }}
+                  style={{ maxHeight: 'clamp(240px, 44vw, 500px)', objectFit: 'cover', objectPosition: 'top' }}
                 />
               </div>
             </motion.div>

@@ -272,7 +272,7 @@ const steps = [
 
 export default function StepsSection() {
   return (
-    <section id="como-funciona" className="relative bg-background px-4 py-24 sm:px-6 md:py-32 lg:px-8">
+    <section id="como-funciona" className="relative overflow-hidden bg-background px-4 py-24 sm:px-6 md:py-32 lg:px-8">
       {/* Background accents — subtle animated blobs */}
       <div className="pointer-events-none absolute left-0 top-1/4 h-[500px] w-[500px] animate-blob rounded-full bg-antuario-green/[0.03] blur-[180px]" />
       <div className="pointer-events-none absolute bottom-1/4 right-0 h-[500px] w-[500px] animate-blob-slow rounded-full bg-antuario-purple/[0.03] blur-[180px]" />

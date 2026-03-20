@@ -38,7 +38,7 @@ const itemVariants = {
 
 export default function IncludesSection() {
   return (
-    <section id="incluye" className="relative bg-surface-alt px-4 py-24 sm:px-6 md:py-32 lg:px-8">
+    <section id="incluye" className="relative overflow-hidden bg-surface-alt px-4 py-24 sm:px-6 md:py-32 lg:px-8">
       {/* Background accents */}
       <div className="pointer-events-none absolute left-1/3 top-0 h-[350px] w-[500px] animate-blob-slow rounded-full bg-antuario-green/[0.02] blur-[150px]" />
       <div className="pointer-events-none absolute bottom-0 right-1/4 h-[300px] w-[400px] animate-float-slow rounded-full bg-antuario-purple/[0.02] blur-[120px]" />
@@ -51,7 +51,7 @@ export default function IncludesSection() {
           transition={{ duration: 0.6 }}
           className="mb-14 text-center"
         >
-          <h2 className="mb-4 font-heading text-3xl font-bold tracking-tight text-text-primary sm:text-4xl">
+          <h2 className="mb-4 font-heading text-3xl font-extrabold tracking-tight text-text-primary sm:text-4xl">
             Todo esto entra en un solo plan mensual
           </h2>
         </motion.div>

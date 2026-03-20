@@ -134,7 +134,7 @@ export default function AIAgentsSection() {
             <p className="mb-3 text-[12px] font-bold uppercase tracking-widest text-antuario-purple">
               Inteligencia Artificial
             </p>
-            <h2 className="mb-4 font-heading text-[28px] font-bold leading-tight tracking-tight text-text-primary sm:text-[32px]">
+            <h2 className="mb-4 font-heading text-[28px] font-extrabold leading-tight tracking-tight text-text-primary sm:text-[34px]">
               Agentes de IA que trabajan para ti,{' '}
               <span className="gradient-text-multicolor">sin descanso</span>
             </h2>

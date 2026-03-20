@@ -69,7 +69,7 @@ export default function DifferentiatorBanner() {
 
           {/* Text content */}
           <div className="text-center sm:text-left">
-            <h3 className="mb-3 font-heading text-xl font-bold text-white sm:text-[28px] lg:text-[30px]">
+            <h3 className="mb-3 font-heading text-xl font-extrabold text-white sm:text-[28px] lg:text-[32px]">
               Somos muy diferentes al{' '}
               <span className="gradient-text-multicolor">99%</span>{' '}
               de las agencias

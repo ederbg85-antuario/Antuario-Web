@@ -32,7 +32,7 @@ const pains = [
 
 export default function PainSection() {
   return (
-    <section className="relative bg-background px-4 py-24 sm:px-6 md:py-32 lg:px-8">
+    <section className="relative overflow-hidden bg-background px-4 py-24 sm:px-6 md:py-32 lg:px-8">
       {/* Soft animated blob */}
       <div className="pointer-events-none absolute left-1/2 top-0 h-[400px] w-[600px] -translate-x-1/2 animate-float-slow rounded-full bg-antuario-orange/[0.02] blur-[150px]" />
 
@@ -44,7 +44,7 @@ export default function PainSection() {
           transition={{ duration: 0.6 }}
           className="text-center"
         >
-          <h2 className="mx-auto mb-14 max-w-3xl font-heading text-3xl font-bold tracking-tight text-text-primary sm:text-4xl">
+          <h2 className="mx-auto mb-14 max-w-3xl font-heading text-3xl font-extrabold tracking-tight text-text-primary sm:text-4xl">
             ¿Tu empresa invierte en marketing pero no sabes si realmente{' '}
             <span className="gradient-text-fresh">está funcionando?</span>
           </h2>

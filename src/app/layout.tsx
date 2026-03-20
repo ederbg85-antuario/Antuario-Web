@@ -27,7 +27,7 @@ export default function RootLayout({
         {gtmId && <GoogleTagManager gtmId={gtmId} />}
         <CursorEffect />
         <Header />
-        <main>{children}</main>
+        <main className="overflow-x-hidden">{children}</main>
         <Footer />
       </body>
     </html>

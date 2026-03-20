@@ -44,7 +44,7 @@ export default function PlatformSection() {
           <p className="mb-3 text-sm font-bold uppercase tracking-widest text-antuario-green">
             Antuario Dashboard
           </p>
-          <h2 className="mb-5 font-heading text-3xl font-bold tracking-tight text-white sm:text-4xl">
+          <h2 className="mb-5 font-heading text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
             Todo lo que pasa en tu área comercial, en una sola pantalla
           </h2>
           <p className="mx-auto max-w-2xl text-lg text-white/55">

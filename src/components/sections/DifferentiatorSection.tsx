@@ -39,7 +39,7 @@ const columns = [
 
 export default function DifferentiatorSection() {
   return (
-    <section id="diferencia" className="relative bg-background px-4 py-24 sm:px-6 md:py-32 lg:px-8">
+    <section id="diferencia" className="relative overflow-hidden bg-background px-4 py-24 sm:px-6 md:py-32 lg:px-8">
       {/* Subtle background */}
       <div className="pointer-events-none absolute left-0 top-1/3 h-[400px] w-[500px] animate-float-slow rounded-full bg-antuario-green/[0.02] blur-[150px]" />
 
@@ -51,7 +51,7 @@ export default function DifferentiatorSection() {
           transition={{ duration: 0.6 }}
           className="mb-14 text-center"
         >
-          <h2 className="font-heading text-3xl font-bold tracking-tight text-text-primary sm:text-4xl">
+          <h2 className="font-heading text-3xl font-extrabold tracking-tight text-text-primary sm:text-4xl">
             No somos una agencia de marketing{' '}
             <span className="gradient-text-multicolor">convencional</span>
           </h2>

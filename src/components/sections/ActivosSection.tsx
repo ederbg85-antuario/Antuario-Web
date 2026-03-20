@@ -49,7 +49,7 @@ const cardVariants = {
 
 export default function ActivosSection() {
   return (
-    <section id="activos" className="relative bg-surface-alt px-4 py-24 sm:px-6 md:py-32 lg:px-8">
+    <section id="activos" className="relative overflow-hidden bg-surface-alt px-4 py-24 sm:px-6 md:py-32 lg:px-8">
       {/* Background accents */}
       <div className="pointer-events-none absolute right-0 top-0 h-[400px] w-[400px] animate-blob-slow rounded-full bg-antuario-cyan/[0.03] blur-[150px]" />
       <div className="pointer-events-none absolute bottom-0 left-1/4 h-[350px] w-[350px] animate-float-slow rounded-full bg-antuario-purple/[0.02] blur-[130px]" />
@@ -65,7 +65,7 @@ export default function ActivosSection() {
           <p className="mb-3 text-sm font-bold uppercase tracking-widest text-antuario-cyan">
             Tus activos digitales
           </p>
-          <h2 className="mb-5 font-heading text-3xl font-bold tracking-tight text-text-primary sm:text-4xl">
+          <h2 className="mb-5 font-heading text-3xl font-extrabold tracking-tight text-text-primary sm:text-4xl">
             Las herramientas que trabajan por ti,{' '}
             <span className="gradient-text-fresh">24/7</span>
           </h2>

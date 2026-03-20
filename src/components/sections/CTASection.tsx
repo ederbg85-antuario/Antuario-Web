@@ -17,7 +17,7 @@ export default function CTASection() {
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="mb-5 font-heading text-[28px] font-bold tracking-tight text-white sm:text-[34px]">
+          <h2 className="mb-5 font-heading text-[28px] font-extrabold tracking-tight text-white sm:text-[36px]">
             ¿Quieres saber si esta solución le queda a tu empresa?
           </h2>
           <p className="mx-auto mb-10 max-w-2xl text-[15px] leading-relaxed text-white/50">
