@@ -1,8 +1,8 @@
 export const siteConfig = {
   name: 'Antuario',
-  tagline: 'Agencia de Crecimiento Comercial',
+  tagline: 'Plataforma de Inteligencia Comercial',
   description:
-    'Combinamos IA, marketing, estrategia de ventas y nuestra propia plataforma para que tu área comercial funcione con números claros, resultados reales y total transparencia.',
+    'Plataforma de Inteligencia Comercial para empresas de servicios B2B en México. Dashboard propio, Agentes de IA y Agencia Digital integrados en un solo ecosistema.',
   url: process.env.NEXT_PUBLIC_SITE_URL ?? 'https://antuario.mx',
   email: 'hola@antuario.mx',
   phone: '',
@@ -13,10 +13,9 @@ export const siteConfig = {
     instagram: 'https://instagram.com/antuario.mx',
   },
   nav: [
-    { label: 'Cómo funciona', href: '#como-funciona' },
-    { label: 'Activos', href: '#activos' },
-    { label: 'IA', href: '#ia' },
-    { label: 'Plataforma', href: '#plataforma' },
-    { label: 'Contacto', href: '#contacto' },
+    { label: 'Inicio', href: '/' },
+    { label: 'Dashboard', href: '/dashboard' },
+    { label: 'Agente CIA', href: '/agente-cia' },
+    { label: 'Agencia', href: '/agencia' },
   ],
 } as const

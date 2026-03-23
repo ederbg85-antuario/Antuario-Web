@@ -3,6 +3,8 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { siteConfig } from '@/config/site'
 import { cn } from '@/lib/utils'
 import Logo from '@/components/common/Logo'
@@ -10,6 +12,7 @@ import Logo from '@/components/common/Logo'
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const pathname = usePathname()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -20,16 +23,10 @@ export default function Header() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  const scrollToSection = (href: string) => {
+  // Close mobile menu on route change
+  useEffect(() => {
     setIsMobileMenuOpen(false)
-    const id = href.replace('#', '')
-    const element = document.getElementById(id)
-    if (element) {
-      const offset = 100
-      const top = element.getBoundingClientRect().top + window.scrollY - offset
-      window.scrollTo({ top, behavior: 'smooth' })
-    }
-  }
+  }, [pathname])
 
   return (
     <header className="fixed left-0 right-0 top-0 z-50 px-3 pt-3 sm:px-5 sm:pt-4">
@@ -42,33 +39,33 @@ export default function Header() {
         )}
       >
         {/* Logo */}
-        <a
-          href="#"
-          onClick={(e) => {
-            e.preventDefault()
-            window.scrollTo({ top: 0, behavior: 'smooth' })
-          }}
-          className="flex items-center"
-        >
+        <Link href="/" className="flex items-center">
           <Logo variant={isScrolled ? 'dark' : 'light'} height={28} />
-        </a>
+        </Link>
 
         {/* Desktop Navigation */}
         <div className="hidden items-center gap-0 md:flex">
-          {siteConfig.nav.map((item) => (
-            <button
-              key={item.href}
-              onClick={() => scrollToSection(item.href)}
-              className={cn(
-                'rounded-lg px-3 py-1.5 text-[13px] font-medium transition-all duration-300',
-                isScrolled
-                  ? 'text-text-secondary hover:bg-background hover:text-text-primary'
-                  : 'text-white/65 hover:bg-white/[0.08] hover:text-white'
-              )}
-            >
-              {item.label}
-            </button>
-          ))}
+          {siteConfig.nav.map((item) => {
+            const isActive = pathname === item.href
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={cn(
+                  'rounded-lg px-3 py-1.5 text-[13px] font-medium transition-all duration-300',
+                  isScrolled
+                    ? isActive
+                      ? 'bg-background font-semibold text-text-primary'
+                      : 'text-text-secondary hover:bg-background hover:text-text-primary'
+                    : isActive
+                    ? 'bg-white/[0.12] font-semibold text-white'
+                    : 'text-white/65 hover:bg-white/[0.08] hover:text-white'
+                )}
+              >
+                {item.label}
+              </Link>
+            )
+          })}
         </div>
 
         {/* CTA Desktop */}
@@ -112,15 +109,23 @@ export default function Header() {
             className="mx-auto mt-2 max-w-[1400px] overflow-hidden rounded-2xl border border-border bg-white/95 shadow-elevated-lg backdrop-blur-xl md:hidden"
           >
             <div className="flex flex-col gap-1 px-4 pb-4 pt-2">
-              {siteConfig.nav.map((item) => (
-                <button
-                  key={item.href}
-                  onClick={() => scrollToSection(item.href)}
-                  className="rounded-xl px-4 py-2.5 text-left text-[15px] font-medium text-text-secondary transition-colors hover:bg-background hover:text-text-primary"
-                >
-                  {item.label}
-                </button>
-              ))}
+              {siteConfig.nav.map((item) => {
+                const isActive = pathname === item.href
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={cn(
+                      'rounded-xl px-4 py-2.5 text-left text-[15px] font-medium transition-colors',
+                      isActive
+                        ? 'bg-background font-semibold text-text-primary'
+                        : 'text-text-secondary hover:bg-background hover:text-text-primary'
+                    )}
+                  >
+                    {item.label}
+                  </Link>
+                )
+              })}
               <a
                 href={siteConfig.whatsapp}
                 target="_blank"
