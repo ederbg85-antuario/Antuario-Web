@@ -16,11 +16,11 @@ export default function MeshGradientBg({
 
   const palettes = {
     default: [
-      { color: 'rgba(0, 214, 143, 0.22)', size: 55, x: 15, y: 20, delay: 0 },
-      { color: 'rgba(139, 92, 246, 0.18)', size: 50, x: 75, y: 15, delay: 2 },
-      { color: 'rgba(0, 201, 219, 0.16)', size: 45, x: 45, y: 65, delay: 4 },
-      { color: 'rgba(251, 191, 36, 0.10)',  size: 35, x: 25, y: 80, delay: 3 },
-      { color: 'rgba(79, 142, 255, 0.10)',  size: 38, x: 60, y: 35, delay: 5 },
+      { color: 'rgba(16, 185, 129, 0.18)', size: 55, x: 15, y: 20, delay: 0 },
+      { color: 'rgba(99, 102, 241, 0.14)', size: 50, x: 75, y: 15, delay: 2 },
+      { color: 'rgba(6, 182, 212, 0.12)', size: 45, x: 45, y: 65, delay: 4 },
+      { color: 'rgba(168, 85, 247, 0.08)',  size: 35, x: 25, y: 80, delay: 3 },
+      { color: 'rgba(59, 130, 246, 0.08)',  size: 38, x: 60, y: 35, delay: 5 },
     ],
     warm: [
       { color: 'rgba(251, 191, 36, 0.18)',  size: 48, x: 70, y: 15, delay: 2 },
@@ -29,10 +29,10 @@ export default function MeshGradientBg({
       { color: 'rgba(255, 122, 69, 0.12)',  size: 38, x: 15, y: 75, delay: 3 },
     ],
     cool: [
-      { color: 'rgba(0, 201, 219, 0.22)',  size: 55, x: 25, y: 20, delay: 0 },
-      { color: 'rgba(139, 92, 246, 0.18)', size: 50, x: 70, y: 25, delay: 2 },
-      { color: 'rgba(0, 214, 143, 0.15)',  size: 45, x: 40, y: 70, delay: 4 },
-      { color: 'rgba(79, 142, 255, 0.14)', size: 42, x: 80, y: 65, delay: 6 },
+      { color: 'rgba(6, 182, 212, 0.18)',  size: 55, x: 25, y: 20, delay: 0 },
+      { color: 'rgba(99, 102, 241, 0.14)', size: 50, x: 70, y: 25, delay: 2 },
+      { color: 'rgba(16, 185, 129, 0.12)', size: 45, x: 40, y: 70, delay: 4 },
+      { color: 'rgba(59, 130, 246, 0.10)', size: 42, x: 80, y: 65, delay: 6 },
     ],
     light: [
       { color: 'rgba(0, 214, 143, 0.45)',  size: 70, x: 5,  y: 60, delay: 0   },
@@ -54,19 +54,19 @@ export default function MeshGradientBg({
      * Opacity 0.20-0.32 → very soft. Hue cycles slowly for the living feel.
      */
     lsd: [
-      { color: 'rgba(0, 214, 143, 0.40)',  size: 80, x: 8,  y: 72, delay: 0   },
-      { color: 'rgba(139, 92, 246, 0.36)', size: 75, x: 85, y: 68, delay: 1.0 },
-      { color: 'rgba(0, 201, 219, 0.38)',  size: 72, x: 50, y: 82, delay: 1.8 },
-      { color: 'rgba(251, 191, 36, 0.30)', size: 67, x: 22, y: 90, delay: 2.4 },
-      { color: 'rgba(79, 142, 255, 0.34)', size: 70, x: 68, y: 88, delay: 0.7 },
-      { color: 'rgba(255, 122, 69, 0.28)', size: 62, x: 38, y: 78, delay: 1.4 },
-      { color: 'rgba(0, 180, 110, 0.30)',  size: 58, x: 88, y: 85, delay: 2.1 },
-      { color: 'rgba(90, 140, 255, 0.28)', size: 55, x: 14, y: 86, delay: 3.0 },
+      { color: 'rgba(16, 185, 129, 0.28)',  size: 80, x: 8,  y: 72, delay: 0   },
+      { color: 'rgba(99, 102, 241, 0.24)',  size: 75, x: 85, y: 68, delay: 1.0 },
+      { color: 'rgba(6, 182, 212, 0.26)',   size: 72, x: 50, y: 82, delay: 1.8 },
+      { color: 'rgba(168, 85, 247, 0.18)',  size: 67, x: 22, y: 90, delay: 2.4 },
+      { color: 'rgba(59, 130, 246, 0.22)',  size: 70, x: 68, y: 88, delay: 0.7 },
+      { color: 'rgba(249, 115, 22, 0.16)',  size: 62, x: 38, y: 78, delay: 1.4 },
+      { color: 'rgba(5, 150, 105, 0.20)',   size: 58, x: 88, y: 85, delay: 2.1 },
+      { color: 'rgba(59, 130, 246, 0.18)',  size: 55, x: 14, y: 86, delay: 3.0 },
     ],
   }
 
   const blobs = palettes[variant]
-  const baseColor = (isLight || isLSD) ? '#FAFAFA' : '#08091A'
+  const baseColor = (isLight || isLSD) ? '#f1f5f9' : '#0f172a'
 
   const getAnimation = (i: number) => {
     if (isLSD)   return `lsdBlob${i % 4} ${7 + i * 0.8}s ease-in-out infinite`

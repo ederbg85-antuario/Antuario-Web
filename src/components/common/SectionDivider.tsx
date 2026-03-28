@@ -5,16 +5,16 @@ interface SectionDividerProps {
 }
 
 const fills: Record<string, { top: string; bottom: string }> = {
-  'light-to-dark': { top: '#FAFAFA', bottom: '#08091A' },
-  'dark-to-light': { top: '#08091A', bottom: '#FAFAFA' },
-  'light-to-alt':  { top: '#FAFAFA', bottom: '#F5F5F7' },
-  'alt-to-light':  { top: '#F5F5F7', bottom: '#FAFAFA' },
-  'alt-to-dark':   { top: '#F5F5F7', bottom: '#08091A' },
-  'dark-to-alt':   { top: '#08091A', bottom: '#F5F5F7' },
-  'light-to-light':{ top: '#FAFAFA', bottom: '#FAFAFA' },
-  // Fixed: both use #FAFAFA (the actual page body bg) instead of #FFFFFF
-  'alt-to-white':  { top: '#F5F5F7', bottom: '#FAFAFA' },
-  'white-to-dark': { top: '#FAFAFA', bottom: '#08091A' },
+  'light-to-dark': { top: '#f1f5f9', bottom: '#0f172a' },
+  'dark-to-light': { top: '#0f172a', bottom: '#f1f5f9' },
+  'light-to-alt':  { top: '#f1f5f9', bottom: '#f8fafc' },
+  'alt-to-light':  { top: '#f8fafc', bottom: '#f1f5f9' },
+  'alt-to-dark':   { top: '#f8fafc', bottom: '#0f172a' },
+  'dark-to-alt':   { top: '#0f172a', bottom: '#f8fafc' },
+  'light-to-light':{ top: '#f1f5f9', bottom: '#f1f5f9' },
+  // Fixed: both use #f1f5f9 (the actual page body bg) instead of #FFFFFF
+  'alt-to-white':  { top: '#f8fafc', bottom: '#f1f5f9' },
+  'white-to-dark': { top: '#f1f5f9', bottom: '#0f172a' },
 }
 
 export default function SectionDivider({ variant = 'light-to-dark' }: SectionDividerProps) {

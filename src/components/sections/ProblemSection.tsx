@@ -44,14 +44,14 @@ export default function ProblemSection() {
   return (
     <SectionWrapper>
       <div className="mb-16 text-center">
-        <span className="mb-4 inline-flex items-center gap-2 rounded-full bg-accent-amber/10 px-5 py-2 text-sm font-semibold text-accent-amber">
+        <span className="mb-4 inline-flex items-center gap-2 rounded-full bg-accent-amber/10 px-5 py-2 text-sm font-semibold text-amber-400">
           <span className="h-2 w-2 rounded-full bg-accent-amber" />
           El Problema
         </span>
-        <h2 className="mb-5 font-heading text-3xl font-bold text-text-primary sm:text-4xl lg:text-4.5xl">
+        <h2 className="mb-5 font-heading text-3xl font-bold text-slate-900 sm:text-4xl lg:text-4.5xl">
           ¿Te suena familiar?
         </h2>
-        <p className="mx-auto max-w-2xl text-lg text-text-secondary">
+        <p className="mx-auto max-w-2xl text-lg text-slate-500">
           Si reconoces al menos dos de estos puntos, tu negocio necesita un sistema — no más campañas sueltas.
         </p>
       </div>
@@ -62,15 +62,15 @@ export default function ProblemSection() {
           return (
             <div
               key={problem.title}
-              className="group rounded-[1.5rem] border border-border-light bg-white p-7 shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-card-3d"
+              className="group rounded-[1.5rem] border border-slate-200/60 bg-white p-7 shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-card-3d"
             >
               <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-accent-amber/10 shadow-soft transition-transform duration-300 group-hover:scale-110">
-                <Icon className="h-5 w-5 text-accent-amber" />
+                <Icon className="h-5 w-5 text-amber-400" />
               </div>
-              <h3 className="mb-2 text-base font-bold text-text-primary">
+              <h3 className="mb-2 text-base font-bold text-slate-900">
                 {problem.title}
               </h3>
-              <p className="text-sm leading-relaxed text-text-secondary">
+              <p className="text-sm leading-relaxed text-slate-500">
                 {problem.description}
               </p>
             </div>

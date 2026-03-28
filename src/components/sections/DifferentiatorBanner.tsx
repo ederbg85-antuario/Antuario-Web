@@ -14,9 +14,9 @@ export default function DifferentiatorBanner() {
         style={{ transform: 'perspective(1400px) rotateX(1.5deg)' }}
       >
         {/* Ambient inner glows */}
-        <div className="pointer-events-none absolute -bottom-24 -right-24 h-72 w-72 rounded-full bg-antuario-green/12 blur-3xl" />
-        <div className="pointer-events-none absolute -left-24 -top-24 h-72 w-72 rounded-full bg-antuario-purple/10 blur-3xl" />
-        <div className="pointer-events-none absolute left-1/2 top-1/2 h-48 w-48 -translate-x-1/2 -translate-y-1/2 rounded-full bg-antuario-cyan/6 blur-3xl" />
+        <div className="pointer-events-none absolute -bottom-24 -right-24 h-72 w-72 rounded-full bg-emerald-500/12 blur-3xl" />
+        <div className="pointer-events-none absolute -left-24 -top-24 h-72 w-72 rounded-full bg-violet-500/10 blur-3xl" />
+        <div className="pointer-events-none absolute left-1/2 top-1/2 h-48 w-48 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-500/6 blur-3xl" />
 
         <div className="relative flex flex-col items-center gap-8 sm:flex-row sm:gap-10">
 
@@ -26,7 +26,7 @@ export default function DifferentiatorBanner() {
             <motion.div
               className="absolute -inset-3 rounded-3xl"
               style={{
-                background: 'radial-gradient(circle, rgba(0,214,143,0.40) 0%, transparent 72%)',
+                background: 'radial-gradient(circle, rgba(16,185,129,0.40) 0%, transparent 72%)',
               }}
               animate={{ scale: [1, 1.35, 1], opacity: [0.7, 0.15, 0.7] }}
               transition={{ duration: 2.6, repeat: Infinity, ease: 'easeInOut' }}
@@ -35,7 +35,7 @@ export default function DifferentiatorBanner() {
             <motion.div
               className="absolute -inset-1 rounded-2xl"
               style={{
-                background: 'radial-gradient(circle, rgba(139,92,246,0.30) 0%, transparent 70%)',
+                background: 'radial-gradient(circle, rgba(167,139,250,0.30) 0%, transparent 70%)',
               }}
               animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0.05, 0.5] }}
               transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut', delay: 0.4 }}
@@ -51,12 +51,12 @@ export default function DifferentiatorBanner() {
                 <motion.div
                   className="absolute inset-0 rounded-2xl"
                   style={{
-                    background: 'conic-gradient(from 0deg, transparent 0%, rgba(0,214,143,0.4) 25%, transparent 50%, rgba(139,92,246,0.35) 75%, transparent 100%)',
+                    background: 'conic-gradient(from 0deg, transparent 0%, rgba(16,185,129,0.4) 25%, transparent 50%, rgba(167,139,250,0.35) 75%, transparent 100%)',
                   }}
                   animate={{ rotate: 360 }}
                   transition={{ duration: 5, repeat: Infinity, ease: 'linear' }}
                 />
-                <div className="absolute inset-[1.5px] rounded-2xl bg-[#1A1D2B]" />
+                <div className="absolute inset-[1.5px] rounded-2xl bg-[#0f172a]" />
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src="/logos/isotipo.svg"
@@ -74,7 +74,7 @@ export default function DifferentiatorBanner() {
               <span className="gradient-text-multicolor">99%</span>{' '}
               de las agencias
             </h3>
-            <p className="max-w-2xl text-[14px] leading-relaxed text-white/50 sm:text-[15px]">
+            <p className="max-w-2xl text-[14px] leading-relaxed text-slate-400 sm:text-[15px]">
               No solo ejecutamos campañas. Construimos tu sistema comercial completo con tecnología propia, agentes de IA y métricas reales que puedes ver en tiempo real.
             </p>
           </div>

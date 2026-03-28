@@ -52,22 +52,22 @@ const phases = [
 const colorMap = {
   primary: {
     bg: 'bg-primary/10',
-    text: 'text-primary',
-    icon: 'text-primary',
+    text: 'text-emerald-500',
+    icon: 'text-emerald-500',
     border: 'border-primary/15',
     gradient: 'from-primary/5 to-transparent',
   },
   green: {
     bg: 'bg-accent-green/10',
-    text: 'text-accent-green',
-    icon: 'text-accent-green',
+    text: 'text-emerald-500',
+    icon: 'text-emerald-500',
     border: 'border-accent-green/15',
     gradient: 'from-accent-green/5 to-transparent',
   },
   purple: {
     bg: 'bg-accent-purple/10',
-    text: 'text-accent-purple',
-    icon: 'text-accent-purple',
+    text: 'text-violet-500',
+    icon: 'text-violet-500',
     border: 'border-accent-purple/15',
     gradient: 'from-accent-purple/5 to-transparent',
   },
@@ -77,15 +77,15 @@ export default function SystemSection() {
   return (
     <SectionWrapper id="sistema" className="bg-white">
       <div className="mb-16 text-center">
-        <span className="mb-4 inline-flex items-center gap-2 rounded-full bg-primary/10 px-5 py-2 text-sm font-semibold text-primary-dark">
-          <span className="h-2 w-2 rounded-full bg-primary" />
+        <span className="mb-4 inline-flex items-center gap-2 rounded-full bg-emerald-500/10 px-5 py-2 text-sm font-semibold text-emerald-500-dark">
+          <span className="h-2 w-2 rounded-full bg-emerald-500" />
           El Sistema
         </span>
-        <h2 className="mb-5 font-heading text-3xl font-bold text-text-primary sm:text-4xl lg:text-4.5xl">
+        <h2 className="mb-5 font-heading text-3xl font-bold text-slate-900 sm:text-4xl lg:text-4.5xl">
           Tres fases. Un sistema.{' '}
-          <span className="text-primary">Todo conectado.</span>
+          <span className="text-emerald-500">Todo conectado.</span>
         </h2>
-        <p className="mx-auto max-w-2xl text-lg text-text-secondary">
+        <p className="mx-auto max-w-2xl text-lg text-slate-500">
           Desde la primera impresión hasta el cierre del cliente — todo medido en un solo dashboard
           con un sistema de trabajo basado en accountability.
         </p>
@@ -98,7 +98,7 @@ export default function SystemSection() {
           return (
             <div
               key={phase.number}
-              className={`group relative overflow-hidden rounded-[2rem] border ${colors.border} bg-gradient-to-r ${colors.gradient} p-8 shadow-card transition-all duration-500 hover:shadow-card-3d lg:p-10`}
+              className={`group relative overflow-hidden rounded-3xl border ${colors.border} bg-gradient-to-r ${colors.gradient} p-8 shadow-card transition-all duration-500 hover:shadow-card-3d lg:p-10`}
             >
               {/* Phase number watermark */}
               <span className={`pointer-events-none absolute -right-2 -top-6 select-none text-[10rem] font-black leading-none ${colors.text} opacity-[0.06]`}>
@@ -115,20 +115,20 @@ export default function SystemSection() {
                       <Icon className={`h-5 w-5 ${colors.icon}`} />
                     </div>
                   </div>
-                  <h3 className="mb-1 text-2xl font-bold text-text-primary">
+                  <h3 className="mb-1 text-2xl font-bold text-slate-900">
                     {phase.title}
                   </h3>
                   <p className={`mb-4 text-sm font-semibold ${colors.text}`}>
                     {phase.subtitle}
                   </p>
-                  <p className="text-base text-text-secondary">{phase.description}</p>
+                  <p className="text-base text-slate-500">{phase.description}</p>
                 </div>
                 <div>
                   <ul className="space-y-3">
                     {phase.items.map((item) => (
                       <li key={item} className="flex items-start gap-3 rounded-xl bg-white/60 p-3 backdrop-blur-sm">
                         <CheckCircle2 className={`mt-0.5 h-4 w-4 flex-shrink-0 ${colors.icon}`} />
-                        <span className="text-sm font-medium text-text-primary">{item}</span>
+                        <span className="text-sm font-medium text-slate-900">{item}</span>
                       </li>
                     ))}
                   </ul>

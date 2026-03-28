@@ -55,15 +55,15 @@ export default function PricingSection() {
   return (
     <SectionWrapper>
       <div className="mb-16 text-center">
-        <span className="mb-4 inline-flex items-center gap-2 rounded-full bg-primary/10 px-5 py-2 text-sm font-semibold text-primary-dark">
-          <span className="h-2 w-2 rounded-full bg-primary" />
+        <span className="mb-4 inline-flex items-center gap-2 rounded-full bg-emerald-500/10 px-5 py-2 text-sm font-semibold text-emerald-500-dark">
+          <span className="h-2 w-2 rounded-full bg-emerald-500" />
           Inversión
         </span>
-        <h2 className="mb-5 font-heading text-3xl font-bold text-text-primary sm:text-4xl lg:text-4.5xl">
+        <h2 className="mb-5 font-heading text-3xl font-bold text-slate-900 sm:text-4xl lg:text-4.5xl">
           Planes diseñados para{' '}
-          <span className="text-primary">generar ROI</span>
+          <span className="text-emerald-500">generar ROI</span>
         </h2>
-        <p className="mx-auto max-w-2xl text-lg text-text-secondary">
+        <p className="mx-auto max-w-2xl text-lg text-slate-500">
           La inversión incluye los 3 activos, plataforma, estrategia, ejecución y optimización continua.
           Sin costos ocultos.
         </p>
@@ -78,7 +78,7 @@ export default function PricingSection() {
               className={`relative flex flex-col rounded-[2rem] p-8 transition-all duration-500 ${
                 plan.highlight
                   ? 'bg-navy text-white shadow-[0_20px_60px_rgba(11,17,33,0.3)]'
-                  : 'border border-border-light bg-white shadow-card hover:-translate-y-1 hover:shadow-card-3d'
+                  : 'border border-slate-200/60 bg-white shadow-card hover:-translate-y-1 hover:shadow-card-3d'
               }`}
             >
               {plan.highlight && (
@@ -88,19 +88,19 @@ export default function PricingSection() {
               )}
 
               <div className={`mb-5 flex h-14 w-14 items-center justify-center rounded-2xl shadow-soft ${
-                plan.highlight ? 'bg-white/10' : 'bg-primary/10'
+                plan.highlight ? 'bg-white/10' : 'bg-emerald-500/10'
               }`}>
-                <Icon className={`h-6 w-6 ${plan.highlight ? 'text-primary-light' : 'text-primary'}`} />
+                <Icon className={`h-6 w-6 ${plan.highlight ? 'text-emerald-500-light' : 'text-emerald-500'}`} />
               </div>
 
-              <h3 className={`mb-2 text-xl font-bold ${plan.highlight ? 'text-white' : 'text-text-primary'}`}>
+              <h3 className={`mb-2 text-xl font-bold ${plan.highlight ? 'text-white' : 'text-slate-900'}`}>
                 {plan.name}
               </h3>
-              <p className={`mb-5 text-sm ${plan.highlight ? 'text-white/55' : 'text-text-secondary'}`}>
+              <p className={`mb-5 text-sm ${plan.highlight ? 'text-white/55' : 'text-slate-500'}`}>
                 {plan.description}
               </p>
 
-              <p className={`mb-6 text-lg font-bold ${plan.highlight ? 'text-primary-light' : 'text-primary'}`}>
+              <p className={`mb-6 text-lg font-bold ${plan.highlight ? 'text-emerald-500-light' : 'text-emerald-500'}`}>
                 {plan.range}
               </p>
 
@@ -108,9 +108,9 @@ export default function PricingSection() {
                 {plan.features.map((feature) => (
                   <li key={feature} className="flex items-start gap-2.5">
                     <Check className={`mt-0.5 h-4 w-4 flex-shrink-0 ${
-                      plan.highlight ? 'text-accent-green-light' : 'text-accent-green'
+                      plan.highlight ? 'text-emerald-500-light' : 'text-emerald-500'
                     }`} />
-                    <span className={`text-sm ${plan.highlight ? 'text-white/65' : 'text-text-secondary'}`}>
+                    <span className={`text-sm ${plan.highlight ? 'text-white/65' : 'text-slate-500'}`}>
                       {feature}
                     </span>
                   </li>
@@ -133,7 +133,7 @@ export default function PricingSection() {
         })}
       </div>
 
-      <p className="mt-10 text-center text-sm text-text-muted">
+      <p className="mt-10 text-center text-sm text-slate-400">
         Los rangos de inversión no incluyen presupuesto de pauta publicitaria, que se define según objetivos.
         El presupuesto de Ads se paga directo a las plataformas.
       </p>

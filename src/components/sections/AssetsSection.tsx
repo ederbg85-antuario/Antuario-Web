@@ -57,25 +57,25 @@ const assets = [
 
 const colorMap = {
   primary: {
-    bg: 'bg-primary/10',
-    text: 'text-primary',
+    bg: 'bg-emerald-500/10',
+    text: 'text-emerald-500',
     border: 'border-primary/20',
     glow: 'shadow-[0_0_40px_rgba(6,182,212,0.1)]',
-    number: 'text-primary/30',
+    number: 'text-emerald-500/30',
   },
   green: {
     bg: 'bg-accent-green/10',
-    text: 'text-accent-green',
+    text: 'text-emerald-500',
     border: 'border-accent-green/20',
     glow: 'shadow-[0_0_40px_rgba(16,185,129,0.1)]',
-    number: 'text-accent-green/30',
+    number: 'text-emerald-500/30',
   },
   cyan: {
-    bg: 'bg-primary/10',
-    text: 'text-primary',
+    bg: 'bg-emerald-500/10',
+    text: 'text-emerald-500',
     border: 'border-primary/20',
     glow: 'shadow-[0_0_40px_rgba(6,182,212,0.1)]',
-    number: 'text-primary/30',
+    number: 'text-emerald-500/30',
   },
 }
 
@@ -83,17 +83,17 @@ export default function AssetsSection() {
   return (
     <SectionWrapper id="activos" className="bg-white">
       <div className="mb-16 text-center">
-        <span className="mb-4 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-primary/10 to-accent-green/10 px-5 py-2 text-sm font-semibold text-primary-dark">
+        <span className="mb-4 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-primary/10 to-accent-green/10 px-5 py-2 text-sm font-semibold text-emerald-500-dark">
           <span className="h-2 w-2 rounded-full bg-primary" />
           Lo que construimos para ti
         </span>
-        <h2 className="mb-5 font-heading text-3xl font-bold text-text-primary sm:text-4xl lg:text-4.5xl">
+        <h2 className="mb-5 font-heading text-3xl font-bold text-slate-900 sm:text-4xl lg:text-4.5xl">
           3 activos valiosos.{' '}
           <span className="bg-gradient-to-r from-primary to-accent-green bg-clip-text text-transparent">
             Implementados en el mes 1.
           </span>
         </h2>
-        <p className="mx-auto max-w-2xl text-lg leading-relaxed text-text-secondary">
+        <p className="mx-auto max-w-2xl text-lg leading-relaxed text-slate-500">
           No vendemos campañas sueltas. Construimos tres activos digitales que trabajan juntos
           para generar demanda constante y medible para tu negocio B2B.
         </p>
@@ -121,7 +121,7 @@ export default function AssetsSection() {
                       <Icon className={`h-7 w-7 ${colors.text}`} />
                     </div>
                     <div>
-                      <h3 className="text-2xl font-bold text-text-primary">
+                      <h3 className="text-2xl font-bold text-slate-900">
                         {asset.title}
                       </h3>
                       <p className={`text-sm font-semibold ${colors.text}`}>
@@ -129,7 +129,7 @@ export default function AssetsSection() {
                       </p>
                     </div>
                   </div>
-                  <p className="mb-6 max-w-xl text-base leading-relaxed text-text-secondary">
+                  <p className="mb-6 max-w-xl text-base leading-relaxed text-slate-500">
                     {asset.description}
                   </p>
                 </div>
@@ -142,7 +142,7 @@ export default function AssetsSection() {
                         className="flex items-start gap-3 rounded-xl bg-white/70 p-3 backdrop-blur-sm"
                       >
                         <ArrowRight className={`mt-0.5 h-4 w-4 flex-shrink-0 ${colors.text}`} />
-                        <span className="text-sm font-medium text-text-primary">{item}</span>
+                        <span className="text-sm font-medium text-slate-900">{item}</span>
                       </div>
                     ))}
                   </div>
@@ -155,12 +155,12 @@ export default function AssetsSection() {
 
       {/* Bottom CTA */}
       <div className="mt-12 text-center">
-        <p className="mb-4 text-base text-text-secondary">
+        <p className="mb-4 text-base text-slate-500">
           Los tres activos se integran a tu dashboard y se miden en tiempo real.
         </p>
         <a
           href="#plataforma"
-          className="inline-flex items-center gap-2 text-sm font-semibold text-primary transition-colors hover:text-primary-dark"
+          className="inline-flex items-center gap-2 text-sm font-semibold text-emerald-500 transition-colors hover:text-emerald-500-dark"
         >
           Ver la plataforma que lo conecta todo
           <ArrowRight className="h-4 w-4" />

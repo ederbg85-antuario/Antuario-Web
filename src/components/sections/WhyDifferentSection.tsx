@@ -16,26 +16,26 @@ export default function WhyDifferentSection() {
   return (
     <SectionWrapper className="bg-white">
       <div className="mb-16 text-center">
-        <span className="mb-4 inline-flex items-center gap-2 rounded-full bg-primary/10 px-5 py-2 text-sm font-semibold text-primary-dark">
+        <span className="mb-4 inline-flex items-center gap-2 rounded-full bg-emerald-500/10 px-5 py-2 text-sm font-semibold text-emerald-500-dark">
           <span className="h-2 w-2 rounded-full bg-primary" />
           ¿Por qué es diferente?
         </span>
-        <h2 className="mb-5 font-heading text-3xl font-bold text-text-primary sm:text-4xl">
+        <h2 className="mb-5 font-heading text-3xl font-bold text-slate-900 sm:text-4xl">
           No somos otra agencia.{' '}
-          <span className="text-primary">Somos tu sistema comercial.</span>
+          <span className="text-emerald-500">Somos tu sistema comercial.</span>
         </h2>
       </div>
 
-      <div className="mx-auto max-w-3xl overflow-hidden rounded-[2rem] border border-border-light bg-surface-alt shadow-card-3d">
+      <div className="mx-auto max-w-3xl overflow-hidden rounded-[2rem] border border-slate-200/60 bg-slate-50 shadow-card-3d">
         {/* Header */}
-        <div className="grid grid-cols-3 border-b border-border bg-white px-6 py-5">
+        <div className="grid grid-cols-3 border-b border-slate-200/60 bg-white px-6 py-5">
           <div />
           <div className="text-center">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-4 py-1 text-sm font-bold text-primary">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-4 py-1 text-sm font-bold text-emerald-500">
               Antuario
             </span>
           </div>
-          <div className="text-center text-sm font-medium text-text-muted">Agencia típica</div>
+          <div className="text-center text-sm font-medium text-slate-400">Agencia típica</div>
         </div>
 
         {/* Rows */}
@@ -43,29 +43,29 @@ export default function WhyDifferentSection() {
           <div
             key={row.feature}
             className={`grid grid-cols-3 items-center px-6 py-4 ${
-              idx !== comparisons.length - 1 ? 'border-b border-border-light' : ''
-            } ${idx % 2 === 0 ? 'bg-white' : 'bg-surface-alt'}`}
+              idx !== comparisons.length - 1 ? 'border-b border-slate-200/60' : ''
+            } ${idx % 2 === 0 ? 'bg-white' : 'bg-slate-50'}`}
           >
-            <p className="pr-4 text-sm text-text-secondary">{row.feature}</p>
+            <p className="pr-4 text-sm text-slate-500">{row.feature}</p>
             <div className="flex justify-center">
               {row.us ? (
                 <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-accent-green/10 shadow-soft">
-                  <Check className="h-4 w-4 text-accent-green" />
+                  <Check className="h-4 w-4 text-emerald-500" />
                 </div>
               ) : (
                 <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-background">
-                  <X className="h-4 w-4 text-text-muted" />
+                  <X className="h-4 w-4 text-slate-400" />
                 </div>
               )}
             </div>
             <div className="flex justify-center">
               {row.them ? (
                 <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-accent-green/10">
-                  <Check className="h-4 w-4 text-accent-green" />
+                  <Check className="h-4 w-4 text-emerald-500" />
                 </div>
               ) : (
                 <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-background">
-                  <X className="h-4 w-4 text-text-muted" />
+                  <X className="h-4 w-4 text-slate-400" />
                 </div>
               )}
             </div>

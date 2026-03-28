@@ -42,26 +42,26 @@ const pillars = [
 
 const colorMap = {
   primary: {
-    bg: 'bg-primary/10',
-    text: 'text-primary',
+    bg: 'bg-emerald-500/10',
+    text: 'text-emerald-500',
     border: 'border-primary/20',
-    iconBg: 'bg-primary/10',
+    iconBg: 'bg-emerald-500/10',
   },
   cyan: {
-    bg: 'bg-primary/10',
-    text: 'text-primary',
+    bg: 'bg-emerald-500/10',
+    text: 'text-emerald-500',
     border: 'border-primary/20',
-    iconBg: 'bg-primary/10',
+    iconBg: 'bg-emerald-500/10',
   },
   purple: {
     bg: 'bg-accent-purple/10',
-    text: 'text-accent-purple',
+    text: 'text-violet-500',
     border: 'border-accent-purple/20',
     iconBg: 'bg-accent-purple/10',
   },
   green: {
     bg: 'bg-accent-green/10',
-    text: 'text-accent-green',
+    text: 'text-emerald-500',
     border: 'border-accent-green/20',
     iconBg: 'bg-accent-green/10',
   },
@@ -71,15 +71,15 @@ export default function OverviewSection() {
   return (
     <SectionWrapper id="overview">
       <div className="mb-16 text-center">
-        <span className="mb-4 inline-flex items-center gap-2 rounded-full bg-primary/10 px-5 py-2 text-sm font-semibold text-primary-dark">
+        <span className="mb-4 inline-flex items-center gap-2 rounded-full bg-emerald-500/10 px-5 py-2 text-sm font-semibold text-emerald-500-dark">
           <span className="h-2 w-2 rounded-full bg-primary" />
           ¿Qué incluye el sistema?
         </span>
-        <h2 className="mb-5 font-heading text-3xl font-bold text-text-primary sm:text-4xl lg:text-4.5xl">
+        <h2 className="mb-5 font-heading text-3xl font-bold text-slate-900 sm:text-4xl lg:text-4.5xl">
           Todo lo que necesitas para{' '}
-          <span className="text-primary">generar clientes B2B.</span>
+          <span className="text-emerald-500">generar clientes B2B.</span>
         </h2>
-        <p className="mx-auto max-w-2xl text-lg text-text-secondary">
+        <p className="mx-auto max-w-2xl text-lg text-slate-500">
           No es una campaña suelta. Es un sistema comercial integral con 4 pilares
           que trabajan juntos para ti.
         </p>
@@ -109,12 +109,12 @@ export default function OverviewSection() {
                     <Icon className={`h-7 w-7 ${colors.text}`} />
                   </div>
                   <div>
-                    <h3 className="text-lg font-bold text-text-primary">{pillar.title}</h3>
+                    <h3 className="text-lg font-bold text-slate-900">{pillar.title}</h3>
                     <p className={`text-sm font-semibold ${colors.text}`}>{pillar.subtitle}</p>
                   </div>
                 </div>
 
-                <p className="text-sm leading-relaxed text-text-secondary">
+                <p className="text-sm leading-relaxed text-slate-500">
                   {pillar.description}
                 </p>
               </div>
@@ -127,7 +127,7 @@ export default function OverviewSection() {
       <div className="mt-10 text-center">
         <a
           href="#activos"
-          className="inline-flex items-center gap-2 text-sm font-semibold text-primary transition-colors hover:text-primary-dark"
+          className="inline-flex items-center gap-2 text-sm font-semibold text-emerald-500 transition-colors hover:text-emerald-500-dark"
         >
           Conoce cada activo a detalle
           <ArrowRight className="h-4 w-4" />

@@ -9,7 +9,7 @@ import './globals.css'
 export const metadata: Metadata = generatePageMetadata()
 
 export const viewport: Viewport = {
-  themeColor: '#FAFAFA',
+  themeColor: '#f1f5f9',
   width: 'device-width',
   initialScale: 1,
 }
@@ -23,7 +23,7 @@ export default function RootLayout({
 
   return (
     <html lang="es-MX">
-      <body className="min-h-screen bg-background font-sans text-text-primary antialiased">
+      <body className="min-h-screen bg-background font-sans text-slate-900 antialiased">
         {gtmId && <GoogleTagManager gtmId={gtmId} />}
         <CursorEffect />
         <Header />

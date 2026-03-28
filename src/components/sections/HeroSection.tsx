@@ -53,10 +53,10 @@ export default function HeroSection() {
             >
               <div className="inline-flex items-center gap-2.5 rounded-full border border-black/[0.10] bg-white px-4 py-2 shadow-elevated backdrop-blur-md">
                 <span className="relative flex h-2.5 w-2.5">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-antuario-green opacity-75" />
-                  <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-antuario-green" />
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75" />
+                  <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500" />
                 </span>
-                <span className="text-[13px] font-semibold tracking-wide text-text-primary">
+                <span className="text-[13px] font-semibold tracking-wide text-emerald-500">
                   IA + Marketing + Ventas
                 </span>
               </div>
@@ -67,7 +67,7 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="mb-5 font-heading text-[26px] font-extrabold leading-[1.14] tracking-tight text-text-primary sm:text-[32px] lg:text-[40px]"
+              className="mb-5 font-heading text-[26px] font-extrabold leading-[1.14] tracking-tight text-slate-900 sm:text-[32px] lg:text-[40px]"
             >
               Impulsamos las ventas y el crecimiento de tu empresa de servicios{' '}
               <span className="gradient-text-multicolor">B2B</span>
@@ -78,7 +78,7 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.35 }}
-              className="mb-5 max-w-lg text-[14px] leading-relaxed text-text-secondary sm:text-[15px]"
+              className="mb-5 max-w-lg text-[14px] leading-relaxed text-slate-500 sm:text-[15px]"
             >
               Combinamos IA, marketing, estrategia de ventas y nuestra propia plataforma para que tu área comercial funcione con números claros, resultados reales y total transparencia.
             </motion.p>
@@ -90,7 +90,7 @@ export default function HeroSection() {
               transition={{ duration: 0.5, delay: 0.45 }}
               className="mb-8 flex flex-wrap items-center gap-2"
             >
-              <span className="text-[14px] font-semibold text-text-secondary">Perfecto para:</span>
+              <span className="text-[14px] font-semibold text-slate-500">Perfecto para:</span>
               <span className="relative inline-block h-[28px] w-[160px] overflow-hidden sm:w-[220px]">
                 <AnimatePresence mode="wait">
                   <motion.span
@@ -99,7 +99,7 @@ export default function HeroSection() {
                     animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
                     exit={{ y: -20, opacity: 0, filter: 'blur(4px)' }}
                     transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
-                    className="absolute left-0 top-0 whitespace-nowrap rounded-full bg-[#1A1D2B]/[0.07] px-3 py-0.5 text-[14px] font-bold text-[#1A1D2B] ring-1 ring-[#1A1D2B]/10 backdrop-blur-sm"
+                    className="absolute left-0 top-0 whitespace-nowrap rounded-full bg-[#0f172a]/[0.07] px-3 py-0.5 text-[14px] font-bold text-[#0f172a] ring-1 ring-[#0f172a]/10 backdrop-blur-sm"
                   >
                     {audienceItems[currentIndex]}
                   </motion.span>
@@ -118,7 +118,7 @@ export default function HeroSection() {
                 href={siteConfig.whatsapp}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-shine group relative inline-flex w-full items-center justify-center gap-2 overflow-hidden rounded-xl bg-[#1A1D2B] px-6 py-3.5 text-[14px] font-semibold text-white shadow-[0_4px_20px_rgba(0,0,0,0.15)] transition-all duration-300 hover:shadow-[0_8px_30px_rgba(0,0,0,0.25)] hover:scale-[1.02] sm:w-auto sm:py-3 sm:text-[13px]"
+                className="btn-shine group relative inline-flex w-full items-center justify-center gap-2 overflow-hidden rounded-xl bg-[#0f172a] px-6 py-3.5 text-[14px] font-semibold text-white shadow-[0_4px_20px_rgba(0,0,0,0.15)] transition-all duration-300 hover:shadow-[0_8px_30px_rgba(0,0,0,0.25)] hover:scale-[1.02] sm:w-auto sm:py-3 sm:text-[13px]"
               >
                 <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" /></svg>
                 Solicita tu diagnóstico gratis
@@ -126,9 +126,9 @@ export default function HeroSection() {
               </a>
               <a
                 href="#plataforma"
-                className="group inline-flex w-full items-center justify-center gap-2 rounded-xl border border-black/[0.08] bg-white/60 px-5 py-3.5 text-[14px] font-semibold text-text-primary shadow-soft backdrop-blur-md transition-all duration-300 hover:border-black/12 hover:bg-white/80 sm:w-auto sm:py-3 sm:text-[13px]"
+                className="group inline-flex w-full items-center justify-center gap-2 rounded-xl border border-black/[0.08] bg-white/60 px-5 py-3.5 text-[14px] font-semibold text-slate-900 shadow-soft backdrop-blur-md transition-all duration-300 hover:border-black/12 hover:bg-white/80 sm:w-auto sm:py-3 sm:text-[13px]"
               >
-                <Sparkles className="h-3.5 w-3.5 text-antuario-purple" />
+                <Sparkles className="h-3.5 w-3.5 text-violet-500" />
                 Pide una demo
               </a>
             </motion.div>
@@ -142,22 +142,22 @@ export default function HeroSection() {
             className="relative w-full"
             style={{ perspective: '1200px' }}
           >
-            <div className="pointer-events-none absolute -inset-8 rounded-[40px] bg-gradient-to-br from-antuario-green/20 via-antuario-cyan/10 to-antuario-purple/15 blur-3xl" style={{ zIndex: -1 }} />
-            <div className="pointer-events-none absolute -inset-4 rounded-[36px] bg-gradient-to-tr from-antuario-purple/10 via-transparent to-antuario-green/10 blur-2xl" style={{ zIndex: -1 }} />
+            <div className="pointer-events-none absolute -inset-8 rounded-3xl bg-gradient-to-br from-emerald-500/20 via-cyan-500/10 to-violet-500/15 blur-3xl" style={{ zIndex: -1 }} />
+            <div className="pointer-events-none absolute -inset-4 rounded-3xl bg-gradient-to-tr from-violet-500/10 via-transparent to-emerald-500/10 blur-2xl" style={{ zIndex: -1 }} />
 
             <motion.div
               style={{ rotateY: -4, rotateX: 3 }}
-              className="relative rounded-[28px] border border-black/[0.08] bg-gradient-to-b from-white/80 to-white/50 p-[3px] shadow-[0_20px_80px_rgba(0,0,0,0.12),0_0_0_1px_rgba(0,0,0,0.04)] backdrop-blur-sm"
+              className="relative rounded-3xl border border-black/[0.08] bg-gradient-to-b from-white/80 to-white/50 p-[3px] shadow-[0_20px_80px_rgba(0,0,0,0.12),0_0_0_1px_rgba(0,0,0,0.04)] backdrop-blur-sm"
             >
-              <div className="overflow-hidden rounded-[26px] bg-[#10131F]">
-                <div className="flex items-center gap-2 border-b border-white/[0.05] bg-[#0C0F1A] px-4 py-2.5">
+              <div className="overflow-hidden rounded-2xl bg-[#1e293b]">
+                <div className="flex items-center gap-2 border-b border-white/[0.05] bg-[#1e293b] px-4 py-2.5">
                   <div className="flex gap-1.5">
                     <div className="h-2.5 w-2.5 rounded-full bg-[#FF5F57]" />
                     <div className="h-2.5 w-2.5 rounded-full bg-[#FEBC2E]" />
                     <div className="h-2.5 w-2.5 rounded-full bg-[#28C840]" />
                   </div>
                   <div className="ml-3 flex flex-1 items-center gap-1.5 rounded-lg bg-white/[0.05] px-3 py-1">
-                    <div className="h-1.5 w-1.5 rounded-full bg-antuario-green/60" />
+                    <div className="h-1.5 w-1.5 rounded-full bg-emerald-500/60" />
                     <span className="text-[10px] text-white/25">app.antuario.mx/bandeja-entrada</span>
                   </div>
                 </div>
@@ -178,10 +178,10 @@ export default function HeroSection() {
               className="absolute -bottom-4 -right-4 hidden items-center gap-2 rounded-xl border border-black/[0.06] bg-white/90 px-3.5 py-2 shadow-elevated backdrop-blur-md sm:flex"
             >
               <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-antuario-green opacity-75" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-antuario-green" />
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
               </span>
-              <span className="text-[11px] font-semibold text-text-primary">Agente IA activo</span>
+              <span className="text-[11px] font-semibold text-slate-900">Agente IA activo</span>
             </motion.div>
           </motion.div>
         </div>
@@ -190,7 +190,7 @@ export default function HeroSection() {
       {/* Rounded divider */}
       <div className="relative z-10 -mb-1 mt-8">
         <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full" preserveAspectRatio="none">
-          <path d="M0 60V24C0 10.7452 10.7452 0 24 0H1416C1429.25 0 1440 10.7452 1440 24V60H0Z" fill="#FAFAFA" />
+          <path d="M0 60V24C0 10.7452 10.7452 0 24 0H1416C1429.25 0 1440 10.7452 1440 24V60H0Z" fill="#f1f5f9" />
         </svg>
       </div>
     </section>

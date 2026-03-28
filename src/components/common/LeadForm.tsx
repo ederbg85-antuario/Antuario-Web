@@ -70,8 +70,8 @@ export default function LeadForm() {
     return (
       <div className="flex flex-col items-center gap-4 rounded-2xl bg-accent-green/8 p-8 text-center">
         <CheckCircle2 className="h-12 w-12 text-accent-green" />
-        <h3 className="text-xl font-semibold text-text-primary">Solicitud enviada</h3>
-        <p className="text-text-secondary">{formState.message}</p>
+        <h3 className="text-xl font-semibold text-slate-900">Solicitud enviada</h3>
+        <p className="text-slate-500">{formState.message}</p>
       </div>
     )
   }
@@ -87,7 +87,7 @@ export default function LeadForm() {
 
       <div className="grid gap-5 sm:grid-cols-2">
         <div className="space-y-1.5">
-          <label htmlFor="nombre" className="block text-sm font-medium text-text-secondary">
+          <label htmlFor="nombre" className="block text-sm font-medium text-slate-500">
             Nombre *
           </label>
           <input
@@ -96,9 +96,9 @@ export default function LeadForm() {
             placeholder="Tu nombre"
             aria-describedby={errors.nombre ? 'nombre-error' : undefined}
             className={cn(
-              'w-full rounded-xl border bg-white px-4 py-3 text-text-primary placeholder:text-text-muted outline-none transition-all',
-              'focus:border-primary focus:ring-2 focus:ring-primary/10',
-              errors.nombre ? 'border-accent-red/50' : 'border-border'
+              'w-full rounded-xl border bg-white px-4 py-3 text-slate-900 placeholder:text-slate-400 outline-none transition-all',
+              'focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10',
+              errors.nombre ? 'border-accent-red/50' : 'border-slate-200/60'
             )}
             {...register('nombre')}
           />
@@ -108,7 +108,7 @@ export default function LeadForm() {
         </div>
 
         <div className="space-y-1.5">
-          <label htmlFor="empresa" className="block text-sm font-medium text-text-secondary">
+          <label htmlFor="empresa" className="block text-sm font-medium text-slate-500">
             Empresa *
           </label>
           <input
@@ -117,9 +117,9 @@ export default function LeadForm() {
             placeholder="Nombre de tu empresa"
             aria-describedby={errors.empresa ? 'empresa-error' : undefined}
             className={cn(
-              'w-full rounded-xl border bg-white px-4 py-3 text-text-primary placeholder:text-text-muted outline-none transition-all',
-              'focus:border-primary focus:ring-2 focus:ring-primary/10',
-              errors.empresa ? 'border-accent-red/50' : 'border-border'
+              'w-full rounded-xl border bg-white px-4 py-3 text-slate-900 placeholder:text-slate-400 outline-none transition-all',
+              'focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10',
+              errors.empresa ? 'border-accent-red/50' : 'border-slate-200/60'
             )}
             {...register('empresa')}
           />
@@ -131,7 +131,7 @@ export default function LeadForm() {
 
       <div className="grid gap-5 sm:grid-cols-2">
         <div className="space-y-1.5">
-          <label htmlFor="email" className="block text-sm font-medium text-text-secondary">
+          <label htmlFor="email" className="block text-sm font-medium text-slate-500">
             Correo electrónico *
           </label>
           <input
@@ -140,9 +140,9 @@ export default function LeadForm() {
             placeholder="correo@empresa.com"
             aria-describedby={errors.email ? 'email-error' : undefined}
             className={cn(
-              'w-full rounded-xl border bg-white px-4 py-3 text-text-primary placeholder:text-text-muted outline-none transition-all',
-              'focus:border-primary focus:ring-2 focus:ring-primary/10',
-              errors.email ? 'border-accent-red/50' : 'border-border'
+              'w-full rounded-xl border bg-white px-4 py-3 text-slate-900 placeholder:text-slate-400 outline-none transition-all',
+              'focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10',
+              errors.email ? 'border-accent-red/50' : 'border-slate-200/60'
             )}
             {...register('email')}
           />
@@ -152,7 +152,7 @@ export default function LeadForm() {
         </div>
 
         <div className="space-y-1.5">
-          <label htmlFor="telefono" className="block text-sm font-medium text-text-secondary">
+          <label htmlFor="telefono" className="block text-sm font-medium text-slate-500">
             Teléfono
           </label>
           <input
@@ -161,9 +161,9 @@ export default function LeadForm() {
             placeholder="+52 55 1234 5678"
             aria-describedby={errors.telefono ? 'telefono-error' : undefined}
             className={cn(
-              'w-full rounded-xl border bg-white px-4 py-3 text-text-primary placeholder:text-text-muted outline-none transition-all',
-              'focus:border-primary focus:ring-2 focus:ring-primary/10',
-              errors.telefono ? 'border-accent-red/50' : 'border-border'
+              'w-full rounded-xl border bg-white px-4 py-3 text-slate-900 placeholder:text-slate-400 outline-none transition-all',
+              'focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10',
+              errors.telefono ? 'border-accent-red/50' : 'border-slate-200/60'
             )}
             {...register('telefono')}
           />
@@ -174,16 +174,16 @@ export default function LeadForm() {
       </div>
 
       <div className="space-y-1.5">
-        <label htmlFor="servicio_interes" className="block text-sm font-medium text-text-secondary">
+        <label htmlFor="servicio_interes" className="block text-sm font-medium text-slate-500">
           Servicio de interés *
         </label>
         <select
           id="servicio_interes"
           aria-describedby={errors.servicio_interes ? 'servicio-error' : undefined}
           className={cn(
-            'w-full rounded-xl border bg-white px-4 py-3 text-text-primary outline-none transition-all',
-            'focus:border-primary focus:ring-2 focus:ring-primary/10',
-            errors.servicio_interes ? 'border-accent-red/50' : 'border-border'
+            'w-full rounded-xl border bg-white px-4 py-3 text-slate-900 outline-none transition-all',
+            'focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10',
+            errors.servicio_interes ? 'border-accent-red/50' : 'border-slate-200/60'
           )}
           defaultValue=""
           {...register('servicio_interes')}
@@ -199,7 +199,7 @@ export default function LeadForm() {
       </div>
 
       <div className="space-y-1.5">
-        <label htmlFor="mensaje" className="block text-sm font-medium text-text-secondary">
+        <label htmlFor="mensaje" className="block text-sm font-medium text-slate-500">
           Mensaje
         </label>
         <textarea
@@ -208,9 +208,9 @@ export default function LeadForm() {
           placeholder="Cuéntanos brevemente sobre tu negocio y qué necesitas..."
           aria-describedby={errors.mensaje ? 'mensaje-error' : undefined}
           className={cn(
-            'w-full resize-none rounded-xl border bg-white px-4 py-3 text-text-primary placeholder:text-text-muted outline-none transition-all',
-            'focus:border-primary focus:ring-2 focus:ring-primary/10',
-            errors.mensaje ? 'border-accent-red/50' : 'border-border'
+            'w-full resize-none rounded-xl border bg-white px-4 py-3 text-slate-900 placeholder:text-slate-400 outline-none transition-all',
+            'focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10',
+            errors.mensaje ? 'border-accent-red/50' : 'border-slate-200/60'
           )}
           {...register('mensaje')}
         />
@@ -242,7 +242,7 @@ export default function LeadForm() {
         )}
       </button>
 
-      <p className="text-center text-xs text-text-muted">
+      <p className="text-center text-xs text-slate-400">
         Al enviar aceptas que te contactemos por correo o teléfono para dar seguimiento a tu solicitud.
       </p>
     </form>

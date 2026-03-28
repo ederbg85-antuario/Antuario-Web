@@ -33,20 +33,20 @@ export default function AISection() {
     <SectionWrapper id="ia">
       <div className="grid items-center gap-12 lg:grid-cols-2">
         <div>
-          <span className="mb-4 inline-flex items-center gap-2 rounded-full bg-accent-purple/10 px-5 py-2 text-sm font-semibold text-accent-purple">
+          <span className="mb-4 inline-flex items-center gap-2 rounded-full bg-accent-purple/10 px-5 py-2 text-sm font-semibold text-violet-500">
             <Sparkles className="h-3.5 w-3.5" />
             Inteligencia Artificial
           </span>
-          <h2 className="mb-6 font-heading text-3xl font-bold text-text-primary sm:text-4xl lg:text-4.5xl">
+          <h2 className="mb-6 font-heading text-3xl font-bold text-slate-900 sm:text-4xl lg:text-4.5xl">
             Un agente IA que atiende{' '}
-            <span className="text-accent-purple">tus WhatsApp 24/7.</span>
+            <span className="text-violet-500">tus WhatsApp 24/7.</span>
           </h2>
-          <p className="mb-4 text-lg leading-relaxed text-text-secondary">
+          <p className="mb-4 text-lg leading-relaxed text-slate-500">
             Dentro de tu plataforma Antuario, cada conversación de WhatsApp es gestionada por un agente
             de IA entrenado con el contexto de tu negocio. No es un chatbot genérico — es un vendedor
             digital que califica, responde y agenda por ti.
           </p>
-          <p className="mb-8 text-base leading-relaxed text-text-secondary">
+          <p className="mb-8 text-base leading-relaxed text-slate-500">
             Cuando el prospecto está listo, el agente escala la conversación a tu equipo humano con
             todo el contexto. Sin fricción, sin perder información.
           </p>
@@ -55,17 +55,17 @@ export default function AISection() {
           <div className="overflow-hidden rounded-[2rem] bg-navy shadow-card-3d">
             <div className="flex items-center gap-3 border-b border-white/8 px-6 py-4">
               <div className="flex h-10 w-10 items-center justify-center rounded-full bg-accent-green/20">
-                <Smartphone className="h-5 w-5 text-accent-green" />
+                <Smartphone className="h-5 w-5 text-emerald-500" />
               </div>
               <div>
                 <span className="text-sm font-semibold text-white">WhatsApp Business</span>
                 <div className="flex items-center gap-1.5">
                   <span className="h-1.5 w-1.5 rounded-full bg-accent-green" />
-                  <span className="text-xs text-accent-green">Agente IA activo</span>
+                  <span className="text-xs text-emerald-500">Agente IA activo</span>
                 </div>
               </div>
               <div className="ml-auto rounded-lg bg-white/5 px-3 py-1">
-                <span className="text-xs text-white/40">Plataforma Antuario</span>
+                <span className="text-xs text-slate-400/80">Plataforma Antuario</span>
               </div>
             </div>
             <div className="space-y-3 p-6">
@@ -86,8 +86,8 @@ export default function AISection() {
                   </p>
                 </div>
                 <div className="mt-1 flex items-center justify-end gap-1.5">
-                  <Sparkles className="h-3 w-3 text-accent-purple/60" />
-                  <p className="text-[10px] text-accent-purple/60">Agente IA</p>
+                  <Sparkles className="h-3 w-3 text-violet-500/60" />
+                  <p className="text-[10px] text-violet-500/60">Agente IA</p>
                   <p className="text-[10px] text-white/30">10:23 AM</p>
                 </div>
               </div>
@@ -101,8 +101,8 @@ export default function AISection() {
               </div>
               {/* Status bar */}
               <div className="flex items-center gap-2 rounded-xl bg-accent-purple/10 px-4 py-2.5">
-                <Bot className="h-4 w-4 text-accent-purple" />
-                <span className="text-xs font-medium text-accent-purple">El agente IA está calificando y agendando esta cita automáticamente</span>
+                <Bot className="h-4 w-4 text-violet-500" />
+                <span className="text-xs font-medium text-violet-500">El agente IA está calificando y agendando esta cita automáticamente</span>
               </div>
             </div>
           </div>
@@ -114,15 +114,15 @@ export default function AISection() {
             return (
               <div
                 key={cap.title}
-                className="group rounded-[1.5rem] border border-border-light bg-white p-6 shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-card-3d"
+                className="group rounded-[1.5rem] border border-slate-200/60 bg-white p-6 shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-card-3d"
               >
                 <div className="flex items-start gap-5">
                   <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-accent-purple/10 transition-transform duration-300 group-hover:scale-110">
-                    <Icon className="h-5 w-5 text-accent-purple" />
+                    <Icon className="h-5 w-5 text-violet-500" />
                   </div>
                   <div>
-                    <h3 className="mb-1.5 text-base font-bold text-text-primary">{cap.title}</h3>
-                    <p className="text-sm leading-relaxed text-text-secondary">{cap.description}</p>
+                    <h3 className="mb-1.5 text-base font-bold text-slate-900">{cap.title}</h3>
+                    <p className="text-sm leading-relaxed text-slate-500">{cap.description}</p>
                   </div>
                 </div>
               </div>
@@ -132,8 +132,8 @@ export default function AISection() {
           {/* Emphasis card */}
           <div className="rounded-[1.5rem] bg-gradient-to-br from-accent-purple/5 to-primary/5 p-6 shadow-soft">
             <div className="flex items-center gap-3">
-              <Zap className="h-5 w-5 text-accent-purple" />
-              <p className="text-sm font-semibold text-text-primary">
+              <Zap className="h-5 w-5 text-violet-500" />
+              <p className="text-sm font-semibold text-slate-900">
                 Todo dentro de tu plataforma Antuario — no necesitas herramientas externas.
               </p>
             </div>

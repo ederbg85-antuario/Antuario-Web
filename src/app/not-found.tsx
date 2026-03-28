@@ -5,13 +5,13 @@ export default function NotFound() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="text-center">
-        <p className="mb-2 text-sm font-semibold uppercase tracking-widest text-primary">
+        <p className="mb-2 text-sm font-semibold uppercase tracking-widest text-emerald-500">
           Error 404
         </p>
-        <h1 className="mb-4 font-heading text-5xl font-bold text-text-primary">
+        <h1 className="mb-4 font-heading text-5xl font-bold text-slate-900">
           Página no encontrada
         </h1>
-        <p className="mb-8 text-lg text-text-secondary">
+        <p className="mb-8 text-lg text-slate-500">
           La página que buscas no existe o fue movida.
         </p>
         <Link
