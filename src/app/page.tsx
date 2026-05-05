@@ -69,7 +69,6 @@ function Section({
 const SECTIONS = [
   { id: 'hero', label: 'Inicio' },
   { id: 'agencia', label: 'La agencia' },
-  { id: 'pilares', label: 'Operación' },
   { id: 'capacidades', label: 'Capacidades' },
   { id: 'equipo', label: 'Equipo' },
   { id: 'datos', label: 'Datos' },
@@ -181,7 +180,6 @@ export default function HomePage() {
       <div ref={shellRef} className="swipe-shell">
         <HeroSection innerRef={registerRef('hero')} onNext={() => goTo('agencia')} />
         <AgencySection innerRef={registerRef('agencia')} />
-        <PillarsSection innerRef={registerRef('pilares')} />
         <CapabilitiesSection innerRef={registerRef('capacidades')} />
         <TeamSection innerRef={registerRef('equipo')} />
         <DataSection innerRef={registerRef('datos')} />
@@ -197,13 +195,13 @@ export default function HomePage() {
 
 // ─── 01 · HERO ─────────────────────────────────────────────────────────────
 function HeroSection({ innerRef, onNext }: { innerRef: (el: HTMLElement | null) => void; onNext: () => void }) {
+  // 6 servicios (en lugar de 7) para evitar wrap excesivo en móvil
   const services = [
     'Redes Sociales',
-    'Creación de Contenido',
-    'Performance ADS',
+    'Performance Ads',
     'SEO',
     'Desarrollo Web',
-    'Software a la medida',
+    'Software',
     'Agentes IA',
   ]
 
@@ -224,10 +222,12 @@ function HeroSection({ innerRef, onNext }: { innerRef: (el: HTMLElement | null) 
           whileInView="show"
           viewport={{ once: true }}
           variants={fade}
-          className="mb-7 inline-flex items-center gap-2.5 rounded-full border border-white/10 bg-white/5 px-3.5 py-1.5 backdrop-blur-sm"
+          className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 backdrop-blur-sm sm:mb-7 sm:gap-2.5 sm:px-3.5 sm:py-1.5"
         >
           <span className="h-1.5 w-1.5 animate-subtle-pulse rounded-full bg-white/80" />
-          <span className="eyebrow-light !text-white/65">Agencia de Marketing Digital</span>
+          <span className="eyebrow-light !text-[10px] !text-white/65 sm:!text-[11px]">
+            Agencia de Marketing Digital
+          </span>
         </motion.div>
 
         <motion.h1
@@ -236,7 +236,7 @@ function HeroSection({ innerRef, onNext }: { innerRef: (el: HTMLElement | null) 
           whileInView="show"
           viewport={{ once: true }}
           variants={fade}
-          className="display text-balance text-[34px] leading-[1.08] text-white sm:text-[52px] lg:text-[68px]"
+          className="display text-balance text-[28px] leading-[1.08] text-white sm:text-[52px] lg:text-[68px]"
         >
           Soluciones de{' '}
           <span className="gradient-anim-bright">Marketing Digital</span>{' '}
@@ -249,10 +249,10 @@ function HeroSection({ innerRef, onNext }: { innerRef: (el: HTMLElement | null) 
           whileInView="show"
           viewport={{ once: true }}
           variants={fade}
-          className="mx-auto mt-7 max-w-xl text-balance text-[14px] leading-relaxed text-white/60 sm:text-[16px]"
+          className="mx-auto mt-5 max-w-xl text-balance text-[12.5px] leading-relaxed text-white/60 sm:mt-7 sm:text-[16px]"
         >
-          Marketing, sistemas e inteligencia artificial — bajo una sola dirección estratégica, con
-          accountability total sobre cada resultado.
+          Marketing, sistemas e IA — bajo una sola dirección estratégica, con accountability total
+          sobre cada resultado.
         </motion.p>
 
         {/* Servicios chips */}
@@ -262,12 +262,12 @@ function HeroSection({ innerRef, onNext }: { innerRef: (el: HTMLElement | null) 
           whileInView="show"
           viewport={{ once: true }}
           variants={fade}
-          className="mx-auto mt-9 flex max-w-2xl flex-wrap items-center justify-center gap-x-2 gap-y-2.5"
+          className="mx-auto mt-6 flex max-w-md flex-wrap items-center justify-center gap-x-1.5 gap-y-2 sm:mt-9 sm:max-w-2xl sm:gap-x-2 sm:gap-y-2.5"
         >
           {services.map((s, i) => (
-            <li key={s} className="flex items-center gap-2">
+            <li key={s} className="flex items-center gap-1.5 sm:gap-2">
               {i > 0 && <span className="h-1 w-1 rounded-full bg-white/20" />}
-              <span className="text-[12.5px] font-medium text-white/75 sm:text-[13px]">{s}</span>
+              <span className="text-[11px] font-medium text-white/75 sm:text-[13px]">{s}</span>
             </li>
           ))}
         </motion.ul>
@@ -278,31 +278,30 @@ function HeroSection({ innerRef, onNext }: { innerRef: (el: HTMLElement | null) 
           whileInView="show"
           viewport={{ once: true }}
           variants={fade}
-          className="mt-10 flex flex-wrap items-center justify-center gap-4"
+          className="mt-7 flex flex-col items-center justify-center gap-2.5 sm:mt-10 sm:flex-row sm:gap-4"
         >
           <a
             href={siteConfig.whatsapp}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3.5 text-[14px] font-semibold text-ink-900 transition-transform duration-300 hover:scale-[1.02]"
+            className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-[13px] font-semibold text-ink-900 transition-transform duration-300 hover:scale-[1.02] sm:px-6 sm:py-3.5 sm:text-[14px]"
           >
             <WhatsAppIcon className="h-4 w-4" />
             Cuéntanos tu proyecto
             <ArrowRight className="h-3.5 w-3.5" />
           </a>
-          <span className="text-[12px] text-white/40">Sin costo · Sin compromiso</span>
+          <span className="text-[11px] text-white/40 sm:text-[12px]">Sin costo · Sin compromiso</span>
         </motion.div>
       </div>
 
-      {/* Swipe down indicator */}
+      {/* Indicador de continuidad — solo flecha, sin texto */}
       <button
         onClick={onNext}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/45 transition-colors hover:text-white"
+        className="absolute bottom-5 left-1/2 -translate-x-1/2 text-white/40 transition-colors hover:text-white sm:bottom-8"
         aria-label="Siguiente sección"
       >
-        <span className="text-[10px] font-medium uppercase tracking-[0.22em]">Desliza</span>
         <motion.div animate={{ y: [0, 6, 0] }} transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}>
-          <ArrowDown className="h-4 w-4" />
+          <ArrowDown className="h-4 w-4 sm:h-5 sm:w-5" />
         </motion.div>
       </button>
     </Section>
@@ -330,7 +329,7 @@ function AgencySection({ innerRef }: { innerRef: (el: HTMLElement | null) => voi
           whileInView="show"
           viewport={{ once: true }}
           variants={fade}
-          className="display mt-6 text-[36px] text-ink-900 sm:text-[56px] lg:text-[68px]"
+          className="display mt-4 text-[32px] text-ink-900 sm:mt-6 sm:text-[56px] lg:text-[68px]"
         >
           Más que <br className="sm:hidden" />
           <span className="gradient-anim">una agencia.</span>
@@ -342,10 +341,10 @@ function AgencySection({ innerRef }: { innerRef: (el: HTMLElement | null) => voi
           whileInView="show"
           viewport={{ once: true }}
           variants={fade}
-          className="mt-10 max-w-3xl text-[18px] font-medium leading-snug text-ink-800 sm:text-[22px]"
+          className="mt-6 max-w-3xl text-[15px] font-medium leading-snug text-ink-800 sm:mt-10 sm:text-[22px]"
         >
-          Capacidades estratégicas, tecnológicas y creativas que van mucho más allá de lo que la mayoría de
-          agencias puede ofrecer.
+          Capacidades estratégicas, tecnológicas y creativas que van mucho más allá de lo que una agencia
+          tradicional ofrece.
         </motion.p>
 
         <motion.p
@@ -354,87 +353,69 @@ function AgencySection({ innerRef }: { innerRef: (el: HTMLElement | null) => voi
           whileInView="show"
           viewport={{ once: true }}
           variants={fade}
-          className="mt-6 max-w-2xl text-[14px] leading-relaxed text-ink-500 sm:text-[15px]"
+          className="mt-4 max-w-2xl text-[12.5px] leading-relaxed text-ink-500 sm:mt-6 sm:text-[15px]"
         >
-          Trabajamos como un partner estratégico real: nos involucramos a fondo, diseñamos soluciones a la
-          medida y respondemos por los resultados — no por las tareas.
+          Operamos como partner estratégico: nos involucramos a fondo, diseñamos soluciones a la medida
+          y respondemos por los resultados — no por las tareas.
         </motion.p>
       </div>
     </Section>
   )
 }
 
-// ─── 03 · PILARES ──────────────────────────────────────────────────────────
-function PillarsSection({ innerRef }: { innerRef: (el: HTMLElement | null) => void }) {
-  const pillars = [
+// ─── 03 · CAPACIDADES ──────────────────────────────────────────────────────
+// Cada capacidad tiene un acento de color sutil (la tira top + el numerito).
+// En móvil mostramos resumen corto (1 línea); en desktop el detalle completo.
+function CapabilitiesSection({ innerRef }: { innerRef: (el: HTMLElement | null) => void }) {
+  const caps = [
     {
       n: '01',
-      title: 'Soluciones a la medida',
-      text: 'Cada proyecto tiene su propio contexto. Sin paquetes estándar — diseñamos la solución correcta para cada marca y momento.',
+      tag: 'Paid Media',
+      title: 'Performance Ads',
+      short: 'Google · Meta · TikTok',
+      items: ['Google · Meta · TikTok', 'ROAS, CPA y CPL reales'],
+      accent: '#6366f1', // indigo
     },
     {
       n: '02',
-      title: 'Adaptabilidad total',
-      text: 'Nos integramos como extensión del equipo, como operadores completos de una línea o atacando una necesidad puntual.',
+      tag: 'Orgánico',
+      title: 'SEO',
+      short: 'Técnico y de contenido',
+      items: ['Posicionamiento técnico', 'Auditoría continua'],
+      accent: '#10b981', // emerald
     },
     {
       n: '03',
-      title: 'Partner, no proveedor',
-      text: 'Visión de largo plazo. Nos importan los resultados de la marca — no solo cerrar el contrato. Esa diferencia se nota desde el día uno.',
+      tag: 'Contenido',
+      title: 'Redes y producción',
+      short: 'Video, foto, edición',
+      items: ['Estrategia y guiones', 'Video, foto, edición'],
+      accent: '#f59e0b', // amber
     },
-  ]
-
-  return (
-    <Section id="pilares" innerRef={innerRef}>
-      <div className="mx-auto flex h-full w-full max-w-6xl flex-col justify-center">
-        <motion.div
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
-          variants={fade}
-          className="mb-12"
-        >
-          <span className="eyebrow">Cómo operamos</span>
-          <h2 className="display mt-4 text-[32px] text-ink-900 sm:text-[48px]">
-            Nuestro modo <br className="sm:hidden" />
-            <span className="gradient-anim">de trabajar.</span>
-          </h2>
-        </motion.div>
-
-        <div className="grid gap-5 lg:grid-cols-3">
-          {pillars.map((p, i) => (
-            <motion.div
-              key={p.n}
-              custom={i}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true }}
-              variants={fade}
-              className="card-min p-7"
-            >
-              <span className="font-mono text-[11px] tracking-widest text-ink-400">{p.n}</span>
-              <h3 className="mt-6 text-[20px] font-bold tracking-tight text-ink-900 sm:text-[22px]">
-                {p.title}
-              </h3>
-              <div className="hairline my-5" />
-              <p className="text-[14px] leading-relaxed text-ink-500">{p.text}</p>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </Section>
-  )
-}
-
-// ─── 04 · CAPACIDADES ──────────────────────────────────────────────────────
-function CapabilitiesSection({ innerRef }: { innerRef: (el: HTMLElement | null) => void }) {
-  const caps = [
-    { tag: 'Paid Media', title: 'Performance Ads', items: ['Google · Meta · TikTok', 'ROAS, CPA y CPL reales'] },
-    { tag: 'Orgánico', title: 'SEO y posicionamiento', items: ['Técnico y de contenido', 'Auditoría continua'] },
-    { tag: 'Contenido', title: 'Redes y producción', items: ['Estrategia y guiones', 'Video, foto, edición'] },
-    { tag: 'Web', title: 'Desarrollo y conversión', items: ['Sitios y landing pages', 'Ecommerce + UX'] },
-    { tag: 'Tecnología', title: 'Software a la medida', items: ['CRM, integraciones', 'Automatización'] },
-    { tag: 'Vanguardia', title: 'Inteligencia Artificial', items: ['Agentes, LLMs', 'IA generativa'] },
+    {
+      n: '04',
+      tag: 'Web',
+      title: 'Desarrollo y conversión',
+      short: 'Sitios, landing y ecommerce',
+      items: ['Sitios y landing pages', 'Ecommerce + UX'],
+      accent: '#ec4899', // pink
+    },
+    {
+      n: '05',
+      tag: 'Tecnología',
+      title: 'Software a la medida',
+      short: 'CRM y automatización',
+      items: ['CRM, integraciones', 'Automatización de procesos'],
+      accent: '#06b6d4', // cyan
+    },
+    {
+      n: '06',
+      tag: 'Vanguardia',
+      title: 'Inteligencia Artificial',
+      short: 'Agentes, LLMs, IA gen',
+      items: ['Agentes y LLMs', 'IA generativa'],
+      accent: '#8b5cf6', // violet
+    },
   ]
 
   return (
@@ -445,16 +426,16 @@ function CapabilitiesSection({ innerRef }: { innerRef: (el: HTMLElement | null) 
           whileInView="show"
           viewport={{ once: true }}
           variants={fade}
-          className="mb-10"
+          className="mb-5 sm:mb-10"
         >
           <span className="eyebrow">Capacidades</span>
-          <h2 className="display mt-4 text-[32px] text-ink-900 sm:text-[48px]">
-            Lo que nuestro equipo domina <br className="hidden sm:block" />
-            <span className="gradient-anim">y pone a disposición.</span>
+          <h2 className="display mt-3 text-[26px] text-ink-900 sm:mt-4 sm:text-[42px] lg:text-[52px]">
+            Lo que dominamos <br className="hidden sm:block" />
+            <span className="gradient-anim">y ponemos a disposición.</span>
           </h2>
         </motion.div>
 
-        <div className="grid gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-2 gap-2 sm:gap-3 lg:grid-cols-3 lg:gap-4">
           {caps.map((c, i) => (
             <motion.div
               key={c.title}
@@ -463,14 +444,44 @@ function CapabilitiesSection({ innerRef }: { innerRef: (el: HTMLElement | null) 
               whileInView="show"
               viewport={{ once: true }}
               variants={fade}
-              className="group bg-paper p-6 transition-colors duration-300 hover:bg-ink-50"
+              className="group relative overflow-hidden rounded-xl border border-line bg-paper p-3.5 transition-all duration-500 hover:-translate-y-1 hover:border-ink-900/15 hover:shadow-elevated sm:rounded-2xl sm:p-6"
             >
-              <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink-400">{c.tag}</span>
-              <h3 className="mt-4 text-[18px] font-bold tracking-tight text-ink-900">{c.title}</h3>
-              <ul className="mt-4 space-y-1.5">
+              {/* Tira de acento en el borde superior */}
+              <span
+                className="absolute left-0 right-0 top-0 h-[2px] origin-left scale-x-[0.18] transition-transform duration-700 ease-out group-hover:scale-x-100"
+                style={{ background: c.accent }}
+                aria-hidden
+              />
+
+              {/* Header: tag + número */}
+              <div className="flex items-start justify-between">
+                <span className="font-mono text-[9px] uppercase tracking-[0.18em] text-ink-400 sm:text-[10px]">
+                  {c.tag}
+                </span>
+                <span
+                  className="font-mono text-[10px] font-semibold tracking-widest text-ink-300 transition-colors duration-300 group-hover:text-ink-500 sm:text-[11px]"
+                  style={{ color: 'transparent', backgroundImage: `linear-gradient(135deg, ${c.accent}, ${c.accent}99)`, WebkitBackgroundClip: 'text', backgroundClip: 'text' }}
+                >
+                  {c.n}
+                </span>
+              </div>
+
+              {/* Título */}
+              <h3 className="mt-3 text-[14px] font-bold leading-tight tracking-tight text-ink-900 sm:mt-5 sm:text-[20px]">
+                {c.title}
+              </h3>
+
+              {/* Resumen móvil (1 línea) */}
+              <p className="mt-1 text-[10.5px] leading-snug text-ink-500 sm:hidden">{c.short}</p>
+
+              {/* Bullets desktop */}
+              <ul className="mt-4 hidden space-y-2 sm:block">
                 {c.items.map((it) => (
-                  <li key={it} className="flex items-start gap-2 text-[13px] text-ink-500">
-                    <span className="mt-1.5 h-px w-3 flex-shrink-0 bg-ink-300" />
+                  <li key={it} className="flex items-start gap-2 text-[12.5px] text-ink-500">
+                    <span
+                      className="mt-1.5 h-1 w-1 flex-shrink-0 rounded-full"
+                      style={{ background: c.accent }}
+                    />
                     {it}
                   </li>
                 ))}
@@ -483,7 +494,7 @@ function CapabilitiesSection({ innerRef }: { innerRef: (el: HTMLElement | null) 
   )
 }
 
-// ─── 05 · EQUIPO ───────────────────────────────────────────────────────────
+// ─── 04 · EQUIPO ───────────────────────────────────────────────────────────
 function TeamSection({ innerRef }: { innerRef: (el: HTMLElement | null) => void }) {
   const roles = [
     'Estrategas digitales',
@@ -503,7 +514,7 @@ function TeamSection({ innerRef }: { innerRef: (el: HTMLElement | null) => void 
       <div className="mx-auto flex h-full w-full max-w-5xl flex-col justify-center">
         <motion.div initial="hidden" whileInView="show" viewport={{ once: true }} variants={fade}>
           <span className="eyebrow">Nuestro equipo</span>
-          <h2 className="display mt-4 text-[32px] text-ink-900 sm:text-[52px]">
+          <h2 className="display mt-3 text-[28px] text-ink-900 sm:mt-4 sm:text-[52px]">
             Especialistas a disposición <br className="hidden sm:block" />
             <span className="gradient-anim">de tu proyecto.</span>
           </h2>
@@ -515,7 +526,7 @@ function TeamSection({ innerRef }: { innerRef: (el: HTMLElement | null) => void 
           whileInView="show"
           viewport={{ once: true }}
           variants={fade}
-          className="mt-10 flex flex-wrap gap-2.5"
+          className="mt-6 flex flex-wrap gap-1.5 sm:mt-10 sm:gap-2.5"
         >
           {roles.map((r, i) => (
             <motion.span
@@ -525,7 +536,7 @@ function TeamSection({ innerRef }: { innerRef: (el: HTMLElement | null) => void 
               whileInView="show"
               viewport={{ once: true }}
               variants={fade}
-              className="inline-flex items-center rounded-full border border-ink-900/10 bg-paper px-4 py-2 text-[13px] font-medium text-ink-700"
+              className="inline-flex items-center rounded-full border border-ink-900/10 bg-paper px-2.5 py-1 text-[11px] font-medium text-ink-700 sm:px-4 sm:py-2 sm:text-[13px]"
             >
               {r}
             </motion.span>
@@ -538,156 +549,195 @@ function TeamSection({ innerRef }: { innerRef: (el: HTMLElement | null) => void 
           whileInView="show"
           viewport={{ once: true }}
           variants={fade}
-          className="mt-10 max-w-xl text-[14px] leading-relaxed text-ink-500"
+          className="mt-6 max-w-xl text-[12.5px] leading-relaxed text-ink-500 sm:mt-10 sm:text-[14px]"
         >
-          Equipo multidisciplinario coordinado bajo una misma dirección estratégica. El perfil correcto para
-          cada parte del proyecto, siempre disponible.
+          Equipo multidisciplinario bajo una misma dirección estratégica. El perfil correcto para cada
+          parte del proyecto, siempre disponible.
         </motion.p>
       </div>
     </Section>
   )
 }
 
-// ─── 06 · DATOS E INFORMACIÓN ──────────────────────────────────────────────
+// ─── 05 · DATOS E INFORMACIÓN ──────────────────────────────────────────────
+// Layout 5/7: copy + features a la izquierda · mockup del Antuario Dashboard a la derecha.
+// El mockup es una pieza visual fuerte que sustituye los 4 cards densos del diseño viejo.
 function DataSection({ innerRef }: { innerRef: (el: HTMLElement | null) => void }) {
+  const features = [
+    { positive: false, text: 'Datos de vanidad que no conectan con objetivos' },
+    { positive: true, text: 'Sistemas que miden lo que mueve cada marca' },
+    { positive: true, text: 'Visibilidad en tiempo real, sin esperar reuniones' },
+    { positive: true, text: 'Dashboard propio o software a la medida' },
+  ]
+
   return (
     <Section id="datos" innerRef={innerRef}>
       <div className="mx-auto flex h-full w-full max-w-6xl flex-col justify-center">
-        <motion.div initial="hidden" whileInView="show" viewport={{ once: true }} variants={fade} className="text-center sm:text-left">
-          <span className="eyebrow">Datos e información</span>
-          <h2 className="display mt-3 text-balance text-[26px] text-ink-900 sm:text-[38px] lg:text-[44px]">
-            Trackeo estratégico,{' '}
-            <span className="gradient-anim">no reportes genéricos.</span>
-          </h2>
-        </motion.div>
+        <div className="grid items-center gap-7 lg:grid-cols-12 lg:gap-10">
+          {/* Columna izquierda — copy */}
+          <motion.div
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+            variants={fade}
+            className="lg:col-span-5"
+          >
+            <span className="eyebrow">Datos e información</span>
+            <h2 className="display mt-3 text-[26px] text-ink-900 sm:mt-4 sm:text-[40px] lg:text-[46px]">
+              Trackeo estratégico, <br className="hidden sm:block" />
+              <span className="gradient-anim">no reportes genéricos.</span>
+            </h2>
+            <p className="mt-3 max-w-md text-[12.5px] leading-relaxed text-ink-500 sm:mt-5 sm:text-[14.5px]">
+              Mientras otras agencias entregan un PDF con likes y alcance, en Antuario construimos sistemas
+              de información estratégicos.
+            </p>
 
-        <div className="mt-7 grid auto-rows-min gap-3.5 sm:mt-9 sm:gap-4 lg:grid-cols-12">
-          {/* Card grande con line chart */}
+            {/* Lista de features con check / cross */}
+            <ul className="mt-5 space-y-2 sm:mt-7 sm:space-y-2.5">
+              {features.map((f) => (
+                <li key={f.text} className="flex items-start gap-2.5 sm:gap-3">
+                  <span
+                    className={`mt-0.5 flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full sm:h-[18px] sm:w-[18px] ${
+                      f.positive ? 'bg-emerald-500/15 text-emerald-600' : 'bg-ink-900/8 text-ink-400'
+                    }`}
+                    aria-hidden
+                  >
+                    {f.positive ? (
+                      <svg viewBox="0 0 16 16" className="h-2.5 w-2.5 sm:h-3 sm:w-3" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M3 8.5l3 3 7-7" />
+                      </svg>
+                    ) : (
+                      <svg viewBox="0 0 16 16" className="h-2 w-2 sm:h-2.5 sm:w-2.5" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+                        <path d="M4 4l8 8M12 4l-8 8" />
+                      </svg>
+                    )}
+                  </span>
+                  <span
+                    className={`text-[12px] leading-snug sm:text-[13.5px] ${
+                      f.positive ? 'font-medium text-ink-800' : 'text-ink-400 line-through decoration-ink-300'
+                    }`}
+                  >
+                    {f.text}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+
+          {/* Columna derecha — mockup del dashboard */}
           <motion.div
             custom={1}
             initial="hidden"
             whileInView="show"
             viewport={{ once: true }}
             variants={fade}
-            className="card-min p-4 sm:p-5 lg:col-span-8"
+            className="relative lg:col-span-7"
           >
-            <div className="flex items-center justify-between">
-              <div>
-                <span className="font-mono text-[9.5px] uppercase tracking-[0.2em] text-ink-400">
-                  Prospectos calificados · 30d
-                </span>
-                <div className="mt-1.5 flex items-baseline gap-2">
-                  <AnimatedNumber to={284} className="text-[28px] font-extrabold tracking-tight text-ink-900 sm:text-[32px]" />
-                  <span className="text-[11.5px] font-semibold text-emerald-600">+38%</span>
-                </div>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <span className="pulse-live h-2 w-2 rounded-full bg-emerald-500" />
-                <span className="text-[10px] font-medium uppercase tracking-wider text-ink-500">Live</span>
-              </div>
-            </div>
-
-            <LineChart />
-          </motion.div>
-
-          {/* KPIs verticales — ROAS + CPL */}
-          <div className="grid grid-cols-2 gap-3.5 sm:gap-4 lg:col-span-4 lg:grid-cols-1">
-            <motion.div
-              custom={3}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true }}
-              variants={fade}
-              className="card-min flex flex-col justify-between p-4 sm:p-5"
-            >
-              <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-ink-400">ROAS</span>
-              <div className="mt-1 flex items-baseline gap-1.5">
-                <AnimatedNumber
-                  to={5.4}
-                  decimals={1}
-                  className="text-[24px] font-extrabold tracking-tight text-ink-900 sm:text-[26px]"
-                />
-                <span className="text-[12px] font-medium text-ink-500">x</span>
-                <span className="ml-auto text-[11px] font-semibold text-emerald-600">+0.8</span>
-              </div>
-              <Sparkline color="#0a0a0a" />
-            </motion.div>
-
-            <motion.div
-              custom={4}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true }}
-              variants={fade}
-              className="card-min flex flex-col justify-between p-4 sm:p-5"
-            >
-              <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-ink-400">CPL</span>
-              <div className="mt-1 flex items-baseline gap-1">
-                <span className="text-[14px] font-medium text-ink-400">$</span>
-                <AnimatedNumber to={142} className="text-[24px] font-extrabold tracking-tight text-ink-900 sm:text-[26px]" />
-                <span className="ml-auto text-[11px] font-semibold text-emerald-600">−24%</span>
-              </div>
-              <Sparkline color="#0a0a0a" reverse />
-            </motion.div>
-          </div>
-
-          {/* Card barras */}
-          <motion.div
-            custom={2}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true }}
-            variants={fade}
-            className="card-min p-4 sm:p-5 lg:col-span-5"
-          >
-            <span className="font-mono text-[9.5px] uppercase tracking-[0.2em] text-ink-400">
-              Conversión por canal
-            </span>
-            <BarChart />
-          </motion.div>
-
-          {/* Antuario Dashboard preview */}
-          <motion.div
-            custom={5}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true }}
-            variants={fade}
-            className="relative overflow-hidden rounded-2xl bg-ink-900 p-4 text-white sm:p-5 lg:col-span-7"
-          >
-            <div className="flex items-center justify-between">
-              <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-white/50">
-                Antuario Dashboard
-              </span>
-              <span className="rounded-full border border-white/10 bg-white/5 px-2 py-0.5 text-[9px] font-medium uppercase tracking-wider text-white/60">
-                Live
-              </span>
-            </div>
-            <h3 className="mt-2 text-[15px] font-bold tracking-tight sm:text-[17px]">
-              Centralizado y visible{' '}
-              <span className="gradient-anim-bright">en tiempo real.</span>
-            </h3>
-            <p className="mt-1.5 text-[11.5px] leading-relaxed text-white/55 sm:text-[12.5px]">
-              Campañas, métricas y avance — todo en una sola vista.
-            </p>
-
-            {/* Mini cards anidadas */}
-            <div className="mt-3 grid grid-cols-3 gap-2">
-              {[
-                { label: 'Sesiones', value: '12.4K' },
-                { label: 'Leads', value: '284' },
-                { label: 'Cierre', value: '8.2%' },
-              ].map((m) => (
-                <div key={m.label} className="rounded-lg border border-white/10 bg-white/5 p-2">
-                  <span className="text-[9px] uppercase tracking-wider text-white/45">{m.label}</span>
-                  <p className="mt-0.5 text-[13px] font-bold text-white sm:text-[14px]">{m.value}</p>
-                </div>
-              ))}
-            </div>
+            <DashboardMockup />
           </motion.div>
         </div>
       </div>
     </Section>
+  )
+}
+
+// ─── Antuario Dashboard mockup (browser frame premium) ─────────────────────
+function DashboardMockup() {
+  return (
+    <div className="relative">
+      {/* Glow detrás */}
+      <div
+        className="pointer-events-none absolute -inset-6 -z-10 rounded-[2rem] bg-gradient-to-br from-indigo-500/15 via-fuchsia-500/10 to-emerald-500/10 blur-3xl sm:-inset-10"
+        aria-hidden
+      />
+
+      {/* Frame */}
+      <div className="overflow-hidden rounded-2xl border border-ink-900/10 bg-ink-900 shadow-elevated">
+        {/* Top bar */}
+        <div className="flex items-center gap-1.5 border-b border-white/5 bg-ink-800/80 px-3 py-2.5 sm:px-4 sm:py-3">
+          <span className="h-2 w-2 rounded-full bg-red-500/60 sm:h-2.5 sm:w-2.5" />
+          <span className="h-2 w-2 rounded-full bg-amber-500/60 sm:h-2.5 sm:w-2.5" />
+          <span className="h-2 w-2 rounded-full bg-emerald-500/60 sm:h-2.5 sm:w-2.5" />
+          <span className="ml-2 hidden font-mono text-[10px] text-white/30 sm:inline">
+            antuario.app/dashboard
+          </span>
+          <span className="ml-2 font-mono text-[9.5px] text-white/40 sm:hidden">Antuario · Dashboard</span>
+          <div className="ml-auto flex items-center gap-1.5">
+            <span className="pulse-live h-1.5 w-1.5 rounded-full bg-emerald-400" />
+            <span className="font-mono text-[9px] uppercase tracking-wider text-white/50 sm:text-[10px]">
+              Live
+            </span>
+          </div>
+        </div>
+
+        {/* Body */}
+        <div className="p-4 sm:p-6">
+          {/* Header — métrica principal */}
+          <div className="flex items-start justify-between gap-3">
+            <div>
+              <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-white/40 sm:text-[10px]">
+                Prospectos calificados · 30d
+              </span>
+              <div className="mt-1.5 flex items-baseline gap-2.5">
+                <AnimatedNumber
+                  to={284}
+                  className="text-[30px] font-extrabold tracking-tight text-white sm:text-[44px]"
+                />
+                <span className="text-[12px] font-semibold text-emerald-400 sm:text-[14px]">+38%</span>
+              </div>
+              <span className="mt-1 block font-mono text-[9px] text-white/30 sm:text-[10px]">
+                vs. periodo anterior
+              </span>
+            </div>
+            <div className="hidden flex-col items-end gap-1.5 sm:flex">
+              <div className="flex gap-1">
+                {['7d', '30d', '90d'].map((p, i) => (
+                  <span
+                    key={p}
+                    className={`rounded-full px-2.5 py-1 text-[10px] font-medium ${
+                      i === 1
+                        ? 'bg-white text-ink-900'
+                        : 'border border-white/10 bg-white/5 text-white/60'
+                    }`}
+                  >
+                    {p}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Chart */}
+          <div className="mt-4 sm:mt-5">
+            <LineChart variant="dark" />
+          </div>
+
+          {/* KPI strip */}
+          <div className="mt-4 grid grid-cols-3 gap-1.5 sm:mt-5 sm:gap-2.5">
+            {[
+              { label: 'ROAS', value: '5.4x', delta: '+0.8' },
+              { label: 'CPL', value: '$142', delta: '−24%' },
+              { label: 'Cierre', value: '8.2%', delta: '+1.1' },
+            ].map((k) => (
+              <div
+                key={k.label}
+                className="rounded-lg border border-white/10 bg-white/[0.04] p-2 transition-colors duration-300 hover:bg-white/[0.07] sm:p-3"
+              >
+                <span className="font-mono text-[8.5px] uppercase tracking-[0.2em] text-white/40 sm:text-[9.5px]">
+                  {k.label}
+                </span>
+                <div className="mt-1 flex items-baseline gap-1.5">
+                  <span className="text-[14px] font-bold text-white sm:text-[18px]">{k.value}</span>
+                  <span className="text-[9px] font-semibold text-emerald-400 sm:text-[10.5px]">
+                    {k.delta}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
   )
 }
 
@@ -744,7 +794,8 @@ function AnimatedNumber({
 }
 
 // ─── Animated Line Chart ──────────────────────────────────────────────────
-function LineChart() {
+// Soporta `variant`: light (sobre fondo claro) o dark (sobre fondo ink-900).
+function LineChart({ variant = 'light' }: { variant?: 'light' | 'dark' }) {
   const points = [16, 22, 18, 30, 28, 40, 38, 52, 48, 64, 70, 82]
   const max = Math.max(...points)
   const w = 480
@@ -758,119 +809,63 @@ function LineChart() {
     })
     .join(' ')
   const fillPath = `${path} L ${w} ${h} L 0 ${h} Z`
+  const isDark = variant === 'dark'
+  const stroke = isDark ? '#ffffff' : '#0a0a0a'
+  const gridStroke = isDark ? 'rgba(255,255,255,0.06)' : 'rgba(10,10,10,0.05)'
+  const fillId = isDark ? 'lineFillDark' : 'lineFillLight'
+  const fillStop = isDark ? '#ffffff' : '#0a0a0a'
+  const fillOpacity = isDark ? '0.18' : '0.12'
 
   return (
-    <svg viewBox={`0 0 ${w} ${h}`} className="mt-4 h-[100px] w-full sm:h-[110px]" preserveAspectRatio="none">
+    <svg viewBox={`0 0 ${w} ${h}`} className="h-[88px] w-full sm:h-[110px]" preserveAspectRatio="none">
       <defs>
-        <linearGradient id="lineFill" x1="0" x2="0" y1="0" y2="1">
-          <stop offset="0%" stopColor="#0a0a0a" stopOpacity="0.12" />
-          <stop offset="100%" stopColor="#0a0a0a" stopOpacity="0" />
-        </linearGradient>
-        <linearGradient id="lineStroke" x1="0" x2="1">
-          <stop offset="0%" stopColor="#0a0a0a" />
-          <stop offset="100%" stopColor="#0a0a0a" />
+        <linearGradient id={fillId} x1="0" x2="0" y1="0" y2="1">
+          <stop offset="0%" stopColor={fillStop} stopOpacity={fillOpacity} />
+          <stop offset="100%" stopColor={fillStop} stopOpacity="0" />
         </linearGradient>
       </defs>
-      {/* grid lines */}
       {[0.25, 0.5, 0.75].map((p) => (
-        <line
-          key={p}
-          x1="0"
-          x2={w}
-          y1={h * p}
-          y2={h * p}
-          stroke="rgba(10,10,10,0.05)"
-          strokeWidth="1"
-        />
+        <line key={p} x1="0" x2={w} y1={h * p} y2={h * p} stroke={gridStroke} strokeWidth="1" />
       ))}
-      <path d={fillPath} fill="url(#lineFill)" className="chart-line" style={{ animationDelay: '0.1s' }} />
+      <path d={fillPath} fill={`url(#${fillId})`} className="chart-line" style={{ animationDelay: '0.1s' }} />
       <path
         d={path}
         fill="none"
-        stroke="url(#lineStroke)"
+        stroke={stroke}
         strokeWidth="2"
         strokeLinecap="round"
+        strokeLinejoin="round"
         className="chart-line"
       />
-      {/* end dot */}
       <circle
         cx={w}
         cy={h - (points[points.length - 1] / max) * (h - 12) - 6}
         r="4"
-        fill="#0a0a0a"
+        fill={stroke}
         className="animate-pulse"
       />
     </svg>
   )
 }
 
-// ─── Animated Bar Chart ───────────────────────────────────────────────────
-function BarChart() {
-  const data = [
-    { label: 'SEO', value: 78 },
-    { label: 'Ads', value: 56 },
-    { label: 'Social', value: 42 },
-    { label: 'Direct', value: 32 },
-    { label: 'Email', value: 24 },
-  ]
-  const max = Math.max(...data.map((d) => d.value))
-
-  return (
-    <div className="mt-4">
-      <div className="flex h-[100px] items-end gap-2.5 sm:h-[110px]">
-        {data.map((d, i) => (
-          <div key={d.label} className="flex flex-1 flex-col items-center gap-1">
-            <span className="text-[9px] font-semibold text-ink-700">{d.value}%</span>
-            <div
-              className="chart-bar w-full rounded-t-md bg-ink-900"
-              style={{
-                height: `${(d.value / max) * 100}%`,
-                animationDelay: `${i * 0.1}s`,
-              }}
-            />
-            <span className="text-[10px] font-medium text-ink-400">{d.label}</span>
-          </div>
-        ))}
-      </div>
-    </div>
-  )
-}
-
-// ─── Sparkline ────────────────────────────────────────────────────────────
-function Sparkline({ color = '#0a0a0a', reverse = false }: { color?: string; reverse?: boolean }) {
-  const data = reverse ? [60, 55, 48, 50, 42, 36, 28, 24] : [20, 28, 24, 38, 36, 50, 56, 64]
-  const max = Math.max(...data)
-  const w = 100
-  const h = 28
-  const stepX = w / (data.length - 1)
-  const path = data
-    .map((v, i) => `${i === 0 ? 'M' : 'L'} ${i * stepX} ${h - (v / max) * (h - 4) - 2}`)
-    .join(' ')
-
-  return (
-    <svg viewBox={`0 0 ${w} ${h}`} className="mt-3 h-[28px] w-full" preserveAspectRatio="none">
-      <path d={path} fill="none" stroke={color} strokeWidth="1.5" strokeLinecap="round" className="chart-line" />
-    </svg>
-  )
-}
-
-// ─── 07 · ACCOUNTABILITY ───────────────────────────────────────────────────
+// ─── 06 · ACCOUNTABILITY ───────────────────────────────────────────────────
 function AccountabilitySection({ innerRef }: { innerRef: (el: HTMLElement | null) => void }) {
+  // En móvil mostramos los primeros 4 ítems; en desktop+ los 6
   const us = [
-    'Metas claras y medibles desde el día 1',
-    'Compromisos concretos desde el inicio',
-    'Cuando algo falla, hay acción inmediata',
-    'Solo métricas que realmente importan',
+    'Metas claras desde el día 1',
+    'Compromisos concretos al inicio',
+    'Cuando algo falla, hay acción',
+    'Solo métricas que importan',
     'Nosotros empujamos el seguimiento',
     'Trazabilidad completa del ROI',
   ]
   const them = [
     'Entregan tareas, no resultados',
-    'Los objetivos son vagos o cambian solos',
+    'Objetivos vagos o que cambian',
     'Cuando algo falla, hay justificación',
-    'Reportes con datos que nadie entiende',
+    'Reportes que nadie entiende',
     'La marca persigue el seguimiento',
-    'No saben cuánto vale cada peso invertido',
+    'No saben cuánto vale cada peso',
   ]
 
   return (
@@ -880,29 +875,31 @@ function AccountabilitySection({ innerRef }: { innerRef: (el: HTMLElement | null
       <div className="relative mx-auto flex h-full w-full max-w-6xl flex-col justify-center">
         <motion.div initial="hidden" whileInView="show" viewport={{ once: true }} variants={fade}>
           <span className="eyebrow-light">Accountability</span>
-          <h2 className="display mt-4 text-[32px] text-white sm:text-[52px]">
+          <h2 className="display mt-3 text-[28px] text-white sm:mt-4 sm:text-[52px]">
             Resultados concretos. <br />
             <span className="gradient-anim-bright">Responsabilidad total.</span>
           </h2>
         </motion.div>
 
-        <div className="mt-10 grid gap-5 lg:grid-cols-2">
+        <div className="mt-6 grid gap-3 sm:mt-10 sm:gap-5 lg:grid-cols-2">
           <motion.div
             custom={1}
             initial="hidden"
             whileInView="show"
             viewport={{ once: true }}
             variants={fade}
-            className="rounded-2xl border border-white/8 bg-white/[0.03] p-6"
+            className="rounded-2xl border border-white/8 bg-white/[0.03] p-4 sm:p-6"
           >
-            <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/40">
+            <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-white/40 sm:text-[10px]">
               Otra agencia
             </span>
-            <ul className="mt-5 space-y-3">
-              {them.map((t) => (
+            <ul className="mt-3 space-y-2 sm:mt-5 sm:space-y-3">
+              {them.map((t, i) => (
                 <li
                   key={t}
-                  className="flex items-start gap-3 text-[13px] text-white/45 line-through decoration-white/20"
+                  className={`items-start gap-2.5 text-[12px] text-white/45 line-through decoration-white/20 sm:gap-3 sm:text-[13px] ${
+                    i >= 4 ? 'hidden sm:flex' : 'flex'
+                  }`}
                 >
                   <span className="mt-1.5 h-1 w-1 flex-shrink-0 rounded-full bg-white/20" />
                   {t}
@@ -917,12 +914,19 @@ function AccountabilitySection({ innerRef }: { innerRef: (el: HTMLElement | null
             whileInView="show"
             viewport={{ once: true }}
             variants={fade}
-            className="rounded-2xl border border-white/15 bg-white p-6 text-ink-900"
+            className="rounded-2xl border border-white/15 bg-white p-4 text-ink-900 sm:p-6"
           >
-            <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink-400">Antuario</span>
-            <ul className="mt-5 space-y-3">
-              {us.map((t) => (
-                <li key={t} className="flex items-start gap-3 text-[13.5px] font-medium text-ink-800">
+            <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-ink-400 sm:text-[10px]">
+              Antuario
+            </span>
+            <ul className="mt-3 space-y-2 sm:mt-5 sm:space-y-3">
+              {us.map((t, i) => (
+                <li
+                  key={t}
+                  className={`items-start gap-2.5 text-[12px] font-medium text-ink-800 sm:gap-3 sm:text-[13.5px] ${
+                    i >= 4 ? 'hidden sm:flex' : 'flex'
+                  }`}
+                >
                   <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-ink-900" />
                   {t}
                 </li>
@@ -935,15 +939,40 @@ function AccountabilitySection({ innerRef }: { innerRef: (el: HTMLElement | null
   )
 }
 
-// ─── 08 · INTELIGENCIA ARTIFICIAL ──────────────────────────────────────────
+// ─── 07 · INTELIGENCIA ARTIFICIAL ──────────────────────────────────────────
 function AISection({ innerRef }: { innerRef: (el: HTMLElement | null) => void }) {
+  // En móvil mostramos un texto corto; en desktop el descriptivo completo
   const items = [
-    { title: 'Agentes de WhatsApp', text: 'Atienden, califican y dan seguimiento las 24 horas.' },
-    { title: 'Agentes de llamadas', text: 'Voz con IA para confirmar citas, calificar prospectos y FAQs.' },
-    { title: 'Automatización comercial', text: 'Seguimientos, clasificación de leads, asignación de tareas.' },
-    { title: 'IA en campañas', text: 'Optimización de puja, segmentación predictiva, creatividades.' },
-    { title: 'LLMs a la medida', text: 'Asistentes internos y sistemas autónomos.' },
-    { title: 'IA generativa', text: 'Imágenes, video, animaciones 3D, contenido a escala.' },
+    {
+      title: 'Agentes WhatsApp',
+      short: 'Atienden 24/7.',
+      text: 'Atienden, califican y dan seguimiento las 24 horas.',
+    },
+    {
+      title: 'Agentes de voz',
+      short: 'Llamadas con IA.',
+      text: 'Confirman citas, califican prospectos y responden FAQs.',
+    },
+    {
+      title: 'Automatización',
+      short: 'Procesos comerciales.',
+      text: 'Seguimientos, clasificación de leads, asignación de tareas.',
+    },
+    {
+      title: 'IA en campañas',
+      short: 'Puja y segmentación.',
+      text: 'Optimización de puja, segmentación predictiva, creatividades.',
+    },
+    {
+      title: 'LLMs a la medida',
+      short: 'Asistentes y sistemas.',
+      text: 'Asistentes internos y sistemas autónomos.',
+    },
+    {
+      title: 'IA generativa',
+      short: 'Imagen, video, 3D.',
+      text: 'Imágenes, video, animaciones 3D, contenido a escala.',
+    },
   ]
 
   return (
@@ -956,25 +985,30 @@ function AISection({ innerRef }: { innerRef: (el: HTMLElement | null) => void })
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-ink-900/40 via-transparent to-ink-900/70" />
 
       <div className="relative mx-auto flex h-full w-full max-w-6xl flex-col justify-center">
-        <motion.div initial="hidden" whileInView="show" viewport={{ once: true }} variants={fade} className="text-center sm:text-left">
-          <div className="flex items-center justify-center gap-3 sm:justify-start">
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          variants={fade}
+          className="text-center sm:text-left"
+        >
+          <div className="flex items-center justify-center gap-2.5 sm:justify-start sm:gap-3">
             <span className="relative inline-flex h-3 w-3 items-center justify-center">
               <span className="ai-orb absolute inset-0" />
               <span className="relative h-2 w-2 rounded-full bg-white" />
             </span>
             <span className="eyebrow-light">Inteligencia Artificial</span>
           </div>
-          <h2 className="display mt-4 text-balance text-[28px] text-white sm:text-[44px] lg:text-[52px]">
+          <h2 className="display mt-3 text-balance text-[26px] text-white sm:mt-4 sm:text-[42px] lg:text-[52px]">
             No hablamos de IA.{' '}
             <span className="gradient-anim-bright">La implementamos.</span>
           </h2>
-          <p className="mx-auto mt-5 max-w-2xl text-balance text-[13px] leading-relaxed text-white/65 sm:mx-0 sm:mt-6 sm:text-[14.5px]">
-            Mientras la mayoría apenas la conoce como tendencia, nosotros la operamos en proyectos reales —
-            integrada a la operación de las marcas.
+          <p className="mx-auto mt-3 max-w-2xl text-balance text-[12px] leading-relaxed text-white/65 sm:mx-0 sm:mt-6 sm:text-[14.5px]">
+            Mientras la mayoría apenas la conoce como tendencia, nosotros la operamos en proyectos reales.
           </p>
         </motion.div>
 
-        <div className="mt-9 grid gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 backdrop-blur-md sm:mt-10 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-5 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 backdrop-blur-md sm:mt-9 lg:grid-cols-3">
           {items.map((it, i) => (
             <motion.div
               key={it.title}
@@ -983,10 +1017,15 @@ function AISection({ innerRef }: { innerRef: (el: HTMLElement | null) => void })
               whileInView="show"
               viewport={{ once: true }}
               variants={fade}
-              className="group relative bg-ink-900/80 p-5 backdrop-blur-md transition-colors duration-300 hover:bg-ink-800/80 sm:p-6"
+              className="group relative bg-ink-900/80 p-3 backdrop-blur-md transition-colors duration-300 hover:bg-ink-800/80 sm:p-6"
             >
-              <h3 className="text-[14.5px] font-bold tracking-tight text-white sm:text-[15px]">{it.title}</h3>
-              <p className="mt-2 text-[12.5px] leading-relaxed text-white/60 sm:mt-2.5 sm:text-[13px]">{it.text}</p>
+              <h3 className="text-[12.5px] font-bold leading-tight tracking-tight text-white sm:text-[15px]">
+                {it.title}
+              </h3>
+              {/* Versión corta en móvil */}
+              <p className="mt-1 text-[10.5px] leading-snug text-white/60 sm:hidden">{it.short}</p>
+              {/* Texto completo en desktop+ */}
+              <p className="mt-2.5 hidden text-[13px] leading-relaxed text-white/60 sm:block">{it.text}</p>
             </motion.div>
           ))}
         </div>
@@ -995,13 +1034,13 @@ function AISection({ innerRef }: { innerRef: (el: HTMLElement | null) => void })
   )
 }
 
-// ─── 09 · CÓMO TRABAJAMOS ──────────────────────────────────────────────────
+// ─── 08 · CÓMO TRABAJAMOS ──────────────────────────────────────────────────
 function ProcessSection({ innerRef }: { innerRef: (el: HTMLElement | null) => void }) {
   const steps = [
-    { n: '01', title: 'Cuéntanos sobre el proyecto', text: 'Una idea o un proyecto definido. Escríbenos.' },
-    { n: '02', title: 'Te armamos una propuesta', text: '100% personalizada. Sin plantillas, sin paquetes estándar.' },
-    { n: '03', title: 'La revisamos juntos', text: 'Iteramos hasta que quede exactamente como se necesita.' },
-    { n: '04', title: 'Arrancamos', text: 'Plan claro, métricas definidas, equipo asignado, sistemas activos.' },
+    { n: '01', title: 'Cuéntanos', text: 'Una idea o proyecto definido. Escríbenos.' },
+    { n: '02', title: 'Armamos propuesta', text: '100% personalizada. Sin plantillas.' },
+    { n: '03', title: 'La revisamos juntos', text: 'Iteramos hasta que quede perfecta.' },
+    { n: '04', title: 'Arrancamos', text: 'Plan, métricas y equipo desde el día 1.' },
   ]
 
   return (
@@ -1009,13 +1048,13 @@ function ProcessSection({ innerRef }: { innerRef: (el: HTMLElement | null) => vo
       <div className="mx-auto flex h-full w-full max-w-6xl flex-col justify-center">
         <motion.div initial="hidden" whileInView="show" viewport={{ once: true }} variants={fade}>
           <span className="eyebrow">Cómo empezamos</span>
-          <h2 className="display mt-4 text-[32px] text-ink-900 sm:text-[48px]">
+          <h2 className="display mt-3 text-[28px] text-ink-900 sm:mt-4 sm:text-[44px]">
             Simple. Rápido. <br className="sm:hidden" />
             <span className="gradient-anim">Sin complicaciones.</span>
           </h2>
         </motion.div>
 
-        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-6 grid grid-cols-2 gap-3 sm:mt-10 sm:gap-5 lg:grid-cols-4">
           {steps.map((s, i) => (
             <motion.div
               key={s.n}
@@ -1024,11 +1063,17 @@ function ProcessSection({ innerRef }: { innerRef: (el: HTMLElement | null) => vo
               whileInView="show"
               viewport={{ once: true }}
               variants={fade}
-              className="card-min p-6"
+              className="card-min p-4 sm:p-6"
             >
-              <span className="font-mono text-[11px] tracking-widest text-ink-400">{s.n}</span>
-              <h3 className="mt-5 text-[16px] font-bold tracking-tight text-ink-900">{s.title}</h3>
-              <p className="mt-3 text-[13px] leading-relaxed text-ink-500">{s.text}</p>
+              <span className="font-mono text-[10px] tracking-widest text-ink-400 sm:text-[11px]">
+                {s.n}
+              </span>
+              <h3 className="mt-3 text-[13.5px] font-bold tracking-tight text-ink-900 sm:mt-5 sm:text-[16px]">
+                {s.title}
+              </h3>
+              <p className="mt-2 text-[11.5px] leading-relaxed text-ink-500 sm:mt-3 sm:text-[13px]">
+                {s.text}
+              </p>
             </motion.div>
           ))}
         </div>
@@ -1039,7 +1084,7 @@ function ProcessSection({ innerRef }: { innerRef: (el: HTMLElement | null) => vo
           whileInView="show"
           viewport={{ once: true }}
           variants={fade}
-          className="mt-8 text-[13px] text-ink-500"
+          className="mt-5 text-[12px] text-ink-500 sm:mt-8 sm:text-[13px]"
         >
           Sin filtros, sin formularios. Directo.
         </motion.p>
@@ -1048,13 +1093,13 @@ function ProcessSection({ innerRef }: { innerRef: (el: HTMLElement | null) => vo
   )
 }
 
-// ─── 10 · METODOLOGÍA ──────────────────────────────────────────────────────
+// ─── 09 · METODOLOGÍA ──────────────────────────────────────────────────────
 function MethodologySection({ innerRef }: { innerRef: (el: HTMLElement | null) => void }) {
   const items = [
     {
       tag: 'EOS / Traction',
       title: 'Estructura, no intuición.',
-      text: 'Objetivos trimestrales, reuniones eficientes, roles claros, seguimiento semanal.',
+      text: 'Objetivos trimestrales, roles claros, seguimiento semanal.',
     },
     {
       tag: 'Sistemas',
@@ -1064,7 +1109,7 @@ function MethodologySection({ innerRef }: { innerRef: (el: HTMLElement | null) =
     {
       tag: 'Accountability',
       title: 'Todo atado a un objetivo.',
-      text: 'No ejecutamos por ejecutar — todo se mide y todo es responsabilidad nuestra.',
+      text: 'No ejecutamos por ejecutar — todo se mide y es responsabilidad nuestra.',
     },
   ]
 
@@ -1073,13 +1118,13 @@ function MethodologySection({ innerRef }: { innerRef: (el: HTMLElement | null) =
       <div className="mx-auto flex h-full w-full max-w-6xl flex-col justify-center">
         <motion.div initial="hidden" whileInView="show" viewport={{ once: true }} variants={fade}>
           <span className="eyebrow">Metodología</span>
-          <h2 className="display mt-4 text-[32px] text-ink-900 sm:text-[48px]">
+          <h2 className="display mt-3 text-[28px] text-ink-900 sm:mt-4 sm:text-[48px]">
             Operamos con estructura, <br className="hidden sm:block" />
             <span className="gradient-anim">no con intuición.</span>
           </h2>
         </motion.div>
 
-        <div className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-line bg-line lg:grid-cols-3">
+        <div className="mt-6 grid gap-px overflow-hidden rounded-2xl border border-line bg-line sm:mt-12 lg:grid-cols-3">
           {items.map((it, i) => (
             <motion.div
               key={it.tag}
@@ -1088,11 +1133,17 @@ function MethodologySection({ innerRef }: { innerRef: (el: HTMLElement | null) =
               whileInView="show"
               viewport={{ once: true }}
               variants={fade}
-              className="bg-paper p-7"
+              className="bg-paper p-4 sm:p-7"
             >
-              <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink-400">{it.tag}</span>
-              <h3 className="mt-5 text-[20px] font-bold tracking-tight text-ink-900">{it.title}</h3>
-              <p className="mt-3 text-[13px] leading-relaxed text-ink-500">{it.text}</p>
+              <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-ink-400 sm:text-[10px]">
+                {it.tag}
+              </span>
+              <h3 className="mt-3 text-[15px] font-bold tracking-tight text-ink-900 sm:mt-5 sm:text-[20px]">
+                {it.title}
+              </h3>
+              <p className="mt-2 text-[11.5px] leading-relaxed text-ink-500 sm:mt-3 sm:text-[13px]">
+                {it.text}
+              </p>
             </motion.div>
           ))}
         </div>
@@ -1101,7 +1152,7 @@ function MethodologySection({ innerRef }: { innerRef: (el: HTMLElement | null) =
   )
 }
 
-// ─── 11 · CTA FINAL ────────────────────────────────────────────────────────
+// ─── 10 · CTA FINAL ────────────────────────────────────────────────────────
 function CTASection({ innerRef }: { innerRef: (el: HTMLElement | null) => void }) {
   return (
     <Section id="cta" dark innerRef={innerRef}>
@@ -1116,7 +1167,7 @@ function CTASection({ innerRef }: { innerRef: (el: HTMLElement | null) => void }
 
       <div className="relative z-[2] mx-auto flex h-full w-full max-w-3xl flex-col justify-center text-center">
         <motion.div initial="hidden" whileInView="show" viewport={{ once: true }} variants={fade}>
-          <AntuarioMark className="mx-auto h-12 w-auto" dark />
+          <AntuarioMark className="mx-auto h-9 w-auto sm:h-12" dark />
         </motion.div>
 
         <motion.h2
@@ -1125,7 +1176,7 @@ function CTASection({ innerRef }: { innerRef: (el: HTMLElement | null) => void }
           whileInView="show"
           viewport={{ once: true }}
           variants={fade}
-          className="display mt-10 text-[36px] text-white sm:text-[60px]"
+          className="display mt-6 text-[30px] text-white sm:mt-10 sm:text-[60px]"
         >
           ¿Hay un proyecto <br />
           <span className="gradient-anim-bright">sobre la mesa?</span>
@@ -1137,7 +1188,7 @@ function CTASection({ innerRef }: { innerRef: (el: HTMLElement | null) => void }
           whileInView="show"
           viewport={{ once: true }}
           variants={fade}
-          className="mx-auto mt-6 max-w-xl text-[15px] leading-relaxed text-white/55 sm:text-[17px]"
+          className="mx-auto mt-4 max-w-xl text-[13px] leading-relaxed text-white/55 sm:mt-6 sm:text-[17px]"
         >
           Platícanos sobre él — aunque sea solo una dirección general. Nosotros construimos la propuesta.
         </motion.p>
@@ -1148,13 +1199,13 @@ function CTASection({ innerRef }: { innerRef: (el: HTMLElement | null) => void }
           whileInView="show"
           viewport={{ once: true }}
           variants={fade}
-          className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row"
+          className="mt-6 flex flex-col items-center justify-center gap-3 sm:mt-10 sm:flex-row sm:gap-4"
         >
           <a
             href={siteConfig.whatsapp}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full bg-white px-7 py-4 text-[15px] font-semibold text-ink-900 transition-transform duration-300 hover:scale-[1.02]"
+            className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-[13.5px] font-semibold text-ink-900 transition-transform duration-300 hover:scale-[1.02] sm:px-7 sm:py-4 sm:text-[15px]"
           >
             <WhatsAppIcon className="h-4 w-4" />
             Cuéntanos tu proyecto
@@ -1164,7 +1215,7 @@ function CTASection({ innerRef }: { innerRef: (el: HTMLElement | null) => void }
             href={siteConfig.whatsapp}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-7 py-4 text-[15px] font-medium text-white transition-colors duration-300 hover:bg-white/10"
+            className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-6 py-3 text-[13px] font-medium text-white transition-colors duration-300 hover:bg-white/10 sm:px-7 sm:py-4 sm:text-[15px]"
           >
             Agendar videollamada
           </a>
@@ -1176,7 +1227,7 @@ function CTASection({ innerRef }: { innerRef: (el: HTMLElement | null) => void }
           whileInView="show"
           viewport={{ once: true }}
           variants={fade}
-          className="mt-6 text-[12px] text-white/40"
+          className="mt-4 text-[11px] text-white/40 sm:mt-6 sm:text-[12px]"
         >
           Sin costo · Sin compromiso
         </motion.p>
@@ -1187,7 +1238,7 @@ function CTASection({ innerRef }: { innerRef: (el: HTMLElement | null) => void }
           whileInView="show"
           viewport={{ once: true }}
           variants={fade}
-          className="mt-16 flex items-center justify-center gap-6 text-[11px] text-white/30"
+          className="mt-8 flex items-center justify-center gap-3 text-[10px] text-white/30 sm:mt-16 sm:gap-6 sm:text-[11px]"
         >
           <span>{siteConfig.email}</span>
           <span className="h-1 w-1 rounded-full bg-white/20" />

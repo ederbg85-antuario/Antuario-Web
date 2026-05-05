@@ -371,8 +371,16 @@
 
   @media (max-width: 640px) {
     .dot-rail {
-      right: 16px;
-      gap: 10px;
+      right: 10px;
+      gap: 8px;
+    }
+  }
+
+  /* En pantallas muy pequeñas el rail ocupa demasiado vertical y
+     compite con el contenido — se oculta para liberar la sección. */
+  @media (max-width: 380px) {
+    .dot-rail {
+      display: none;
     }
   }
 
@@ -531,12 +539,23 @@
   }
 
   /* ─── Section paddings consistentes ────────────────────────────────── */
-  /* Margen amplio en TODAS las orillas — nada pegado al borde, especialmente mobile */
+  /* Mobile-first: paddings ajustados para maximizar el área de contenido
+     dentro del viewport (cada sección = 100vh). Top deja espacio para el
+     brand bar; bottom apenas el necesario para que el contenido respire
+     sin que se sienta apretado contra el borde inferior. */
   .section-pad {
-    padding-left: clamp(28px, 6.5vw, 120px);
-    padding-right: clamp(28px, 6.5vw, 120px);
-    padding-top: clamp(80px, 9.5vh, 120px);
-    padding-bottom: clamp(64px, 7.5vh, 100px);
+    padding-left: clamp(20px, 5.5vw, 120px);
+    padding-right: clamp(20px, 5.5vw, 120px);
+    padding-top: clamp(64px, 8vh, 120px);
+    padding-bottom: clamp(40px, 5.5vh, 100px);
+  }
+
+  /* En tablet+ recuperamos el respiro lateral original */
+  @media (min-width: 768px) {
+    .section-pad {
+      padding-top: clamp(80px, 9vh, 120px);
+      padding-bottom: clamp(56px, 7vh, 100px);
+    }
   }
 
   /* En pantallas anchas, mantenemos el contenido contenido y centrado */
