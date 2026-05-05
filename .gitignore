@@ -43,3 +43,12 @@ next-env.d.ts
 Captura de pantalla*
 *.png
 !public/**/*.png
+# Iconos de Next.js (favicon, apple-touch) — convención app router
+!src/app/icon.png
+!src/app/apple-icon.png
+!src/app/favicon.ico
+
+# Material fuente (no commitear las imágenes pesadas originales)
+/Material Portafolio/
+*.jpeg
+!public/**/*.jpeg

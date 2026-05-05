@@ -70,12 +70,13 @@ const SECTIONS = [
   { id: 'hero', label: 'Inicio' },
   { id: 'agencia', label: 'La agencia' },
   { id: 'capacidades', label: 'Capacidades' },
-  { id: 'equipo', label: 'Equipo' },
   { id: 'datos', label: 'Datos' },
+  { id: 'casos', label: 'Casos' },
   { id: 'accountability', label: 'Accountability' },
   { id: 'ia', label: 'IA' },
   { id: 'proceso', label: 'Proceso' },
   { id: 'metodologia', label: 'Metodología' },
+  { id: 'cobertura', label: 'Cobertura' },
   { id: 'cta', label: 'Contacto' },
 ] as const
 
@@ -181,12 +182,13 @@ export default function HomePage() {
         <HeroSection innerRef={registerRef('hero')} onNext={() => goTo('agencia')} />
         <AgencySection innerRef={registerRef('agencia')} />
         <CapabilitiesSection innerRef={registerRef('capacidades')} />
-        <TeamSection innerRef={registerRef('equipo')} />
         <DataSection innerRef={registerRef('datos')} />
+        <CasesSection innerRef={registerRef('casos')} />
         <AccountabilitySection innerRef={registerRef('accountability')} />
         <AISection innerRef={registerRef('ia')} />
         <ProcessSection innerRef={registerRef('proceso')} />
         <MethodologySection innerRef={registerRef('metodologia')} />
+        <CoverageSection innerRef={registerRef('cobertura')} />
         <CTASection innerRef={registerRef('cta')} />
       </div>
     </>
@@ -236,7 +238,7 @@ function HeroSection({ innerRef, onNext }: { innerRef: (el: HTMLElement | null) 
           whileInView="show"
           viewport={{ once: true }}
           variants={fade}
-          className="display text-balance text-[28px] leading-[1.08] text-white sm:text-[52px] lg:text-[68px]"
+          className="display text-balance text-[34px] leading-[1.08] text-white sm:text-[52px] lg:text-[68px]"
         >
           Soluciones de{' '}
           <span className="gradient-anim-bright">Marketing Digital</span>{' '}
@@ -329,7 +331,7 @@ function AgencySection({ innerRef }: { innerRef: (el: HTMLElement | null) => voi
           whileInView="show"
           viewport={{ once: true }}
           variants={fade}
-          className="display mt-4 text-[32px] text-ink-900 sm:mt-6 sm:text-[56px] lg:text-[68px]"
+          className="display mt-4 text-[40px] text-ink-900 sm:mt-6 sm:text-[56px] lg:text-[68px]"
         >
           Más que <br className="sm:hidden" />
           <span className="gradient-anim">una agencia.</span>
@@ -429,7 +431,7 @@ function CapabilitiesSection({ innerRef }: { innerRef: (el: HTMLElement | null) 
           className="mb-5 sm:mb-10"
         >
           <span className="eyebrow">Capacidades</span>
-          <h2 className="display mt-3 text-[26px] text-ink-900 sm:mt-4 sm:text-[42px] lg:text-[52px]">
+          <h2 className="display mt-3 text-[32px] text-ink-900 sm:mt-4 sm:text-[44px] lg:text-[52px]">
             Lo que dominamos <br className="hidden sm:block" />
             <span className="gradient-anim">y ponemos a disposición.</span>
           </h2>
@@ -494,72 +496,7 @@ function CapabilitiesSection({ innerRef }: { innerRef: (el: HTMLElement | null) 
   )
 }
 
-// ─── 04 · EQUIPO ───────────────────────────────────────────────────────────
-function TeamSection({ innerRef }: { innerRef: (el: HTMLElement | null) => void }) {
-  const roles = [
-    'Estrategas digitales',
-    'Media buyers',
-    'SEO specialists',
-    'Diseñadores',
-    'Editores de video',
-    'Desarrolladores web',
-    'Ingenieros de software',
-    'Especialistas en IA',
-    'Analistas de datos',
-    'Consultores técnicos',
-  ]
-
-  return (
-    <Section id="equipo" innerRef={innerRef}>
-      <div className="mx-auto flex h-full w-full max-w-5xl flex-col justify-center">
-        <motion.div initial="hidden" whileInView="show" viewport={{ once: true }} variants={fade}>
-          <span className="eyebrow">Nuestro equipo</span>
-          <h2 className="display mt-3 text-[28px] text-ink-900 sm:mt-4 sm:text-[52px]">
-            Especialistas a disposición <br className="hidden sm:block" />
-            <span className="gradient-anim">de tu proyecto.</span>
-          </h2>
-        </motion.div>
-
-        <motion.div
-          custom={1}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
-          variants={fade}
-          className="mt-6 flex flex-wrap gap-1.5 sm:mt-10 sm:gap-2.5"
-        >
-          {roles.map((r, i) => (
-            <motion.span
-              key={r}
-              custom={i + 1}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true }}
-              variants={fade}
-              className="inline-flex items-center rounded-full border border-ink-900/10 bg-paper px-2.5 py-1 text-[11px] font-medium text-ink-700 sm:px-4 sm:py-2 sm:text-[13px]"
-            >
-              {r}
-            </motion.span>
-          ))}
-        </motion.div>
-
-        <motion.p
-          custom={2}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
-          variants={fade}
-          className="mt-6 max-w-xl text-[12.5px] leading-relaxed text-ink-500 sm:mt-10 sm:text-[14px]"
-        >
-          Equipo multidisciplinario bajo una misma dirección estratégica. El perfil correcto para cada
-          parte del proyecto, siempre disponible.
-        </motion.p>
-      </div>
-    </Section>
-  )
-}
-
-// ─── 05 · DATOS E INFORMACIÓN ──────────────────────────────────────────────
+// ─── 04 · DATOS E INFORMACIÓN ──────────────────────────────────────────────
 // Layout 5/7: copy + features a la izquierda · mockup del Antuario Dashboard a la derecha.
 // El mockup es una pieza visual fuerte que sustituye los 4 cards densos del diseño viejo.
 function DataSection({ innerRef }: { innerRef: (el: HTMLElement | null) => void }) {
@@ -583,7 +520,7 @@ function DataSection({ innerRef }: { innerRef: (el: HTMLElement | null) => void 
             className="lg:col-span-5"
           >
             <span className="eyebrow">Datos e información</span>
-            <h2 className="display mt-3 text-[26px] text-ink-900 sm:mt-4 sm:text-[40px] lg:text-[46px]">
+            <h2 className="display mt-3 text-[32px] text-ink-900 sm:mt-4 sm:text-[42px] lg:text-[48px]">
               Trackeo estratégico, <br className="hidden sm:block" />
               <span className="gradient-anim">no reportes genéricos.</span>
             </h2>
@@ -848,6 +785,133 @@ function LineChart({ variant = 'light' }: { variant?: 'light' | 'dark' }) {
   )
 }
 
+// ─── 05 · CASOS DE ÉXITO ───────────────────────────────────────────────────
+// Carrusel infinito auto-scroll con pausa por interacción (hover/touch),
+// fade en bordes y posibilidad de scroll manual del usuario.
+function CasesSection({ innerRef }: { innerRef: (el: HTMLElement | null) => void }) {
+  const cases = [
+    { src: '/portfolio/acriland.jpg', name: 'Acriland', tag: 'Diseño Web · SEO' },
+    { src: '/portfolio/aracnene.jpg', name: 'Aracnene', tag: 'Diseño Web · SEO' },
+    { src: '/portfolio/maggadan.jpg', name: 'Maggadan', tag: 'Marketing Digital' },
+    { src: '/portfolio/magia-travel.jpg', name: 'Magia Travel', tag: 'Diseño Web' },
+    { src: '/portfolio/metrica-btl.jpg', name: 'Métrica BTL', tag: 'Diseño Web · SEO' },
+    { src: '/portfolio/reserva27.jpg', name: 'Reserva 27', tag: 'Marketing Digital' },
+    { src: '/portfolio/somos-unno.jpg', name: 'Somos Unno', tag: 'Marketing Digital' },
+    { src: '/portfolio/acriland-web.jpg', name: 'Acriland Web', tag: 'Diseño Web · SEO' },
+  ]
+  // Duplicamos para loop visual continuo
+  const loop = [...cases, ...cases]
+
+  const trackRef = useRef<HTMLDivElement>(null)
+
+  // Auto-scroll suave; se pausa cuando el usuario interactúa (touch / mouse / wheel)
+  useEffect(() => {
+    const track = trackRef.current
+    if (!track) return
+    let raf = 0
+    let last = performance.now()
+    let pauseUntil = 0
+
+    const bumpPause = () => {
+      pauseUntil = performance.now() + 1800
+    }
+    track.addEventListener('pointerdown', bumpPause, { passive: true })
+    track.addEventListener('wheel', bumpPause, { passive: true })
+    track.addEventListener('touchmove', bumpPause, { passive: true })
+    track.addEventListener('mouseenter', bumpPause)
+
+    const tick = (now: number) => {
+      const dt = Math.min(now - last, 60)
+      last = now
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      if (!reduceMotion && now > pauseUntil) {
+        track.scrollLeft += 0.045 * dt // ~45 px/s
+        const half = track.scrollWidth / 2
+        if (track.scrollLeft >= half) {
+          track.scrollLeft -= half
+        }
+      }
+      raf = requestAnimationFrame(tick)
+    }
+    raf = requestAnimationFrame(tick)
+
+    return () => {
+      cancelAnimationFrame(raf)
+      track.removeEventListener('pointerdown', bumpPause)
+      track.removeEventListener('wheel', bumpPause)
+      track.removeEventListener('touchmove', bumpPause)
+      track.removeEventListener('mouseenter', bumpPause)
+    }
+  }, [])
+
+  return (
+    <Section id="casos" innerRef={innerRef}>
+      <div className="mx-auto flex h-full w-full max-w-7xl flex-col justify-center">
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          variants={fade}
+          className="text-center sm:text-left"
+        >
+          <span className="eyebrow">Casos de éxito</span>
+          <h2 className="display mt-3 text-[34px] text-ink-900 sm:mt-4 sm:text-[48px] lg:text-[56px]">
+            Nuestro trabajo <br className="sm:hidden" />
+            <span className="gradient-anim">habla por sí mismo.</span>
+          </h2>
+          <p className="mx-auto mt-3 max-w-xl text-balance text-[12.5px] leading-relaxed text-ink-500 sm:mx-0 sm:mt-5 sm:text-[14.5px]">
+            Marcas que confían en Antuario para su marketing digital, desarrollo web y
+            posicionamiento.
+          </p>
+        </motion.div>
+
+        {/* Carrusel — auto-scroll + drag manual + fade lateral */}
+        <motion.div
+          custom={1}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          variants={fade}
+          className="relative mt-6 sm:mt-9"
+        >
+          <div
+            ref={trackRef}
+            className="marquee-mask no-scrollbar overflow-x-auto"
+            style={{ WebkitOverflowScrolling: 'touch' }}
+          >
+            <div className="flex w-max gap-3 pb-1 sm:gap-5">
+              {loop.map((c, i) => (
+                <article
+                  key={`${c.name}-${i}`}
+                  className="group relative aspect-[4/5] w-[200px] flex-shrink-0 select-none overflow-hidden rounded-2xl bg-ink-100 sm:w-[260px] lg:w-[300px]"
+                  aria-label={c.name}
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={c.src}
+                    alt={`${c.name} · ${c.tag}`}
+                    draggable={false}
+                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 via-black/30 to-transparent p-3 sm:p-4">
+                    <span className="font-mono text-[9px] uppercase tracking-[0.18em] text-white/65 sm:text-[10px]">
+                      {c.tag}
+                    </span>
+                    <h3 className="mt-0.5 text-[14px] font-bold tracking-tight text-white sm:text-[17px]">
+                      {c.name}
+                    </h3>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    </Section>
+  )
+}
+
 // ─── 06 · ACCOUNTABILITY ───────────────────────────────────────────────────
 function AccountabilitySection({ innerRef }: { innerRef: (el: HTMLElement | null) => void }) {
   // En móvil mostramos los primeros 4 ítems; en desktop+ los 6
@@ -875,7 +939,7 @@ function AccountabilitySection({ innerRef }: { innerRef: (el: HTMLElement | null
       <div className="relative mx-auto flex h-full w-full max-w-6xl flex-col justify-center">
         <motion.div initial="hidden" whileInView="show" viewport={{ once: true }} variants={fade}>
           <span className="eyebrow-light">Accountability</span>
-          <h2 className="display mt-3 text-[28px] text-white sm:mt-4 sm:text-[52px]">
+          <h2 className="display mt-3 text-[34px] text-white sm:mt-4 sm:text-[52px]">
             Resultados concretos. <br />
             <span className="gradient-anim-bright">Responsabilidad total.</span>
           </h2>
@@ -999,7 +1063,7 @@ function AISection({ innerRef }: { innerRef: (el: HTMLElement | null) => void })
             </span>
             <span className="eyebrow-light">Inteligencia Artificial</span>
           </div>
-          <h2 className="display mt-3 text-balance text-[26px] text-white sm:mt-4 sm:text-[42px] lg:text-[52px]">
+          <h2 className="display mt-3 text-balance text-[32px] text-white sm:mt-4 sm:text-[44px] lg:text-[52px]">
             No hablamos de IA.{' '}
             <span className="gradient-anim-bright">La implementamos.</span>
           </h2>
@@ -1048,7 +1112,7 @@ function ProcessSection({ innerRef }: { innerRef: (el: HTMLElement | null) => vo
       <div className="mx-auto flex h-full w-full max-w-6xl flex-col justify-center">
         <motion.div initial="hidden" whileInView="show" viewport={{ once: true }} variants={fade}>
           <span className="eyebrow">Cómo empezamos</span>
-          <h2 className="display mt-3 text-[28px] text-ink-900 sm:mt-4 sm:text-[44px]">
+          <h2 className="display mt-3 text-[34px] text-ink-900 sm:mt-4 sm:text-[44px]">
             Simple. Rápido. <br className="sm:hidden" />
             <span className="gradient-anim">Sin complicaciones.</span>
           </h2>
@@ -1118,7 +1182,7 @@ function MethodologySection({ innerRef }: { innerRef: (el: HTMLElement | null) =
       <div className="mx-auto flex h-full w-full max-w-6xl flex-col justify-center">
         <motion.div initial="hidden" whileInView="show" viewport={{ once: true }} variants={fade}>
           <span className="eyebrow">Metodología</span>
-          <h2 className="display mt-3 text-[28px] text-ink-900 sm:mt-4 sm:text-[48px]">
+          <h2 className="display mt-3 text-[34px] text-ink-900 sm:mt-4 sm:text-[48px]">
             Operamos con estructura, <br className="hidden sm:block" />
             <span className="gradient-anim">no con intuición.</span>
           </h2>
@@ -1152,7 +1216,200 @@ function MethodologySection({ innerRef }: { innerRef: (el: HTMLElement | null) =
   )
 }
 
-// ─── 10 · CTA FINAL ────────────────────────────────────────────────────────
+// ─── 10 · COBERTURA / CDMX ─────────────────────────────────────────────────
+// Mapa estilizado de México con CDMX destacado y cobertura nacional.
+function CoverageSection({ innerRef }: { innerRef: (el: HTMLElement | null) => void }) {
+  return (
+    <Section id="cobertura" innerRef={innerRef}>
+      <div className="mx-auto flex h-full w-full max-w-6xl flex-col justify-center">
+        <div className="grid items-center gap-7 lg:grid-cols-12 lg:gap-12">
+          {/* Copy a la izquierda */}
+          <motion.div
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+            variants={fade}
+            className="lg:col-span-5"
+          >
+            <span className="eyebrow">Ubicación · Cobertura</span>
+            <h2 className="display mt-3 text-[34px] text-ink-900 sm:mt-4 sm:text-[44px] lg:text-[52px]">
+              Sede en CDMX, <br className="sm:hidden" />
+              <span className="gradient-anim">cobertura nacional.</span>
+            </h2>
+            <p className="mt-3 max-w-md text-[12.5px] leading-relaxed text-ink-500 sm:mt-5 sm:text-[14.5px]">
+              Trabajamos con marcas en todo México. Desde nuestra base en la Ciudad de México operamos
+              proyectos en cualquier estado del país, de forma remota o presencial cuando se requiera.
+            </p>
+
+            <div className="mt-5 grid grid-cols-3 gap-2.5 sm:mt-7 sm:gap-3">
+              {[
+                { label: 'Sede', value: 'CDMX' },
+                { label: 'Cobertura', value: 'Nacional' },
+                { label: 'Modalidad', value: 'Remoto + presencial' },
+              ].map((s) => (
+                <div
+                  key={s.label}
+                  className="rounded-xl border border-line bg-paper p-3 sm:p-4"
+                >
+                  <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-ink-400 sm:text-[10px]">
+                    {s.label}
+                  </span>
+                  <p className="mt-1 text-[12.5px] font-bold leading-tight tracking-tight text-ink-900 sm:text-[14px]">
+                    {s.value}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Mapa a la derecha */}
+          <motion.div
+            custom={1}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+            variants={fade}
+            className="lg:col-span-7"
+          >
+            <MexicoMap />
+          </motion.div>
+        </div>
+      </div>
+    </Section>
+  )
+}
+
+// ─── Mapa estilizado de México ─────────────────────────────────────────────
+// Silueta simplificada + CDMX con pulse + ciudades secundarias en muted.
+function MexicoMap() {
+  // Coordenadas en viewBox 1000x600 (basadas en lng/lat aproximados):
+  //   x = (lng + 118.4) / 31.7 * 1000   ·   y = (32.7 - lat) / 18.2 * 600
+  type City = { name: string; x: number; y: number; primary?: boolean }
+  const cities: City[] = [
+    { name: 'Tijuana', x: 50, y: 20 },
+    { name: 'Monterrey', x: 575, y: 235 },
+    { name: 'Guadalajara', x: 500, y: 400 },
+    { name: 'CDMX', x: 612, y: 442, primary: true },
+    { name: 'Mérida', x: 905, y: 390 },
+    { name: 'Cancún', x: 985, y: 380 },
+  ]
+
+  const cdmx = cities.find((c) => c.primary)!
+
+  return (
+    <div className="relative">
+      {/* Glow detrás */}
+      <div
+        className="pointer-events-none absolute -inset-4 -z-10 rounded-[2rem] bg-gradient-to-br from-indigo-500/8 via-fuchsia-500/6 to-emerald-500/8 blur-3xl sm:-inset-8"
+        aria-hidden
+      />
+
+      <svg
+        viewBox="0 0 1000 600"
+        className="h-auto w-full"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-label="Mapa de México con cobertura nacional"
+      >
+        <defs>
+          {/* Patrón de puntos para efecto data-viz dentro del país */}
+          <pattern id="dot-grid" width="22" height="22" patternUnits="userSpaceOnUse">
+            <circle cx="2" cy="2" r="1" fill="rgba(10,10,10,0.16)" />
+          </pattern>
+          <clipPath id="mx-clip">
+            {/* Mainland */}
+            <path d="M 90 5 L 380 32 L 600 175 L 660 228 L 645 348 L 705 448 L 760 482 L 815 470 L 880 426 L 880 372 L 990 380 L 1000 402 L 950 470 L 835 502 L 825 588 L 730 548 L 580 522 L 510 490 L 445 452 L 415 402 L 380 318 L 295 228 L 235 158 L 155 48 L 130 26 Z" />
+            {/* Baja California */}
+            <path d="M 45 8 L 65 30 L 115 168 L 200 268 L 270 322 L 255 282 L 230 212 L 200 142 L 145 46 L 90 8 Z" />
+          </clipPath>
+        </defs>
+
+        {/* Patrón de puntos clipeado a México */}
+        <rect width="1000" height="600" fill="url(#dot-grid)" clipPath="url(#mx-clip)" />
+
+        {/* Borde sutil del país */}
+        <g
+          fill="none"
+          stroke="rgba(10,10,10,0.22)"
+          strokeWidth="1.4"
+          strokeLinejoin="round"
+          strokeLinecap="round"
+        >
+          <path d="M 90 5 L 380 32 L 600 175 L 660 228 L 645 348 L 705 448 L 760 482 L 815 470 L 880 426 L 880 372 L 990 380 L 1000 402 L 950 470 L 835 502 L 825 588 L 730 548 L 580 522 L 510 490 L 445 452 L 415 402 L 380 318 L 295 228 L 235 158 L 155 48 L 130 26 Z" />
+          <path d="M 45 8 L 65 30 L 115 168 L 200 268 L 270 322 L 255 282 L 230 212 L 200 142 L 145 46 L 90 8 Z" />
+        </g>
+
+        {/* Líneas finísimas de CDMX → otras ciudades (cobertura) */}
+        <g stroke="rgba(99,102,241,0.32)" strokeWidth="1" strokeLinecap="round" strokeDasharray="2 4">
+          {cities
+            .filter((c) => !c.primary)
+            .map((c) => (
+              <line key={c.name} x1={cdmx.x} y1={cdmx.y} x2={c.x} y2={c.y} />
+            ))}
+        </g>
+
+        {/* Ciudades secundarias */}
+        <g>
+          {cities
+            .filter((c) => !c.primary)
+            .map((c) => (
+              <g key={c.name}>
+                <circle cx={c.x} cy={c.y} r="3.5" fill="rgba(10,10,10,0.45)" />
+                <text
+                  x={c.x}
+                  y={c.y - 10}
+                  textAnchor="middle"
+                  fontSize="13"
+                  fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace"
+                  fill="rgba(10,10,10,0.55)"
+                  letterSpacing="0.5"
+                >
+                  {c.name}
+                </text>
+              </g>
+            ))}
+        </g>
+
+        {/* CDMX — destacado con pulse */}
+        <g>
+          {/* Pulse rings (animados via CSS) */}
+          <circle cx={cdmx.x} cy={cdmx.y} r="14" fill="none" stroke="#6366f1" strokeWidth="2" className="mx-pulse" />
+          <circle cx={cdmx.x} cy={cdmx.y} r="14" fill="none" stroke="#6366f1" strokeWidth="2" className="mx-pulse delay-1" />
+          <circle cx={cdmx.x} cy={cdmx.y} r="14" fill="none" stroke="#6366f1" strokeWidth="2" className="mx-pulse delay-2" />
+          {/* Halo estático */}
+          <circle cx={cdmx.x} cy={cdmx.y} r="11" fill="rgba(99,102,241,0.18)" />
+          {/* Dot sólido */}
+          <circle cx={cdmx.x} cy={cdmx.y} r="6.5" fill="#6366f1" />
+          <circle cx={cdmx.x} cy={cdmx.y} r="2.5" fill="#ffffff" />
+          {/* Etiqueta */}
+          <g>
+            <rect
+              x={cdmx.x - 36}
+              y={cdmx.y + 14}
+              width="72"
+              height="22"
+              rx="11"
+              fill="#0a0a0a"
+            />
+            <text
+              x={cdmx.x}
+              y={cdmx.y + 29}
+              textAnchor="middle"
+              fontSize="12"
+              fontWeight="600"
+              fontFamily="Geist, -apple-system, sans-serif"
+              fill="#ffffff"
+              letterSpacing="0.3"
+            >
+              CDMX · Sede
+            </text>
+          </g>
+        </g>
+      </svg>
+    </div>
+  )
+}
+
+// ─── 11 · CTA FINAL ────────────────────────────────────────────────────────
 function CTASection({ innerRef }: { innerRef: (el: HTMLElement | null) => void }) {
   return (
     <Section id="cta" dark innerRef={innerRef}>
@@ -1176,7 +1433,7 @@ function CTASection({ innerRef }: { innerRef: (el: HTMLElement | null) => void }
           whileInView="show"
           viewport={{ once: true }}
           variants={fade}
-          className="display mt-6 text-[30px] text-white sm:mt-10 sm:text-[60px]"
+          className="display mt-6 text-[38px] text-white sm:mt-10 sm:text-[60px]"
         >
           ¿Hay un proyecto <br />
           <span className="gradient-anim-bright">sobre la mesa?</span>

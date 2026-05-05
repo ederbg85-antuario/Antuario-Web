@@ -539,22 +539,22 @@
   }
 
   /* ─── Section paddings consistentes ────────────────────────────────── */
-  /* Mobile-first: paddings ajustados para maximizar el área de contenido
-     dentro del viewport (cada sección = 100vh). Top deja espacio para el
-     brand bar; bottom apenas el necesario para que el contenido respire
-     sin que se sienta apretado contra el borde inferior. */
+  /* Top padding incluye un "safe area" para el brand bar (logo + CTA fijos
+     en pt-6 sm:pt-7 con altura de logo h-9 sm:h-11). Esto previene que el
+     eyebrow del contenido se cruce con el logo en secciones donde el
+     contenido se centra verticalmente y rebasa el viewport. */
   .section-pad {
     padding-left: clamp(20px, 5.5vw, 120px);
     padding-right: clamp(20px, 5.5vw, 120px);
-    padding-top: clamp(64px, 8vh, 120px);
-    padding-bottom: clamp(40px, 5.5vh, 100px);
+    padding-top: clamp(84px, 10.5vh, 130px);
+    padding-bottom: clamp(56px, 7vh, 100px);
   }
 
   /* En tablet+ recuperamos el respiro lateral original */
   @media (min-width: 768px) {
     .section-pad {
-      padding-top: clamp(80px, 9vh, 120px);
-      padding-bottom: clamp(56px, 7vh, 100px);
+      padding-top: clamp(96px, 11vh, 140px);
+      padding-bottom: clamp(64px, 7.5vh, 110px);
     }
   }
 
@@ -564,6 +564,39 @@
       padding-left: clamp(56px, 7vw, 140px);
       padding-right: clamp(56px, 7vw, 140px);
     }
+  }
+
+  /* ─── Marquee carousel (Casos de éxito) ────────────────────────────── */
+  .marquee-mask {
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      black 6%,
+      black 94%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      black 6%,
+      black 94%,
+      transparent 100%
+    );
+  }
+
+  /* ─── Mexico map — pulsing rings sobre CDMX ────────────────────────── */
+  .mx-pulse {
+    transform-origin: center;
+    transform-box: fill-box;
+    animation: mx-pulse-anim 3.2s ease-out infinite;
+  }
+  .mx-pulse.delay-1 { animation-delay: 1.05s; }
+  .mx-pulse.delay-2 { animation-delay: 2.10s; }
+
+  @keyframes mx-pulse-anim {
+    0%   { transform: scale(0.4); opacity: 0.7; }
+    80%  { transform: scale(2.6); opacity: 0; }
+    100% { transform: scale(2.6); opacity: 0; }
   }
 
   /* ─── Animated chart utilities ─────────────────────────────────────── */
