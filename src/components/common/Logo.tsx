@@ -12,7 +12,7 @@ interface LogoProps {
  * variant="light" → white fill (for dark backgrounds)
  */
 export default function Logo({ variant = 'dark', className, height = 28 }: LogoProps) {
-  const fill = variant === 'dark' ? '#0B1121' : '#FFFFFF'
+  const fill = variant === 'dark' ? '#141414' : '#FFFFFF'
   const aspectRatio = 8906.24 / 1614.58 // ≈ 5.52
 
   return (

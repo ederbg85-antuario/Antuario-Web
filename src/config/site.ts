@@ -1,8 +1,8 @@
 export const siteConfig = {
   name: 'Antuario',
-  tagline: 'Plataforma de Inteligencia Comercial',
+  tagline: 'Agencia de Generación de Demanda Digital',
   description:
-    'Plataforma de Inteligencia Comercial para empresas de servicios B2B en México. Dashboard propio, Agentes de IA y Agencia Digital integrados en un solo ecosistema.',
+    'Construimos y operamos tu sistema completo de captación digital: web, SEO, Google Ads, Dashboard y optimización continua. Para empresas de servicios B2B en México.',
   url: process.env.NEXT_PUBLIC_SITE_URL ?? 'https://antuario.mx',
   email: 'hola@antuario.mx',
   phone: '',
@@ -13,10 +13,20 @@ export const siteConfig = {
     linkedin: 'https://linkedin.com/company/antuario',
     instagram: 'https://instagram.com/antuario.mx',
   },
+  // Main navigation (header)
   nav: [
     { label: 'Inicio', href: '/' },
+    { label: 'Cómo Trabajamos', href: '/como-trabajamos' },
+    { label: 'Resultados', href: '/resultados' },
+    { label: 'Diagnóstico Gratuito', href: '/diagnostico' },
+  ],
+  // Footer navigation (all pages)
+  footerNav: [
+    { label: 'Inicio', href: '/' },
+    { label: 'Cómo Trabajamos', href: '/como-trabajamos' },
     { label: 'Dashboard', href: '/dashboard' },
     { label: 'Agente IA', href: '/agente-ia' },
-    { label: 'Agencia', href: '/agencia' },
+    { label: 'Resultados', href: '/resultados' },
+    { label: 'Diagnóstico Gratuito', href: '/diagnostico' },
   ],
 } as const

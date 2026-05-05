@@ -66,7 +66,7 @@ export default function MeshGradientBg({
   }
 
   const blobs = palettes[variant]
-  const baseColor = (isLight || isLSD) ? '#f1f5f9' : '#0f172a'
+  const baseColor = (isLight || isLSD) ? '#f1f5f9' : '#0f0f0f'
 
   const getAnimation = (i: number) => {
     if (isLSD)   return `lsdBlob${i % 4} ${7 + i * 0.8}s ease-in-out infinite`

@@ -1,14 +1,14 @@
 'use client'
 
 import { siteConfig } from '@/config/site'
-import { Linkedin, Instagram, Mail, ArrowUpRight } from 'lucide-react'
+import { Linkedin, Instagram, Mail, ArrowUpRight, MessageCircle } from 'lucide-react'
 import Logo from '@/components/common/Logo'
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="relative overflow-hidden bg-[#0f172a]">
+    <footer className="relative overflow-hidden bg-[#0f0f0f]">
       {/* Subtle mesh gradient blobs — very muted */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div
@@ -67,7 +67,7 @@ export default function Footer() {
           <div className="md:col-span-5">
             <Logo variant="light" height={22} />
             <p className="mt-4 max-w-sm text-[13px] leading-relaxed text-slate-400/60">
-              {siteConfig.tagline}. Combinamos IA, marketing y tecnología propia para impulsar el crecimiento de empresas de servicios B2B en México.
+              {siteConfig.tagline}. Construimos y operamos tu sistema completo de captación digital para empresas de servicios B2B en México.
             </p>
             {/* Social icons */}
             <div className="mt-6 flex gap-2">
@@ -96,7 +96,7 @@ export default function Footer() {
               Navegación
             </p>
             <nav className="flex flex-col gap-2.5">
-              {siteConfig.nav.map((item) => (
+              {siteConfig.footerNav.map((item) => (
                 <a
                   key={item.href}
                   href={item.href}
@@ -115,6 +115,15 @@ export default function Footer() {
               Contacto
             </p>
             <div className="flex flex-col gap-2.5">
+              <a
+                href={siteConfig.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center gap-1.5 text-[13px] text-slate-400/60 transition-colors duration-200 hover:text-emerald-400"
+              >
+                <MessageCircle className="h-3.5 w-3.5" />
+                Escríbenos por WhatsApp
+              </a>
               <a
                 href={`mailto:${siteConfig.email}`}
                 className="text-[13px] text-slate-400/60 transition-colors duration-200 hover:text-emerald-400"

@@ -30,7 +30,7 @@ const features = [
 
 export default function PlatformSection() {
   return (
-    <section id="plataforma" className="relative overflow-hidden bg-[#0f172a] px-4 py-24 sm:px-6 md:py-32 lg:px-8">
+    <section id="plataforma" className="relative overflow-hidden bg-[#0f0f0f] px-4 py-24 sm:px-6 md:py-32 lg:px-8">
       <MeshGradientBg variant="cool" />
 
       <div className="relative mx-auto max-w-6xl">
@@ -67,7 +67,7 @@ export default function PlatformSection() {
           <div className="relative mx-auto max-w-5xl rounded-[32px] border border-white/[0.12] bg-gradient-to-b from-white/[0.07] to-white/[0.02] p-[3px] shadow-[0_24px_100px_rgba(0,0,0,0.55),0_0_0_1px_rgba(255,255,255,0.06),inset_0_1px_0_rgba(255,255,255,0.08)]">
             <div className="overflow-hidden rounded-[30px]">
               {/* Browser chrome */}
-              <div className="flex items-center gap-2 border-b border-white/[0.05] bg-[#1e293b] px-5 py-3">
+              <div className="flex items-center gap-2 border-b border-white/[0.05] bg-[#1a1a1a] px-5 py-3">
                 <div className="flex gap-2">
                   <div className="h-3 w-3 rounded-full bg-[#FF5F57]" />
                   <div className="h-3 w-3 rounded-full bg-[#FEBC2E]" />
@@ -95,7 +95,7 @@ export default function PlatformSection() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.6, duration: 0.5 }}
-            className="absolute -left-4 bottom-16 hidden rounded-2xl border border-white/[0.08] bg-[#1e293b]/95 px-4 py-3 shadow-elevated backdrop-blur-md xl:block"
+            className="absolute -left-4 bottom-16 hidden rounded-2xl border border-white/[0.08] bg-[#1a1a1a]/95 px-4 py-3 shadow-elevated backdrop-blur-md xl:block"
           >
             <p className="text-[9px] font-medium uppercase tracking-wider text-white/30">ROAS</p>
             <p className="text-2xl font-bold text-emerald-500">13.2x</p>
@@ -106,7 +106,7 @@ export default function PlatformSection() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.8, duration: 0.5 }}
-            className="absolute -right-4 top-16 hidden rounded-2xl border border-white/[0.08] bg-[#1e293b]/95 px-4 py-3 shadow-elevated backdrop-blur-md xl:block"
+            className="absolute -right-4 top-16 hidden rounded-2xl border border-white/[0.08] bg-[#1a1a1a]/95 px-4 py-3 shadow-elevated backdrop-blur-md xl:block"
           >
             <div className="flex items-center gap-2">
               <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-500" />

@@ -48,7 +48,7 @@ const steps = [
         <div className="pointer-events-none absolute -inset-6 rounded-[44px] bg-gradient-to-br from-violet-500/20 via-cyan-500/10 to-emerald-500/10 blur-3xl" style={{ zIndex: -1 }} />
         <div className="overflow-hidden rounded-3xl border border-white/[0.12] bg-gradient-to-b from-white/[0.07] to-white/[0.02] p-[2px] shadow-[0_16px_60px_rgba(0,0,0,0.45),inset_0_1px_0_rgba(255,255,255,0.08)]">
           <div className="overflow-hidden rounded-[23px]">
-            <div className="flex items-center gap-1.5 border-b border-white/[0.05] bg-[#0f172a] px-3 py-2">
+            <div className="flex items-center gap-1.5 border-b border-white/[0.05] bg-[#0f0f0f] px-3 py-2">
               <div className="flex gap-1">
                 <div className="h-2 w-2 rounded-full bg-[#FF5F57]" />
                 <div className="h-2 w-2 rounded-full bg-[#FEBC2E]" />
@@ -196,7 +196,7 @@ const steps = [
         <div className="pointer-events-none absolute -inset-6 rounded-[44px] bg-gradient-to-br from-amber-500/15 via-amber-400/8 to-emerald-500/10 blur-3xl" style={{ zIndex: -1 }} />
         <div className="overflow-hidden rounded-3xl border border-white/[0.12] bg-gradient-to-b from-white/[0.07] to-white/[0.02] p-[2px] shadow-[0_16px_60px_rgba(0,0,0,0.45),inset_0_1px_0_rgba(255,255,255,0.08)]">
           <div className="overflow-hidden rounded-[23px]">
-            <div className="flex items-center gap-1.5 border-b border-white/[0.05] bg-[#0f172a] px-3 py-2">
+            <div className="flex items-center gap-1.5 border-b border-white/[0.05] bg-[#0f0f0f] px-3 py-2">
               <div className="flex gap-1">
                 <div className="h-2 w-2 rounded-full bg-[#FF5F57]" />
                 <div className="h-2 w-2 rounded-full bg-[#FEBC2E]" />

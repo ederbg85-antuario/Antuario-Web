@@ -56,7 +56,7 @@ export default function DifferentiatorBanner() {
                   animate={{ rotate: 360 }}
                   transition={{ duration: 5, repeat: Infinity, ease: 'linear' }}
                 />
-                <div className="absolute inset-[1.5px] rounded-2xl bg-[#0f172a]" />
+                <div className="absolute inset-[1.5px] rounded-2xl bg-[#0f0f0f]" />
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src="/logos/isotipo.svg"
