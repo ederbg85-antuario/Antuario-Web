@@ -6,12 +6,13 @@ import { ArrowRight, ArrowDown } from 'lucide-react'
 import { siteConfig } from '@/config/site'
 
 // ─── Logo Antuario (isotipo) ───────────────────────────────────────────────
-function AntuarioMark({ className = '', dark = false }: { className?: string; dark?: boolean }) {
+function AntuarioMark({ className = '', dark = false, style }: { className?: string; dark?: boolean; style?: React.CSSProperties }) {
   const fill = dark ? '#fafafa' : '#0a0a0a'
   return (
     <svg
       viewBox="0 0 1200 787.5"
       className={className}
+      style={style}
       xmlns="http://www.w3.org/2000/svg"
       aria-label="Antuario"
     >
@@ -21,6 +22,23 @@ function AntuarioMark({ className = '', dark = false }: { className?: string; da
       />
       <circle cx="243" cy="124" r="96" fill={fill} />
     </svg>
+  )
+}
+
+// ─── Logo Antuario (logotipo completo) ─────────────────────────────────────
+function AntuarioLogotype({ className = '', dark = false, style }: { className?: string; dark?: boolean; style?: React.CSSProperties }) {
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src="/logos/logotype.svg"
+      alt="Antuario"
+      className={className}
+      style={{
+        ...style,
+        filter: dark ? 'invert(1) brightness(2)' : 'none',
+      }}
+      draggable={false}
+    />
   )
 }
 
@@ -74,8 +92,6 @@ const SECTIONS = [
   { id: 'casos', label: 'Casos' },
   { id: 'accountability', label: 'Accountability' },
   { id: 'ia', label: 'IA' },
-  { id: 'proceso', label: 'Proceso' },
-  { id: 'metodologia', label: 'Metodología' },
   { id: 'cobertura', label: 'Cobertura' },
   { id: 'cta', label: 'Contacto' },
 ] as const
@@ -119,29 +135,63 @@ export default function HomePage() {
 
   return (
     <>
-      {/* Top brand bar — only logo */}
-      <div className="pointer-events-none fixed left-0 right-0 top-0 z-50 flex items-center justify-between px-7 pt-6 sm:px-10 sm:pt-7">
-        <button
-          onClick={() => goTo('hero')}
-          className="pointer-events-auto flex items-center"
-          aria-label="Antuario · Ir al inicio"
-        >
-          <AntuarioMark className="h-9 w-auto transition-opacity duration-500 sm:h-11" dark={isDark} />
-        </button>
+      {/* Top brand bar — logotype on hero/cta, isotipo on others */}
+      {(() => {
+        const showLogotype = active === 'hero' || active === 'cta'
+        return (
+          <div className="pointer-events-none fixed left-0 right-0 top-0 z-50 flex items-center justify-between px-7 pt-6 sm:px-10 sm:pt-7">
+            <button
+              onClick={() => goTo('hero')}
+              className="pointer-events-auto relative flex items-center overflow-visible"
+              style={{
+                width: showLogotype ? 200 : 46,
+                height: 36,
+                transition: 'width 0.7s cubic-bezier(.4,0,.2,1)',
+              }}
+              aria-label="Antuario · Ir al inicio"
+            >
+              {/* Logotype — visible on hero & cta */}
+              <AntuarioLogotype
+                className="absolute left-0 top-0"
+                dark={isDark}
+                style={{
+                  height: 36,
+                  width: 'auto',
+                  opacity: showLogotype ? 1 : 0,
+                  transform: showLogotype ? 'scale(1)' : 'scale(0.9)',
+                  transition: 'opacity 0.7s ease, transform 0.7s ease',
+                  pointerEvents: showLogotype ? 'auto' : 'none',
+                }}
+              />
+              {/* Isotipo — visible on all other slides */}
+              <AntuarioMark
+                className="absolute left-0 top-0"
+                dark={isDark}
+                style={{
+                  height: 36,
+                  width: 'auto',
+                  opacity: showLogotype ? 0 : 1,
+                  transform: showLogotype ? 'scale(1.1)' : 'scale(1)',
+                  transition: 'opacity 0.7s ease, transform 0.7s ease',
+                  pointerEvents: showLogotype ? 'none' : 'auto',
+                }}
+              />
+            </button>
 
-        <a
-          href={siteConfig.whatsapp}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={`pointer-events-auto hidden rounded-full border px-4 py-2 text-[12px] font-medium transition-all duration-500 sm:inline-flex ${
-            isDark
-              ? 'border-white/15 bg-white/5 text-white/85 hover:bg-white/10'
-              : 'border-ink-900/10 bg-white text-ink-800 hover:border-ink-900/25'
-          }`}
-        >
-          Cuéntanos tu proyecto →
-        </a>
-      </div>
+            <a
+              href={siteConfig.whatsapp}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`pointer-events-auto hidden rounded-full border px-4 py-2 text-[12px] font-medium transition-all duration-500 sm:inline-flex ${isDark
+                ? 'border-white/15 bg-white/5 text-white/85 hover:bg-white/10'
+                : 'border-ink-900/10 bg-white text-ink-800 hover:border-ink-900/25'
+                }`}
+            >
+              Cuéntanos tu proyecto →
+            </a>
+          </div>
+        )
+      })()}
 
       {/* Progress dot rail */}
       <nav aria-label="Progreso" className="dot-rail">
@@ -155,20 +205,18 @@ export default function HomePage() {
               className="group relative flex items-center"
             >
               <span
-                className={`block rounded-full transition-all duration-500 ${
-                  activeNow
-                    ? isDark
-                      ? 'h-6 w-1.5 bg-white'
-                      : 'h-6 w-1.5 bg-ink-900'
-                    : isDark
-                      ? 'h-1.5 w-1.5 bg-white/30 group-hover:bg-white/60'
-                      : 'h-1.5 w-1.5 bg-ink-300 group-hover:bg-ink-500'
-                }`}
+                className={`block rounded-full transition-all duration-500 ${activeNow
+                  ? isDark
+                    ? 'h-6 w-1.5 bg-white'
+                    : 'h-6 w-1.5 bg-ink-900'
+                  : isDark
+                    ? 'h-1.5 w-1.5 bg-white/30 group-hover:bg-white/60'
+                    : 'h-1.5 w-1.5 bg-ink-300 group-hover:bg-ink-500'
+                  }`}
               />
               <span
-                className={`pointer-events-none absolute right-6 whitespace-nowrap rounded-full px-2.5 py-1 text-[10px] font-medium opacity-0 transition-opacity duration-300 group-hover:opacity-100 ${
-                  isDark ? 'bg-white/10 text-white' : 'bg-ink-900 text-white'
-                }`}
+                className={`pointer-events-none absolute right-6 whitespace-nowrap rounded-full px-2.5 py-1 text-[10px] font-medium opacity-0 transition-opacity duration-300 group-hover:opacity-100 ${isDark ? 'bg-white/10 text-white' : 'bg-ink-900 text-white'
+                  }`}
               >
                 {String(i + 1).padStart(2, '0')} · {s.label}
               </span>
@@ -186,8 +234,6 @@ export default function HomePage() {
         <CasesSection innerRef={registerRef('casos')} />
         <AccountabilitySection innerRef={registerRef('accountability')} />
         <AISection innerRef={registerRef('ia')} />
-        <ProcessSection innerRef={registerRef('proceso')} />
-        <MethodologySection innerRef={registerRef('metodologia')} />
         <CoverageSection innerRef={registerRef('cobertura')} />
         <CTASection innerRef={registerRef('cta')} />
       </div>
@@ -314,52 +360,78 @@ function HeroSection({ innerRef, onNext }: { innerRef: (el: HTMLElement | null) 
 function AgencySection({ innerRef }: { innerRef: (el: HTMLElement | null) => void }) {
   return (
     <Section id="agencia" innerRef={innerRef}>
-      <div className="mx-auto flex h-full max-w-5xl flex-col justify-center">
-        <motion.span
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
-          variants={fade}
-          className="eyebrow"
-        >
-          Quiénes somos
-        </motion.span>
+      <div className="mx-auto flex h-full w-full max-w-6xl flex-col justify-center">
+        <div className="grid items-center gap-8 lg:grid-cols-12 lg:gap-12">
+          {/* Copy left */}
+          <div className="lg:col-span-7">
+            <motion.span
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+              variants={fade}
+              className="eyebrow"
+            >
+              Quiénes somos
+            </motion.span>
 
-        <motion.h2
-          custom={1}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
-          variants={fade}
-          className="display mt-4 text-[40px] text-ink-900 sm:mt-6 sm:text-[56px] lg:text-[68px]"
-        >
-          Más que <br className="sm:hidden" />
-          <span className="gradient-anim">una agencia.</span>
-        </motion.h2>
+            <motion.h2
+              custom={1}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+              variants={fade}
+              className="display mt-4 text-[36px] text-ink-900 sm:mt-6 sm:text-[52px] lg:text-[64px]"
+            >
+              Más que <br className="sm:hidden" />
+              <span className="gradient-anim">una agencia.</span>
+            </motion.h2>
 
-        <motion.p
-          custom={2}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
-          variants={fade}
-          className="mt-6 max-w-3xl text-[15px] font-medium leading-snug text-ink-800 sm:mt-10 sm:text-[22px]"
-        >
-          Capacidades estratégicas, tecnológicas y creativas que van mucho más allá de lo que una agencia
-          tradicional ofrece.
-        </motion.p>
+            <motion.p
+              custom={2}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+              variants={fade}
+              className="mt-5 max-w-xl text-[14px] font-medium leading-snug text-ink-800 sm:mt-8 sm:text-[20px]"
+            >
+              Capacidades estratégicas, tecnológicas y creativas que van mucho más allá de lo que una agencia
+              tradicional ofrece.
+            </motion.p>
 
-        <motion.p
-          custom={3}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
-          variants={fade}
-          className="mt-4 max-w-2xl text-[12.5px] leading-relaxed text-ink-500 sm:mt-6 sm:text-[15px]"
-        >
-          Operamos como partner estratégico: nos involucramos a fondo, diseñamos soluciones a la medida
-          y respondemos por los resultados — no por las tareas.
-        </motion.p>
+            <motion.p
+              custom={3}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+              variants={fade}
+              className="mt-3 max-w-lg text-[12px] leading-relaxed text-ink-500 sm:mt-5 sm:text-[14.5px]"
+            >
+              Operamos como partner estratégico: nos involucramos a fondo, diseñamos soluciones a la medida
+              y respondemos por los resultados — no por las tareas.
+            </motion.p>
+          </div>
+
+          {/* Animated isotipo right */}
+          <motion.div
+            custom={2}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+            variants={fade}
+            className="relative flex items-center justify-center lg:col-span-5"
+          >
+            {/* Multi-color glow */}
+            <div className="agency-isotipo-glow pointer-events-none absolute h-[220px] w-[220px] sm:h-[300px] sm:w-[300px]" aria-hidden />
+            {/* Orbiting ring */}
+            <div className="agency-orbit pointer-events-none absolute h-[200px] w-[200px] rounded-full border border-ink-900/8 sm:h-[280px] sm:w-[280px]" aria-hidden>
+              <span className="absolute -top-1 left-1/2 h-2 w-2 -translate-x-1/2 rounded-full bg-indigo-500" />
+            </div>
+            {/* Isotipo */}
+            <div className="agency-isotipo-spin relative z-10">
+              <AntuarioMark className="h-[100px] w-auto text-ink-900 sm:h-[140px]" />
+            </div>
+          </motion.div>
+        </div>
       </div>
     </Section>
   )
@@ -430,10 +502,9 @@ function CapabilitiesSection({ innerRef }: { innerRef: (el: HTMLElement | null) 
           variants={fade}
           className="mb-5 sm:mb-10"
         >
-          <span className="eyebrow">Capacidades</span>
-          <h2 className="display mt-3 text-[32px] text-ink-900 sm:mt-4 sm:text-[44px] lg:text-[52px]">
-            Lo que dominamos <br className="hidden sm:block" />
-            <span className="gradient-anim">y ponemos a disposición.</span>
+          <h2 className="display text-[32px] text-ink-900 sm:text-[44px] lg:text-[52px]">
+            Estos son algunos de los <br className="hidden sm:block" />
+            <span className="gradient-anim">servicios que ofrecemos.</span>
           </h2>
         </motion.div>
 
@@ -497,20 +568,21 @@ function CapabilitiesSection({ innerRef }: { innerRef: (el: HTMLElement | null) 
 }
 
 // ─── 04 · DATOS E INFORMACIÓN ──────────────────────────────────────────────
-// Layout 5/7: copy + features a la izquierda · mockup del Antuario Dashboard a la derecha.
-// El mockup es una pieza visual fuerte que sustituye los 4 cards densos del diseño viejo.
+// Layout 5/7: copy + features a la izquierda · imagen real del dashboard a la derecha.
+// En móvil el contenido se compacta para entrar en 100vh sin chocar con el brand bar.
 function DataSection({ innerRef }: { innerRef: (el: HTMLElement | null) => void }) {
+  // 4ª feature solo se muestra en desktop para mantener altura contenida en móvil
   const features = [
-    { positive: false, text: 'Datos de vanidad que no conectan con objetivos' },
-    { positive: true, text: 'Sistemas que miden lo que mueve cada marca' },
-    { positive: true, text: 'Visibilidad en tiempo real, sin esperar reuniones' },
-    { positive: true, text: 'Dashboard propio o software a la medida' },
+    { positive: false, text: 'Datos de vanidad sin contexto', mobile: true },
+    { positive: true, text: 'Métricas que mueven la marca', mobile: true },
+    { positive: true, text: 'Visibilidad en tiempo real', mobile: true },
+    { positive: true, text: 'Dashboard propio o software a la medida', mobile: false },
   ]
 
   return (
     <Section id="datos" innerRef={innerRef}>
       <div className="mx-auto flex h-full w-full max-w-6xl flex-col justify-center">
-        <div className="grid items-center gap-7 lg:grid-cols-12 lg:gap-10">
+        <div className="grid items-center gap-5 sm:gap-7 lg:grid-cols-12 lg:gap-10">
           {/* Columna izquierda — copy */}
           <motion.div
             initial="hidden"
@@ -520,39 +592,59 @@ function DataSection({ innerRef }: { innerRef: (el: HTMLElement | null) => void 
             className="lg:col-span-5"
           >
             <span className="eyebrow">Datos e información</span>
-            <h2 className="display mt-3 text-[32px] text-ink-900 sm:mt-4 sm:text-[42px] lg:text-[48px]">
-              Trackeo estratégico, <br className="hidden sm:block" />
+            <h2 className="display mt-2 text-[32px] text-ink-900 sm:mt-4 sm:text-[42px] lg:text-[48px]">
+              Medición estratégica, <br className="hidden sm:block" />
               <span className="gradient-anim">no reportes genéricos.</span>
             </h2>
-            <p className="mt-3 max-w-md text-[12.5px] leading-relaxed text-ink-500 sm:mt-5 sm:text-[14.5px]">
-              Mientras otras agencias entregan un PDF con likes y alcance, en Antuario construimos sistemas
-              de información estratégicos.
+            <p className="mt-2.5 max-w-md text-[12px] leading-relaxed text-ink-500 sm:mt-5 sm:text-[14.5px]">
+              Construimos sistemas de información estratégicos — no PDFs con likes y alcance.
             </p>
 
-            {/* Lista de features con check / cross */}
-            <ul className="mt-5 space-y-2 sm:mt-7 sm:space-y-2.5">
+            {/* Features con check / cross */}
+            <ul className="mt-3.5 space-y-1.5 sm:mt-7 sm:space-y-2.5">
               {features.map((f) => (
-                <li key={f.text} className="flex items-start gap-2.5 sm:gap-3">
-                  <span
-                    className={`mt-0.5 flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full sm:h-[18px] sm:w-[18px] ${
-                      f.positive ? 'bg-emerald-500/15 text-emerald-600' : 'bg-ink-900/8 text-ink-400'
+                <li
+                  key={f.text}
+                  className={`items-start gap-2.5 sm:gap-3 ${f.mobile ? 'flex' : 'hidden sm:flex'
                     }`}
+                >
+                  <span
+                    className={`mt-0.5 flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full sm:h-[18px] sm:w-[18px] ${f.positive
+                      ? 'bg-emerald-500/15 text-emerald-600'
+                      : 'bg-ink-900/8 text-ink-400'
+                      }`}
                     aria-hidden
                   >
                     {f.positive ? (
-                      <svg viewBox="0 0 16 16" className="h-2.5 w-2.5 sm:h-3 sm:w-3" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <svg
+                        viewBox="0 0 16 16"
+                        className="h-2.5 w-2.5 sm:h-3 sm:w-3"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
                         <path d="M3 8.5l3 3 7-7" />
                       </svg>
                     ) : (
-                      <svg viewBox="0 0 16 16" className="h-2 w-2 sm:h-2.5 sm:w-2.5" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+                      <svg
+                        viewBox="0 0 16 16"
+                        className="h-2 w-2 sm:h-2.5 sm:w-2.5"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                      >
                         <path d="M4 4l8 8M12 4l-8 8" />
                       </svg>
                     )}
                   </span>
                   <span
-                    className={`text-[12px] leading-snug sm:text-[13.5px] ${
-                      f.positive ? 'font-medium text-ink-800' : 'text-ink-400 line-through decoration-ink-300'
-                    }`}
+                    className={`text-[11.5px] leading-snug sm:text-[13.5px] ${f.positive
+                      ? 'font-medium text-ink-800'
+                      : 'text-ink-400 line-through decoration-ink-300'
+                      }`}
                   >
                     {f.text}
                   </span>
@@ -561,7 +653,7 @@ function DataSection({ innerRef }: { innerRef: (el: HTMLElement | null) => void 
             </ul>
           </motion.div>
 
-          {/* Columna derecha — mockup del dashboard */}
+          {/* Columna derecha — imagen real del dashboard */}
           <motion.div
             custom={1}
             initial="hidden"
@@ -570,7 +662,7 @@ function DataSection({ innerRef }: { innerRef: (el: HTMLElement | null) => void 
             variants={fade}
             className="relative lg:col-span-7"
           >
-            <DashboardMockup />
+            <DashboardImage />
           </motion.div>
         </div>
       </div>
@@ -578,27 +670,29 @@ function DataSection({ innerRef }: { innerRef: (el: HTMLElement | null) => void 
   )
 }
 
-// ─── Antuario Dashboard mockup (browser frame premium) ─────────────────────
-function DashboardMockup() {
+// ─── Antuario Dashboard — captura real con frame premium ──────────────────
+function DashboardImage() {
   return (
     <div className="relative">
-      {/* Glow detrás */}
+      {/* Glow de color detrás */}
       <div
-        className="pointer-events-none absolute -inset-6 -z-10 rounded-[2rem] bg-gradient-to-br from-indigo-500/15 via-fuchsia-500/10 to-emerald-500/10 blur-3xl sm:-inset-10"
+        className="pointer-events-none absolute -inset-4 -z-10 rounded-[2rem] bg-gradient-to-br from-indigo-500/15 via-fuchsia-500/10 to-emerald-500/10 blur-3xl sm:-inset-10"
         aria-hidden
       />
 
-      {/* Frame */}
-      <div className="overflow-hidden rounded-2xl border border-ink-900/10 bg-ink-900 shadow-elevated">
+      {/* Frame estilo browser */}
+      <div className="overflow-hidden rounded-xl bg-ink-900 shadow-[0_20px_60px_rgba(0,0,0,0.25),_0_8px_20px_rgba(0,0,0,0.15)] sm:rounded-2xl">
         {/* Top bar */}
-        <div className="flex items-center gap-1.5 border-b border-white/5 bg-ink-800/80 px-3 py-2.5 sm:px-4 sm:py-3">
+        <div className="flex items-center gap-1.5 border-b border-white/5 bg-ink-800/80 px-3 py-2 sm:px-4 sm:py-2.5">
           <span className="h-2 w-2 rounded-full bg-red-500/60 sm:h-2.5 sm:w-2.5" />
           <span className="h-2 w-2 rounded-full bg-amber-500/60 sm:h-2.5 sm:w-2.5" />
           <span className="h-2 w-2 rounded-full bg-emerald-500/60 sm:h-2.5 sm:w-2.5" />
           <span className="ml-2 hidden font-mono text-[10px] text-white/30 sm:inline">
             antuario.app/dashboard
           </span>
-          <span className="ml-2 font-mono text-[9.5px] text-white/40 sm:hidden">Antuario · Dashboard</span>
+          <span className="ml-2 font-mono text-[9.5px] text-white/40 sm:hidden">
+            Antuario · Dashboard
+          </span>
           <div className="ml-auto flex items-center gap-1.5">
             <span className="pulse-live h-1.5 w-1.5 rounded-full bg-emerald-400" />
             <span className="font-mono text-[9px] uppercase tracking-wider text-white/50 sm:text-[10px]">
@@ -607,181 +701,17 @@ function DashboardMockup() {
           </div>
         </div>
 
-        {/* Body */}
-        <div className="p-4 sm:p-6">
-          {/* Header — métrica principal */}
-          <div className="flex items-start justify-between gap-3">
-            <div>
-              <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-white/40 sm:text-[10px]">
-                Prospectos calificados · 30d
-              </span>
-              <div className="mt-1.5 flex items-baseline gap-2.5">
-                <AnimatedNumber
-                  to={284}
-                  className="text-[30px] font-extrabold tracking-tight text-white sm:text-[44px]"
-                />
-                <span className="text-[12px] font-semibold text-emerald-400 sm:text-[14px]">+38%</span>
-              </div>
-              <span className="mt-1 block font-mono text-[9px] text-white/30 sm:text-[10px]">
-                vs. periodo anterior
-              </span>
-            </div>
-            <div className="hidden flex-col items-end gap-1.5 sm:flex">
-              <div className="flex gap-1">
-                {['7d', '30d', '90d'].map((p, i) => (
-                  <span
-                    key={p}
-                    className={`rounded-full px-2.5 py-1 text-[10px] font-medium ${
-                      i === 1
-                        ? 'bg-white text-ink-900'
-                        : 'border border-white/10 bg-white/5 text-white/60'
-                    }`}
-                  >
-                    {p}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Chart */}
-          <div className="mt-4 sm:mt-5">
-            <LineChart variant="dark" />
-          </div>
-
-          {/* KPI strip */}
-          <div className="mt-4 grid grid-cols-3 gap-1.5 sm:mt-5 sm:gap-2.5">
-            {[
-              { label: 'ROAS', value: '5.4x', delta: '+0.8' },
-              { label: 'CPL', value: '$142', delta: '−24%' },
-              { label: 'Cierre', value: '8.2%', delta: '+1.1' },
-            ].map((k) => (
-              <div
-                key={k.label}
-                className="rounded-lg border border-white/10 bg-white/[0.04] p-2 transition-colors duration-300 hover:bg-white/[0.07] sm:p-3"
-              >
-                <span className="font-mono text-[8.5px] uppercase tracking-[0.2em] text-white/40 sm:text-[9.5px]">
-                  {k.label}
-                </span>
-                <div className="mt-1 flex items-baseline gap-1.5">
-                  <span className="text-[14px] font-bold text-white sm:text-[18px]">{k.value}</span>
-                  <span className="text-[9px] font-semibold text-emerald-400 sm:text-[10.5px]">
-                    {k.delta}
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+        {/* Captura real del dashboard de Visión General de Marketing */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/dashboard-vision-marketing.jpg"
+          alt="Antuario Dashboard — Visión General de Marketing con conversiones, inversión, CPA, mix de canales y dependencia publicitaria"
+          className="block h-auto w-full select-none"
+          loading="lazy"
+          draggable={false}
+        />
       </div>
     </div>
-  )
-}
-
-// ─── Animated Number Counter ───────────────────────────────────────────────
-function AnimatedNumber({
-  to,
-  decimals = 0,
-  className,
-}: {
-  to: number
-  decimals?: number
-  className?: string
-}) {
-  const [val, setVal] = useState(0)
-  const ref = useRef<HTMLSpanElement | null>(null)
-
-  useEffect(() => {
-    const el = ref.current
-    if (!el) return
-    let raf = 0
-    let start = 0
-    const duration = 1600
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            start = performance.now()
-            const tick = (now: number) => {
-              const t = Math.min(1, (now - start) / duration)
-              const eased = 1 - Math.pow(1 - t, 3)
-              setVal(eased * to)
-              if (t < 1) raf = requestAnimationFrame(tick)
-            }
-            raf = requestAnimationFrame(tick)
-            observer.disconnect()
-          }
-        })
-      },
-      { threshold: 0.5 }
-    )
-    observer.observe(el)
-    return () => {
-      observer.disconnect()
-      cancelAnimationFrame(raf)
-    }
-  }, [to])
-
-  return (
-    <span ref={ref} className={className}>
-      {val.toFixed(decimals)}
-    </span>
-  )
-}
-
-// ─── Animated Line Chart ──────────────────────────────────────────────────
-// Soporta `variant`: light (sobre fondo claro) o dark (sobre fondo ink-900).
-function LineChart({ variant = 'light' }: { variant?: 'light' | 'dark' }) {
-  const points = [16, 22, 18, 30, 28, 40, 38, 52, 48, 64, 70, 82]
-  const max = Math.max(...points)
-  const w = 480
-  const h = 110
-  const stepX = w / (points.length - 1)
-  const path = points
-    .map((v, i) => {
-      const x = i * stepX
-      const y = h - (v / max) * (h - 12) - 6
-      return `${i === 0 ? 'M' : 'L'} ${x.toFixed(1)} ${y.toFixed(1)}`
-    })
-    .join(' ')
-  const fillPath = `${path} L ${w} ${h} L 0 ${h} Z`
-  const isDark = variant === 'dark'
-  const stroke = isDark ? '#ffffff' : '#0a0a0a'
-  const gridStroke = isDark ? 'rgba(255,255,255,0.06)' : 'rgba(10,10,10,0.05)'
-  const fillId = isDark ? 'lineFillDark' : 'lineFillLight'
-  const fillStop = isDark ? '#ffffff' : '#0a0a0a'
-  const fillOpacity = isDark ? '0.18' : '0.12'
-
-  return (
-    <svg viewBox={`0 0 ${w} ${h}`} className="h-[88px] w-full sm:h-[110px]" preserveAspectRatio="none">
-      <defs>
-        <linearGradient id={fillId} x1="0" x2="0" y1="0" y2="1">
-          <stop offset="0%" stopColor={fillStop} stopOpacity={fillOpacity} />
-          <stop offset="100%" stopColor={fillStop} stopOpacity="0" />
-        </linearGradient>
-      </defs>
-      {[0.25, 0.5, 0.75].map((p) => (
-        <line key={p} x1="0" x2={w} y1={h * p} y2={h * p} stroke={gridStroke} strokeWidth="1" />
-      ))}
-      <path d={fillPath} fill={`url(#${fillId})`} className="chart-line" style={{ animationDelay: '0.1s' }} />
-      <path
-        d={path}
-        fill="none"
-        stroke={stroke}
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className="chart-line"
-      />
-      <circle
-        cx={w}
-        cy={h - (points[points.length - 1] / max) * (h - 12) - 6}
-        r="4"
-        fill={stroke}
-        className="animate-pulse"
-      />
-    </svg>
   )
 }
 
@@ -961,9 +891,8 @@ function AccountabilitySection({ innerRef }: { innerRef: (el: HTMLElement | null
               {them.map((t, i) => (
                 <li
                   key={t}
-                  className={`items-start gap-2.5 text-[12px] text-white/45 line-through decoration-white/20 sm:gap-3 sm:text-[13px] ${
-                    i >= 4 ? 'hidden sm:flex' : 'flex'
-                  }`}
+                  className={`items-start gap-2.5 text-[12px] text-white/45 line-through decoration-white/20 sm:gap-3 sm:text-[13px] ${i >= 4 ? 'hidden sm:flex' : 'flex'
+                    }`}
                 >
                   <span className="mt-1.5 h-1 w-1 flex-shrink-0 rounded-full bg-white/20" />
                   {t}
@@ -987,9 +916,8 @@ function AccountabilitySection({ innerRef }: { innerRef: (el: HTMLElement | null
               {us.map((t, i) => (
                 <li
                   key={t}
-                  className={`items-start gap-2.5 text-[12px] font-medium text-ink-800 sm:gap-3 sm:text-[13.5px] ${
-                    i >= 4 ? 'hidden sm:flex' : 'flex'
-                  }`}
+                  className={`items-start gap-2.5 text-[12px] font-medium text-ink-800 sm:gap-3 sm:text-[13.5px] ${i >= 4 ? 'hidden sm:flex' : 'flex'
+                    }`}
                 >
                   <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-ink-900" />
                   {t}
@@ -1098,125 +1026,7 @@ function AISection({ innerRef }: { innerRef: (el: HTMLElement | null) => void })
   )
 }
 
-// ─── 08 · CÓMO TRABAJAMOS ──────────────────────────────────────────────────
-function ProcessSection({ innerRef }: { innerRef: (el: HTMLElement | null) => void }) {
-  const steps = [
-    { n: '01', title: 'Cuéntanos', text: 'Una idea o proyecto definido. Escríbenos.' },
-    { n: '02', title: 'Armamos propuesta', text: '100% personalizada. Sin plantillas.' },
-    { n: '03', title: 'La revisamos juntos', text: 'Iteramos hasta que quede perfecta.' },
-    { n: '04', title: 'Arrancamos', text: 'Plan, métricas y equipo desde el día 1.' },
-  ]
-
-  return (
-    <Section id="proceso" innerRef={innerRef}>
-      <div className="mx-auto flex h-full w-full max-w-6xl flex-col justify-center">
-        <motion.div initial="hidden" whileInView="show" viewport={{ once: true }} variants={fade}>
-          <span className="eyebrow">Cómo empezamos</span>
-          <h2 className="display mt-3 text-[34px] text-ink-900 sm:mt-4 sm:text-[44px]">
-            Simple. Rápido. <br className="sm:hidden" />
-            <span className="gradient-anim">Sin complicaciones.</span>
-          </h2>
-        </motion.div>
-
-        <div className="mt-6 grid grid-cols-2 gap-3 sm:mt-10 sm:gap-5 lg:grid-cols-4">
-          {steps.map((s, i) => (
-            <motion.div
-              key={s.n}
-              custom={i}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true }}
-              variants={fade}
-              className="card-min p-4 sm:p-6"
-            >
-              <span className="font-mono text-[10px] tracking-widest text-ink-400 sm:text-[11px]">
-                {s.n}
-              </span>
-              <h3 className="mt-3 text-[13.5px] font-bold tracking-tight text-ink-900 sm:mt-5 sm:text-[16px]">
-                {s.title}
-              </h3>
-              <p className="mt-2 text-[11.5px] leading-relaxed text-ink-500 sm:mt-3 sm:text-[13px]">
-                {s.text}
-              </p>
-            </motion.div>
-          ))}
-        </div>
-
-        <motion.p
-          custom={5}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
-          variants={fade}
-          className="mt-5 text-[12px] text-ink-500 sm:mt-8 sm:text-[13px]"
-        >
-          Sin filtros, sin formularios. Directo.
-        </motion.p>
-      </div>
-    </Section>
-  )
-}
-
-// ─── 09 · METODOLOGÍA ──────────────────────────────────────────────────────
-function MethodologySection({ innerRef }: { innerRef: (el: HTMLElement | null) => void }) {
-  const items = [
-    {
-      tag: 'EOS / Traction',
-      title: 'Estructura, no intuición.',
-      text: 'Objetivos trimestrales, roles claros, seguimiento semanal.',
-    },
-    {
-      tag: 'Sistemas',
-      title: 'Cada acción se mide.',
-      text: 'Estructuras de información que dan visibilidad real y permiten optimizar continuamente.',
-    },
-    {
-      tag: 'Accountability',
-      title: 'Todo atado a un objetivo.',
-      text: 'No ejecutamos por ejecutar — todo se mide y es responsabilidad nuestra.',
-    },
-  ]
-
-  return (
-    <Section id="metodologia" innerRef={innerRef}>
-      <div className="mx-auto flex h-full w-full max-w-6xl flex-col justify-center">
-        <motion.div initial="hidden" whileInView="show" viewport={{ once: true }} variants={fade}>
-          <span className="eyebrow">Metodología</span>
-          <h2 className="display mt-3 text-[34px] text-ink-900 sm:mt-4 sm:text-[48px]">
-            Operamos con estructura, <br className="hidden sm:block" />
-            <span className="gradient-anim">no con intuición.</span>
-          </h2>
-        </motion.div>
-
-        <div className="mt-6 grid gap-px overflow-hidden rounded-2xl border border-line bg-line sm:mt-12 lg:grid-cols-3">
-          {items.map((it, i) => (
-            <motion.div
-              key={it.tag}
-              custom={i}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true }}
-              variants={fade}
-              className="bg-paper p-4 sm:p-7"
-            >
-              <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-ink-400 sm:text-[10px]">
-                {it.tag}
-              </span>
-              <h3 className="mt-3 text-[15px] font-bold tracking-tight text-ink-900 sm:mt-5 sm:text-[20px]">
-                {it.title}
-              </h3>
-              <p className="mt-2 text-[11.5px] leading-relaxed text-ink-500 sm:mt-3 sm:text-[13px]">
-                {it.text}
-              </p>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </Section>
-  )
-}
-
-// ─── 10 · COBERTURA / CDMX ─────────────────────────────────────────────────
+// ─── 08 · COBERTURA / CDMX ─────────────────────────────────────────────────
 // Mapa estilizado de México con CDMX destacado y cobertura nacional.
 function CoverageSection({ innerRef }: { innerRef: (el: HTMLElement | null) => void }) {
   return (
@@ -1279,132 +1089,138 @@ function CoverageSection({ innerRef }: { innerRef: (el: HTMLElement | null) => v
   )
 }
 
-// ─── Mapa estilizado de México ─────────────────────────────────────────────
-// Silueta simplificada + CDMX con pulse + ciudades secundarias en muted.
+// ─── Mapa profesional de México ────────────────────────────────────────────
 function MexicoMap() {
-  // Coordenadas en viewBox 1000x600 (basadas en lng/lat aproximados):
-  //   x = (lng + 118.4) / 31.7 * 1000   ·   y = (32.7 - lat) / 18.2 * 600
   type City = { name: string; x: number; y: number; primary?: boolean }
   const cities: City[] = [
-    { name: 'Tijuana', x: 50, y: 20 },
-    { name: 'Monterrey', x: 575, y: 235 },
-    { name: 'Guadalajara', x: 500, y: 400 },
-    { name: 'CDMX', x: 612, y: 442, primary: true },
-    { name: 'Mérida', x: 905, y: 390 },
-    { name: 'Cancún', x: 985, y: 380 },
+    { name: 'Tijuana', x: 48, y: 30 },
+    { name: 'Monterrey', x: 570, y: 240 },
+    { name: 'Guadalajara', x: 490, y: 400 },
+    { name: 'CDMX', x: 608, y: 442, primary: true },
+    { name: 'Mérida', x: 890, y: 390 },
+    { name: 'Cancún', x: 960, y: 365 },
+    { name: 'León', x: 510, y: 360 },
+    { name: 'Puebla', x: 640, y: 460 },
   ]
 
   const cdmx = cities.find((c) => c.primary)!
 
+  // More detailed & smooth Mexico path
+  const mainland = 'M 88 8 C 120 10 200 18 280 28 C 360 38 450 80 530 135 C 590 175 630 210 660 235 C 670 280 660 320 650 355 C 665 395 690 430 715 455 C 740 470 770 482 800 475 C 830 468 860 448 885 425 C 888 400 890 380 920 372 C 945 370 970 378 990 385 C 998 395 1000 405 995 420 C 975 448 955 468 930 485 C 910 495 885 505 860 510 C 845 530 838 555 835 580 C 835 592 832 598 825 598 C 790 585 750 565 720 552 C 680 535 640 525 600 518 C 560 510 530 500 505 488 C 480 475 458 460 440 445 C 425 428 415 408 405 390 C 395 370 385 348 370 322 C 350 290 325 262 300 238 C 275 215 250 190 230 165 C 210 140 185 105 165 70 C 150 48 138 30 128 20 Z'
+  const baja = 'M 42 10 C 50 15 60 28 72 48 C 90 80 110 130 130 180 C 150 220 175 255 200 280 C 225 300 250 315 270 325 C 265 310 255 290 248 270 C 240 250 232 228 225 205 C 215 175 205 148 192 120 C 178 90 160 60 140 38 C 120 20 100 10 85 8 Z'
+
   return (
-    <div className="relative">
-      {/* Glow detrás */}
+    <div className="relative mx-auto max-w-[520px] lg:max-w-none">
+      {/* Premium glow */}
       <div
-        className="pointer-events-none absolute -inset-4 -z-10 rounded-[2rem] bg-gradient-to-br from-indigo-500/8 via-fuchsia-500/6 to-emerald-500/8 blur-3xl sm:-inset-8"
+        className="pointer-events-none absolute -inset-6 -z-10 rounded-[2.5rem] bg-gradient-to-br from-indigo-500/12 via-violet-500/8 to-cyan-500/10 blur-[60px] sm:-inset-10"
         aria-hidden
       />
 
-      <svg
-        viewBox="0 0 1000 600"
-        className="h-auto w-full"
-        xmlns="http://www.w3.org/2000/svg"
-        aria-label="Mapa de México con cobertura nacional"
-      >
-        <defs>
-          {/* Patrón de puntos para efecto data-viz dentro del país */}
-          <pattern id="dot-grid" width="22" height="22" patternUnits="userSpaceOnUse">
-            <circle cx="2" cy="2" r="1" fill="rgba(10,10,10,0.16)" />
-          </pattern>
-          <clipPath id="mx-clip">
-            {/* Mainland */}
-            <path d="M 90 5 L 380 32 L 600 175 L 660 228 L 645 348 L 705 448 L 760 482 L 815 470 L 880 426 L 880 372 L 990 380 L 1000 402 L 950 470 L 835 502 L 825 588 L 730 548 L 580 522 L 510 490 L 445 452 L 415 402 L 380 318 L 295 228 L 235 158 L 155 48 L 130 26 Z" />
-            {/* Baja California */}
-            <path d="M 45 8 L 65 30 L 115 168 L 200 268 L 270 322 L 255 282 L 230 212 L 200 142 L 145 46 L 90 8 Z" />
-          </clipPath>
-        </defs>
-
-        {/* Patrón de puntos clipeado a México */}
-        <rect width="1000" height="600" fill="url(#dot-grid)" clipPath="url(#mx-clip)" />
-
-        {/* Borde sutil del país */}
-        <g
-          fill="none"
-          stroke="rgba(10,10,10,0.22)"
-          strokeWidth="1.4"
-          strokeLinejoin="round"
-          strokeLinecap="round"
+      {/* Card container */}
+      <div className="overflow-hidden rounded-2xl border border-ink-900/6 bg-white/70 p-4 shadow-[0_16px_48px_rgba(0,0,0,0.08),_0_4px_12px_rgba(0,0,0,0.04)] backdrop-blur-sm sm:rounded-3xl sm:p-6">
+        <svg
+          viewBox="0 0 1020 620"
+          className="h-auto w-full"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-label="Mapa de México con cobertura nacional"
         >
-          <path d="M 90 5 L 380 32 L 600 175 L 660 228 L 645 348 L 705 448 L 760 482 L 815 470 L 880 426 L 880 372 L 990 380 L 1000 402 L 950 470 L 835 502 L 825 588 L 730 548 L 580 522 L 510 490 L 445 452 L 415 402 L 380 318 L 295 228 L 235 158 L 155 48 L 130 26 Z" />
-          <path d="M 45 8 L 65 30 L 115 168 L 200 268 L 270 322 L 255 282 L 230 212 L 200 142 L 145 46 L 90 8 Z" />
-        </g>
+          <defs>
+            <linearGradient id="mx-fill" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#6366f1" stopOpacity="0.07" />
+              <stop offset="50%" stopColor="#8b5cf6" stopOpacity="0.05" />
+              <stop offset="100%" stopColor="#06b6d4" stopOpacity="0.07" />
+            </linearGradient>
+            <linearGradient id="mx-stroke" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#6366f1" stopOpacity="0.5" />
+              <stop offset="50%" stopColor="#8b5cf6" stopOpacity="0.35" />
+              <stop offset="100%" stopColor="#06b6d4" stopOpacity="0.5" />
+            </linearGradient>
+            <filter id="city-glow">
+              <feGaussianBlur stdDeviation="3" result="blur" />
+              <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+            <radialGradient id="cdmx-glow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stopColor="#6366f1" stopOpacity="0.4" />
+              <stop offset="100%" stopColor="#6366f1" stopOpacity="0" />
+            </radialGradient>
+          </defs>
 
-        {/* Líneas finísimas de CDMX → otras ciudades (cobertura) */}
-        <g stroke="rgba(99,102,241,0.32)" strokeWidth="1" strokeLinecap="round" strokeDasharray="2 4">
-          {cities
-            .filter((c) => !c.primary)
-            .map((c) => (
+          {/* Country fill */}
+          <path d={mainland} fill="url(#mx-fill)" />
+          <path d={baja} fill="url(#mx-fill)" />
+
+          {/* Country border — gradient stroke */}
+          <g fill="none" stroke="url(#mx-stroke)" strokeWidth="1.8" strokeLinejoin="round" strokeLinecap="round">
+            <path d={mainland} />
+            <path d={baja} />
+          </g>
+
+          {/* Connection lines from CDMX */}
+          <g stroke="#6366f1" strokeWidth="0.8" strokeLinecap="round" strokeDasharray="4 6" opacity="0.4">
+            {cities.filter((c) => !c.primary).map((c) => (
               <line key={c.name} x1={cdmx.x} y1={cdmx.y} x2={c.x} y2={c.y} />
             ))}
-        </g>
+          </g>
 
-        {/* Ciudades secundarias */}
-        <g>
-          {cities
-            .filter((c) => !c.primary)
-            .map((c) => (
+          {/* Secondary cities */}
+          <g>
+            {cities.filter((c) => !c.primary).map((c) => (
               <g key={c.name}>
-                <circle cx={c.x} cy={c.y} r="3.5" fill="rgba(10,10,10,0.45)" />
+                <circle cx={c.x} cy={c.y} r="8" fill="#6366f1" opacity="0.08" />
+                <circle cx={c.x} cy={c.y} r="3" fill="#6366f1" opacity="0.6" />
+                <circle cx={c.x} cy={c.y} r="1.2" fill="#ffffff" />
                 <text
                   x={c.x}
-                  y={c.y - 10}
+                  y={c.y - 14}
                   textAnchor="middle"
-                  fontSize="13"
-                  fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace"
-                  fill="rgba(10,10,10,0.55)"
-                  letterSpacing="0.5"
+                  fontSize="11"
+                  fontWeight="500"
+                  fontFamily="Geist, -apple-system, sans-serif"
+                  fill="rgba(10,10,10,0.5)"
+                  letterSpacing="0.3"
                 >
                   {c.name}
                 </text>
               </g>
             ))}
-        </g>
-
-        {/* CDMX — destacado con pulse */}
-        <g>
-          {/* Pulse rings (animados via CSS) */}
-          <circle cx={cdmx.x} cy={cdmx.y} r="14" fill="none" stroke="#6366f1" strokeWidth="2" className="mx-pulse" />
-          <circle cx={cdmx.x} cy={cdmx.y} r="14" fill="none" stroke="#6366f1" strokeWidth="2" className="mx-pulse delay-1" />
-          <circle cx={cdmx.x} cy={cdmx.y} r="14" fill="none" stroke="#6366f1" strokeWidth="2" className="mx-pulse delay-2" />
-          {/* Halo estático */}
-          <circle cx={cdmx.x} cy={cdmx.y} r="11" fill="rgba(99,102,241,0.18)" />
-          {/* Dot sólido */}
-          <circle cx={cdmx.x} cy={cdmx.y} r="6.5" fill="#6366f1" />
-          <circle cx={cdmx.x} cy={cdmx.y} r="2.5" fill="#ffffff" />
-          {/* Etiqueta */}
-          <g>
-            <rect
-              x={cdmx.x - 36}
-              y={cdmx.y + 14}
-              width="72"
-              height="22"
-              rx="11"
-              fill="#0a0a0a"
-            />
-            <text
-              x={cdmx.x}
-              y={cdmx.y + 29}
-              textAnchor="middle"
-              fontSize="12"
-              fontWeight="600"
-              fontFamily="Geist, -apple-system, sans-serif"
-              fill="#ffffff"
-              letterSpacing="0.3"
-            >
-              CDMX · Sede
-            </text>
           </g>
-        </g>
-      </svg>
+
+          {/* CDMX — premium marker */}
+          <g>
+            {/* Large soft glow */}
+            <circle cx={cdmx.x} cy={cdmx.y} r="45" fill="url(#cdmx-glow)" />
+            {/* Pulse rings */}
+            <circle cx={cdmx.x} cy={cdmx.y} r="18" fill="none" stroke="#6366f1" strokeWidth="1.5" className="mx-pulse" />
+            <circle cx={cdmx.x} cy={cdmx.y} r="18" fill="none" stroke="#6366f1" strokeWidth="1.5" className="mx-pulse delay-1" />
+            <circle cx={cdmx.x} cy={cdmx.y} r="18" fill="none" stroke="#6366f1" strokeWidth="1.5" className="mx-pulse delay-2" />
+            {/* Static halo */}
+            <circle cx={cdmx.x} cy={cdmx.y} r="13" fill="rgba(99,102,241,0.15)" />
+            {/* Dot */}
+            <circle cx={cdmx.x} cy={cdmx.y} r="7" fill="#6366f1" />
+            <circle cx={cdmx.x} cy={cdmx.y} r="3" fill="#ffffff" />
+            {/* Label pill */}
+            <g>
+              <rect x={cdmx.x - 42} y={cdmx.y + 18} width="84" height="26" rx="13" fill="#0a0a0a" />
+              <text
+                x={cdmx.x}
+                y={cdmx.y + 35}
+                textAnchor="middle"
+                fontSize="11"
+                fontWeight="600"
+                fontFamily="Geist, -apple-system, sans-serif"
+                fill="#ffffff"
+                letterSpacing="0.5"
+              >
+                CDMX · Sede
+              </text>
+            </g>
+          </g>
+        </svg>
+      </div>
     </div>
   )
 }

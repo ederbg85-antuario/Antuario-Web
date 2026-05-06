@@ -10,6 +10,7 @@
   font-style: normal;
   font-display: swap;
 }
+
 @font-face {
   font-family: 'Geist';
   src: url('https://cdn.jsdelivr.net/npm/geist@1.3.0/dist/fonts/geist-sans/Geist-Medium.woff2') format('woff2');
@@ -17,6 +18,7 @@
   font-style: normal;
   font-display: swap;
 }
+
 @font-face {
   font-family: 'Geist';
   src: url('https://cdn.jsdelivr.net/npm/geist@1.3.0/dist/fonts/geist-sans/Geist-SemiBold.woff2') format('woff2');
@@ -24,6 +26,7 @@
   font-style: normal;
   font-display: swap;
 }
+
 @font-face {
   font-family: 'Geist';
   src: url('https://cdn.jsdelivr.net/npm/geist@1.3.0/dist/fonts/geist-sans/Geist-Bold.woff2') format('woff2');
@@ -31,6 +34,7 @@
   font-style: normal;
   font-display: swap;
 }
+
 @font-face {
   font-family: 'Geist';
   src: url('https://cdn.jsdelivr.net/npm/geist@1.3.0/dist/fonts/geist-sans/Geist-Black.woff2') format('woff2');
@@ -64,6 +68,7 @@
 
   /* Hide native cursor on devices with fine pointer (mouse) */
   @media (pointer: fine) {
+
     html,
     body,
     a,
@@ -94,6 +99,7 @@
 }
 
 @layer components {
+
   /* ─── Swipe / Snap container ────────────────────────────────────────── */
   .swipe-shell {
     height: 100vh;
@@ -153,17 +159,15 @@
   /* ─── Gradiente plasma/humo animado (texto tech) ──────────────────── */
   /* Movimiento fluido en 2 ejes para sensación de plasma o humo */
   .gradient-anim {
-    background-image: linear-gradient(
-      115deg,
-      #6366f1 0%,
-      #8b5cf6 14%,
-      #ec4899 28%,
-      #f59e0b 42%,
-      #10b981 56%,
-      #06b6d4 70%,
-      #8b5cf6 84%,
-      #6366f1 100%
-    );
+    background-image: linear-gradient(115deg,
+        #6366f1 0%,
+        #8b5cf6 14%,
+        #ec4899 28%,
+        #f59e0b 42%,
+        #10b981 56%,
+        #06b6d4 70%,
+        #8b5cf6 84%,
+        #6366f1 100%);
     background-size: 300% 300%;
     -webkit-background-clip: text;
     background-clip: text;
@@ -175,17 +179,15 @@
 
   /* Variant más brillante para fondos oscuros */
   .gradient-anim-bright {
-    background-image: linear-gradient(
-      115deg,
-      #818cf8 0%,
-      #c084fc 14%,
-      #f472b6 28%,
-      #fbbf24 42%,
-      #34d399 56%,
-      #22d3ee 70%,
-      #c084fc 84%,
-      #818cf8 100%
-    );
+    background-image: linear-gradient(115deg,
+        #818cf8 0%,
+        #c084fc 14%,
+        #f472b6 28%,
+        #fbbf24 42%,
+        #34d399 56%,
+        #22d3ee 70%,
+        #c084fc 84%,
+        #818cf8 100%);
     background-size: 300% 300%;
     -webkit-background-clip: text;
     background-clip: text;
@@ -197,18 +199,40 @@
 
   /* Plasma flow — 2D drift suave (no solo horizontal) */
   @keyframes plasma-flow {
-    0%   { background-position:   0%  50%; }
-    20%  { background-position:  60%  20%; }
-    40%  { background-position: 100%  60%; }
-    60%  { background-position:  60% 100%; }
-    80%  { background-position:   0%  80%; }
-    100% { background-position:   0%  50%; }
+    0% {
+      background-position: 0% 50%;
+    }
+
+    20% {
+      background-position: 60% 20%;
+    }
+
+    40% {
+      background-position: 100% 60%;
+    }
+
+    60% {
+      background-position: 60% 100%;
+    }
+
+    80% {
+      background-position: 0% 80%;
+    }
+
+    100% {
+      background-position: 0% 50%;
+    }
   }
 
   /* Mantener compatibilidad si algo aún referencia gradient-flow */
   @keyframes gradient-flow {
-    0%   { background-position:   0% 50%; }
-    100% { background-position: 300% 50%; }
+    0% {
+      background-position: 0% 50%;
+    }
+
+    100% {
+      background-position: 300% 50%;
+    }
   }
 
   /* ─── Apple Intelligence — Aurora orbital ─────────────────────────── */
@@ -228,12 +252,16 @@
   }
 
   @keyframes aurora-spin {
-    0%, 100% {
+
+    0%,
+    100% {
       transform: rotate(0deg) scale(1);
     }
+
     33% {
       transform: rotate(120deg) scale(1.15);
     }
+
     66% {
       transform: rotate(240deg) scale(0.95);
     }
@@ -251,16 +279,14 @@
     inset: -1px;
     border-radius: inherit;
     padding: 1px;
-    background: conic-gradient(
-      from var(--angle, 0deg),
-      #6366f1,
-      #ec4899,
-      #f59e0b,
-      #10b981,
-      #06b6d4,
-      #8b5cf6,
-      #6366f1
-    );
+    background: conic-gradient(from var(--angle, 0deg),
+        #6366f1,
+        #ec4899,
+        #f59e0b,
+        #10b981,
+        #06b6d4,
+        #8b5cf6,
+        #6366f1);
     -webkit-mask:
       linear-gradient(#000 0 0) content-box,
       linear-gradient(#000 0 0);
@@ -277,7 +303,9 @@
   }
 
   @keyframes rotate-angle {
-    to { --angle: 360deg; }
+    to {
+      --angle: 360deg;
+    }
   }
 
   /* Fallback for browsers without @property */
@@ -285,10 +313,12 @@
     .ai-border::before {
       animation: rotate-fallback 6s linear infinite;
     }
+
     @keyframes rotate-fallback {
       0% {
         background: conic-gradient(from 0deg, #6366f1, #ec4899, #f59e0b, #10b981, #06b6d4, #8b5cf6, #6366f1);
       }
+
       100% {
         background: conic-gradient(from 360deg, #6366f1, #ec4899, #f59e0b, #10b981, #06b6d4, #8b5cf6, #6366f1);
       }
@@ -454,12 +484,10 @@
     height: 62vmin;
     top: -14%;
     left: -12%;
-    background: radial-gradient(
-      circle,
-      rgba(99, 102, 241, 0.55) 0%,
-      rgba(139, 92, 246, 0.22) 38%,
-      transparent 70%
-    );
+    background: radial-gradient(circle,
+        rgba(99, 102, 241, 0.55) 0%,
+        rgba(139, 92, 246, 0.22) 38%,
+        transparent 70%);
     animation: dyn-blob-1 24s ease-in-out infinite;
   }
 
@@ -468,12 +496,10 @@
     height: 56vmin;
     bottom: -16%;
     right: -10%;
-    background: radial-gradient(
-      circle,
-      rgba(236, 72, 153, 0.5) 0%,
-      rgba(245, 158, 11, 0.18) 38%,
-      transparent 70%
-    );
+    background: radial-gradient(circle,
+        rgba(236, 72, 153, 0.5) 0%,
+        rgba(245, 158, 11, 0.18) 38%,
+        transparent 70%);
     animation: dyn-blob-2 30s ease-in-out infinite;
   }
 
@@ -483,12 +509,10 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: radial-gradient(
-      circle,
-      rgba(6, 182, 212, 0.4) 0%,
-      rgba(16, 185, 129, 0.18) 38%,
-      transparent 70%
-    );
+    background: radial-gradient(circle,
+        rgba(6, 182, 212, 0.4) 0%,
+        rgba(16, 185, 129, 0.18) 38%,
+        transparent 70%);
     animation: dyn-blob-3 26s ease-in-out infinite;
   }
 
@@ -502,20 +526,44 @@
   }
 
   @keyframes dyn-blob-1 {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    50%      { transform: translate(8vw, 6vh) scale(1.15); }
+
+    0%,
+    100% {
+      transform: translate(0, 0) scale(1);
+    }
+
+    50% {
+      transform: translate(8vw, 6vh) scale(1.15);
+    }
   }
+
   @keyframes dyn-blob-2 {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    50%      { transform: translate(-7vw, -5vh) scale(0.92); }
+
+    0%,
+    100% {
+      transform: translate(0, 0) scale(1);
+    }
+
+    50% {
+      transform: translate(-7vw, -5vh) scale(0.92);
+    }
   }
+
   @keyframes dyn-blob-3 {
-    0%, 100% { transform: translate(-50%, -50%) scale(1); }
-    50%      { transform: translate(-42%, -56%) scale(1.18); }
+
+    0%,
+    100% {
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    50% {
+      transform: translate(-42%, -56%) scale(1.18);
+    }
   }
 
   /* Respeta preferencias de movimiento reducido */
   @media (prefers-reduced-motion: reduce) {
+
     .dyn-blob-a,
     .dyn-blob-b,
     .dyn-blob-c {
@@ -546,14 +594,14 @@
   .section-pad {
     padding-left: clamp(20px, 5.5vw, 120px);
     padding-right: clamp(20px, 5.5vw, 120px);
-    padding-top: clamp(84px, 10.5vh, 130px);
+    padding-top: clamp(96px, 12vh, 140px);
     padding-bottom: clamp(56px, 7vh, 100px);
   }
 
   /* En tablet+ recuperamos el respiro lateral original */
   @media (min-width: 768px) {
     .section-pad {
-      padding-top: clamp(96px, 11vh, 140px);
+      padding-top: clamp(110px, 12vh, 150px);
       padding-bottom: clamp(64px, 7.5vh, 110px);
     }
   }
@@ -568,20 +616,16 @@
 
   /* ─── Marquee carousel (Casos de éxito) ────────────────────────────── */
   .marquee-mask {
-    -webkit-mask-image: linear-gradient(
-      to right,
-      transparent 0%,
-      black 6%,
-      black 94%,
-      transparent 100%
-    );
-    mask-image: linear-gradient(
-      to right,
-      transparent 0%,
-      black 6%,
-      black 94%,
-      transparent 100%
-    );
+    -webkit-mask-image: linear-gradient(to right,
+        transparent 0%,
+        black 6%,
+        black 94%,
+        transparent 100%);
+    mask-image: linear-gradient(to right,
+        transparent 0%,
+        black 6%,
+        black 94%,
+        transparent 100%);
   }
 
   /* ─── Mexico map — pulsing rings sobre CDMX ────────────────────────── */
@@ -590,13 +634,30 @@
     transform-box: fill-box;
     animation: mx-pulse-anim 3.2s ease-out infinite;
   }
-  .mx-pulse.delay-1 { animation-delay: 1.05s; }
-  .mx-pulse.delay-2 { animation-delay: 2.10s; }
+
+  .mx-pulse.delay-1 {
+    animation-delay: 1.05s;
+  }
+
+  .mx-pulse.delay-2 {
+    animation-delay: 2.10s;
+  }
 
   @keyframes mx-pulse-anim {
-    0%   { transform: scale(0.4); opacity: 0.7; }
-    80%  { transform: scale(2.6); opacity: 0; }
-    100% { transform: scale(2.6); opacity: 0; }
+    0% {
+      transform: scale(0.4);
+      opacity: 0.7;
+    }
+
+    80% {
+      transform: scale(2.6);
+      opacity: 0;
+    }
+
+    100% {
+      transform: scale(2.6);
+      opacity: 0;
+    }
   }
 
   /* ─── Animated chart utilities ─────────────────────────────────────── */
@@ -607,7 +668,9 @@
   }
 
   @keyframes draw-line {
-    to { stroke-dashoffset: 0; }
+    to {
+      stroke-dashoffset: 0;
+    }
   }
 
   .chart-bar {
@@ -616,8 +679,13 @@
   }
 
   @keyframes rise-bar {
-    from { transform: scaleY(0); }
-    to { transform: scaleY(1); }
+    from {
+      transform: scaleY(0);
+    }
+
+    to {
+      transform: scaleY(1);
+    }
   }
 
   .pulse-live {
@@ -625,8 +693,80 @@
   }
 
   @keyframes pulse-live {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.4; }
+
+    0%,
+    100% {
+      opacity: 1;
+    }
+
+    50% {
+      opacity: 0.4;
+    }
+  }
+
+  /* ─── Agency Section — Isotipo Animation ────────────────────────────── */
+  .agency-isotipo-glow {
+    background:
+      radial-gradient(circle at 30% 30%, rgba(99, 102, 241, 0.35) 0%, transparent 50%),
+      radial-gradient(circle at 70% 70%, rgba(236, 72, 153, 0.3) 0%, transparent 50%),
+      radial-gradient(circle at 70% 30%, rgba(16, 185, 129, 0.25) 0%, transparent 50%),
+      radial-gradient(circle at 30% 70%, rgba(245, 158, 11, 0.2) 0%, transparent 50%);
+    border-radius: 9999px;
+    filter: blur(40px);
+    animation: agency-glow-rotate 12s ease-in-out infinite;
+  }
+
+  @keyframes agency-glow-rotate {
+
+    0%,
+    100% {
+      transform: rotate(0deg) scale(1);
+      opacity: 0.7;
+    }
+
+    50% {
+      transform: rotate(180deg) scale(1.1);
+      opacity: 0.9;
+    }
+  }
+
+  .agency-orbit {
+    animation: agency-orbit-spin 16s linear infinite;
+  }
+
+  @keyframes agency-orbit-spin {
+    0% {
+      transform: rotate(0deg);
+    }
+
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  .agency-isotipo-spin {
+    animation: agency-float 6s ease-in-out infinite;
+  }
+
+  @keyframes agency-float {
+
+    0%,
+    100% {
+      transform: translateY(0) scale(1);
+    }
+
+    50% {
+      transform: translateY(-8px) scale(1.02);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+
+    .agency-isotipo-glow,
+    .agency-orbit,
+    .agency-isotipo-spin {
+      animation: none;
+    }
   }
 }
 
@@ -634,6 +774,7 @@
   .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
+
   .no-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
