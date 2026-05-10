@@ -1,8 +1,9 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { motion } from 'framer-motion'
-import { ArrowRight, ArrowDown } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { ArrowRight, ArrowDown, Menu, X } from 'lucide-react'
+import Link from 'next/link'
 import { siteConfig } from '@/config/site'
 
 // ─── Logo Antuario (isotipo) ───────────────────────────────────────────────
@@ -87,7 +88,8 @@ function Section({
 const SECTIONS = [
   { id: 'hero', label: 'Inicio' },
   { id: 'agencia', label: 'La agencia' },
-  { id: 'capacidades', label: 'Capacidades' },
+  { id: 'capacidades', label: 'Servicios' },
+  { id: 'diferenciadores', label: 'Diferenciadores' },
   { id: 'datos', label: 'Datos' },
   { id: 'casos', label: 'Casos' },
   { id: 'accountability', label: 'Accountability' },
@@ -96,13 +98,14 @@ const SECTIONS = [
   { id: 'cta', label: 'Contacto' },
 ] as const
 
-const DARK_SECTIONS = ['hero', 'accountability', 'ia', 'cta']
+const DARK_SECTIONS = ['hero', 'diferenciadores', 'accountability', 'ia', 'cta']
 
 // ─── Page ──────────────────────────────────────────────────────────────────
 export default function HomePage() {
   const shellRef = useRef<HTMLDivElement | null>(null)
   const sectionRefs = useRef<Map<string, HTMLElement>>(new Map())
   const [active, setActive] = useState<string>('hero')
+  const [menuOpen, setMenuOpen] = useState(false)
   const isDark = DARK_SECTIONS.includes(active)
 
   useEffect(() => {
@@ -138,60 +141,75 @@ export default function HomePage() {
       {/* Top brand bar — logotype on hero/cta, isotipo on others */}
       {(() => {
         const showLogotype = active === 'hero' || active === 'cta'
+        // Logotipo móvil más pequeño (h=26 móvil, h=36 desktop), isotipo igual proporción
         return (
-          <div className="pointer-events-none fixed left-0 right-0 top-0 z-50 flex items-center justify-between px-7 pt-6 sm:px-10 sm:pt-7">
+          <div className="pointer-events-none fixed left-0 right-0 top-0 z-50 flex items-center justify-between px-5 pt-5 sm:px-10 sm:pt-7">
             <button
               onClick={() => goTo('hero')}
-              className="pointer-events-auto relative flex items-center overflow-visible"
+              className={`pointer-events-auto relative flex h-9 items-center overflow-visible sm:h-10 ${showLogotype
+                ? 'w-[132px] sm:w-[200px]'
+                : 'w-[32px] sm:w-[46px]'
+                }`}
               style={{
-                width: showLogotype ? 200 : 46,
-                height: 36,
                 transition: 'width 0.7s cubic-bezier(.4,0,.2,1)',
               }}
               aria-label="Antuario · Ir al inicio"
             >
-              {/* Logotype — visible on hero & cta */}
+              {/* Logotype — visible on hero & cta · más chico en móvil */}
               <AntuarioLogotype
-                className="absolute left-0 top-0"
+                className="absolute left-0 top-1/2 h-[22px] w-auto -translate-y-1/2 sm:h-[34px]"
                 dark={isDark}
                 style={{
-                  height: 36,
-                  width: 'auto',
                   opacity: showLogotype ? 1 : 0,
-                  transform: showLogotype ? 'scale(1)' : 'scale(0.9)',
+                  transform: showLogotype ? 'translateY(-50%) scale(1)' : 'translateY(-50%) scale(0.9)',
                   transition: 'opacity 0.7s ease, transform 0.7s ease',
                   pointerEvents: showLogotype ? 'auto' : 'none',
                 }}
               />
               {/* Isotipo — visible on all other slides */}
               <AntuarioMark
-                className="absolute left-0 top-0"
+                className="absolute left-0 top-1/2 h-[28px] w-auto -translate-y-1/2 sm:h-[34px]"
                 dark={isDark}
                 style={{
-                  height: 36,
-                  width: 'auto',
                   opacity: showLogotype ? 0 : 1,
-                  transform: showLogotype ? 'scale(1.1)' : 'scale(1)',
+                  transform: showLogotype ? 'translateY(-50%) scale(1.1)' : 'translateY(-50%) scale(1)',
                   transition: 'opacity 0.7s ease, transform 0.7s ease',
                   pointerEvents: showLogotype ? 'none' : 'auto',
                 }}
               />
             </button>
 
-            <a
-              href={siteConfig.whatsapp}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`pointer-events-auto hidden rounded-full border px-4 py-2 text-[12px] font-medium transition-all duration-500 sm:inline-flex ${isDark
-                ? 'border-white/15 bg-white/5 text-white/85 hover:bg-white/10'
-                : 'border-ink-900/10 bg-white text-ink-800 hover:border-ink-900/25'
-                }`}
-            >
-              Cuéntanos tu proyecto →
-            </a>
+            <div className="pointer-events-auto flex items-center gap-2 sm:gap-3">
+              <a
+                href={siteConfig.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`hidden rounded-full border px-4 py-2 text-[12px] font-medium transition-all duration-500 sm:inline-flex ${isDark
+                  ? 'border-white/15 bg-white/5 text-white/85 hover:bg-white/10'
+                  : 'border-ink-900/10 bg-white text-ink-800 hover:border-ink-900/25'
+                  }`}
+              >
+                Cuéntanos tu proyecto →
+              </a>
+
+              {/* Menú hamburguesa — abre overlay con todas las páginas */}
+              <button
+                onClick={() => setMenuOpen(true)}
+                aria-label="Abrir menú"
+                className={`flex h-9 w-9 items-center justify-center rounded-full border transition-all duration-500 sm:h-10 sm:w-10 ${isDark
+                  ? 'border-white/15 bg-white/5 text-white/85 hover:bg-white/10'
+                  : 'border-ink-900/10 bg-white text-ink-800 hover:border-ink-900/25'
+                  }`}
+              >
+                <Menu className="h-4 w-4 sm:h-[18px] sm:w-[18px]" />
+              </button>
+            </div>
           </div>
         )
       })()}
+
+      {/* ─── Overlay menu — todas las páginas ─────────────────────────────── */}
+      <NavOverlay open={menuOpen} onClose={() => setMenuOpen(false)} />
 
       {/* Progress dot rail */}
       <nav aria-label="Progreso" className="dot-rail">
@@ -230,6 +248,7 @@ export default function HomePage() {
         <HeroSection innerRef={registerRef('hero')} onNext={() => goTo('agencia')} />
         <AgencySection innerRef={registerRef('agencia')} />
         <CapabilitiesSection innerRef={registerRef('capacidades')} />
+        <DifferentiatorsSection innerRef={registerRef('diferenciadores')} />
         <DataSection innerRef={registerRef('datos')} />
         <CasesSection innerRef={registerRef('casos')} />
         <AccountabilitySection innerRef={registerRef('accountability')} />
@@ -238,6 +257,153 @@ export default function HomePage() {
         <CTASection innerRef={registerRef('cta')} />
       </div>
     </>
+  )
+}
+
+// ─── Nav Overlay — drawer fullscreen con todas las páginas ────────────────
+function NavOverlay({ open, onClose }: { open: boolean; onClose: () => void }) {
+  // Cerrar con ESC + bloquear scroll body
+  useEffect(() => {
+    if (!open) return
+    const handler = (e: KeyboardEvent) => e.key === 'Escape' && onClose()
+    document.addEventListener('keydown', handler)
+    return () => document.removeEventListener('keydown', handler)
+  }, [open, onClose])
+
+  return (
+    <AnimatePresence>
+      {open && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+          className="fixed inset-0 z-[80] bg-ink-900/95 backdrop-blur-xl"
+          onClick={onClose}
+        >
+          {/* Aurora sutil al fondo */}
+          <div className="pointer-events-none absolute inset-0 overflow-hidden">
+            <div className="ai-aurora opacity-30" />
+          </div>
+
+          <motion.div
+            initial={{ y: -8 }}
+            animate={{ y: 0 }}
+            exit={{ y: -8 }}
+            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            onClick={(e) => e.stopPropagation()}
+            className="relative mx-auto flex h-full max-w-6xl flex-col px-6 py-7 sm:px-10 sm:py-10"
+          >
+            {/* Top — close */}
+            <div className="flex items-center justify-between">
+              <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/40">
+                Antuario · Menú
+              </span>
+              <button
+                onClick={onClose}
+                aria-label="Cerrar menú"
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white/85 transition-colors hover:bg-white/10 sm:h-10 sm:w-10"
+              >
+                <X className="h-4 w-4 sm:h-[18px] sm:w-[18px]" />
+              </button>
+            </div>
+
+            {/* Contenido del menú */}
+            <div className="mt-8 grid flex-1 gap-10 overflow-y-auto pb-10 sm:mt-12 lg:grid-cols-12 lg:gap-16">
+              {/* Páginas principales */}
+              <nav className="lg:col-span-7">
+                <span className="eyebrow-light !text-white/40">Páginas</span>
+                <ul className="mt-5 space-y-1.5 sm:space-y-2">
+                  {siteConfig.nav.map((item, i) => (
+                    <motion.li
+                      key={item.href}
+                      initial={{ opacity: 0, x: -16 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.08 + i * 0.04, duration: 0.4 }}
+                    >
+                      <Link
+                        href={item.href}
+                        onClick={onClose}
+                        className="group flex items-center gap-3 py-2 text-[28px] font-bold tracking-tight text-white/85 transition-colors hover:text-white sm:text-[44px]"
+                      >
+                        <span className="font-mono text-[10px] tracking-widest text-white/30 sm:text-[11px]">
+                          {String(i + 1).padStart(2, '0')}
+                        </span>
+                        <span className="relative">
+                          {item.label}
+                          <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-gradient-to-r from-indigo-400 via-fuchsia-400 to-amber-400 transition-all duration-500 group-hover:w-full" />
+                        </span>
+                        <ArrowRight className="h-4 w-4 -translate-x-2 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100 sm:h-5 sm:w-5" />
+                      </Link>
+                    </motion.li>
+                  ))}
+                </ul>
+              </nav>
+
+              {/* Servicios — sub-páginas */}
+              <div className="lg:col-span-5">
+                <span className="eyebrow-light !text-white/40">Servicios</span>
+                <ul className="mt-5 grid grid-cols-1 gap-1.5 sm:grid-cols-2 lg:grid-cols-1">
+                  {siteConfig.services.map((s, i) => (
+                    <motion.li
+                      key={s.href}
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.18 + i * 0.03, duration: 0.4 }}
+                    >
+                      <Link
+                        href={s.href}
+                        onClick={onClose}
+                        className="group flex items-center justify-between rounded-xl border border-white/8 bg-white/[0.02] px-4 py-2.5 transition-all duration-300 hover:border-white/20 hover:bg-white/[0.06]"
+                      >
+                        <div className="min-w-0">
+                          <p className="text-[13px] font-semibold text-white sm:text-[14px]">
+                            {s.label}
+                          </p>
+                          <p className="mt-0.5 truncate text-[11px] text-white/45">{s.short}</p>
+                        </div>
+                        <ArrowRight className="h-3.5 w-3.5 flex-shrink-0 text-white/40 transition-all duration-300 group-hover:translate-x-0.5 group-hover:text-white" />
+                      </Link>
+                    </motion.li>
+                  ))}
+                </ul>
+
+                {/* Footer mini — contacto */}
+                <div className="mt-7 border-t border-white/8 pt-5">
+                  <span className="eyebrow-light !text-white/40">Contacto</span>
+                  <div className="mt-3 space-y-1.5 text-[12px] text-white/55 sm:text-[13px]">
+                    <a
+                      href={`mailto:${siteConfig.email}`}
+                      className="block transition-colors hover:text-white"
+                    >
+                      {siteConfig.email}
+                    </a>
+                    <a
+                      href={siteConfig.whatsapp}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block transition-colors hover:text-white"
+                    >
+                      {siteConfig.phone} · WhatsApp
+                    </a>
+                  </div>
+
+                  <a
+                    href={siteConfig.whatsapp}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-5 inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-[12.5px] font-semibold text-ink-900 transition-transform duration-300 hover:scale-[1.02] sm:text-[13px]"
+                  >
+                    Cuéntanos tu proyecto
+                    <ArrowRight className="h-3.5 w-3.5" />
+                  </a>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   )
 }
 
@@ -420,16 +586,7 @@ function AgencySection({ innerRef }: { innerRef: (el: HTMLElement | null) => voi
             variants={fade}
             className="relative flex items-center justify-center lg:col-span-5"
           >
-            {/* Multi-color glow */}
-            <div className="agency-isotipo-glow pointer-events-none absolute h-[220px] w-[220px] sm:h-[300px] sm:w-[300px]" aria-hidden />
-            {/* Orbiting ring */}
-            <div className="agency-orbit pointer-events-none absolute h-[200px] w-[200px] rounded-full border border-ink-900/8 sm:h-[280px] sm:w-[280px]" aria-hidden>
-              <span className="absolute -top-1 left-1/2 h-2 w-2 -translate-x-1/2 rounded-full bg-indigo-500" />
-            </div>
-            {/* Isotipo */}
-            <div className="agency-isotipo-spin relative z-10">
-              <AntuarioMark className="h-[100px] w-auto text-ink-900 sm:h-[140px]" />
-            </div>
+            <AgencyConstellation />
           </motion.div>
         </div>
       </div>
@@ -437,60 +594,196 @@ function AgencySection({ innerRef }: { innerRef: (el: HTMLElement | null) => voi
   )
 }
 
-// ─── 03 · CAPACIDADES ──────────────────────────────────────────────────────
-// Cada capacidad tiene un acento de color sutil (la tira top + el numerito).
-// En móvil mostramos resumen corto (1 línea); en desktop el detalle completo.
+// ─── Agency Constellation — animación premium del isotipo ─────────────────
+// Muestra el isotipo de Antuario como núcleo de un sistema:
+// · Halo iridiscente animado (gradiente de marca)
+// · Anillos concéntricos (sólido, dasheado, conic gradient sweep)
+// · Etiquetas orbitando (las disciplinas que cubre la agencia)
+// · Pulso periódico desde el centro hacia afuera
+function AgencyConstellation() {
+  // Disciplinas que orbitan alrededor del isotipo
+  const orbits = [
+    { label: 'Marketing', color: '#6366f1', radius: 132, angle: -90, dur: 32 },
+    { label: 'Data', color: '#06b6d4', radius: 132, angle: -30, dur: 32 },
+    { label: 'IA', color: '#8b5cf6', radius: 132, angle: 30, dur: 32 },
+    { label: 'Diseño', color: '#ec4899', radius: 168, angle: 90, dur: 44 },
+    { label: 'Web', color: '#a855f7', radius: 168, angle: 170, dur: 44 },
+    { label: 'Software', color: '#10b981', radius: 168, angle: 250, dur: 44 },
+  ]
+
+  return (
+    <div className="agency-stage relative flex h-[320px] w-[320px] items-center justify-center sm:h-[420px] sm:w-[420px]">
+      {/* Halo iridiscente de fondo */}
+      <span className="agency-halo absolute inset-6 rounded-full sm:inset-10" aria-hidden />
+
+      {/* Conic-gradient ring (efecto "brújula") */}
+      <span className="agency-conic absolute h-[210px] w-[210px] rounded-full sm:h-[270px] sm:w-[270px]" aria-hidden />
+
+      {/* Anillo dasheado interior — gira lento al revés */}
+      <svg
+        className="agency-ring-dashed absolute h-[180px] w-[180px] sm:h-[230px] sm:w-[230px]"
+        viewBox="0 0 200 200"
+        aria-hidden
+      >
+        <circle
+          cx="100"
+          cy="100"
+          r="98"
+          fill="none"
+          stroke="rgba(10,10,10,0.18)"
+          strokeWidth="1"
+          strokeDasharray="2 6"
+        />
+      </svg>
+
+      {/* Anillo exterior fino (solid) */}
+      <span
+        className="absolute h-[260px] w-[260px] rounded-full border border-ink-900/8 sm:h-[336px] sm:w-[336px]"
+        aria-hidden
+      />
+
+      {/* Pulsos concéntricos desde el centro */}
+      <span className="agency-pulse absolute h-16 w-16 rounded-full" aria-hidden />
+      <span className="agency-pulse delay-1 absolute h-16 w-16 rounded-full" aria-hidden />
+      <span className="agency-pulse delay-2 absolute h-16 w-16 rounded-full" aria-hidden />
+
+      {/* Etiquetas orbitando — cada una con su capa de rotación independiente */}
+      {orbits.map((o) => (
+        <span
+          key={o.label}
+          className="agency-orbit-layer pointer-events-none absolute inset-0"
+          style={
+            {
+              animationDuration: `${o.dur}s`,
+              // ángulo inicial — un offset estático antes de empezar a girar
+              ['--start-angle' as string]: `${o.angle}deg`,
+              ['--rad' as string]: `${o.radius}px`,
+            } as React.CSSProperties
+          }
+          aria-hidden
+        >
+          {/* Posicionamos la etiqueta en el radio correspondiente desde el centro */}
+          <span
+            className="agency-orbit-pill absolute left-1/2 top-1/2 flex items-center gap-1.5 rounded-full border border-ink-900/8 bg-white/90 px-2 py-1 shadow-[0_2px_10px_rgba(10,10,10,0.06)] backdrop-blur-sm"
+            style={{
+              animationDuration: `${o.dur}s`,
+            }}
+          >
+            <span
+              className="h-1.5 w-1.5 rounded-full"
+              style={{ background: o.color, boxShadow: `0 0 8px ${o.color}` }}
+            />
+            <span className="text-[10px] font-semibold tracking-tight text-ink-800 sm:text-[11px]">
+              {o.label}
+            </span>
+          </span>
+        </span>
+      ))}
+
+      {/* Núcleo: isotipo con respiración + glow propio */}
+      <div className="relative z-10 flex items-center justify-center">
+        <span
+          className="agency-core-glow pointer-events-none absolute h-24 w-24 rounded-full sm:h-32 sm:w-32"
+          aria-hidden
+        />
+        <div className="agency-core-breath relative">
+          <AntuarioMark className="h-[88px] w-auto text-ink-900 sm:h-[120px]" />
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// ─── 03 · CAPACIDADES — TABS DE SERVICIOS ─────────────────────────────────
+// Diseño limpio con pestañas: lista vertical (desktop) o pills horizontales
+// (móvil) + panel grande con el detalle del servicio seleccionado.
+// Permite escalar a N servicios sin saturar la pantalla.
 function CapabilitiesSection({ innerRef }: { innerRef: (el: HTMLElement | null) => void }) {
-  const caps = [
+  type Cap = {
+    n: string
+    tag: string
+    title: string
+    headline: string
+    description: string
+    items: string[]
+    accent: string
+  }
+
+  const caps: Cap[] = [
     {
       n: '01',
       tag: 'Paid Media',
       title: 'Performance Ads',
-      short: 'Google · Meta · TikTok',
-      items: ['Google · Meta · TikTok', 'ROAS, CPA y CPL reales'],
-      accent: '#6366f1', // indigo
+      headline: 'Campañas que mueven la aguja, no que ganan premios.',
+      description:
+        'Optimizamos cada peso invertido — desde la creatividad hasta la puja — para conseguir leads, ventas y crecimiento real.',
+      items: ['Google, Meta y TikTok Ads', 'ROAS, CPA y CPL reales', 'Testing creativo continuo', 'Reportes con accountability'],
+      accent: '#6366f1',
     },
     {
       n: '02',
       tag: 'Orgánico',
       title: 'SEO',
-      short: 'Técnico y de contenido',
-      items: ['Posicionamiento técnico', 'Auditoría continua'],
-      accent: '#10b981', // emerald
+      headline: 'Crecer en búsquedas, sin pagar por cada click.',
+      description:
+        'Auditoría técnica, estrategia de contenidos y autoridad de dominio para posicionarte donde tus clientes te buscan.',
+      items: ['Auditoría técnica + competencia', 'Estrategia de keywords', 'Contenido y linkbuilding', 'Reportes mensuales de posiciones'],
+      accent: '#10b981',
     },
     {
       n: '03',
       tag: 'Contenido',
-      title: 'Redes y producción',
-      short: 'Video, foto, edición',
-      items: ['Estrategia y guiones', 'Video, foto, edición'],
-      accent: '#f59e0b', // amber
+      title: 'Redes Sociales',
+      headline: 'Estrategia, contenido y producción bajo el mismo techo.',
+      description:
+        'Comunicamos tu marca con consistencia: planeamos, producimos y publicamos contenido que conecta y convierte.',
+      items: ['Calendarios estratégicos', 'Producción foto y video', 'Edición y post profesional', 'Community y rendimiento'],
+      accent: '#f59e0b',
     },
     {
       n: '04',
-      tag: 'Web',
-      title: 'Desarrollo y conversión',
-      short: 'Sitios, landing y ecommerce',
-      items: ['Sitios y landing pages', 'Ecommerce + UX'],
-      accent: '#ec4899', // pink
+      tag: 'Diseño',
+      title: 'Diseño Creativo',
+      headline: 'Identidad visual que diferencia a tu marca.',
+      description:
+        'Branding, dirección de arte y sistemas visuales escalables — el lenguaje gráfico que sostiene toda tu comunicación.',
+      items: ['Branding e identidad', 'Dirección de arte', 'Sistemas visuales', 'Piezas para campañas'],
+      accent: '#ec4899',
     },
     {
       n: '05',
-      tag: 'Tecnología',
-      title: 'Software a la medida',
-      short: 'CRM y automatización',
-      items: ['CRM, integraciones', 'Automatización de procesos'],
-      accent: '#06b6d4', // cyan
+      tag: 'Web',
+      title: 'Desarrollo Web',
+      headline: 'Sitios y plataformas pensados para convertir.',
+      description:
+        'Construimos webs rápidas, optimizadas para SEO y enfocadas en la experiencia del usuario y el cierre de venta.',
+      items: ['Sitios corporativos y landings', 'Ecommerce y catálogos', 'UX/UI orientado a conversión', 'Performance + analytics'],
+      accent: '#a855f7',
     },
     {
       n: '06',
+      tag: 'Tecnología',
+      title: 'Software a la medida',
+      headline: 'Sistemas que aceleran tu operación.',
+      description:
+        'CRM, automatizaciones e integraciones para que el equipo opere con menos fricción y más visibilidad.',
+      items: ['CRM y plataformas internas', 'Integraciones API', 'Automatización de procesos', 'Dashboards y BI a medida'],
+      accent: '#06b6d4',
+    },
+    {
+      n: '07',
       tag: 'Vanguardia',
       title: 'Inteligencia Artificial',
-      short: 'Agentes, LLMs, IA gen',
-      items: ['Agentes y LLMs', 'IA generativa'],
-      accent: '#8b5cf6', // violet
+      headline: 'IA aplicada — operación, marketing y producto.',
+      description:
+        'No hablamos de IA, la implementamos: agentes, LLMs y automatización inteligente para escalar sin escalar costos.',
+      items: ['Agentes WhatsApp y voz', 'LLMs custom para tu negocio', 'IA generativa de contenido', 'Optimización de campañas con IA'],
+      accent: '#8b5cf6',
     },
   ]
+
+  const [activeIdx, setActiveIdx] = useState(0)
+  const active = caps[activeIdx]
 
   return (
     <Section id="capacidades" innerRef={innerRef}>
@@ -500,65 +793,277 @@ function CapabilitiesSection({ innerRef }: { innerRef: (el: HTMLElement | null) 
           whileInView="show"
           viewport={{ once: true }}
           variants={fade}
-          className="mb-5 sm:mb-10"
+          className="mb-4 sm:mb-7"
         >
-          <h2 className="display text-[32px] text-ink-900 sm:text-[44px] lg:text-[52px]">
-            Estos son algunos de los <br className="hidden sm:block" />
-            <span className="gradient-anim">servicios que ofrecemos.</span>
+          <span className="eyebrow">Servicios</span>
+          <h2 className="display mt-2 text-[28px] text-ink-900 sm:mt-3 sm:text-[42px] lg:text-[48px]">
+            Una sola dirección, <br className="sm:hidden" />
+            <span className="gradient-anim">muchas capacidades.</span>
           </h2>
         </motion.div>
 
+        {/* MOBILE — tabs en scroll horizontal */}
+        <div className="lg:hidden">
+          <div className="no-scrollbar -mx-5 mb-3 overflow-x-auto px-5">
+            <div className="flex w-max gap-1.5">
+              {caps.map((c, i) => {
+                const isActive = i === activeIdx
+                return (
+                  <button
+                    key={c.title}
+                    onClick={() => setActiveIdx(i)}
+                    className={`whitespace-nowrap rounded-full border px-3 py-1.5 text-[11.5px] font-semibold transition-all duration-300 ${isActive
+                      ? 'border-ink-900 bg-ink-900 text-white'
+                      : 'border-ink-900/10 bg-white text-ink-500 hover:border-ink-900/30'
+                      }`}
+                    style={isActive ? { backgroundColor: c.accent, borderColor: c.accent, color: '#fff' } : {}}
+                  >
+                    {c.title}
+                  </button>
+                )
+              })}
+            </div>
+          </div>
+
+          {/* Panel móvil */}
+          <CapabilityPanel cap={active} mobile />
+        </div>
+
+        {/* DESKTOP — tabs verticales + panel */}
+        <div className="hidden gap-8 lg:grid lg:grid-cols-12">
+          {/* Lista de pestañas */}
+          <ul className="lg:col-span-5 lg:border-l lg:border-ink-900/8">
+            {caps.map((c, i) => {
+              const isActive = i === activeIdx
+              return (
+                <li key={c.title}>
+                  <button
+                    onClick={() => setActiveIdx(i)}
+                    onMouseEnter={() => setActiveIdx(i)}
+                    className="group relative flex w-full items-center gap-4 py-3 pl-5 pr-3 text-left transition-colors"
+                  >
+                    {/* Tira de acento activa */}
+                    <span
+                      aria-hidden
+                      className="absolute -left-px top-0 h-full w-[2px] origin-top transition-transform duration-300"
+                      style={{
+                        background: c.accent,
+                        transform: `scaleY(${isActive ? 1 : 0})`,
+                      }}
+                    />
+                    <span
+                      className="font-mono text-[10px] tracking-widest transition-colors"
+                      style={{ color: isActive ? c.accent : '#a3a3a3' }}
+                    >
+                      {c.n}
+                    </span>
+                    <span
+                      className={`flex-1 text-[16px] font-semibold tracking-tight transition-colors ${isActive ? 'text-ink-900' : 'text-ink-400 group-hover:text-ink-700'
+                        }`}
+                    >
+                      {c.title}
+                    </span>
+                    <ArrowRight
+                      className="h-4 w-4 -translate-x-2 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100"
+                      style={{ color: c.accent }}
+                    />
+                  </button>
+                </li>
+              )
+            })}
+          </ul>
+
+          {/* Panel desktop */}
+          <div className="lg:col-span-7">
+            <CapabilityPanel cap={active} />
+          </div>
+        </div>
+      </div>
+    </Section>
+  )
+}
+
+function CapabilityPanel({
+  cap,
+  mobile = false,
+}: {
+  cap: { n: string; tag: string; title: string; headline: string; description: string; items: string[]; accent: string }
+  mobile?: boolean
+}) {
+  return (
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={cap.title}
+        initial={{ opacity: 0, y: 14 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -8 }}
+        transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+        className={`relative overflow-hidden rounded-2xl border border-ink-900/6 bg-white shadow-[0_10px_40px_rgba(0,0,0,0.05)] ${mobile ? 'p-5' : 'p-7'}`}
+      >
+        {/* Tira de acento horizontal */}
+        <span
+          aria-hidden
+          className="absolute left-0 right-0 top-0 h-[3px]"
+          style={{ background: `linear-gradient(90deg, ${cap.accent}, ${cap.accent}55, transparent)` }}
+        />
+        {/* Glow sutil de fondo */}
+        <span
+          aria-hidden
+          className="pointer-events-none absolute -right-12 -top-12 h-40 w-40 rounded-full opacity-20 blur-3xl"
+          style={{ background: cap.accent }}
+        />
+
+        <div className="relative">
+          <div className="flex items-center gap-3">
+            <span
+              className="font-mono text-[10px] uppercase tracking-[0.2em]"
+              style={{ color: cap.accent }}
+            >
+              {cap.tag}
+            </span>
+            <span className="h-px flex-1 bg-ink-900/8" />
+            <span className="font-mono text-[10px] tracking-widest text-ink-300">{cap.n} / 07</span>
+          </div>
+
+          <h3 className={`mt-3 font-bold leading-[1.1] tracking-tight text-ink-900 ${mobile ? 'text-[22px]' : 'text-[30px]'}`}>
+            {cap.title}
+          </h3>
+          <p className={`mt-2 font-medium leading-snug text-ink-700 ${mobile ? 'text-[13px]' : 'text-[16px]'}`}>
+            {cap.headline}
+          </p>
+          <p className={`mt-2 leading-relaxed text-ink-500 ${mobile ? 'text-[12px]' : 'text-[13.5px]'}`}>
+            {cap.description}
+          </p>
+
+          <ul className={`mt-4 grid gap-2 ${mobile ? 'grid-cols-1' : 'grid-cols-2 gap-x-5'}`}>
+            {cap.items.map((it) => (
+              <li
+                key={it}
+                className={`flex items-start gap-2 text-ink-700 ${mobile ? 'text-[12px]' : 'text-[13px]'}`}
+              >
+                <span
+                  aria-hidden
+                  className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full"
+                  style={{ background: cap.accent }}
+                />
+                {it}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </motion.div>
+    </AnimatePresence>
+  )
+}
+
+// ─── 03.5 · DIFERENCIADORES ───────────────────────────────────────────────
+// Una sola slide con los puntos fuertes que nos distinguen — diseño bento
+// dark sobre fondo oscuro para crear un beat visual entre capacidades y datos.
+function DifferentiatorsSection({ innerRef }: { innerRef: (el: HTMLElement | null) => void }) {
+  const items = [
+    {
+      key: 'accountability',
+      title: 'Accountability real',
+      text: 'Respondemos por resultados, no por tareas. Cada compromiso tiene un dueño y una métrica.',
+      accent: '#6366f1',
+    },
+    {
+      key: 'data',
+      title: 'Sistemas de datos',
+      text: 'Tableros vivos para que cada decisión esté basada en información — no en intuición.',
+      accent: '#06b6d4',
+    },
+    {
+      key: 'vanguard',
+      title: 'Vanguardia con IA',
+      text: 'Mientras la mayoría apenas la nombra, nosotros la operamos. IA en marketing, operación y producto para soluciones más rápidas y económicas.',
+      accent: '#8b5cf6',
+    },
+    {
+      key: 'strategy',
+      title: 'Estrategia + estructura',
+      text: 'Aportamos visión completa: del posicionamiento al funnel, del producto a la operación. Ordenamos lo que está suelto.',
+      accent: '#ec4899',
+    },
+    {
+      key: 'partner',
+      title: 'Partner end-to-end',
+      text: 'De la estrategia a la optimización. Podemos ejecutar todo o sumarnos a tu equipo donde haga falta.',
+      accent: '#10b981',
+    },
+    {
+      key: 'simple',
+      title: 'Simplicidad con criterio',
+      text: 'No complicamos por complicar. Buscamos la solución más simple que funcione bien — y la ejecutamos con calidad.',
+      accent: '#f59e0b',
+    },
+  ]
+
+  return (
+    <Section id="diferenciadores" dark innerRef={innerRef}>
+      {/* Fondo sutil */}
+      <div className="grid-pattern-dark pointer-events-none absolute inset-0 opacity-25" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-ink-900/0 via-transparent to-ink-900/40" />
+
+      <div className="relative mx-auto flex h-full w-full max-w-6xl flex-col justify-center">
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          variants={fade}
+          className="mb-5 sm:mb-9"
+        >
+          <span className="eyebrow-light">Diferenciadores</span>
+          <h2 className="display mt-2 text-[28px] text-white sm:mt-3 sm:text-[42px] lg:text-[48px]">
+            Lo que nos hace <br className="sm:hidden" />
+            <span className="gradient-anim-bright">diferentes.</span>
+          </h2>
+          <p className="mt-3 max-w-xl text-[12.5px] leading-relaxed text-white/55 sm:mt-5 sm:text-[14.5px]">
+            Una agencia a la vanguardia, en un mercado donde muchos siguen atorados en la vieja escuela.
+          </p>
+        </motion.div>
+
         <div className="grid grid-cols-2 gap-2 sm:gap-3 lg:grid-cols-3 lg:gap-4">
-          {caps.map((c, i) => (
+          {items.map((it, i) => (
             <motion.div
-              key={c.title}
+              key={it.key}
               custom={i}
               initial="hidden"
               whileInView="show"
               viewport={{ once: true }}
               variants={fade}
-              className="group relative overflow-hidden rounded-xl border border-line bg-paper p-3.5 transition-all duration-500 hover:-translate-y-1 hover:border-ink-900/15 hover:shadow-elevated sm:rounded-2xl sm:p-6"
+              className="group relative overflow-hidden rounded-xl border border-white/8 bg-white/[0.025] p-3.5 backdrop-blur-sm transition-all duration-500 hover:-translate-y-0.5 hover:border-white/15 hover:bg-white/[0.05] sm:rounded-2xl sm:p-5"
             >
-              {/* Tira de acento en el borde superior */}
+              {/* Glow accent en esquina */}
               <span
-                className="absolute left-0 right-0 top-0 h-[2px] origin-left scale-x-[0.18] transition-transform duration-700 ease-out group-hover:scale-x-100"
-                style={{ background: c.accent }}
                 aria-hidden
+                className="pointer-events-none absolute -right-10 -top-10 h-28 w-28 rounded-full opacity-30 blur-2xl transition-opacity duration-500 group-hover:opacity-60"
+                style={{ background: it.accent }}
+              />
+              {/* Tira de acento superior */}
+              <span
+                aria-hidden
+                className="absolute left-0 right-0 top-0 h-[2px] origin-left scale-x-[0.25] transition-transform duration-700 group-hover:scale-x-100"
+                style={{ background: it.accent }}
               />
 
-              {/* Header: tag + número */}
-              <div className="flex items-start justify-between">
-                <span className="font-mono text-[9px] uppercase tracking-[0.18em] text-ink-400 sm:text-[10px]">
-                  {c.tag}
-                </span>
+              <div className="relative">
+                {/* Dot de color */}
                 <span
-                  className="font-mono text-[10px] font-semibold tracking-widest text-ink-300 transition-colors duration-300 group-hover:text-ink-500 sm:text-[11px]"
-                  style={{ color: 'transparent', backgroundImage: `linear-gradient(135deg, ${c.accent}, ${c.accent}99)`, WebkitBackgroundClip: 'text', backgroundClip: 'text' }}
-                >
-                  {c.n}
-                </span>
+                  aria-hidden
+                  className="mb-2 block h-1.5 w-1.5 rounded-full sm:mb-3"
+                  style={{ background: it.accent, boxShadow: `0 0 12px ${it.accent}` }}
+                />
+                <h3 className="text-[12.5px] font-bold leading-tight tracking-tight text-white sm:text-[16px]">
+                  {it.title}
+                </h3>
+                <p className="mt-1.5 hidden text-[12.5px] leading-relaxed text-white/55 sm:block">
+                  {it.text}
+                </p>
+                <p className="mt-1 text-[10.5px] leading-snug text-white/55 sm:hidden">
+                  {it.text.split('.')[0] + '.'}
+                </p>
               </div>
-
-              {/* Título */}
-              <h3 className="mt-3 text-[14px] font-bold leading-tight tracking-tight text-ink-900 sm:mt-5 sm:text-[20px]">
-                {c.title}
-              </h3>
-
-              {/* Resumen móvil (1 línea) */}
-              <p className="mt-1 text-[10.5px] leading-snug text-ink-500 sm:hidden">{c.short}</p>
-
-              {/* Bullets desktop */}
-              <ul className="mt-4 hidden space-y-2 sm:block">
-                {c.items.map((it) => (
-                  <li key={it} className="flex items-start gap-2 text-[12.5px] text-ink-500">
-                    <span
-                      className="mt-1.5 h-1 w-1 flex-shrink-0 rounded-full"
-                      style={{ background: c.accent }}
-                    />
-                    {it}
-                  </li>
-                ))}
-              </ul>
             </motion.div>
           ))}
         </div>
@@ -776,7 +1281,7 @@ function CasesSection({ innerRef }: { innerRef: (el: HTMLElement | null) => void
 
   return (
     <Section id="casos" innerRef={innerRef}>
-      <div className="mx-auto flex h-full w-full max-w-7xl flex-col justify-center">
+      <div className="mx-auto flex h-full w-full max-w-6xl flex-col justify-center">
         <motion.div
           initial="hidden"
           whileInView="show"
@@ -785,35 +1290,37 @@ function CasesSection({ innerRef }: { innerRef: (el: HTMLElement | null) => void
           className="text-center sm:text-left"
         >
           <span className="eyebrow">Casos de éxito</span>
-          <h2 className="display mt-3 text-[34px] text-ink-900 sm:mt-4 sm:text-[48px] lg:text-[56px]">
+          <h2 className="display mt-3 text-[30px] text-ink-900 sm:mt-4 sm:text-[42px] lg:text-[48px]">
             Nuestro trabajo <br className="sm:hidden" />
             <span className="gradient-anim">habla por sí mismo.</span>
           </h2>
-          <p className="mx-auto mt-3 max-w-xl text-balance text-[12.5px] leading-relaxed text-ink-500 sm:mx-0 sm:mt-5 sm:text-[14.5px]">
+          <p className="mx-auto mt-3 max-w-xl text-balance text-[12.5px] leading-relaxed text-ink-500 sm:mx-0 sm:mt-4 sm:text-[14px]">
             Marcas que confían en Antuario para su marketing digital, desarrollo web y
             posicionamiento.
           </p>
         </motion.div>
 
-        {/* Carrusel — auto-scroll + drag manual + fade lateral */}
+        {/* Carrusel — auto-scroll + drag manual + fade lateral
+            Sale del padding lateral (-mx) para sangrado completo,
+            y los gradientes mask + fades suaves evitan el corte feo en bordes. */}
         <motion.div
           custom={1}
           initial="hidden"
           whileInView="show"
           viewport={{ once: true }}
           variants={fade}
-          className="relative mt-6 sm:mt-9"
+          className="relative -mx-[clamp(20px,5.5vw,120px)] mt-5 sm:mt-7 lg:-mx-[clamp(56px,7vw,140px)]"
         >
           <div
             ref={trackRef}
-            className="marquee-mask no-scrollbar overflow-x-auto"
+            className="marquee-mask no-scrollbar overflow-x-auto px-[clamp(20px,5.5vw,120px)] lg:px-[clamp(56px,7vw,140px)]"
             style={{ WebkitOverflowScrolling: 'touch' }}
           >
-            <div className="flex w-max gap-3 pb-1 sm:gap-5">
+            <div className="flex w-max gap-3 pb-1 sm:gap-4">
               {loop.map((c, i) => (
                 <article
                   key={`${c.name}-${i}`}
-                  className="group relative aspect-[4/5] w-[200px] flex-shrink-0 select-none overflow-hidden rounded-2xl bg-ink-100 sm:w-[260px] lg:w-[300px]"
+                  className="group relative aspect-[4/5] w-[170px] flex-shrink-0 select-none overflow-hidden rounded-2xl bg-ink-100 sm:w-[210px] lg:w-[230px]"
                   aria-label={c.name}
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}

@@ -5,28 +5,45 @@ export const siteConfig = {
     'Construimos y operamos tu sistema completo de captación digital: web, SEO, Google Ads, Dashboard y optimización continua. Para empresas de servicios B2B en México.',
   url: process.env.NEXT_PUBLIC_SITE_URL ?? 'https://antuario.mx',
   email: 'hola@antuario.mx',
-  phone: '',
-  whatsapp: 'https://wa.me/5215512345678?text=Hola%2C%20me%20interesa%20saber%20m%C3%A1s%20sobre%20Antuario',
+  phone: '+52 55 1192 7007',
+  whatsapp:
+    'https://wa.me/5215511927007?text=Hola%2C%20me%20interesa%20saber%20m%C3%A1s%20sobre%20Antuario',
   dashboardUrl: 'https://dashboard.antuario.mx',
   address: 'México',
   social: {
     linkedin: 'https://linkedin.com/company/antuario',
     instagram: 'https://instagram.com/antuario.mx',
   },
+
+  // Servicios — usados también para el menú desplegable
+  services: [
+    { label: 'Performance Ads', href: '/servicios/performance-ads', short: 'Google · Meta · TikTok' },
+    { label: 'SEO', href: '/servicios/seo', short: 'Posicionamiento orgánico' },
+    { label: 'Redes Sociales', href: '/servicios/redes-sociales', short: 'Estrategia y producción' },
+    { label: 'Diseño Creativo', href: '/servicios/diseno-creativo', short: 'Branding y dirección de arte' },
+    { label: 'Desarrollo Web', href: '/servicios/desarrollo-web', short: 'Sitios, landings, ecommerce' },
+    { label: 'Software a la medida', href: '/servicios/software', short: 'CRM, integraciones, automatización' },
+    { label: 'Inteligencia Artificial', href: '/servicios/inteligencia-artificial', short: 'Agentes, LLMs, IA generativa' },
+  ],
+
   // Main navigation (header)
   nav: [
     { label: 'Inicio', href: '/' },
-    { label: 'Cómo Trabajamos', href: '/como-trabajamos' },
-    { label: 'Resultados', href: '/resultados' },
-    { label: 'Diagnóstico Gratuito', href: '/diagnostico' },
+    { label: 'Servicios', href: '/servicios' },
+    { label: 'Nosotros', href: '/nosotros' },
+    { label: 'Casos', href: '/casos' },
+    { label: 'Blog', href: '/blog' },
+    { label: 'Contacto', href: '/contacto' },
   ],
+
   // Footer navigation (all pages)
   footerNav: [
     { label: 'Inicio', href: '/' },
-    { label: 'Cómo Trabajamos', href: '/como-trabajamos' },
-    { label: 'Dashboard', href: '/dashboard' },
-    { label: 'Agente IA', href: '/agente-ia' },
-    { label: 'Resultados', href: '/resultados' },
+    { label: 'Servicios', href: '/servicios' },
+    { label: 'Nosotros', href: '/nosotros' },
+    { label: 'Casos', href: '/casos' },
+    { label: 'Blog', href: '/blog' },
+    { label: 'Contacto', href: '/contacto' },
     { label: 'Diagnóstico Gratuito', href: '/diagnostico' },
   ],
 } as const
