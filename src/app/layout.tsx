@@ -25,7 +25,7 @@ export default function RootLayout({
 
   return (
     <html lang="es-MX">
-      <body className="bg-nieve font-sans text-onyx antialiased">
+      <body className="bg-papel font-sans text-onyx antialiased">
         {gtmId && <GoogleTagManager gtmId={gtmId} />}
         {children}
         <FloatingWhatsApp />

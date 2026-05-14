@@ -111,7 +111,7 @@
 
   html,
   body {
-    background: var(--nieve);
+    background: var(--papel);
     color: var(--onyx);
     font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'SF Pro Display',
       'Inter', 'Segoe UI', system-ui, sans-serif;
@@ -417,22 +417,22 @@
 
   /* Header flotante (capsule adaptativa) */
   .float-bar-dark {
-    background: rgba(20, 20, 20, 0.55);
-    backdrop-filter: blur(20px) saturate(140%);
-    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    background: rgba(18, 18, 18, 0.50);
+    backdrop-filter: blur(28px) saturate(180%);
+    -webkit-backdrop-filter: blur(28px) saturate(180%);
     box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.06),
-      0 6px 20px rgba(0, 0, 0, 0.30),
-      0 1px 3px rgba(0, 0, 0, 0.20);
+      inset 0 1px 0 rgba(255, 255, 255, 0.07),
+      0 10px 32px rgba(0, 0, 0, 0.34),
+      0 2px 6px rgba(0, 0, 0, 0.22);
   }
   .float-bar-light {
-    background: rgba(255, 255, 255, 0.78);
-    backdrop-filter: blur(20px) saturate(140%);
-    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(28px) saturate(180%);
+    -webkit-backdrop-filter: blur(28px) saturate(180%);
     box-shadow:
-      0 6px 24px rgba(15, 15, 30, 0.08),
-      0 1px 3px rgba(15, 15, 30, 0.04),
-      inset 0 1px 0 rgba(255, 255, 255, 0.7);
+      0 10px 36px rgba(15, 15, 30, 0.12),
+      0 2px 8px rgba(15, 15, 30, 0.06),
+      inset 0 1px 0 rgba(255, 255, 255, 0.85);
   }
 
   /* ─── Hairline (separador 8% sin border) ───────────────────────── */
@@ -540,19 +540,57 @@
     backdrop-filter: blur(8px);
   }
 
-  /* ─── Section paddings ─────────────────────────────────────────── */
+  /* ─── Section paddings (gutter pequeño · estilo Apple) ─────────── */
   .section-pad {
-    padding-left: clamp(20px, 5.5vw, 120px);
-    padding-right: clamp(20px, 5.5vw, 120px);
-    padding-top: clamp(80px, 11vh, 130px);
-    padding-bottom: clamp(80px, 11vh, 130px);
+    padding-left: clamp(10px, 2.4vw, 28px);
+    padding-right: clamp(10px, 2.4vw, 28px);
+    padding-top: clamp(20px, 2.4vh, 36px);
+    padding-bottom: clamp(20px, 2.4vh, 36px);
   }
 
-  @media (min-width: 1024px) {
-    .section-pad {
-      padding-left: clamp(56px, 7vw, 140px);
-      padding-right: clamp(56px, 7vw, 140px);
-    }
+  /* Para secciones full-bleed con padding mayor (sin contenedor flotante) */
+  .section-pad-flat {
+    padding-left: clamp(16px, 3.5vw, 56px);
+    padding-right: clamp(16px, 3.5vw, 56px);
+    padding-top: clamp(72px, 9vh, 120px);
+    padding-bottom: clamp(72px, 9vh, 120px);
+  }
+
+  /* Section shell — contenedor flotante (oscuro o claro) */
+  .section-shell {
+    border-radius: 24px;
+    padding: clamp(28px, 4.5vw, 64px);
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  @media (min-width: 640px) { .section-shell { border-radius: 32px; } }
+  @media (min-width: 1024px) { .section-shell { border-radius: 40px; padding: clamp(40px, 4.5vw, 80px); } }
+
+  .shell-dark {
+    background: var(--onyx);
+    color: var(--papel);
+    box-shadow:
+      0 2px 6px rgba(15, 15, 30, 0.10),
+      0 22px 50px rgba(15, 15, 30, 0.14),
+      0 10px 24px rgba(15, 15, 30, 0.08);
+  }
+
+  .shell-marfil {
+    background: var(--marfil);
+    color: var(--onyx);
+    box-shadow:
+      0 1px 3px rgba(15, 15, 30, 0.05),
+      0 14px 36px rgba(15, 15, 30, 0.08),
+      0 6px 16px rgba(15, 15, 30, 0.04);
+  }
+
+  .shell-papel {
+    background: var(--papel);
+    color: var(--onyx);
+    box-shadow:
+      0 1px 3px rgba(15, 15, 30, 0.04),
+      0 12px 32px rgba(15, 15, 30, 0.06);
   }
 
   /* ─── WhatsApp Floating CTA (heredado) ─────────────────────────── */

@@ -7,9 +7,9 @@ import Link from 'next/link'
 import { siteConfig } from '@/config/site'
 
 /* ═══════════════════════════════════════════════════════════════════
-   ANTUARIO · Home (Brandbook 2026) · v2
-   Apple-like minimal. Scroll normal. Header flotante adaptativo.
-   Logotype ↔ Isotipo con transición elegante. Cards flotantes 3D.
+   ANTUARIO · Home (Brandbook 2026) · v3
+   Apple-like minimal — secciones flotantes sobre papel blanco.
+   Header pill adaptativo. Logotype ↔ Isotipo en scroll.
    ═══════════════════════════════════════════════════════════════════ */
 
 // ─── Marca: isotipo ────────────────────────────────────────────────────────
@@ -87,7 +87,6 @@ export default function HomePage() {
   const [showLogotype, setShowLogotype] = useState(true)
   const [menuOpen, setMenuOpen] = useState(false)
 
-  // Detecta la sección que está bajo el header → cambia tema del header
   useEffect(() => {
     const sections = Array.from(
       document.querySelectorAll<HTMLElement>('[data-theme]')
@@ -95,7 +94,7 @@ export default function HomePage() {
     if (sections.length === 0) return
 
     const compute = () => {
-      const probeY = 88 // px desde top — bajo la barra
+      const probeY = 88
       let current: SectionTheme = 'dark'
       for (const s of sections) {
         const r = s.getBoundingClientRect()
@@ -116,7 +115,6 @@ export default function HomePage() {
     }
   }, [])
 
-  // Logotype solo mientras estamos en el hero; después → isotipo
   useEffect(() => {
     const onScroll = () => {
       setShowLogotype(window.scrollY < window.innerHeight * 0.55)
@@ -137,11 +135,11 @@ export default function HomePage() {
 
       <main className="relative">
         <HeroSection />
+        <CasesSection />
         <AgencySection />
         <ServicesSection />
         <DifferentiatorsSection />
         <DataSection />
-        <CasesSection />
         <AccountabilitySection />
         <AISection />
         <CoverageSection />
@@ -165,25 +163,24 @@ function FloatingHeader({
   const isDark = theme === 'dark'
 
   return (
-    <header className="pointer-events-none fixed inset-x-0 top-3 z-50 sm:top-5">
-      <div className="pointer-events-auto mx-auto max-w-[1180px] px-3 sm:px-5">
+    <header className="pointer-events-none fixed inset-x-0 top-3 z-50 sm:top-4">
+      <div className="pointer-events-auto mx-auto w-full max-w-[1440px] px-[clamp(10px,2.4vw,24px)]">
         <div
-          className={`flex items-center justify-between rounded-full px-4 py-2 transition-colors duration-700 ease-out sm:px-5 sm:py-2.5 ${
+          className={`flex items-center justify-between rounded-full px-4 py-2.5 transition-colors duration-700 ease-out sm:px-5 sm:py-3 ${
             isDark ? 'float-bar-dark text-papel' : 'float-bar-light text-onyx'
           }`}
         >
-          {/* Logo container (transición logotype ↔ isotipo) */}
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="relative flex h-7 items-center overflow-visible sm:h-8"
+            className="relative flex h-8 items-center overflow-visible sm:h-9"
             style={{
-              width: showLogotype ? 132 : 28,
+              width: showLogotype ? 168 : 34,
               transition: 'width 0.75s cubic-bezier(0.22, 1, 0.36, 1)',
             }}
             aria-label="Antuario · Ir al inicio"
           >
             <AntuarioLogotype
-              className="absolute left-0 top-1/2 h-[18px] w-auto -translate-y-1/2 sm:h-[22px]"
+              className="absolute left-0 top-1/2 h-[22px] w-auto -translate-y-1/2 sm:h-[26px]"
               dark={isDark}
               style={{
                 opacity: showLogotype ? 1 : 0,
@@ -193,7 +190,7 @@ function FloatingHeader({
               }}
             />
             <AntuarioMark
-              className="absolute left-0 top-1/2 h-[22px] w-auto -translate-y-1/2 sm:h-[26px]"
+              className="absolute left-0 top-1/2 h-[26px] w-auto -translate-y-1/2 sm:h-[30px]"
               style={{
                 color: isDark ? 'var(--papel)' : 'var(--onyx)',
                 opacity: showLogotype ? 0 : 1,
@@ -209,7 +206,7 @@ function FloatingHeader({
               href={siteConfig.whatsapp}
               target="_blank"
               rel="noopener noreferrer"
-              className={`hidden items-center gap-1.5 rounded-full px-4 py-1.5 text-[12px] font-medium transition-colors sm:inline-flex ${
+              className={`hidden items-center gap-1.5 rounded-full px-4 py-1.5 text-[12.5px] font-medium transition-colors sm:inline-flex ${
                 isDark
                   ? 'bg-papel/10 text-papel hover:bg-papel/16'
                   : 'bg-onyx text-papel hover:bg-grafito'
@@ -221,18 +218,16 @@ function FloatingHeader({
             <button
               onClick={onOpenMenu}
               aria-label="Abrir menú"
-              className={`flex h-8 w-8 items-center justify-center rounded-full transition-colors sm:h-9 sm:w-9 ${
+              className={`flex h-9 w-9 items-center justify-center rounded-full transition-colors ${
                 isDark
                   ? 'bg-papel/10 text-papel hover:bg-papel/16'
-                  : 'bg-onyx/05 text-onyx hover:bg-onyx/10'
+                  : 'text-onyx'
               }`}
               style={
-                !isDark
-                  ? { background: 'rgba(10,10,10,0.05)' }
-                  : undefined
+                !isDark ? { background: 'rgba(10,10,10,0.06)' } : undefined
               }
             >
-              <Menu className="h-4 w-4 sm:h-[16px] sm:w-[16px]" />
+              <Menu className="h-4 w-4" />
             </button>
           </div>
         </div>
@@ -278,7 +273,7 @@ function NavOverlay({ open, onClose }: { open: boolean; onClose: () => void }) {
             className="relative mx-auto flex h-full max-w-6xl flex-col px-6 py-7 sm:px-10 sm:py-10"
           >
             <div className="flex items-center justify-between">
-              <AntuarioLogotype className="h-[20px] w-auto" dark />
+              <AntuarioLogotype className="h-[24px] w-auto" dark />
               <button
                 onClick={onClose}
                 aria-label="Cerrar menú"
@@ -381,169 +376,182 @@ function NavOverlay({ open, onClose }: { open: boolean; onClose: () => void }) {
   )
 }
 
-/* ═══════════════ 01 · HERO ═══════════════ */
-function HeroSection() {
+/* ═══════════════ Wrapper de sección flotante ═══════════════ */
+function ShellWrap({
+  children,
+  data,
+  variant,
+  className = '',
+  topPad = false,
+}: {
+  children: React.ReactNode
+  data: SectionTheme
+  variant: 'dark' | 'marfil' | 'papel'
+  className?: string
+  topPad?: boolean
+}) {
+  const shell =
+    variant === 'dark'
+      ? 'shell-dark'
+      : variant === 'marfil'
+      ? 'shell-marfil'
+      : 'shell-papel'
+
   return (
     <section
-      id="hero"
-      data-theme="dark"
-      className="relative isolate overflow-hidden bg-onyx text-papel"
+      data-theme={data}
+      className={`section-pad ${topPad ? 'pt-[88px] sm:pt-[96px]' : ''} ${className}`}
     >
-      <div className="aurora aurora-deep inset-0 opacity-90" aria-hidden />
-      <div className="grid-pattern-dark pointer-events-none absolute inset-0 opacity-20" />
-      <div
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background:
-            'radial-gradient(ellipse at center, transparent 30%, rgba(5,5,5,0.50) 100%)',
-        }}
-      />
-
-      <div className="section-pad relative z-10 min-h-[100svh] pt-[120px] sm:pt-[140px] lg:pt-[120px]">
-        <div className="mx-auto grid max-w-[1180px] items-center gap-12 lg:grid-cols-12 lg:gap-14">
-          {/* Texto */}
-          <div className="lg:col-span-6">
-            <motion.div
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true }}
-              variants={rise}
-              className="flex items-center gap-3"
-            >
-              <span className="spectrum-bar" style={{ width: 44 }} />
-              <span className="eyebrow-light">Sistema de marca · 2026</span>
-            </motion.div>
-
-            <motion.h1
-              custom={1}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true }}
-              variants={rise}
-              className="display mt-6 max-w-[16ch] text-balance text-[36px] leading-[1.04] text-papel sm:text-[52px] lg:text-[62px]"
-            >
-              Marketing digital,{' '}
-              <span className="multi-grad-bright">a la medida</span>.
-            </motion.h1>
-
-            <motion.p
-              custom={2}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true }}
-              variants={rise}
-              className="mt-5 max-w-[42ch] text-[15px] leading-[1.55] text-papel/65 sm:text-[16.5px]"
-            >
-              Marketing, sistemas e inteligencia artificial — bajo una sola
-              dirección estratégica, con accountability total sobre cada
-              resultado.
-            </motion.p>
-
-            <motion.div
-              custom={3}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true }}
-              variants={rise}
-              className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-3"
-            >
-              <a
-                href={siteConfig.whatsapp}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-primary-inv"
-              >
-                <WhatsAppIcon className="h-3.5 w-3.5" />
-                Cuéntanos tu proyecto
-                <ArrowRight className="h-3 w-3" />
-              </a>
-              <a href="#agencia" className="btn-ghost-dark">
-                Conocer Antuario
-              </a>
-            </motion.div>
-
-            <motion.div
-              custom={4}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true }}
-              variants={rise}
-              className="mt-4 text-[11.5px] text-papel/40"
-            >
-              Sin costo · Sin compromiso
-            </motion.div>
-
-            {/* Mini-chips */}
-            <motion.ul
-              custom={5}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true }}
-              variants={rise}
-              className="mt-10 flex flex-wrap items-center gap-x-2 gap-y-2"
-            >
-              {[
-                'Performance Ads',
-                'SEO',
-                'Diseño Web',
-                'Redes Sociales',
-                'IA aplicada',
-              ].map((s, i) => (
-                <li key={s} className="flex items-center gap-2">
-                  {i > 0 && <span className="h-0.5 w-0.5 rounded-full bg-papel/25" />}
-                  <span className="text-[11px] font-medium text-papel/60 sm:text-[12px]">
-                    {s}
-                  </span>
-                </li>
-              ))}
-            </motion.ul>
-          </div>
-
-          {/* Deck flotante */}
-          <motion.div
-            initial={{ opacity: 0, y: 28 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-            className="lg:col-span-6"
-          >
-            <HeroDeck />
-          </motion.div>
-        </div>
-
-        {/* Meta inferior */}
-        <div className="relative z-10 mx-auto mt-14 flex w-full max-w-[1180px] items-end justify-between pb-6">
-          <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-papel/35">
-            CDMX · México
-          </span>
-          <span className="font-mono text-[10px] tracking-[0.22em] text-papel/35">
-            Vol. 01 · MMXXVI
-          </span>
-        </div>
+      <div className="mx-auto w-full max-w-[1440px]">
+        <div className={`section-shell ${shell}`}>{children}</div>
       </div>
     </section>
   )
 }
 
+/* ═══════════════ 01 · HERO ═══════════════ */
+function HeroSection() {
+  const services = ['Performance Ads', 'SEO', 'Diseño Web', 'Redes Sociales', 'Software', 'IA aplicada']
+
+  return (
+    <ShellWrap data="dark" variant="dark" topPad>
+      {/* Aurora muy sutil */}
+      <div className="aurora aurora-deep absolute inset-0 opacity-65" aria-hidden />
+      <div className="grid-pattern-dark pointer-events-none absolute inset-0 opacity-15" />
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            'radial-gradient(ellipse at center, transparent 35%, rgba(5,5,5,0.45) 100%)',
+        }}
+      />
+
+      <div className="relative z-10 grid items-center gap-12 pt-4 sm:pt-8 lg:grid-cols-12 lg:gap-14">
+        {/* Texto */}
+        <div className="lg:col-span-6">
+          <motion.span
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+            variants={rise}
+            className="eyebrow-light"
+          >
+            Agencia de Marketing Digital
+          </motion.span>
+
+          <motion.h1
+            custom={1}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+            variants={rise}
+            className="display mt-5 max-w-[14ch] text-balance text-[40px] leading-[1.02] text-papel sm:text-[58px] lg:text-[72px]"
+          >
+            Marketing digital,{' '}
+            <span className="multi-grad-bright">a la medida</span>.
+          </motion.h1>
+
+          <motion.p
+            custom={2}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+            variants={rise}
+            className="mt-6 max-w-[44ch] text-[15px] leading-[1.55] text-papel/70 sm:text-[16.5px]"
+          >
+            Posicionamiento, adquisición, estrategia, estructura. Diseñamos
+            cada solución a la medida — sin paquetes prefabricados, sin
+            plantillas. Lo que tu marca necesite, lo construimos bien.
+          </motion.p>
+
+          <motion.div
+            custom={3}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+            variants={rise}
+            className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-3"
+          >
+            <a
+              href={siteConfig.whatsapp}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-primary-inv"
+            >
+              <WhatsAppIcon className="h-3.5 w-3.5" />
+              Cuéntanos tu proyecto
+              <ArrowRight className="h-3 w-3" />
+            </a>
+            <a href="#agencia" className="btn-ghost-dark">
+              Conocer Antuario
+            </a>
+          </motion.div>
+
+          <motion.div
+            custom={4}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+            variants={rise}
+            className="mt-3.5 text-[11.5px] text-papel/40"
+          >
+            Sin costo · Sin compromiso
+          </motion.div>
+
+          {/* Chips de servicios — contenedor pill elegante */}
+          <motion.div
+            custom={5}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+            variants={rise}
+            className="mt-10 inline-flex max-w-full flex-wrap items-center gap-1.5 rounded-2xl bg-papel/[0.05] p-1.5 backdrop-blur-md sm:gap-2"
+            style={{
+              boxShadow:
+                'inset 0 1px 0 rgba(255,255,255,0.06), 0 8px 20px rgba(0,0,0,0.20)',
+            }}
+          >
+            {services.map((s) => (
+              <span
+                key={s}
+                className="rounded-xl px-2.5 py-1.5 text-[11px] font-medium text-papel/75 transition-colors hover:bg-papel/8 hover:text-papel sm:px-3 sm:text-[12px]"
+              >
+                {s}
+              </span>
+            ))}
+          </motion.div>
+        </div>
+
+        {/* Deck flotante */}
+        <motion.div
+          initial={{ opacity: 0, y: 28 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+          className="lg:col-span-6"
+        >
+          <HeroDeck />
+        </motion.div>
+      </div>
+    </ShellWrap>
+  )
+}
+
 function HeroDeck() {
   return (
-    <div className="relative mx-auto h-[420px] w-full max-w-[520px] sm:h-[500px]">
-      {/* Aurora detrás */}
+    <div className="relative mx-auto h-[420px] w-full max-w-[540px] sm:h-[500px]">
       <div
         className="pointer-events-none absolute -inset-8 -z-10 rounded-[64px] opacity-65"
         style={{
           background:
-            'radial-gradient(45% 50% at 60% 30%, rgba(167,139,250,0.35), transparent 60%), radial-gradient(40% 50% at 20% 80%, rgba(34,211,238,0.28), transparent 60%), radial-gradient(35% 40% at 80% 75%, rgba(251,113,133,0.20), transparent 60%)',
+            'radial-gradient(45% 50% at 60% 30%, rgba(167,139,250,0.32), transparent 60%), radial-gradient(40% 50% at 20% 80%, rgba(34,211,238,0.26), transparent 60%), radial-gradient(35% 40% at 80% 75%, rgba(251,113,133,0.18), transparent 60%)',
           filter: 'blur(50px)',
         }}
         aria-hidden
       />
 
       {/* Card 3 — atrás */}
-      <div
-        className="absolute right-0 top-0 w-[78%]"
-        style={{ transform: 'rotate(3deg)' }}
-      >
+      <div className="absolute right-0 top-0 w-[78%]" style={{ transform: 'rotate(3deg)' }}>
         <div className="card-bb-glass p-5 sm:p-6">
           <div className="flex items-center justify-between">
             <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-papel/45">
@@ -567,15 +575,12 @@ function HeroDeck() {
       </div>
 
       {/* Card 2 — medio */}
-      <div
-        className="absolute left-0 top-[112px] w-[78%]"
-        style={{ transform: 'rotate(-2deg)' }}
-      >
+      <div className="absolute left-0 top-[112px] w-[78%]" style={{ transform: 'rotate(-2deg)' }}>
         <div
           className="rounded-[24px] bg-onyx p-5 sm:p-6"
           style={{
             boxShadow:
-              '0 1px 0 rgba(255,255,255,0.06) inset, 0 20px 44px rgba(0,0,0,0.55), 0 4px 10px rgba(0,0,0,0.40)',
+              'inset 0 1px 0 rgba(255,255,255,0.06), 0 20px 44px rgba(0,0,0,0.55), 0 4px 10px rgba(0,0,0,0.40)',
           }}
         >
           <div className="flex items-center justify-between">
@@ -608,11 +613,8 @@ function HeroDeck() {
         </div>
       </div>
 
-      {/* Card 1 — frente, KPI grande */}
-      <div
-        className="absolute right-[4%] top-[230px] w-[84%]"
-        style={{ transform: 'rotate(1deg)' }}
-      >
+      {/* Card 1 — frente */}
+      <div className="absolute right-[4%] top-[230px] w-[84%]" style={{ transform: 'rotate(1deg)' }}>
         <div
           className="rounded-[24px] bg-papel p-5 text-onyx sm:p-7"
           style={{
@@ -658,105 +660,225 @@ function HeroDeck() {
   )
 }
 
-/* ═══════════════ 02 · QUIÉNES SOMOS ═══════════════ */
+/* ═══════════════ 02 · CASOS (movido aquí) ═══════════════ */
+function CasesSection() {
+  const cases = [
+    { src: '/portfolio/acriland.jpg', name: 'Acriland', tag: 'Diseño Web · SEO' },
+    { src: '/portfolio/aracnene.jpg', name: 'Aracnene', tag: 'Diseño Web · SEO' },
+    { src: '/portfolio/maggadan.jpg', name: 'Maggadan', tag: 'Marketing Digital' },
+    { src: '/portfolio/magia-travel.jpg', name: 'Magia Travel', tag: 'Diseño Web' },
+    { src: '/portfolio/metrica-btl.jpg', name: 'Métrica BTL', tag: 'Diseño Web · SEO' },
+    { src: '/portfolio/reserva27.jpg', name: 'Reserva 27', tag: 'Marketing Digital' },
+    { src: '/portfolio/somos-unno.jpg', name: 'Somos Unno', tag: 'Marketing Digital' },
+    { src: '/portfolio/acriland-web.jpg', name: 'Acriland Web', tag: 'Diseño Web · SEO' },
+  ]
+  const loop = [...cases, ...cases]
+  const trackRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const track = trackRef.current
+    if (!track) return
+    let raf = 0
+    let last = performance.now()
+    let pauseUntil = 0
+    const bumpPause = () => { pauseUntil = performance.now() + 1800 }
+    track.addEventListener('pointerdown', bumpPause, { passive: true })
+    track.addEventListener('wheel', bumpPause, { passive: true })
+    track.addEventListener('touchmove', bumpPause, { passive: true })
+    track.addEventListener('mouseenter', bumpPause)
+    const tick = (now: number) => {
+      const dt = Math.min(now - last, 60)
+      last = now
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      if (!reduceMotion && now > pauseUntil) {
+        track.scrollLeft += 0.04 * dt
+        const half = track.scrollWidth / 2
+        if (track.scrollLeft >= half) track.scrollLeft -= half
+      }
+      raf = requestAnimationFrame(tick)
+    }
+    raf = requestAnimationFrame(tick)
+    return () => {
+      cancelAnimationFrame(raf)
+      track.removeEventListener('pointerdown', bumpPause)
+      track.removeEventListener('wheel', bumpPause)
+      track.removeEventListener('touchmove', bumpPause)
+      track.removeEventListener('mouseenter', bumpPause)
+    }
+  }, [])
+
+  return (
+    <ShellWrap data="light" variant="marfil">
+      <motion.div
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true }}
+        variants={rise}
+        className="mb-8 flex flex-wrap items-end justify-between gap-6 sm:mb-10"
+      >
+        <div>
+          <ChapterTag roman="II" label="Casos" sub="Trabajo" />
+          <h2
+            className="hero-type mt-5 max-w-[18ch] text-[28px] text-onyx sm:text-[40px] lg:text-[46px]"
+            style={{ fontWeight: 300 }}
+          >
+            Nuestro trabajo{' '}
+            <span className="multi-grad">habla por sí mismo.</span>
+          </h2>
+        </div>
+        <p className="lead-type max-w-[40ch] text-[14px] sm:text-[15.5px]">
+          Marcas que confían en Antuario para su marketing digital, desarrollo
+          web y posicionamiento.
+        </p>
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8 }}
+        className="relative -mx-[clamp(28px,4.5vw,80px)] sm:-mx-[clamp(40px,4.5vw,80px)]"
+      >
+        <div
+          ref={trackRef}
+          className="marquee-mask no-scrollbar overflow-x-auto px-[clamp(28px,4.5vw,80px)] sm:px-[clamp(40px,4.5vw,80px)]"
+          style={{ WebkitOverflowScrolling: 'touch' }}
+        >
+          <div className="flex w-max gap-5 pb-2 sm:gap-6">
+            {loop.map((c, i) => (
+              <article
+                key={`${c.name}-${i}`}
+                className="group relative aspect-[4/5] w-[240px] flex-shrink-0 select-none overflow-hidden rounded-[24px] bg-lino sm:w-[300px] lg:w-[340px]"
+                style={{
+                  boxShadow:
+                    '0 2px 4px rgba(15,15,30,0.08), 0 16px 32px rgba(15,15,30,0.10), 0 32px 64px rgba(15,15,30,0.06)',
+                }}
+                aria-label={c.name}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={c.src}
+                  alt={`${c.name} · ${c.tag}`}
+                  draggable={false}
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                  loading="lazy"
+                />
+                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent p-5 sm:p-6">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-papel/65">
+                    {c.tag}
+                  </span>
+                  <h3
+                    className="mt-1.5 text-[17px] font-medium tracking-tight text-papel sm:text-[20px]"
+                    style={{ letterSpacing: '-0.018em' }}
+                  >
+                    {c.name}
+                  </h3>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </motion.div>
+    </ShellWrap>
+  )
+}
+
+/* ═══════════════ 03 · QUIÉNES SOMOS ═══════════════ */
 function AgencySection() {
   return (
     <section
       id="agencia"
       data-theme="light"
-      className="relative bg-nieve"
+      className="section-pad"
     >
-      <div className="section-pad mx-auto max-w-[1180px]">
-        <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
-          <motion.div
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true }}
-            variants={rise}
-            className="lg:col-span-7"
-          >
-            <ChapterTag roman="I" label="Esencia" sub="Quiénes somos" />
-
-            <motion.h2
-              custom={1}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true }}
-              variants={rise}
-              className="hero-type mt-6 max-w-[16ch] text-[34px] text-onyx sm:text-[48px] lg:text-[56px]"
-              style={{ fontWeight: 300 }}
-            >
-              Más que <span className="multi-grad">una agencia.</span>
-            </motion.h2>
-
-            <motion.p
-              custom={2}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true }}
-              variants={rise}
-              className="lead-type mt-6 max-w-[46ch] text-[15px] sm:text-[17px]"
-            >
-              Capacidades estratégicas, tecnológicas y creativas que van mucho
-              más allá de lo que una agencia tradicional ofrece. Operamos como
-              partner: respondemos por resultados, no por tareas.
-            </motion.p>
-
-            {/* Mini-stats flotantes */}
+      <div className="mx-auto w-full max-w-[1440px]">
+        <div className="px-[clamp(8px,1.5vw,32px)] py-[clamp(48px,6vh,80px)]">
+          <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
             <motion.div
-              custom={3}
               initial="hidden"
               whileInView="show"
               viewport={{ once: true }}
               variants={rise}
-              className="mt-8 grid grid-cols-3 gap-3"
+              className="lg:col-span-7"
             >
-              {[
-                { v: '04', l: 'Oficios bajo un techo' },
-                { v: '07', l: 'Disciplinas integradas' },
-                { v: '100%', l: 'Accountability' },
-              ].map((s) => (
-                <div
-                  key={s.l}
-                  className="card-bb-soft p-3.5 sm:p-4"
-                >
-                  <p
-                    className="text-[24px] font-light tracking-tight text-onyx sm:text-[28px]"
-                    style={{ letterSpacing: '-0.028em' }}
-                  >
-                    {s.v}
-                  </p>
-                  <span className="mt-1 block text-[11px] leading-tight text-plomo sm:text-[11.5px]">
-                    {s.l}
-                  </span>
-                </div>
-              ))}
+              <ChapterTag roman="I" label="Esencia" sub="Quiénes somos" />
+
+              <motion.h2
+                custom={1}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true }}
+                variants={rise}
+                className="hero-type mt-5 max-w-[16ch] text-[32px] text-onyx sm:text-[44px] lg:text-[52px]"
+                style={{ fontWeight: 300 }}
+              >
+                Más que <span className="multi-grad">una agencia.</span>
+              </motion.h2>
+
+              <motion.p
+                custom={2}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true }}
+                variants={rise}
+                className="lead-type mt-6 max-w-[48ch] text-[15px] sm:text-[16.5px]"
+              >
+                Un equipo que domina amplias habilidades y herramientas para
+                llevar a la realidad prácticamente cualquier proyecto. Desde
+                posicionamiento de marca hasta sistemas con IA — diseñamos
+                cada pieza en función de lo que tu negocio necesita.
+              </motion.p>
+
+              <motion.p
+                custom={3}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true }}
+                variants={rise}
+                className="body-type mt-4 max-w-[52ch] text-[14px]"
+              >
+                Sin paquetes prefabricados, sin plantillas. Operamos como
+                partner: respondemos por resultados, no por tareas.
+              </motion.p>
+
+              <motion.div
+                custom={4}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true }}
+                variants={rise}
+                className="mt-8 grid grid-cols-3 gap-3"
+              >
+                {[
+                  { v: '04', l: 'Oficios bajo un techo' },
+                  { v: '07', l: 'Disciplinas integradas' },
+                  { v: '100%', l: 'Hecho a la medida' },
+                ].map((s) => (
+                  <div key={s.l} className="card-bb-soft p-4">
+                    <p
+                      className="text-[24px] font-light tracking-tight text-onyx sm:text-[28px]"
+                      style={{ letterSpacing: '-0.028em' }}
+                    >
+                      {s.v}
+                    </p>
+                    <span className="mt-1 block text-[11px] leading-tight text-plomo sm:text-[11.5px]">
+                      {s.l}
+                    </span>
+                  </div>
+                ))}
+              </motion.div>
             </motion.div>
 
             <motion.div
-              custom={4}
-              initial="hidden"
-              whileInView="show"
+              initial={{ opacity: 0, scale: 0.96 }}
+              whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              variants={rise}
-              className="mt-7 flex items-center gap-3"
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+              className="relative flex items-center justify-center lg:col-span-5"
             >
-              <span className="spectrum-bar" style={{ width: 56 }} />
-              <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-plomo">
-                El Creador con la disciplina del Mago
-              </span>
+              <AgencyConstellation />
             </motion.div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, scale: 0.96 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="relative flex items-center justify-center lg:col-span-5"
-          >
-            <AgencyConstellation />
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>
@@ -776,10 +898,7 @@ function AgencyConstellation() {
   return (
     <div className="agency-stage relative flex h-[320px] w-[320px] items-center justify-center sm:h-[400px] sm:w-[400px]">
       <span className="agency-halo absolute inset-6 rounded-full sm:inset-8" aria-hidden />
-      <span
-        className="agency-conic absolute h-[210px] w-[210px] rounded-full sm:h-[260px] sm:w-[260px]"
-        aria-hidden
-      />
+      <span className="agency-conic absolute h-[210px] w-[210px] rounded-full sm:h-[260px] sm:w-[260px]" aria-hidden />
       <svg
         className="agency-ring-dashed absolute h-[178px] w-[178px] sm:h-[222px] sm:w-[222px]"
         viewBox="0 0 200 200"
@@ -829,10 +948,7 @@ function AgencyConstellation() {
       ))}
 
       <div className="relative z-10 flex items-center justify-center">
-        <span
-          className="agency-core-glow pointer-events-none absolute h-24 w-24 rounded-full sm:h-28 sm:w-28"
-          aria-hidden
-        />
+        <span className="agency-core-glow pointer-events-none absolute h-24 w-24 rounded-full sm:h-28 sm:w-28" aria-hidden />
         <div className="agency-core-breath relative">
           <AntuarioMark className="h-[84px] w-auto text-onyx sm:h-[108px]" />
         </div>
@@ -841,20 +957,13 @@ function AgencyConstellation() {
   )
 }
 
-/* ═══════════════ 03 · SERVICIOS ═══════════════ */
+/* ═══════════════ 04 · SERVICIOS ═══════════════ */
 function ServicesSection() {
   type Cap = {
-    n: string
-    tag: string
-    title: string
-    headline: string
-    description: string
-    items: string[]
-    accent: string
+    n: string; tag: string; title: string; headline: string; description: string; items: string[]; accent: string
   }
-
   const caps: Cap[] = [
-    { n: '01', tag: 'Paid Media', title: 'Performance Ads', headline: 'Campañas que mueven la aguja, no que ganan premios.', description: 'Optimizamos cada peso invertido — desde la creatividad hasta la puja — para conseguir leads, ventas y crecimiento real.', items: ['Google, Meta y TikTok Ads', 'ROAS, CPA y CPL reales', 'Testing creativo continuo', 'Reportes con accountability'], accent: 'var(--cobalto)' },
+    { n: '01', tag: 'Paid Media', title: 'Performance Ads', headline: 'Campañas que mueven la aguja, no que ganan premios.', description: 'Optimizamos cada peso invertido — desde la creatividad hasta la puja — para conseguir leads, ventas y crecimiento real. Estrategia 100% adaptada a tu vertical.', items: ['Google, Meta y TikTok Ads', 'ROAS, CPA y CPL reales', 'Testing creativo continuo', 'Reportes con accountability'], accent: 'var(--cobalto)' },
     { n: '02', tag: 'Orgánico', title: 'SEO', headline: 'Crecer en búsquedas, sin pagar por cada click.', description: 'Auditoría técnica, estrategia de contenidos y autoridad de dominio para posicionarte donde tus clientes te buscan.', items: ['Auditoría técnica + competencia', 'Estrategia de keywords', 'Contenido y linkbuilding', 'Reportes mensuales de posiciones'], accent: 'var(--salvia)' },
     { n: '03', tag: 'Contenido', title: 'Redes Sociales', headline: 'Estrategia, contenido y producción bajo el mismo techo.', description: 'Comunicamos tu marca con consistencia: planeamos, producimos y publicamos contenido que conecta y convierte.', items: ['Calendarios estratégicos', 'Producción foto y video', 'Edición y post profesional', 'Community y rendimiento'], accent: 'var(--nectar)' },
     { n: '04', tag: 'Diseño', title: 'Diseño Creativo', headline: 'Identidad visual que diferencia a tu marca.', description: 'Branding, dirección de arte y sistemas visuales escalables — el lenguaje gráfico que sostiene toda tu comunicación.', items: ['Branding e identidad', 'Dirección de arte', 'Sistemas visuales', 'Piezas para campañas'], accent: 'var(--rubor)' },
@@ -867,111 +976,103 @@ function ServicesSection() {
   const active = caps[activeIdx]
 
   return (
-    <section
-      id="servicios"
-      data-theme="light"
-      className="relative bg-marfil"
-    >
-      <div className="section-pad mx-auto max-w-[1180px]">
-        <motion.div
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
-          variants={rise}
-          className="mb-10 sm:mb-14"
+    <ShellWrap data="light" variant="marfil">
+      <motion.div
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true }}
+        variants={rise}
+        className="mb-10 sm:mb-12"
+      >
+        <ChapterTag roman="I" label="Oficios" sub="Qué hacemos" />
+        <h2
+          className="hero-type mt-5 max-w-[20ch] text-[30px] text-onyx sm:text-[42px] lg:text-[50px]"
+          style={{ fontWeight: 300 }}
         >
-          <ChapterTag roman="I" label="Oficios" sub="Qué hacemos" />
-          <h2
-            className="hero-type mt-6 max-w-[20ch] text-[32px] text-onyx sm:text-[44px] lg:text-[52px]"
-            style={{ fontWeight: 300 }}
-          >
-            Una sola dirección,{' '}
-            <span className="multi-grad">muchas capacidades.</span>
-          </h2>
-          <p className="lead-type mt-5 max-w-[54ch] text-[15px] sm:text-[16.5px]">
-            Construimos sistemas comerciales completos para empresas de
-            servicios. No vendemos piezas sueltas: tomamos una marca, la
-            posicionamos, la ponemos a producir leads y los convertimos en
-            ventas.
-          </p>
-        </motion.div>
+          Una sola dirección,{' '}
+          <span className="multi-grad">muchas capacidades.</span>
+        </h2>
+        <p className="lead-type mt-5 max-w-[58ch] text-[15px] sm:text-[16px]">
+          Construimos sistemas comerciales completos para empresas de
+          servicios — todo a la medida. No vendemos piezas sueltas: tomamos
+          una marca, la posicionamos, la ponemos a producir leads y los
+          convertimos en ventas.
+        </p>
+      </motion.div>
 
-        {/* Mobile — chips */}
-        <div className="lg:hidden">
-          <div className="no-scrollbar -mx-5 mb-4 overflow-x-auto px-5">
-            <div className="flex w-max gap-2">
-              {caps.map((c, i) => {
-                const isActive = i === activeIdx
-                return (
-                  <button
-                    key={c.title}
-                    onClick={() => setActiveIdx(i)}
-                    className={`whitespace-nowrap rounded-full px-4 py-2 text-[11.5px] font-medium transition-all duration-300 ${
-                      isActive
-                        ? 'bg-onyx text-papel'
-                        : 'bg-papel text-grafito shadow-soft'
-                    }`}
-                  >
-                    {c.title}
-                  </button>
-                )
-              })}
-            </div>
-          </div>
-          <CapabilityPanel cap={active} mobile />
-        </div>
-
-        {/* Desktop */}
-        <div className="hidden grid-cols-12 gap-10 lg:grid">
-          <ul className="lg:col-span-5">
+      {/* Mobile chips */}
+      <div className="lg:hidden">
+        <div className="no-scrollbar -mx-[clamp(28px,4.5vw,80px)] mb-4 overflow-x-auto px-[clamp(28px,4.5vw,80px)]">
+          <div className="flex w-max gap-2">
             {caps.map((c, i) => {
               const isActive = i === activeIdx
               return (
-                <li key={c.title}>
-                  <button
-                    onClick={() => setActiveIdx(i)}
-                    onMouseEnter={() => setActiveIdx(i)}
-                    className="group relative flex w-full items-center gap-5 py-3 text-left transition-colors"
-                  >
-                    <span
-                      aria-hidden
-                      className="absolute -left-px top-0 h-full w-[2px] origin-top transition-transform duration-500"
-                      style={{
-                        background: c.accent,
-                        transform: `scaleY(${isActive ? 1 : 0})`,
-                      }}
-                    />
-                    <span
-                      className="font-mono text-[10px] tracking-widest transition-colors"
-                      style={{ color: isActive ? c.accent : 'var(--niebla)' }}
-                    >
-                      {c.n}
-                    </span>
-                    <span
-                      className={`flex-1 text-[16px] font-medium tracking-tight transition-colors ${
-                        isActive ? 'text-onyx' : 'text-niebla group-hover:text-grafito'
-                      }`}
-                      style={{ letterSpacing: '-0.014em' }}
-                    >
-                      {c.title}
-                    </span>
-                    <ArrowUpRight
-                      className="h-4 w-4 -translate-x-1 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100"
-                      style={{ color: c.accent }}
-                    />
-                  </button>
-                  {i < caps.length - 1 && <div className="hair" />}
-                </li>
+                <button
+                  key={c.title}
+                  onClick={() => setActiveIdx(i)}
+                  className={`whitespace-nowrap rounded-full px-4 py-2 text-[11.5px] font-medium transition-all duration-300 ${
+                    isActive ? 'bg-onyx text-papel' : 'bg-papel text-grafito shadow-soft'
+                  }`}
+                >
+                  {c.title}
+                </button>
               )
             })}
-          </ul>
-
-          <div className="lg:col-span-7">
-            <CapabilityPanel cap={active} />
           </div>
         </div>
+        <CapabilityPanel cap={active} mobile />
       </div>
-    </section>
+
+      {/* Desktop */}
+      <div className="hidden grid-cols-12 gap-10 lg:grid">
+        <ul className="lg:col-span-5">
+          {caps.map((c, i) => {
+            const isActive = i === activeIdx
+            return (
+              <li key={c.title}>
+                <button
+                  onClick={() => setActiveIdx(i)}
+                  onMouseEnter={() => setActiveIdx(i)}
+                  className="group relative flex w-full items-center gap-5 py-3 text-left transition-colors"
+                >
+                  <span
+                    aria-hidden
+                    className="absolute -left-px top-0 h-full w-[2px] origin-top transition-transform duration-500"
+                    style={{
+                      background: c.accent,
+                      transform: `scaleY(${isActive ? 1 : 0})`,
+                    }}
+                  />
+                  <span
+                    className="font-mono text-[10px] tracking-widest transition-colors"
+                    style={{ color: isActive ? c.accent : 'var(--niebla)' }}
+                  >
+                    {c.n}
+                  </span>
+                  <span
+                    className={`flex-1 text-[16px] font-medium tracking-tight transition-colors ${
+                      isActive ? 'text-onyx' : 'text-niebla group-hover:text-grafito'
+                    }`}
+                    style={{ letterSpacing: '-0.014em' }}
+                  >
+                    {c.title}
+                  </span>
+                  <ArrowUpRight
+                    className="h-4 w-4 -translate-x-1 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100"
+                    style={{ color: c.accent }}
+                  />
+                </button>
+                {i < caps.length - 1 && <div className="hair" />}
+              </li>
+            )
+          })}
+        </ul>
+
+        <div className="lg:col-span-7">
+          <CapabilityPanel cap={active} />
+        </div>
+      </div>
+    </ShellWrap>
   )
 }
 
@@ -979,15 +1080,7 @@ function CapabilityPanel({
   cap,
   mobile = false,
 }: {
-  cap: {
-    n: string
-    tag: string
-    title: string
-    headline: string
-    description: string
-    items: string[]
-    accent: string
-  }
+  cap: { n: string; tag: string; title: string; headline: string; description: string; items: string[]; accent: string }
   mobile?: boolean
 }) {
   return (
@@ -1005,7 +1098,6 @@ function CapabilityPanel({
           className="pointer-events-none absolute -right-16 -top-16 h-44 w-44 rounded-full opacity-25 blur-3xl"
           style={{ background: cap.accent }}
         />
-
         <div className="relative">
           <div className="flex items-center gap-3">
             <span
@@ -1021,17 +1113,13 @@ function CapabilityPanel({
           </div>
 
           <h3
-            className={`mt-4 font-medium tracking-tight text-onyx ${
-              mobile ? 'text-[22px]' : 'text-[28px]'
-            }`}
+            className={`mt-4 font-medium tracking-tight text-onyx ${mobile ? 'text-[22px]' : 'text-[28px]'}`}
             style={{ letterSpacing: '-0.022em', lineHeight: 1.08 }}
           >
             {cap.title}
           </h3>
           <p
-            className={`mt-2.5 font-light tracking-tight text-grafito ${
-              mobile ? 'text-[14px]' : 'text-[16.5px]'
-            }`}
+            className={`mt-2.5 font-light tracking-tight text-grafito ${mobile ? 'text-[14px]' : 'text-[16.5px]'}`}
             style={{ letterSpacing: '-0.012em', lineHeight: 1.36 }}
           >
             {cap.headline}
@@ -1040,17 +1128,11 @@ function CapabilityPanel({
             {cap.description}
           </p>
 
-          <ul
-            className={`mt-5 grid gap-2 ${
-              mobile ? 'grid-cols-1' : 'grid-cols-2 gap-x-6'
-            }`}
-          >
+          <ul className={`mt-5 grid gap-2 ${mobile ? 'grid-cols-1' : 'grid-cols-2 gap-x-6'}`}>
             {cap.items.map((it) => (
               <li
                 key={it}
-                className={`flex items-start gap-2.5 text-grafito ${
-                  mobile ? 'text-[12.5px]' : 'text-[13.5px]'
-                }`}
+                className={`flex items-start gap-2.5 text-grafito ${mobile ? 'text-[12.5px]' : 'text-[13.5px]'}`}
               >
                 <span
                   aria-hidden
@@ -1067,37 +1149,33 @@ function CapabilityPanel({
   )
 }
 
-/* ═══════════════ 04 · DIFERENCIADORES ═══════════════ */
+/* ═══════════════ 05 · DIFERENCIADORES (rediseñado · editorial list) ═══════════════ */
 function DifferentiatorsSection() {
   const items = [
-    { key: 'accountability', title: 'Accountability real', text: 'Respondemos por resultados, no por tareas. Cada compromiso tiene un dueño y una métrica.', accent: 'var(--cobalto-b)' },
-    { key: 'data', title: 'Sistemas de datos', text: 'Tableros vivos para que cada decisión esté basada en información — no en intuición.', accent: 'var(--laguna-b)' },
-    { key: 'vanguard', title: 'Vanguardia con IA', text: 'Mientras la mayoría apenas la nombra, nosotros la operamos. IA en marketing, operación y producto.', accent: 'var(--glicina-b)' },
-    { key: 'strategy', title: 'Estrategia + estructura', text: 'Visión completa: del posicionamiento al funnel, del producto a la operación. Ordenamos lo suelto.', accent: 'var(--rubor-b)' },
-    { key: 'partner', title: 'Partner end-to-end', text: 'De la estrategia a la optimización. Podemos ejecutar todo o sumarnos a tu equipo donde haga falta.', accent: 'var(--salvia-b)' },
-    { key: 'simple', title: 'Simplicidad con criterio', text: 'No complicamos por complicar. Buscamos la solución más simple que funcione bien — y la ejecutamos con calidad.', accent: 'var(--nectar-b)' },
+    { title: 'Accountability real', text: 'Respondemos por resultados, no por tareas. Cada compromiso tiene un dueño y una métrica.', accent: 'var(--cobalto-b)' },
+    { title: 'Sistemas de datos', text: 'Tableros vivos para que cada decisión esté basada en información — no en intuición.', accent: 'var(--laguna-b)' },
+    { title: 'Vanguardia con IA', text: 'Mientras la mayoría apenas la nombra, nosotros la operamos. IA en marketing, operación y producto.', accent: 'var(--glicina-b)' },
+    { title: 'Estrategia + estructura', text: 'Visión completa: del posicionamiento al funnel, del producto a la operación. Ordenamos lo suelto.', accent: 'var(--rubor-b)' },
+    { title: 'Partner end-to-end', text: 'De la estrategia a la optimización. Podemos ejecutar todo o sumarnos a tu equipo donde haga falta.', accent: 'var(--salvia-b)' },
+    { title: 'Hecho a la medida', text: 'Sin paquetes prefabricados. Cada solución se diseña para tu negocio — no al revés.', accent: 'var(--nectar-b)' },
   ]
 
   return (
-    <section
-      id="diferenciadores"
-      data-theme="dark"
-      className="relative isolate overflow-hidden bg-onyx text-papel"
-    >
-      <div className="aurora aurora-deep inset-0 opacity-50" aria-hidden />
-      <div className="grid-pattern-dark pointer-events-none absolute inset-0 opacity-20" />
+    <ShellWrap data="dark" variant="dark">
+      <div className="aurora aurora-deep absolute inset-0 opacity-40" aria-hidden />
+      <div className="grid-pattern-dark pointer-events-none absolute inset-0 opacity-15" />
 
-      <div className="section-pad relative z-10 mx-auto max-w-[1180px]">
+      <div className="relative z-10">
         <motion.div
           initial="hidden"
           whileInView="show"
           viewport={{ once: true }}
           variants={rise}
-          className="mb-10 sm:mb-14"
+          className="mb-12 sm:mb-16"
         >
           <ChapterTag roman="I" label="Diferenciadores" sub="Por qué Antuario" dark />
           <h2
-            className="hero-type mt-6 max-w-[18ch] text-[32px] text-papel sm:text-[44px] lg:text-[52px]"
+            className="hero-type mt-5 max-w-[18ch] text-[30px] text-papel sm:text-[42px] lg:text-[50px]"
             style={{ fontWeight: 300 }}
           >
             Lo que nos hace{' '}
@@ -1109,53 +1187,63 @@ function DifferentiatorsSection() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 gap-3 sm:gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {/* Editorial list 2-col */}
+        <div className="grid gap-y-2 lg:grid-cols-2 lg:gap-x-14">
           {items.map((it, i) => (
             <motion.div
-              key={it.key}
+              key={it.title}
               custom={i}
               initial="hidden"
               whileInView="show"
               viewport={{ once: true }}
               variants={rise}
-              className="group relative overflow-hidden rounded-[24px] bg-papel/[0.04] p-6 transition-all duration-500 hover:-translate-y-1 hover:bg-papel/[0.07]"
+              className="group relative grid grid-cols-[auto_1fr] items-start gap-x-5 py-6 sm:gap-x-7 sm:py-7"
               style={{
-                backdropFilter: 'blur(10px)',
-                boxShadow:
-                  'inset 0 1px 0 rgba(255,255,255,0.05), 0 18px 36px rgba(0,0,0,0.30)',
+                borderTop: i > 0 ? '1px solid rgba(255,255,255,0.08)' : 'none',
               }}
             >
-              <span
-                aria-hidden
-                className="pointer-events-none absolute -right-12 -top-12 h-32 w-32 rounded-full opacity-30 blur-3xl transition-opacity duration-500 group-hover:opacity-60"
-                style={{ background: it.accent }}
-              />
-              <span
-                aria-hidden
-                className="mb-4 block h-1.5 w-1.5 rounded-full"
-                style={{
-                  background: it.accent,
-                  boxShadow: `0 0 12px ${it.accent}`,
-                }}
-              />
-              <h3
-                className="text-[16px] font-medium tracking-tight text-papel"
-                style={{ letterSpacing: '-0.018em' }}
-              >
-                {it.title}
-              </h3>
-              <p className="mt-3 text-[13px] leading-[1.55] text-papel/60">
-                {it.text}
-              </p>
+              {/* Número grande */}
+              <div className="relative">
+                <span
+                  className="block text-[44px] font-light leading-none tabular-nums text-papel/15 transition-colors duration-500 group-hover:text-papel/35 sm:text-[52px]"
+                  style={{ letterSpacing: '-0.04em' }}
+                >
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <span
+                  aria-hidden
+                  className="absolute -left-2 top-2 h-1.5 w-1.5 rounded-full opacity-80"
+                  style={{ background: it.accent, boxShadow: `0 0 12px ${it.accent}` }}
+                />
+              </div>
+
+              <div className="pt-1">
+                <h3
+                  className="text-[18px] font-medium tracking-tight text-papel sm:text-[20px]"
+                  style={{ letterSpacing: '-0.018em' }}
+                >
+                  {it.title}
+                </h3>
+                <p className="mt-2 max-w-[42ch] text-[13.5px] leading-[1.55] text-papel/60 sm:text-[14.5px]">
+                  {it.text}
+                </p>
+              </div>
             </motion.div>
           ))}
+
+          {/* Borde superior de las columnas para separar la fila inicial visualmente cuando hay 2 cols */}
+          <style jsx>{`
+            @media (min-width: 1024px) {
+              :global(.diff-row-first-col) { border-top: 1px solid rgba(255,255,255,0.08); }
+            }
+          `}</style>
         </div>
       </div>
-    </section>
+    </ShellWrap>
   )
 }
 
-/* ═══════════════ 05 · DATOS / DASHBOARD ═══════════════ */
+/* ═══════════════ 06 · DATOS / DASHBOARD ═══════════════ */
 function DataSection() {
   const features = [
     { positive: false, text: 'Datos de vanidad sin contexto' },
@@ -1165,78 +1253,77 @@ function DataSection() {
   ]
 
   return (
-    <section
-      id="datos"
-      data-theme="light"
-      className="relative bg-nieve"
-    >
-      <div className="section-pad mx-auto max-w-[1180px]">
-        <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
-          <motion.div
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true }}
-            variants={rise}
-            className="lg:col-span-5"
-          >
-            <ChapterTag roman="III" label="Datos" sub="Información" />
-            <h2
-              className="hero-type mt-6 max-w-[14ch] text-[30px] text-onyx sm:text-[42px] lg:text-[50px]"
-              style={{ fontWeight: 300 }}
+    <section data-theme="light" className="section-pad">
+      <div className="mx-auto w-full max-w-[1440px]">
+        <div className="px-[clamp(8px,1.5vw,32px)] py-[clamp(48px,6vh,80px)]">
+          <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
+            <motion.div
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+              variants={rise}
+              className="lg:col-span-5"
             >
-              Medición estratégica,{' '}
-              <span className="multi-grad">no reportes genéricos.</span>
-            </h2>
-            <p className="lead-type mt-5 max-w-[44ch] text-[15px] sm:text-[16px]">
-              Construimos sistemas de información estratégicos — no PDFs con
-              likes y alcance.
-            </p>
+              <ChapterTag roman="III" label="Datos" sub="Información" />
+              <h2
+                className="hero-type mt-5 max-w-[14ch] text-[30px] text-onyx sm:text-[40px] lg:text-[48px]"
+                style={{ fontWeight: 300 }}
+              >
+                Medición estratégica,{' '}
+                <span className="multi-grad">no reportes genéricos.</span>
+              </h2>
+              <p className="lead-type mt-5 max-w-[44ch] text-[15px] sm:text-[16px]">
+                Construimos sistemas de información estratégicos hechos a la
+                medida — no PDFs con likes y alcance. Cada dashboard se
+                diseña según las decisiones que tu equipo realmente toma.
+              </p>
 
-            <ul className="mt-7 space-y-2.5">
-              {features.map((f) => (
-                <li key={f.text} className="flex items-start gap-3">
-                  <span
-                    className="mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full"
-                    style={
-                      f.positive
-                        ? { background: 'rgba(52,211,153,0.16)', color: 'var(--salvia)' }
-                        : { background: 'rgba(10,10,10,0.06)', color: 'var(--niebla)' }
-                    }
-                    aria-hidden
-                  >
-                    {f.positive ? (
-                      <svg viewBox="0 0 16 16" className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M3 8.5l3 3 7-7" />
-                      </svg>
-                    ) : (
-                      <svg viewBox="0 0 16 16" className="h-2.5 w-2.5" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round">
-                        <path d="M4 4l8 8M12 4l-8 8" />
-                      </svg>
-                    )}
-                  </span>
-                  <span
-                    className={`text-[13.5px] leading-snug ${
-                      f.positive
-                        ? 'font-medium text-grafito'
-                        : 'text-niebla line-through decoration-niebla'
-                    }`}
-                  >
-                    {f.text}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </motion.div>
+              <ul className="mt-7 space-y-2.5">
+                {features.map((f) => (
+                  <li key={f.text} className="flex items-start gap-3">
+                    <span
+                      className="mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full"
+                      style={
+                        f.positive
+                          ? { background: 'rgba(52,211,153,0.16)', color: 'var(--salvia)' }
+                          : { background: 'rgba(10,10,10,0.06)', color: 'var(--niebla)' }
+                      }
+                      aria-hidden
+                    >
+                      {f.positive ? (
+                        <svg viewBox="0 0 16 16" className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M3 8.5l3 3 7-7" />
+                        </svg>
+                      ) : (
+                        <svg viewBox="0 0 16 16" className="h-2.5 w-2.5" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round">
+                          <path d="M4 4l8 8M12 4l-8 8" />
+                        </svg>
+                      )}
+                    </span>
+                    <span
+                      className={`text-[13.5px] leading-snug ${
+                        f.positive
+                          ? 'font-medium text-grafito'
+                          : 'text-niebla line-through decoration-niebla'
+                      }`}
+                    >
+                      {f.text}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 22 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="relative lg:col-span-7"
-          >
-            <DashboardImage />
-          </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 22 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+              className="relative lg:col-span-7"
+            >
+              <DashboardImage />
+            </motion.div>
+          </div>
         </div>
       </div>
     </section>
@@ -1280,47 +1367,38 @@ function DashboardImage() {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/dashboard-vision-marketing.jpg"
-          alt="Antuario Dashboard — Visión General de Marketing"
+          alt="Antuario Dashboard"
           className="block h-auto w-full select-none"
           loading="lazy"
           draggable={false}
         />
       </div>
 
-      {/* Mini cards flotantes alrededor */}
       <div
         className="absolute -left-4 top-12 hidden rounded-[18px] bg-papel p-3 sm:block"
         style={{
-          boxShadow:
-            '0 2px 4px rgba(15,15,30,0.10), 0 18px 40px rgba(15,15,30,0.10)',
+          boxShadow: '0 2px 4px rgba(15,15,30,0.10), 0 18px 40px rgba(15,15,30,0.10)',
           transform: 'rotate(-3deg)',
         }}
       >
         <span className="font-mono text-[9px] uppercase tracking-[0.22em] text-plomo">
           ROAS
         </span>
-        <p
-          className="mt-1 text-[20px] font-light text-onyx"
-          style={{ letterSpacing: '-0.024em' }}
-        >
+        <p className="mt-1 text-[20px] font-light text-onyx" style={{ letterSpacing: '-0.024em' }}>
           4.8×
         </p>
       </div>
       <div
         className="absolute -right-4 bottom-12 hidden rounded-[18px] bg-papel p-3 sm:block"
         style={{
-          boxShadow:
-            '0 2px 4px rgba(15,15,30,0.10), 0 18px 40px rgba(15,15,30,0.10)',
+          boxShadow: '0 2px 4px rgba(15,15,30,0.10), 0 18px 40px rgba(15,15,30,0.10)',
           transform: 'rotate(3deg)',
         }}
       >
         <span className="font-mono text-[9px] uppercase tracking-[0.22em] text-plomo">
           Leads
         </span>
-        <p
-          className="mt-1 text-[20px] font-light text-onyx"
-          style={{ letterSpacing: '-0.024em' }}
-        >
+        <p className="mt-1 text-[20px] font-light text-onyx" style={{ letterSpacing: '-0.024em' }}>
           +212
         </p>
       </div>
@@ -1328,163 +1406,22 @@ function DashboardImage() {
   )
 }
 
-/* ═══════════════ 06 · CASOS ═══════════════ */
-function CasesSection() {
-  const cases = [
-    { src: '/portfolio/acriland.jpg', name: 'Acriland', tag: 'Diseño Web · SEO' },
-    { src: '/portfolio/aracnene.jpg', name: 'Aracnene', tag: 'Diseño Web · SEO' },
-    { src: '/portfolio/maggadan.jpg', name: 'Maggadan', tag: 'Marketing Digital' },
-    { src: '/portfolio/magia-travel.jpg', name: 'Magia Travel', tag: 'Diseño Web' },
-    { src: '/portfolio/metrica-btl.jpg', name: 'Métrica BTL', tag: 'Diseño Web · SEO' },
-    { src: '/portfolio/reserva27.jpg', name: 'Reserva 27', tag: 'Marketing Digital' },
-    { src: '/portfolio/somos-unno.jpg', name: 'Somos Unno', tag: 'Marketing Digital' },
-    { src: '/portfolio/acriland-web.jpg', name: 'Acriland Web', tag: 'Diseño Web · SEO' },
-  ]
-  const loop = [...cases, ...cases]
-  const trackRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const track = trackRef.current
-    if (!track) return
-    let raf = 0
-    let last = performance.now()
-    let pauseUntil = 0
-    const bumpPause = () => { pauseUntil = performance.now() + 1800 }
-    track.addEventListener('pointerdown', bumpPause, { passive: true })
-    track.addEventListener('wheel', bumpPause, { passive: true })
-    track.addEventListener('touchmove', bumpPause, { passive: true })
-    track.addEventListener('mouseenter', bumpPause)
-    const tick = (now: number) => {
-      const dt = Math.min(now - last, 60)
-      last = now
-      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-      if (!reduceMotion && now > pauseUntil) {
-        track.scrollLeft += 0.04 * dt
-        const half = track.scrollWidth / 2
-        if (track.scrollLeft >= half) track.scrollLeft -= half
-      }
-      raf = requestAnimationFrame(tick)
-    }
-    raf = requestAnimationFrame(tick)
-    return () => {
-      cancelAnimationFrame(raf)
-      track.removeEventListener('pointerdown', bumpPause)
-      track.removeEventListener('wheel', bumpPause)
-      track.removeEventListener('touchmove', bumpPause)
-      track.removeEventListener('mouseenter', bumpPause)
-    }
-  }, [])
-
-  return (
-    <section
-      id="casos"
-      data-theme="light"
-      className="relative bg-marfil"
-    >
-      <div className="section-pad mx-auto max-w-[1400px]">
-        <div className="mx-auto max-w-[1180px]">
-          <motion.div
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true }}
-            variants={rise}
-            className="mb-8 sm:mb-12"
-          >
-            <ChapterTag roman="IV" label="Casos" sub="Trabajo" />
-            <h2
-              className="hero-type mt-6 max-w-[18ch] text-[32px] text-onyx sm:text-[44px] lg:text-[52px]"
-              style={{ fontWeight: 300 }}
-            >
-              Nuestro trabajo{' '}
-              <span className="multi-grad">habla por sí mismo.</span>
-            </h2>
-            <p className="lead-type mt-5 max-w-[54ch] text-[15px] sm:text-[16px]">
-              Marcas que confían en Antuario para su marketing digital,
-              desarrollo web y posicionamiento.
-            </p>
-          </motion.div>
-        </div>
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="relative -mx-[clamp(20px,5.5vw,120px)] lg:-mx-[clamp(56px,7vw,140px)]"
-        >
-          <div
-            ref={trackRef}
-            className="marquee-mask no-scrollbar overflow-x-auto px-[clamp(20px,5.5vw,120px)] lg:px-[clamp(56px,7vw,140px)]"
-            style={{ WebkitOverflowScrolling: 'touch' }}
-          >
-            <div className="flex w-max gap-4 pb-2 sm:gap-5">
-              {loop.map((c, i) => (
-                <article
-                  key={`${c.name}-${i}`}
-                  className="group relative aspect-[4/5] w-[190px] flex-shrink-0 select-none overflow-hidden rounded-[22px] bg-lino sm:w-[230px] lg:w-[250px]"
-                  style={{
-                    boxShadow:
-                      '0 2px 4px rgba(15,15,30,0.08), 0 12px 26px rgba(15,15,30,0.10), 0 28px 56px rgba(15,15,30,0.06)',
-                  }}
-                  aria-label={c.name}
-                >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={c.src}
-                    alt={`${c.name} · ${c.tag}`}
-                    draggable={false}
-                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent p-4">
-                    <span className="font-mono text-[9.5px] uppercase tracking-[0.22em] text-papel/65">
-                      {c.tag}
-                    </span>
-                    <h3
-                      className="mt-1 text-[15px] font-medium tracking-tight text-papel sm:text-[17px]"
-                      style={{ letterSpacing: '-0.018em' }}
-                    >
-                      {c.name}
-                    </h3>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </div>
-        </motion.div>
-      </div>
-    </section>
-  )
-}
-
-/* ═══════════════ 07 · ACCOUNTABILITY ═══════════════ */
+/* ═══════════════ 07 · ACCOUNTABILITY (rediseñado · tabla comparativa) ═══════════════ */
 function AccountabilitySection() {
-  const us = [
-    'Metas claras desde el día 1',
-    'Compromisos concretos al inicio',
-    'Cuando algo falla, hay acción',
-    'Solo métricas que importan',
-    'Nosotros empujamos el seguimiento',
-    'Trazabilidad completa del ROI',
-  ]
-  const them = [
-    'Entregan tareas, no resultados',
-    'Objetivos vagos o que cambian',
-    'Cuando algo falla, hay justificación',
-    'Reportes que nadie entiende',
-    'La marca persigue el seguimiento',
-    'No saben cuánto vale cada peso',
+  const rows = [
+    { theme: 'Compromisos',  them: 'Objetivos vagos o que cambian',     us: 'Metas claras desde el día 1' },
+    { theme: 'Resultados',   them: 'Entregan tareas, no resultados',    us: 'Compromisos concretos con métrica' },
+    { theme: 'Cuando falla', them: 'Hay justificación',                 us: 'Hay acción inmediata' },
+    { theme: 'Métricas',     them: 'Reportes que nadie entiende',       us: 'Solo datos que mueven el negocio' },
+    { theme: 'Seguimiento',  them: 'La marca persigue al equipo',       us: 'Nosotros empujamos cada semana' },
+    { theme: 'ROI',          them: 'No saben cuánto vale cada peso',    us: 'Trazabilidad completa por canal' },
   ]
 
   return (
-    <section
-      id="accountability"
-      data-theme="dark"
-      className="relative isolate overflow-hidden bg-carbon text-papel"
-    >
-      <div className="grid-pattern-dark pointer-events-none absolute inset-0 opacity-25" />
+    <ShellWrap data="dark" variant="dark">
+      <div className="grid-pattern-dark pointer-events-none absolute inset-0 opacity-15" />
 
-      <div className="section-pad relative mx-auto max-w-[1180px]">
+      <div className="relative z-10">
         <motion.div
           initial="hidden"
           whileInView="show"
@@ -1494,7 +1431,7 @@ function AccountabilitySection() {
         >
           <ChapterTag roman="IV" label="Accountability" sub="Cómo trabajamos" dark />
           <h2
-            className="hero-type mt-6 max-w-[20ch] text-[32px] text-papel sm:text-[44px] lg:text-[52px]"
+            className="hero-type mt-5 max-w-[20ch] text-[30px] text-papel sm:text-[42px] lg:text-[50px]"
             style={{ fontWeight: 300 }}
           >
             Resultados concretos.{' '}
@@ -1502,96 +1439,102 @@ function AccountabilitySection() {
           </h2>
         </motion.div>
 
-        <div className="grid gap-4 sm:gap-5 lg:grid-cols-2">
-          <motion.div
-            custom={1}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true }}
-            variants={rise}
-            className="rounded-[24px] bg-papel/[0.04] p-7 sm:p-8"
-            style={{
-              backdropFilter: 'blur(10px)',
-              boxShadow:
-                'inset 0 1px 0 rgba(255,255,255,0.04), 0 14px 30px rgba(0,0,0,0.30)',
-            }}
-          >
+        {/* Headers de columnas — desktop */}
+        <div className="hidden grid-cols-12 gap-6 pb-4 lg:grid">
+          <div className="col-span-3" />
+          <div className="col-span-4">
             <span className="eyebrow-light">Otra agencia</span>
-            <ul className="mt-5 space-y-3">
-              {them.map((t) => (
-                <li
-                  key={t}
-                  className="flex items-start gap-3 text-[13.5px] text-papel/45 line-through decoration-papel/20"
-                >
-                  <span className="mt-1.5 h-1 w-1 flex-shrink-0 rounded-full bg-papel/20" />
-                  {t}
-                </li>
-              ))}
-            </ul>
-          </motion.div>
+          </div>
+          <div className="col-span-5">
+            <div className="inline-flex items-center gap-2 rounded-full bg-papel px-3 py-1.5">
+              <span className="h-1.5 w-1.5 rounded-full bg-onyx" />
+              <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-onyx">
+                Antuario
+              </span>
+            </div>
+          </div>
+        </div>
 
-          <motion.div
-            custom={2}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true }}
-            variants={rise}
-            className="relative rounded-[24px] bg-papel p-7 text-onyx sm:p-8"
-            style={{
-              boxShadow:
-                '0 2px 4px rgba(0,0,0,0.16), 0 22px 50px rgba(0,0,0,0.30), 0 8px 18px rgba(0,0,0,0.20)',
-            }}
-          >
-            <span className="eyebrow">Antuario</span>
-            <ul className="mt-5 space-y-3">
-              {us.map((t) => (
-                <li
-                  key={t}
-                  className="flex items-start gap-3 text-[14px] font-medium text-onyx"
-                >
-                  <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-onyx" />
-                  {t}
-                </li>
-              ))}
-            </ul>
-            <div className="spectrum-bar mt-6" />
-          </motion.div>
+        <div>
+          {rows.map((r, i) => (
+            <motion.div
+              key={r.theme}
+              custom={i}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+              variants={rise}
+              className="grid items-start gap-4 py-5 sm:py-6 lg:grid-cols-12 lg:gap-6"
+              style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }}
+            >
+              <div className="lg:col-span-3">
+                <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-papel/45">
+                  {String(i + 1).padStart(2, '0')} · {r.theme}
+                </span>
+              </div>
+              <div className="lg:col-span-4">
+                <span className="lg:hidden">
+                  <span className="eyebrow-light">Otra agencia</span>
+                </span>
+                <p className="mt-1 text-[14px] text-papel/40 line-through decoration-papel/15 sm:text-[14.5px] lg:mt-0">
+                  {r.them}
+                </p>
+              </div>
+              <div className="lg:col-span-5">
+                <span className="lg:hidden">
+                  <div className="mt-3 inline-flex items-center gap-2 rounded-full bg-papel px-2.5 py-1">
+                    <span className="h-1.5 w-1.5 rounded-full bg-onyx" />
+                    <span className="font-mono text-[9.5px] uppercase tracking-[0.22em] text-onyx">
+                      Antuario
+                    </span>
+                  </div>
+                </span>
+                <p className="mt-1 text-[14.5px] font-medium text-papel sm:text-[15.5px] lg:mt-0">
+                  {r.us}
+                </p>
+              </div>
+            </motion.div>
+          ))}
+          <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }} />
+        </div>
+
+        <div className="mt-10 flex items-center gap-3">
+          <span className="spectrum-bar" style={{ width: 64 }} />
+          <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-papel/45">
+            Si lo prometimos · lo medimos
+          </span>
         </div>
       </div>
-    </section>
+    </ShellWrap>
   )
 }
 
-/* ═══════════════ 08 · IA ═══════════════ */
+/* ═══════════════ 08 · IA (rediseñado · split visual) ═══════════════ */
 function AISection() {
   const items = [
-    { title: 'Agentes WhatsApp', text: 'Atienden, califican y dan seguimiento las 24 horas.' },
-    { title: 'Agentes de voz', text: 'Confirman citas, califican prospectos y responden FAQs.' },
-    { title: 'Automatización', text: 'Seguimientos, clasificación de leads, asignación de tareas.' },
-    { title: 'IA en campañas', text: 'Optimización de puja, segmentación predictiva, creatividades.' },
-    { title: 'LLMs a la medida', text: 'Asistentes internos y sistemas autónomos.' },
-    { title: 'IA generativa', text: 'Imágenes, video, animaciones 3D, contenido a escala.' },
+    { n: '01', title: 'Agentes WhatsApp', text: 'Atienden, califican y dan seguimiento las 24 horas.' },
+    { n: '02', title: 'Agentes de voz',   text: 'Confirman citas, califican prospectos y responden FAQs.' },
+    { n: '03', title: 'Automatización',   text: 'Seguimientos, clasificación de leads, asignación de tareas.' },
+    { n: '04', title: 'IA en campañas',   text: 'Optimización de puja, segmentación predictiva, creatividades.' },
+    { n: '05', title: 'LLMs a la medida', text: 'Asistentes internos y sistemas autónomos.' },
+    { n: '06', title: 'IA generativa',    text: 'Imágenes, video, animaciones 3D, contenido a escala.' },
   ]
 
   return (
-    <section
-      id="ia"
-      data-theme="dark"
-      className="relative isolate overflow-hidden bg-onyx text-papel"
-    >
+    <ShellWrap data="dark" variant="dark">
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="ai-aurora" />
       </div>
-      <div className="grid-pattern-dark pointer-events-none absolute inset-0 opacity-15" />
+      <div className="grid-pattern-dark pointer-events-none absolute inset-0 opacity-12" />
       <div
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            'linear-gradient(to bottom, rgba(10,10,10,0.50), transparent 30%, transparent 70%, rgba(10,10,10,0.70))',
+            'linear-gradient(to bottom, rgba(10,10,10,0.40), transparent 30%, transparent 70%, rgba(10,10,10,0.55))',
         }}
       />
 
-      <div className="section-pad relative z-10 mx-auto max-w-[1180px]">
+      <div className="relative z-10">
         <motion.div
           initial="hidden"
           whileInView="show"
@@ -1607,112 +1550,206 @@ function AISection() {
             <span className="eyebrow-light">Inteligencia Artificial</span>
           </div>
           <h2
-            className="hero-type mt-6 max-w-[18ch] text-[32px] text-papel sm:text-[44px] lg:text-[54px]"
+            className="hero-type mt-5 max-w-[18ch] text-[30px] text-papel sm:text-[42px] lg:text-[50px]"
             style={{ fontWeight: 300 }}
           >
             No hablamos de IA.{' '}
             <span className="multi-grad-bright">La implementamos.</span>
           </h2>
-          <p className="lead-type mt-5 max-w-[54ch] text-[15px] !text-papel/65 sm:text-[16.5px]">
-            Mientras la mayoría apenas la conoce como tendencia, nosotros la
-            operamos en proyectos reales.
-          </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 gap-3 sm:gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {items.map((it, i) => (
-            <motion.div
-              key={it.title}
-              custom={i}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true }}
-              variants={rise}
-              className="rounded-[24px] bg-papel/[0.04] p-6 transition-all duration-500 hover:-translate-y-1 hover:bg-papel/[0.07]"
-              style={{
-                backdropFilter: 'blur(10px)',
-                boxShadow:
-                  'inset 0 1px 0 rgba(255,255,255,0.04), 0 14px 30px rgba(0,0,0,0.30)',
-              }}
-            >
-              <h3
-                className="text-[16px] font-medium tracking-tight text-papel"
-                style={{ letterSpacing: '-0.018em' }}
-              >
-                {it.title}
-              </h3>
-              <p className="mt-3 text-[13px] leading-[1.55] text-papel/60">
-                {it.text}
-              </p>
-            </motion.div>
-          ))}
+        <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">
+          {/* Mockup chat IA */}
+          <motion.div
+            initial={{ opacity: 0, y: 22 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            className="relative lg:col-span-5"
+          >
+            <AIChat />
+          </motion.div>
+
+          {/* Lista capabilities */}
+          <div className="lg:col-span-7">
+            <p className="lead-type mb-6 max-w-[44ch] text-[14.5px] !text-papel/65 sm:text-[15.5px]">
+              Mientras la mayoría apenas la conoce como tendencia, nosotros la
+              operamos en proyectos reales — todo a la medida.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2">
+              {items.map((it, i) => (
+                <motion.div
+                  key={it.title}
+                  custom={i}
+                  initial="hidden"
+                  whileInView="show"
+                  viewport={{ once: true }}
+                  variants={rise}
+                  className="group flex items-start gap-4 py-4"
+                  style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }}
+                >
+                  <span
+                    className="font-mono text-[11px] tracking-widest text-papel/40 transition-colors group-hover:text-papel/70"
+                  >
+                    {it.n}
+                  </span>
+                  <div>
+                    <h3
+                      className="text-[14.5px] font-medium tracking-tight text-papel sm:text-[15.5px]"
+                      style={{ letterSpacing: '-0.014em' }}
+                    >
+                      {it.title}
+                    </h3>
+                    <p className="mt-1 text-[12.5px] leading-[1.5] text-papel/55 sm:text-[13px]">
+                      {it.text}
+                    </p>
+                  </div>
+                </motion.div>
+              ))}
+              <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }} className="col-span-full" />
+            </div>
+          </div>
         </div>
       </div>
-    </section>
+    </ShellWrap>
+  )
+}
+
+function AIChat() {
+  return (
+    <div className="relative mx-auto w-full max-w-[420px]">
+      <div
+        className="pointer-events-none absolute -inset-6 -z-10 rounded-[44px] opacity-55 blur-[50px]"
+        style={{
+          background:
+            'radial-gradient(50% 60% at 30% 30%, rgba(167,139,250,0.40), transparent 60%), radial-gradient(40% 50% at 70% 70%, rgba(34,211,238,0.30), transparent 60%)',
+        }}
+        aria-hidden
+      />
+
+      <div
+        className="relative overflow-hidden rounded-[28px] bg-papel p-5 sm:p-6"
+        style={{
+          boxShadow:
+            '0 2px 6px rgba(0,0,0,0.30), 0 24px 50px rgba(0,0,0,0.40), 0 10px 22px rgba(0,0,0,0.20)',
+        }}
+      >
+        {/* header chat */}
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2.5">
+            <span className="relative inline-flex h-7 w-7 items-center justify-center rounded-full">
+              <span className="ai-orb absolute inset-0 rounded-full" />
+              <span className="relative h-3 w-3 rounded-full bg-onyx" />
+            </span>
+            <div>
+              <p className="text-[12px] font-medium text-onyx" style={{ letterSpacing: '-0.012em' }}>
+                Antuario · Agente IA
+              </p>
+              <p className="text-[10px] text-plomo">en línea</p>
+            </div>
+          </div>
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-salvia/15 px-2 py-0.5">
+            <span className="pulse-live h-1.5 w-1.5 rounded-full bg-salvia" />
+            <span className="font-mono text-[9px] uppercase tracking-wider text-salvia">Live</span>
+          </span>
+        </div>
+
+        <div className="mt-5 space-y-2.5">
+          <div className="flex justify-end">
+            <div className="max-w-[80%] rounded-2xl rounded-tr-sm bg-onyx px-3.5 py-2 text-[12.5px] text-papel">
+              Hola, quiero info sobre marketing
+            </div>
+          </div>
+          <div className="flex justify-start">
+            <div
+              className="max-w-[85%] rounded-2xl rounded-tl-sm px-3.5 py-2 text-[12.5px] text-onyx"
+              style={{ background: 'rgba(10,10,10,0.05)' }}
+            >
+              ¡Hola! Claro. ¿Qué tipo de empresa tienes y qué objetivo buscas?
+            </div>
+          </div>
+          <div className="flex justify-end">
+            <div className="max-w-[80%] rounded-2xl rounded-tr-sm bg-onyx px-3.5 py-2 text-[12.5px] text-papel">
+              Servicios B2B en CDMX, quiero más leads
+            </div>
+          </div>
+          <div className="flex justify-start">
+            <div
+              className="max-w-[88%] rounded-2xl rounded-tl-sm px-3.5 py-2 text-[12.5px] text-onyx"
+              style={{ background: 'rgba(10,10,10,0.05)' }}
+            >
+              Perfecto. Te agendo con un estratega para diseñar una propuesta a
+              tu medida. ¿Mañana 10:30 te funciona?
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-4 flex items-center gap-2 rounded-full px-3 py-2" style={{ background: 'rgba(10,10,10,0.04)' }}>
+          <span className="font-mono text-[10px] text-plomo">→</span>
+          <span className="text-[11.5px] text-plomo">Escribiendo respuesta…</span>
+          <span className="ml-auto font-mono text-[9.5px] text-plomo">0.8s</span>
+        </div>
+      </div>
+    </div>
   )
 }
 
 /* ═══════════════ 09 · COBERTURA ═══════════════ */
 function CoverageSection() {
   return (
-    <section
-      id="cobertura"
-      data-theme="light"
-      className="relative bg-nieve"
-    >
-      <div className="section-pad mx-auto max-w-[1180px]">
-        <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
-          <motion.div
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true }}
-            variants={rise}
-            className="lg:col-span-5"
-          >
-            <ChapterTag roman="IV" label="Cobertura" sub="Ubicación" />
-            <h2
-              className="hero-type mt-6 max-w-[14ch] text-[32px] text-onyx sm:text-[44px] lg:text-[50px]"
-              style={{ fontWeight: 300 }}
+    <section data-theme="light" className="section-pad">
+      <div className="mx-auto w-full max-w-[1440px]">
+        <div className="px-[clamp(8px,1.5vw,32px)] py-[clamp(48px,6vh,80px)]">
+          <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
+            <motion.div
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+              variants={rise}
+              className="lg:col-span-5"
             >
-              Sede en CDMX,{' '}
-              <span className="multi-grad">cobertura nacional.</span>
-            </h2>
-            <p className="lead-type mt-5 max-w-[44ch] text-[15px] sm:text-[16px]">
-              Trabajamos con marcas en todo México. Desde nuestra base en la
-              Ciudad de México operamos proyectos en cualquier estado del país,
-              de forma remota o presencial cuando se requiera.
-            </p>
+              <ChapterTag roman="IV" label="Cobertura" sub="Ubicación" />
+              <h2
+                className="hero-type mt-5 max-w-[14ch] text-[30px] text-onyx sm:text-[42px] lg:text-[48px]"
+                style={{ fontWeight: 300 }}
+              >
+                Sede en CDMX,{' '}
+                <span className="multi-grad">cobertura nacional.</span>
+              </h2>
+              <p className="lead-type mt-5 max-w-[44ch] text-[15px] sm:text-[16px]">
+                Trabajamos con marcas en todo México. Desde nuestra base en la
+                Ciudad de México operamos proyectos en cualquier estado del
+                país, de forma remota o presencial cuando se requiera.
+              </p>
 
-            <div className="mt-7 grid grid-cols-3 gap-3">
-              {[
-                { label: 'Sede', value: 'CDMX' },
-                { label: 'Cobertura', value: 'Nacional' },
-                { label: 'Modalidad', value: 'Remoto + presencial' },
-              ].map((s) => (
-                <div key={s.label} className="card-bb-soft p-3.5 sm:p-4">
-                  <span className="font-mono text-[9.5px] uppercase tracking-[0.22em] text-plomo">
-                    {s.label}
-                  </span>
-                  <p
-                    className="mt-1.5 text-[13px] font-medium text-onyx"
-                    style={{ letterSpacing: '-0.014em' }}
-                  >
-                    {s.value}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </motion.div>
+              <div className="mt-7 grid grid-cols-3 gap-3">
+                {[
+                  { label: 'Sede', value: 'CDMX' },
+                  { label: 'Cobertura', value: 'Nacional' },
+                  { label: 'Modalidad', value: 'Remoto + presencial' },
+                ].map((s) => (
+                  <div key={s.label} className="card-bb-soft p-3.5 sm:p-4">
+                    <span className="font-mono text-[9.5px] uppercase tracking-[0.22em] text-plomo">
+                      {s.label}
+                    </span>
+                    <p className="mt-1.5 text-[13px] font-medium text-onyx" style={{ letterSpacing: '-0.014em' }}>
+                      {s.value}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 22 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="lg:col-span-7"
-          >
-            <MexicoMap />
-          </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 22 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+              className="lg:col-span-7"
+            >
+              <MexicoMap />
+            </motion.div>
+          </div>
         </div>
       </div>
     </section>
@@ -1746,7 +1783,7 @@ function MexicoMap() {
         aria-hidden
       />
 
-      <div className="card-bb-float overflow-hidden bg-papel/80 p-5 backdrop-blur-sm sm:p-7">
+      <div className="card-bb-float overflow-hidden bg-papel/85 p-5 backdrop-blur-sm sm:p-7">
         <svg
           viewBox="0 0 1020 620"
           className="h-auto w-full"
@@ -1834,87 +1871,66 @@ function MexicoMap() {
 /* ═══════════════ 10 · CTA FINAL ═══════════════ */
 function CTASection() {
   return (
-    <section
-      id="cta"
-      data-theme="dark"
-      className="relative bg-nieve"
-    >
-      <div className="section-pad mx-auto max-w-[1180px]">
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="relative isolate overflow-hidden rounded-[32px] bg-onyx p-8 text-papel sm:rounded-[44px] sm:p-16 lg:p-20"
-          style={{
-            boxShadow:
-              '0 2px 6px rgba(15,15,30,0.12), 0 30px 70px rgba(15,15,30,0.18), 0 14px 32px rgba(15,15,30,0.10)',
-          }}
+    <ShellWrap data="dark" variant="dark">
+      <div className="aurora aurora-deep absolute inset-0 opacity-55" aria-hidden />
+      <div className="grid-pattern-dark pointer-events-none absolute inset-0 opacity-15" />
+
+      <div className="relative z-10 mx-auto flex max-w-3xl flex-col items-center text-center">
+        <AntuarioMark className="h-10 w-auto text-papel sm:h-12" />
+
+        <h2
+          className="hero-type mt-7 max-w-[18ch] text-[30px] text-papel sm:text-[44px] lg:text-[54px]"
+          style={{ fontWeight: 300 }}
         >
-          <div className="aurora aurora-deep inset-0 opacity-60" aria-hidden />
-          <div className="grid-pattern-dark pointer-events-none absolute inset-0 opacity-15" />
+          ¿Hay un proyecto{' '}
+          <span className="multi-grad-bright">sobre la mesa?</span>
+        </h2>
 
-          <div className="relative z-10 mx-auto flex max-w-3xl flex-col items-center text-center">
-            <AntuarioMark className="h-10 w-auto text-papel sm:h-14" />
+        <p className="lead-type mt-5 max-w-[42ch] text-[15px] !text-papel/65 sm:text-[16.5px]">
+          Platícanos sobre él — aunque sea solo una dirección general.
+          Nosotros construimos la propuesta a tu medida.
+        </p>
 
-            <h2
-              className="hero-type mt-8 max-w-[18ch] text-[32px] text-papel sm:text-[50px] lg:text-[60px]"
-              style={{ fontWeight: 300 }}
-            >
-              ¿Hay un proyecto{' '}
-              <span className="multi-grad-bright">sobre la mesa?</span>
-            </h2>
+        <div className="mt-7 flex flex-col items-center gap-3 sm:flex-row sm:gap-3">
+          <a
+            href={siteConfig.whatsapp}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-primary-inv"
+          >
+            <WhatsAppIcon className="h-4 w-4" />
+            Cuéntanos tu proyecto
+            <ArrowRight className="h-3.5 w-3.5" />
+          </a>
+          <a
+            href={siteConfig.whatsapp}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-ghost-dark"
+          >
+            Agendar videollamada
+          </a>
+        </div>
 
-            <p className="lead-type mt-5 max-w-[42ch] text-[15px] !text-papel/65 sm:text-[17px]">
-              Platícanos sobre él — aunque sea solo una dirección general.
-              Nosotros construimos la propuesta.
-            </p>
+        <p className="mt-4 text-[11.5px] text-papel/40">
+          Sin costo · Sin compromiso
+        </p>
 
-            <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:gap-3">
-              <a
-                href={siteConfig.whatsapp}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-primary-inv"
-              >
-                <WhatsAppIcon className="h-4 w-4" />
-                Cuéntanos tu proyecto
-                <ArrowRight className="h-3.5 w-3.5" />
-              </a>
-              <a
-                href={siteConfig.whatsapp}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-ghost-dark"
-              >
-                Agendar videollamada
-              </a>
-            </div>
-
-            <p className="mt-4 text-[11.5px] text-papel/40">
-              Sin costo · Sin compromiso
-            </p>
-
-            <div className="mt-10 flex items-center gap-4">
-              <span className="spectrum-bar" style={{ width: 80 }} />
-            </div>
-          </div>
-        </motion.div>
+        <div className="mt-9 flex items-center gap-4">
+          <span className="spectrum-bar" style={{ width: 80 }} />
+        </div>
       </div>
-    </section>
+    </ShellWrap>
   )
 }
 
 /* ═══════════════ FOOTER FLOTANTE ═══════════════ */
 function FloatingFooter() {
   return (
-    <footer
-      data-theme="light"
-      className="relative bg-nieve"
-    >
-      <div className="mx-auto max-w-[1180px] px-[clamp(20px,5.5vw,120px)] pb-6 pt-2 lg:px-[clamp(56px,7vw,140px)]">
+    <footer data-theme="light" className="section-pad">
+      <div className="mx-auto w-full max-w-[1440px]">
         <div
-          className="relative isolate overflow-hidden rounded-[28px] bg-onyx p-7 text-papel sm:rounded-[36px] sm:p-10"
+          className="relative isolate overflow-hidden rounded-[24px] bg-onyx p-7 text-papel sm:rounded-[32px] sm:p-10 lg:rounded-[36px]"
           style={{
             boxShadow:
               '0 2px 6px rgba(15,15,30,0.10), 0 22px 50px rgba(15,15,30,0.14)',
@@ -1931,12 +1947,12 @@ function FloatingFooter() {
           />
 
           <div className="relative grid gap-10 lg:grid-cols-12">
-            {/* Brand */}
             <div className="lg:col-span-5">
               <AntuarioLogotype className="h-[26px] w-auto" dark />
-              <p className="mt-5 max-w-[30ch] text-[13px] text-papel/55">
+              <p className="mt-5 max-w-[32ch] text-[13px] text-papel/55">
                 Soluciones de marketing digital a la medida — bajo una sola
-                dirección estratégica, con accountability total.
+                dirección estratégica, con accountability total sobre cada
+                resultado.
               </p>
               <div className="mt-6 flex items-center gap-3">
                 <span className="spectrum-bar" style={{ width: 56 }} />
@@ -1946,7 +1962,6 @@ function FloatingFooter() {
               </div>
             </div>
 
-            {/* Nav */}
             <nav className="lg:col-span-3">
               <span className="eyebrow-light">Páginas</span>
               <ul className="mt-4 space-y-2 text-[13px] text-papel/65">
@@ -1960,22 +1975,13 @@ function FloatingFooter() {
               </ul>
             </nav>
 
-            {/* Contacto */}
             <div className="lg:col-span-4">
               <span className="eyebrow-light">Contacto</span>
               <div className="mt-4 space-y-1.5 text-[13px] text-papel/65">
-                <a
-                  href={`mailto:${siteConfig.email}`}
-                  className="block transition-colors hover:text-papel"
-                >
+                <a href={`mailto:${siteConfig.email}`} className="block transition-colors hover:text-papel">
                   {siteConfig.email}
                 </a>
-                <a
-                  href={siteConfig.whatsapp}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block transition-colors hover:text-papel"
-                >
+                <a href={siteConfig.whatsapp} target="_blank" rel="noopener noreferrer" className="block transition-colors hover:text-papel">
                   {siteConfig.phone} · WhatsApp
                 </a>
                 <p className="text-papel/45">CDMX · México</p>
@@ -2027,7 +2033,7 @@ function ChapterTag({
   dark?: boolean
 }) {
   return (
-    <div className="flex items-center gap-3">
+    <div className="flex flex-wrap items-center gap-3">
       <span
         className={`rounded-md px-1.5 py-0.5 font-mono text-[9px] tracking-[0.10em] ${
           dark ? 'bg-papel text-onyx' : 'bg-onyx text-papel'
@@ -2044,9 +2050,7 @@ function ChapterTag({
       </span>
       {sub && (
         <>
-          <span
-            className={`h-px w-10 ${dark ? 'bg-papel/15' : 'bg-onyx/10'}`}
-          />
+          <span className={`h-px w-10 ${dark ? 'bg-papel/15' : 'bg-onyx/10'}`} />
           <span className={dark ? 'eyebrow-light' : 'eyebrow'}>{sub}</span>
         </>
       )}
