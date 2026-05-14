@@ -7,11 +7,12 @@ import Link from 'next/link'
 import { siteConfig } from '@/config/site'
 
 /* ═══════════════════════════════════════════════════════════════════
-   ANTUARIO · Home (Brandbook 2026)
-   Apple-like. Scroll normal. 90% neutro · 10% multicolor como acento.
+   ANTUARIO · Home (Brandbook 2026) · v2
+   Apple-like minimal. Scroll normal. Header flotante adaptativo.
+   Logotype ↔ Isotipo con transición elegante. Cards flotantes 3D.
    ═══════════════════════════════════════════════════════════════════ */
 
-// ─── Marca: isotipo (currentColor) ─────────────────────────────────────────
+// ─── Marca: isotipo ────────────────────────────────────────────────────────
 function AntuarioMark({
   className = '',
   style,
@@ -39,7 +40,6 @@ function AntuarioMark({
   )
 }
 
-// ─── Marca: logotype completo (SVG remoto) ─────────────────────────────────
 function AntuarioLogotype({
   className = '',
   dark = false,
@@ -64,14 +64,12 @@ function AntuarioLogotype({
   )
 }
 
-// ─── WhatsApp icon ─────────────────────────────────────────────────────────
 const WhatsAppIcon = ({ className }: { className?: string }) => (
   <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden>
     <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
   </svg>
 )
 
-// ─── Animation primitives ──────────────────────────────────────────────────
 const rise = {
   hidden: { opacity: 0, y: 18 },
   show: (i = 0) => ({
@@ -81,13 +79,48 @@ const rise = {
   }),
 }
 
-// ─── Page ──────────────────────────────────────────────────────────────────
+type SectionTheme = 'dark' | 'light'
+
+/* ═══════════════ Página ═══════════════ */
 export default function HomePage() {
-  const [scrolled, setScrolled] = useState(false)
+  const [theme, setTheme] = useState<SectionTheme>('dark')
+  const [showLogotype, setShowLogotype] = useState(true)
   const [menuOpen, setMenuOpen] = useState(false)
 
+  // Detecta la sección que está bajo el header → cambia tema del header
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24)
+    const sections = Array.from(
+      document.querySelectorAll<HTMLElement>('[data-theme]')
+    )
+    if (sections.length === 0) return
+
+    const compute = () => {
+      const probeY = 88 // px desde top — bajo la barra
+      let current: SectionTheme = 'dark'
+      for (const s of sections) {
+        const r = s.getBoundingClientRect()
+        if (r.top <= probeY && r.bottom > probeY) {
+          current = (s.dataset.theme as SectionTheme) || 'light'
+          break
+        }
+      }
+      setTheme(current)
+    }
+
+    compute()
+    window.addEventListener('scroll', compute, { passive: true })
+    window.addEventListener('resize', compute)
+    return () => {
+      window.removeEventListener('scroll', compute)
+      window.removeEventListener('resize', compute)
+    }
+  }, [])
+
+  // Logotype solo mientras estamos en el hero; después → isotipo
+  useEffect(() => {
+    const onScroll = () => {
+      setShowLogotype(window.scrollY < window.innerHeight * 0.55)
+    }
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
@@ -95,7 +128,11 @@ export default function HomePage() {
 
   return (
     <>
-      <BrandBar scrolled={scrolled} onOpenMenu={() => setMenuOpen(true)} />
+      <FloatingHeader
+        theme={theme}
+        showLogotype={showLogotype}
+        onOpenMenu={() => setMenuOpen(true)}
+      />
       <NavOverlay open={menuOpen} onClose={() => setMenuOpen(false)} />
 
       <main className="relative">
@@ -109,62 +146,102 @@ export default function HomePage() {
         <AISection />
         <CoverageSection />
         <CTASection />
-        <FooterMin />
+        <FloatingFooter />
       </main>
     </>
   )
 }
 
-// ─── Brand bar — barra superior con logotype/isotipo + CTA ─────────────────
-function BrandBar({
-  scrolled,
+/* ═══════════════ HEADER FLOTANTE ADAPTATIVO ═══════════════ */
+function FloatingHeader({
+  theme,
+  showLogotype,
   onOpenMenu,
 }: {
-  scrolled: boolean
+  theme: SectionTheme
+  showLogotype: boolean
   onOpenMenu: () => void
 }) {
+  const isDark = theme === 'dark'
+
   return (
-    <header
-      className={`fixed inset-x-0 top-0 z-40 transition-all duration-500 ${
-        scrolled
-          ? 'bg-nieve/85 backdrop-blur-xl shadow-[0_1px_0_rgba(10,10,10,0.06)]'
-          : 'bg-transparent'
-      }`}
-    >
-      <div className="mx-auto flex max-w-[1400px] items-center justify-between px-5 py-3.5 sm:px-10 sm:py-4">
-        <button
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="flex items-center"
-          aria-label="Antuario · Ir al inicio"
+    <header className="pointer-events-none fixed inset-x-0 top-3 z-50 sm:top-5">
+      <div className="pointer-events-auto mx-auto max-w-[1180px] px-3 sm:px-5">
+        <div
+          className={`flex items-center justify-between rounded-full px-4 py-2 transition-colors duration-700 ease-out sm:px-5 sm:py-2.5 ${
+            isDark ? 'float-bar-dark text-papel' : 'float-bar-light text-onyx'
+          }`}
         >
-          <AntuarioLogotype className="h-[22px] w-auto sm:h-[26px]" />
-        </button>
-
-        <div className="flex items-center gap-2 sm:gap-3">
-          <a
-            href={siteConfig.whatsapp}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden rounded-full bg-onyx px-5 py-2.5 text-[12.5px] font-medium text-papel transition-all duration-300 hover:bg-grafito sm:inline-flex sm:items-center sm:gap-2"
-          >
-            Cuéntanos tu proyecto
-            <ArrowRight className="h-3.5 w-3.5" />
-          </a>
-
+          {/* Logo container (transición logotype ↔ isotipo) */}
           <button
-            onClick={onOpenMenu}
-            aria-label="Abrir menú"
-            className="flex h-10 w-10 items-center justify-center rounded-full bg-papel text-onyx shadow-soft transition-all duration-300 hover:shadow-card"
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            className="relative flex h-7 items-center overflow-visible sm:h-8"
+            style={{
+              width: showLogotype ? 132 : 28,
+              transition: 'width 0.75s cubic-bezier(0.22, 1, 0.36, 1)',
+            }}
+            aria-label="Antuario · Ir al inicio"
           >
-            <Menu className="h-[18px] w-[18px]" />
+            <AntuarioLogotype
+              className="absolute left-0 top-1/2 h-[18px] w-auto -translate-y-1/2 sm:h-[22px]"
+              dark={isDark}
+              style={{
+                opacity: showLogotype ? 1 : 0,
+                transform: `translateY(-50%) scale(${showLogotype ? 1 : 0.92})`,
+                transition: 'opacity 0.55s ease, transform 0.7s cubic-bezier(0.22,1,0.36,1)',
+                pointerEvents: showLogotype ? 'auto' : 'none',
+              }}
+            />
+            <AntuarioMark
+              className="absolute left-0 top-1/2 h-[22px] w-auto -translate-y-1/2 sm:h-[26px]"
+              style={{
+                color: isDark ? 'var(--papel)' : 'var(--onyx)',
+                opacity: showLogotype ? 0 : 1,
+                transform: `translateY(-50%) scale(${showLogotype ? 1.18 : 1})`,
+                transition: 'opacity 0.55s ease 0.05s, transform 0.7s cubic-bezier(0.22,1,0.36,1)',
+                pointerEvents: showLogotype ? 'none' : 'auto',
+              }}
+            />
           </button>
+
+          <div className="flex items-center gap-2">
+            <a
+              href={siteConfig.whatsapp}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`hidden items-center gap-1.5 rounded-full px-4 py-1.5 text-[12px] font-medium transition-colors sm:inline-flex ${
+                isDark
+                  ? 'bg-papel/10 text-papel hover:bg-papel/16'
+                  : 'bg-onyx text-papel hover:bg-grafito'
+              }`}
+            >
+              Cuéntanos tu proyecto
+              <ArrowRight className="h-3 w-3" />
+            </a>
+            <button
+              onClick={onOpenMenu}
+              aria-label="Abrir menú"
+              className={`flex h-8 w-8 items-center justify-center rounded-full transition-colors sm:h-9 sm:w-9 ${
+                isDark
+                  ? 'bg-papel/10 text-papel hover:bg-papel/16'
+                  : 'bg-onyx/05 text-onyx hover:bg-onyx/10'
+              }`}
+              style={
+                !isDark
+                  ? { background: 'rgba(10,10,10,0.05)' }
+                  : undefined
+              }
+            >
+              <Menu className="h-4 w-4 sm:h-[16px] sm:w-[16px]" />
+            </button>
+          </div>
         </div>
       </div>
     </header>
   )
 }
 
-// ─── Nav overlay (drawer fullscreen) ───────────────────────────────────────
+/* ═══════════════ NAV OVERLAY ═══════════════ */
 function NavOverlay({ open, onClose }: { open: boolean; onClose: () => void }) {
   useEffect(() => {
     if (!open) return
@@ -201,22 +278,20 @@ function NavOverlay({ open, onClose }: { open: boolean; onClose: () => void }) {
             className="relative mx-auto flex h-full max-w-6xl flex-col px-6 py-7 sm:px-10 sm:py-10"
           >
             <div className="flex items-center justify-between">
-              <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-papel/40">
-                Antuario · Menú
-              </span>
+              <AntuarioLogotype className="h-[20px] w-auto" dark />
               <button
                 onClick={onClose}
                 aria-label="Cerrar menú"
-                className="flex h-10 w-10 items-center justify-center rounded-full bg-papel/8 text-papel transition-colors hover:bg-papel/14"
+                className="flex h-9 w-9 items-center justify-center rounded-full bg-papel/8 text-papel transition-colors hover:bg-papel/14"
               >
-                <X className="h-[18px] w-[18px]" />
+                <X className="h-[16px] w-[16px]" />
               </button>
             </div>
 
             <div className="mt-10 grid flex-1 gap-10 overflow-y-auto pb-10 sm:mt-14 lg:grid-cols-12 lg:gap-16">
               <nav className="lg:col-span-7">
                 <span className="eyebrow-light">Páginas</span>
-                <ul className="mt-5 space-y-1.5">
+                <ul className="mt-5 space-y-1">
                   {siteConfig.nav.map((item, i) => (
                     <motion.li
                       key={item.href}
@@ -227,16 +302,15 @@ function NavOverlay({ open, onClose }: { open: boolean; onClose: () => void }) {
                       <Link
                         href={item.href}
                         onClick={onClose}
-                        className="group flex items-baseline gap-4 py-2.5 text-[28px] font-light tracking-[-0.022em] text-papel/90 transition-colors hover:text-papel sm:text-[44px]"
+                        className="group flex items-baseline gap-4 py-2 text-[26px] font-light tracking-[-0.022em] text-papel/85 transition-colors hover:text-papel sm:text-[36px]"
                       >
-                        <span className="font-mono text-[10px] tracking-widest text-papel/30 sm:text-[11px]">
+                        <span className="font-mono text-[10px] tracking-widest text-papel/30">
                           {String(i + 1).padStart(2, '0')}
                         </span>
                         <span className="relative">
                           {item.label}
                           <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-gradient-to-r from-cobalto-b via-rubor-b to-nectar-b transition-all duration-500 group-hover:w-full" />
                         </span>
-                        <ArrowRight className="h-4 w-4 -translate-x-2 self-center opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100 sm:h-5 sm:w-5" />
                       </Link>
                     </motion.li>
                   ))}
@@ -256,13 +330,13 @@ function NavOverlay({ open, onClose }: { open: boolean; onClose: () => void }) {
                       <Link
                         href={s.href}
                         onClick={onClose}
-                        className="group flex items-center justify-between rounded-xl bg-papel/4 px-4 py-3 transition-all duration-300 hover:bg-papel/8"
+                        className="group flex items-center justify-between rounded-2xl bg-papel/4 px-4 py-3 transition-all duration-300 hover:bg-papel/8"
                       >
                         <div className="min-w-0">
-                          <p className="text-[13.5px] font-medium text-papel">
+                          <p className="text-[13px] font-medium text-papel">
                             {s.label}
                           </p>
-                          <p className="mt-0.5 truncate text-[11.5px] text-papel/50">
+                          <p className="mt-0.5 truncate text-[11px] text-papel/45">
                             {s.short}
                           </p>
                         </div>
@@ -272,26 +346,22 @@ function NavOverlay({ open, onClose }: { open: boolean; onClose: () => void }) {
                   ))}
                 </ul>
 
-                <div className="mt-7 pt-5">
+                <div className="mt-7">
                   <div className="hair-w mb-5" />
                   <span className="eyebrow-light">Contacto</span>
-                  <div className="mt-3 space-y-1.5 text-[12.5px] text-papel/55">
-                    <a
-                      href={`mailto:${siteConfig.email}`}
-                      className="block transition-colors hover:text-papel"
-                    >
+                  <div className="mt-3 space-y-1.5 text-[12px] text-papel/55">
+                    <a href={`mailto:${siteConfig.email}`} className="block hover:text-papel">
                       {siteConfig.email}
                     </a>
                     <a
                       href={siteConfig.whatsapp}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="block transition-colors hover:text-papel"
+                      className="block hover:text-papel"
                     >
                       {siteConfig.phone} · WhatsApp
                     </a>
                   </div>
-
                   <a
                     href={siteConfig.whatsapp}
                     target="_blank"
@@ -311,128 +381,140 @@ function NavOverlay({ open, onClose }: { open: boolean; onClose: () => void }) {
   )
 }
 
-// ─── 01 · HERO ─────────────────────────────────────────────────────────────
+/* ═══════════════ 01 · HERO ═══════════════ */
 function HeroSection() {
   return (
     <section
       id="hero"
+      data-theme="dark"
       className="relative isolate overflow-hidden bg-onyx text-papel"
     >
-      {/* Aurora suavísima — un solo color dominante */}
-      <div className="aurora aurora-deep inset-0" aria-hidden />
-      <div className="grid-pattern-dark pointer-events-none absolute inset-0 opacity-25" />
+      <div className="aurora aurora-deep inset-0 opacity-90" aria-hidden />
+      <div className="grid-pattern-dark pointer-events-none absolute inset-0 opacity-20" />
       <div
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            'radial-gradient(ellipse at center, transparent 30%, rgba(5,5,5,0.55) 100%)',
+            'radial-gradient(ellipse at center, transparent 30%, rgba(5,5,5,0.50) 100%)',
         }}
       />
 
-      <div className="section-pad relative z-10 flex min-h-[100svh] flex-col">
-        <div className="mx-auto flex flex-1 w-full max-w-[1180px] flex-col justify-center pt-16 sm:pt-24">
-          {/* Eyebrow + spectrum */}
-          <motion.div
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true }}
-            variants={rise}
-            className="flex items-center gap-3"
-          >
-            <span className="spectrum-bar" style={{ width: 64 }} />
-            <span className="eyebrow-light">Sistema de marca · 2026</span>
-          </motion.div>
-
-          {/* Display típico brandbook — Apple ultralight */}
-          <motion.h1
-            custom={1}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true }}
-            variants={rise}
-            className="display mt-7 max-w-[18ch] text-balance text-[44px] text-papel sm:text-[80px] lg:text-[104px]"
-          >
-            Soluciones de{' '}
-            <span className="multi-grad-bright">Marketing Digital</span>{' '}
-            a la medida.
-          </motion.h1>
-
-          {/* Subhead */}
-          <motion.p
-            custom={2}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true }}
-            variants={rise}
-            className="hero-type mt-7 max-w-[44ch] text-[16px] text-papel/70 sm:text-[20px] sm:leading-[1.46]"
-          >
-            Marketing, sistemas e inteligencia artificial — bajo una sola
-            dirección estratégica, con accountability total sobre cada resultado.
-          </motion.p>
-
-          {/* CTAs */}
-          <motion.div
-            custom={3}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true }}
-            variants={rise}
-            className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4"
-          >
-            <a
-              href={siteConfig.whatsapp}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-primary-inv"
+      <div className="section-pad relative z-10 min-h-[100svh] pt-[120px] sm:pt-[140px] lg:pt-[120px]">
+        <div className="mx-auto grid max-w-[1180px] items-center gap-12 lg:grid-cols-12 lg:gap-14">
+          {/* Texto */}
+          <div className="lg:col-span-6">
+            <motion.div
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+              variants={rise}
+              className="flex items-center gap-3"
             >
-              <WhatsAppIcon className="h-4 w-4" />
-              Cuéntanos tu proyecto
-              <ArrowRight className="h-3.5 w-3.5" />
-            </a>
-            <a
-              href="#agencia"
-              className="btn-ghost-dark"
+              <span className="spectrum-bar" style={{ width: 44 }} />
+              <span className="eyebrow-light">Sistema de marca · 2026</span>
+            </motion.div>
+
+            <motion.h1
+              custom={1}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+              variants={rise}
+              className="display mt-6 max-w-[16ch] text-balance text-[36px] leading-[1.04] text-papel sm:text-[52px] lg:text-[62px]"
             >
-              Conocer Antuario
-            </a>
-            <span className="text-[12px] text-papel/40 sm:ml-3">
+              Marketing digital,{' '}
+              <span className="multi-grad-bright">a la medida</span>.
+            </motion.h1>
+
+            <motion.p
+              custom={2}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+              variants={rise}
+              className="mt-5 max-w-[42ch] text-[15px] leading-[1.55] text-papel/65 sm:text-[16.5px]"
+            >
+              Marketing, sistemas e inteligencia artificial — bajo una sola
+              dirección estratégica, con accountability total sobre cada
+              resultado.
+            </motion.p>
+
+            <motion.div
+              custom={3}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+              variants={rise}
+              className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-3"
+            >
+              <a
+                href={siteConfig.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-primary-inv"
+              >
+                <WhatsAppIcon className="h-3.5 w-3.5" />
+                Cuéntanos tu proyecto
+                <ArrowRight className="h-3 w-3" />
+              </a>
+              <a href="#agencia" className="btn-ghost-dark">
+                Conocer Antuario
+              </a>
+            </motion.div>
+
+            <motion.div
+              custom={4}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+              variants={rise}
+              className="mt-4 text-[11.5px] text-papel/40"
+            >
               Sin costo · Sin compromiso
-            </span>
-          </motion.div>
+            </motion.div>
 
-          {/* Servicios chips — micro lista */}
-          <motion.ul
-            custom={4}
-            initial="hidden"
-            whileInView="show"
+            {/* Mini-chips */}
+            <motion.ul
+              custom={5}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+              variants={rise}
+              className="mt-10 flex flex-wrap items-center gap-x-2 gap-y-2"
+            >
+              {[
+                'Performance Ads',
+                'SEO',
+                'Diseño Web',
+                'Redes Sociales',
+                'IA aplicada',
+              ].map((s, i) => (
+                <li key={s} className="flex items-center gap-2">
+                  {i > 0 && <span className="h-0.5 w-0.5 rounded-full bg-papel/25" />}
+                  <span className="text-[11px] font-medium text-papel/60 sm:text-[12px]">
+                    {s}
+                  </span>
+                </li>
+              ))}
+            </motion.ul>
+          </div>
+
+          {/* Deck flotante */}
+          <motion.div
+            initial={{ opacity: 0, y: 28 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            variants={rise}
-            className="mt-14 flex flex-wrap items-center gap-x-2 gap-y-2.5 sm:gap-x-3"
+            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+            className="lg:col-span-6"
           >
-            {[
-              'Performance Ads',
-              'SEO',
-              'Redes Sociales',
-              'Diseño Web',
-              'Software',
-              'Inteligencia Artificial',
-            ].map((s, i) => (
-              <li key={s} className="flex items-center gap-2 sm:gap-3">
-                {i > 0 && (
-                  <span className="h-1 w-1 rounded-full bg-papel/20" />
-                )}
-                <span className="text-[11.5px] font-medium text-papel/65 sm:text-[13px]">
-                  {s}
-                </span>
-              </li>
-            ))}
-          </motion.ul>
+            <HeroDeck />
+          </motion.div>
         </div>
 
-        {/* Footer del hero — meta minimal */}
-        <div className="relative z-10 mx-auto flex w-full max-w-[1180px] items-end justify-between pb-6 pt-12">
+        {/* Meta inferior */}
+        <div className="relative z-10 mx-auto mt-14 flex w-full max-w-[1180px] items-end justify-between pb-6">
           <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-papel/35">
-            Antuario · CDMX · México
+            CDMX · México
           </span>
           <span className="font-mono text-[10px] tracking-[0.22em] text-papel/35">
             Vol. 01 · MMXXVI
@@ -443,10 +525,147 @@ function HeroSection() {
   )
 }
 
-// ─── 02 · QUIÉNES SOMOS ────────────────────────────────────────────────────
+function HeroDeck() {
+  return (
+    <div className="relative mx-auto h-[420px] w-full max-w-[520px] sm:h-[500px]">
+      {/* Aurora detrás */}
+      <div
+        className="pointer-events-none absolute -inset-8 -z-10 rounded-[64px] opacity-65"
+        style={{
+          background:
+            'radial-gradient(45% 50% at 60% 30%, rgba(167,139,250,0.35), transparent 60%), radial-gradient(40% 50% at 20% 80%, rgba(34,211,238,0.28), transparent 60%), radial-gradient(35% 40% at 80% 75%, rgba(251,113,133,0.20), transparent 60%)',
+          filter: 'blur(50px)',
+        }}
+        aria-hidden
+      />
+
+      {/* Card 3 — atrás */}
+      <div
+        className="absolute right-0 top-0 w-[78%]"
+        style={{ transform: 'rotate(3deg)' }}
+      >
+        <div className="card-bb-glass p-5 sm:p-6">
+          <div className="flex items-center justify-between">
+            <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-papel/45">
+              03 · Conversión
+            </span>
+            <span className="h-1.5 w-1.5 rounded-full bg-salvia-b shadow-[0_0_10px_rgba(110,231,183,0.7)]" />
+          </div>
+          <h3
+            className="mt-3 text-[15px] font-medium tracking-tight text-papel sm:text-[16px]"
+            style={{ letterSpacing: '-0.014em' }}
+          >
+            CRM con accountability
+          </h3>
+          <div className="mt-4 flex items-center gap-2">
+            <div className="h-1 flex-1 rounded-full bg-papel/8">
+              <div className="h-full w-[72%] rounded-full bg-salvia-b" />
+            </div>
+            <span className="font-mono text-[10px] text-papel/55">72%</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Card 2 — medio */}
+      <div
+        className="absolute left-0 top-[112px] w-[78%]"
+        style={{ transform: 'rotate(-2deg)' }}
+      >
+        <div
+          className="rounded-[24px] bg-onyx p-5 sm:p-6"
+          style={{
+            boxShadow:
+              '0 1px 0 rgba(255,255,255,0.06) inset, 0 20px 44px rgba(0,0,0,0.55), 0 4px 10px rgba(0,0,0,0.40)',
+          }}
+        >
+          <div className="flex items-center justify-between">
+            <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-papel/45">
+              02 · Adquisición
+            </span>
+            <span className="font-mono text-[10px] text-papel/45">+4.2×</span>
+          </div>
+          <h3
+            className="mt-3 text-[15px] font-medium tracking-tight text-papel sm:text-[16px]"
+            style={{ letterSpacing: '-0.014em' }}
+          >
+            Leads que cierran
+          </h3>
+          <div className="mt-5 flex items-end gap-1.5">
+            {[14, 22, 30, 26, 38, 50, 44, 62].map((h, i) => (
+              <div
+                key={i}
+                className="flex-1 rounded-sm"
+                style={{
+                  height: `${h}px`,
+                  background:
+                    i === 7
+                      ? 'var(--cobalto-b)'
+                      : `rgba(129, 140, 248, ${0.18 + i * 0.06})`,
+                }}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Card 1 — frente, KPI grande */}
+      <div
+        className="absolute right-[4%] top-[230px] w-[84%]"
+        style={{ transform: 'rotate(1deg)' }}
+      >
+        <div
+          className="rounded-[24px] bg-papel p-5 text-onyx sm:p-7"
+          style={{
+            boxShadow:
+              '0 2px 4px rgba(15,15,30,0.10), 0 30px 64px rgba(0,0,0,0.55), 0 6px 14px rgba(0,0,0,0.30)',
+          }}
+        >
+          <div className="flex items-center justify-between">
+            <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-plomo">
+              01 · Posicionamiento
+            </span>
+            <span className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-salvia">
+              <span className="pulse-live h-1.5 w-1.5 rounded-full bg-salvia" />
+              Live
+            </span>
+          </div>
+          <div className="mt-4 grid grid-cols-2 gap-5">
+            <div>
+              <span className="micro">MRR trimestre</span>
+              <p
+                className="mt-1 text-[26px] font-light tracking-tight text-onyx sm:text-[28px]"
+                style={{ letterSpacing: '-0.028em' }}
+              >
+                $112k
+              </p>
+              <span className="text-[11px] font-medium text-salvia">+133%</span>
+            </div>
+            <div>
+              <span className="micro">CPA</span>
+              <p
+                className="mt-1 text-[26px] font-light tracking-tight text-onyx sm:text-[28px]"
+                style={{ letterSpacing: '-0.028em' }}
+              >
+                $48
+              </p>
+              <span className="text-[11px] font-medium text-cobalto">-38%</span>
+            </div>
+          </div>
+          <div className="spectrum-bar mt-5" />
+        </div>
+      </div>
+    </div>
+  )
+}
+
+/* ═══════════════ 02 · QUIÉNES SOMOS ═══════════════ */
 function AgencySection() {
   return (
-    <section id="agencia" className="relative bg-nieve">
+    <section
+      id="agencia"
+      data-theme="light"
+      className="relative bg-nieve"
+    >
       <div className="section-pad mx-auto max-w-[1180px]">
         <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
           <motion.div
@@ -456,13 +675,7 @@ function AgencySection() {
             variants={rise}
             className="lg:col-span-7"
           >
-            <div className="flex items-center gap-3">
-              <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-plomo">
-                I · Esencia
-              </span>
-              <span className="h-px w-12 bg-onyx/10" />
-              <span className="eyebrow">Quiénes somos</span>
-            </div>
+            <ChapterTag roman="I" label="Esencia" sub="Quiénes somos" />
 
             <motion.h2
               custom={1}
@@ -470,7 +683,8 @@ function AgencySection() {
               whileInView="show"
               viewport={{ once: true }}
               variants={rise}
-              className="display mt-7 max-w-[14ch] text-[44px] text-onyx sm:text-[68px] lg:text-[84px]"
+              className="hero-type mt-6 max-w-[16ch] text-[34px] text-onyx sm:text-[48px] lg:text-[56px]"
+              style={{ fontWeight: 300 }}
             >
               Más que <span className="multi-grad">una agencia.</span>
             </motion.h2>
@@ -481,24 +695,43 @@ function AgencySection() {
               whileInView="show"
               viewport={{ once: true }}
               variants={rise}
-              className="lead-type mt-7 max-w-[44ch] text-[16px] sm:text-[18px]"
+              className="lead-type mt-6 max-w-[46ch] text-[15px] sm:text-[17px]"
             >
               Capacidades estratégicas, tecnológicas y creativas que van mucho
-              más allá de lo que una agencia tradicional ofrece.
+              más allá de lo que una agencia tradicional ofrece. Operamos como
+              partner: respondemos por resultados, no por tareas.
             </motion.p>
 
-            <motion.p
+            {/* Mini-stats flotantes */}
+            <motion.div
               custom={3}
               initial="hidden"
               whileInView="show"
               viewport={{ once: true }}
               variants={rise}
-              className="body-type mt-5 max-w-[52ch] text-[14px] sm:text-[15px]"
+              className="mt-8 grid grid-cols-3 gap-3"
             >
-              Operamos como partner estratégico: nos involucramos a fondo,
-              diseñamos soluciones a la medida y respondemos por los resultados
-              — no por las tareas.
-            </motion.p>
+              {[
+                { v: '04', l: 'Oficios bajo un techo' },
+                { v: '07', l: 'Disciplinas integradas' },
+                { v: '100%', l: 'Accountability' },
+              ].map((s) => (
+                <div
+                  key={s.l}
+                  className="card-bb-soft p-3.5 sm:p-4"
+                >
+                  <p
+                    className="text-[24px] font-light tracking-tight text-onyx sm:text-[28px]"
+                    style={{ letterSpacing: '-0.028em' }}
+                  >
+                    {s.v}
+                  </p>
+                  <span className="mt-1 block text-[11px] leading-tight text-plomo sm:text-[11.5px]">
+                    {s.l}
+                  </span>
+                </div>
+              ))}
+            </motion.div>
 
             <motion.div
               custom={4}
@@ -506,9 +739,9 @@ function AgencySection() {
               whileInView="show"
               viewport={{ once: true }}
               variants={rise}
-              className="mt-10 flex items-center gap-4"
+              className="mt-7 flex items-center gap-3"
             >
-              <span className="spectrum-bar" style={{ width: 72 }} />
+              <span className="spectrum-bar" style={{ width: 56 }} />
               <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-plomo">
                 El Creador con la disciplina del Mago
               </span>
@@ -530,48 +763,35 @@ function AgencySection() {
   )
 }
 
-// ─── Constellation: isotipo orbital (animación premium conservada) ─────────
 function AgencyConstellation() {
   const orbits = [
-    { label: 'Marketing', color: 'var(--cobalto)', radius: 132, angle: -90, dur: 34 },
-    { label: 'Data',      color: 'var(--laguna)',  radius: 132, angle: -30, dur: 34 },
-    { label: 'IA',        color: 'var(--glicina)', radius: 132, angle:  30, dur: 34 },
-    { label: 'Diseño',    color: 'var(--rubor)',   radius: 168, angle:  90, dur: 46 },
-    { label: 'Web',       color: 'var(--glicina)', radius: 168, angle: 170, dur: 46 },
-    { label: 'Software',  color: 'var(--salvia)',  radius: 168, angle: 250, dur: 46 },
+    { label: 'Marketing', color: 'var(--cobalto)', radius: 124, angle: -90, dur: 34 },
+    { label: 'Data',      color: 'var(--laguna)',  radius: 124, angle: -30, dur: 34 },
+    { label: 'IA',        color: 'var(--glicina)', radius: 124, angle:  30, dur: 34 },
+    { label: 'Diseño',    color: 'var(--rubor)',   radius: 162, angle:  90, dur: 46 },
+    { label: 'Web',       color: 'var(--glicina)', radius: 162, angle: 170, dur: 46 },
+    { label: 'Software',  color: 'var(--salvia)',  radius: 162, angle: 250, dur: 46 },
   ] as const
 
   return (
-    <div className="agency-stage relative flex h-[340px] w-[340px] items-center justify-center sm:h-[440px] sm:w-[440px]">
-      <span className="agency-halo absolute inset-6 rounded-full sm:inset-10" aria-hidden />
-
+    <div className="agency-stage relative flex h-[320px] w-[320px] items-center justify-center sm:h-[400px] sm:w-[400px]">
+      <span className="agency-halo absolute inset-6 rounded-full sm:inset-8" aria-hidden />
       <span
-        className="agency-conic absolute h-[220px] w-[220px] rounded-full sm:h-[280px] sm:w-[280px]"
+        className="agency-conic absolute h-[210px] w-[210px] rounded-full sm:h-[260px] sm:w-[260px]"
         aria-hidden
       />
-
       <svg
-        className="agency-ring-dashed absolute h-[188px] w-[188px] sm:h-[240px] sm:w-[240px]"
+        className="agency-ring-dashed absolute h-[178px] w-[178px] sm:h-[222px] sm:w-[222px]"
         viewBox="0 0 200 200"
         aria-hidden
       >
-        <circle
-          cx="100"
-          cy="100"
-          r="98"
-          fill="none"
-          stroke="rgba(10,10,10,0.18)"
-          strokeWidth="1"
-          strokeDasharray="2 6"
-        />
+        <circle cx="100" cy="100" r="98" fill="none" stroke="rgba(10,10,10,0.18)" strokeWidth="1" strokeDasharray="2 6" />
       </svg>
-
       <span
-        className="absolute h-[268px] w-[268px] rounded-full sm:h-[346px] sm:w-[346px]"
+        className="absolute h-[258px] w-[258px] rounded-full sm:h-[326px] sm:w-[326px]"
         style={{ boxShadow: 'inset 0 0 0 1px rgba(10,10,10,0.06)' }}
         aria-hidden
       />
-
       <span className="agency-pulse absolute h-16 w-16 rounded-full" aria-hidden />
       <span className="agency-pulse delay-1 absolute h-16 w-16 rounded-full" aria-hidden />
       <span className="agency-pulse delay-2 absolute h-16 w-16 rounded-full" aria-hidden />
@@ -590,18 +810,18 @@ function AgencyConstellation() {
           aria-hidden
         >
           <span
-            className="agency-orbit-pill absolute left-1/2 top-1/2 flex items-center gap-1.5 rounded-full bg-papel/95 px-2.5 py-1.5 backdrop-blur-sm"
+            className="agency-orbit-pill absolute left-1/2 top-1/2 flex items-center gap-1.5 rounded-full bg-papel/95 px-2.5 py-1 backdrop-blur-sm"
             style={{
               animationDuration: `${o.dur}s`,
               boxShadow:
-                '0 1px 2px rgba(15,15,30,0.06), 0 4px 10px rgba(15,15,30,0.05)',
+                '0 1px 2px rgba(15,15,30,0.06), 0 6px 14px rgba(15,15,30,0.06)',
             }}
           >
             <span
               className="h-1.5 w-1.5 rounded-full"
               style={{ background: o.color as string, boxShadow: `0 0 8px ${o.color}` }}
             />
-            <span className="text-[10.5px] font-medium tracking-tight text-onyx sm:text-[11.5px]">
+            <span className="text-[10.5px] font-medium tracking-tight text-onyx">
               {o.label}
             </span>
           </span>
@@ -610,18 +830,18 @@ function AgencyConstellation() {
 
       <div className="relative z-10 flex items-center justify-center">
         <span
-          className="agency-core-glow pointer-events-none absolute h-24 w-24 rounded-full sm:h-32 sm:w-32"
+          className="agency-core-glow pointer-events-none absolute h-24 w-24 rounded-full sm:h-28 sm:w-28"
           aria-hidden
         />
         <div className="agency-core-breath relative">
-          <AntuarioMark className="h-[92px] w-auto text-onyx sm:h-[120px]" />
+          <AntuarioMark className="h-[84px] w-auto text-onyx sm:h-[108px]" />
         </div>
       </div>
     </div>
   )
 }
 
-// ─── 03 · SERVICIOS / CUATRO OFICIOS + Detalle ─────────────────────────────
+/* ═══════════════ 03 · SERVICIOS ═══════════════ */
 function ServicesSection() {
   type Cap = {
     n: string
@@ -634,138 +854,41 @@ function ServicesSection() {
   }
 
   const caps: Cap[] = [
-    {
-      n: '01',
-      tag: 'Paid Media',
-      title: 'Performance Ads',
-      headline: 'Campañas que mueven la aguja, no que ganan premios.',
-      description:
-        'Optimizamos cada peso invertido — desde la creatividad hasta la puja — para conseguir leads, ventas y crecimiento real.',
-      items: [
-        'Google, Meta y TikTok Ads',
-        'ROAS, CPA y CPL reales',
-        'Testing creativo continuo',
-        'Reportes con accountability',
-      ],
-      accent: 'var(--cobalto)',
-    },
-    {
-      n: '02',
-      tag: 'Orgánico',
-      title: 'SEO',
-      headline: 'Crecer en búsquedas, sin pagar por cada click.',
-      description:
-        'Auditoría técnica, estrategia de contenidos y autoridad de dominio para posicionarte donde tus clientes te buscan.',
-      items: [
-        'Auditoría técnica + competencia',
-        'Estrategia de keywords',
-        'Contenido y linkbuilding',
-        'Reportes mensuales de posiciones',
-      ],
-      accent: 'var(--salvia)',
-    },
-    {
-      n: '03',
-      tag: 'Contenido',
-      title: 'Redes Sociales',
-      headline: 'Estrategia, contenido y producción bajo el mismo techo.',
-      description:
-        'Comunicamos tu marca con consistencia: planeamos, producimos y publicamos contenido que conecta y convierte.',
-      items: [
-        'Calendarios estratégicos',
-        'Producción foto y video',
-        'Edición y post profesional',
-        'Community y rendimiento',
-      ],
-      accent: 'var(--nectar)',
-    },
-    {
-      n: '04',
-      tag: 'Diseño',
-      title: 'Diseño Creativo',
-      headline: 'Identidad visual que diferencia a tu marca.',
-      description:
-        'Branding, dirección de arte y sistemas visuales escalables — el lenguaje gráfico que sostiene toda tu comunicación.',
-      items: [
-        'Branding e identidad',
-        'Dirección de arte',
-        'Sistemas visuales',
-        'Piezas para campañas',
-      ],
-      accent: 'var(--rubor)',
-    },
-    {
-      n: '05',
-      tag: 'Web',
-      title: 'Desarrollo Web',
-      headline: 'Sitios y plataformas pensados para convertir.',
-      description:
-        'Construimos webs rápidas, optimizadas para SEO y enfocadas en la experiencia del usuario y el cierre de venta.',
-      items: [
-        'Sitios corporativos y landings',
-        'Ecommerce y catálogos',
-        'UX/UI orientado a conversión',
-        'Performance + analytics',
-      ],
-      accent: 'var(--glicina)',
-    },
-    {
-      n: '06',
-      tag: 'Tecnología',
-      title: 'Software a la medida',
-      headline: 'Sistemas que aceleran tu operación.',
-      description:
-        'CRM, automatizaciones e integraciones para que el equipo opere con menos fricción y más visibilidad.',
-      items: [
-        'CRM y plataformas internas',
-        'Integraciones API',
-        'Automatización de procesos',
-        'Dashboards y BI a medida',
-      ],
-      accent: 'var(--laguna)',
-    },
-    {
-      n: '07',
-      tag: 'Vanguardia',
-      title: 'Inteligencia Artificial',
-      headline: 'IA aplicada — operación, marketing y producto.',
-      description:
-        'No hablamos de IA, la implementamos: agentes, LLMs y automatización inteligente para escalar sin escalar costos.',
-      items: [
-        'Agentes WhatsApp y voz',
-        'LLMs custom para tu negocio',
-        'IA generativa de contenido',
-        'Optimización de campañas con IA',
-      ],
-      accent: 'var(--glicina)',
-    },
+    { n: '01', tag: 'Paid Media', title: 'Performance Ads', headline: 'Campañas que mueven la aguja, no que ganan premios.', description: 'Optimizamos cada peso invertido — desde la creatividad hasta la puja — para conseguir leads, ventas y crecimiento real.', items: ['Google, Meta y TikTok Ads', 'ROAS, CPA y CPL reales', 'Testing creativo continuo', 'Reportes con accountability'], accent: 'var(--cobalto)' },
+    { n: '02', tag: 'Orgánico', title: 'SEO', headline: 'Crecer en búsquedas, sin pagar por cada click.', description: 'Auditoría técnica, estrategia de contenidos y autoridad de dominio para posicionarte donde tus clientes te buscan.', items: ['Auditoría técnica + competencia', 'Estrategia de keywords', 'Contenido y linkbuilding', 'Reportes mensuales de posiciones'], accent: 'var(--salvia)' },
+    { n: '03', tag: 'Contenido', title: 'Redes Sociales', headline: 'Estrategia, contenido y producción bajo el mismo techo.', description: 'Comunicamos tu marca con consistencia: planeamos, producimos y publicamos contenido que conecta y convierte.', items: ['Calendarios estratégicos', 'Producción foto y video', 'Edición y post profesional', 'Community y rendimiento'], accent: 'var(--nectar)' },
+    { n: '04', tag: 'Diseño', title: 'Diseño Creativo', headline: 'Identidad visual que diferencia a tu marca.', description: 'Branding, dirección de arte y sistemas visuales escalables — el lenguaje gráfico que sostiene toda tu comunicación.', items: ['Branding e identidad', 'Dirección de arte', 'Sistemas visuales', 'Piezas para campañas'], accent: 'var(--rubor)' },
+    { n: '05', tag: 'Web', title: 'Desarrollo Web', headline: 'Sitios y plataformas pensados para convertir.', description: 'Construimos webs rápidas, optimizadas para SEO y enfocadas en la experiencia del usuario y el cierre de venta.', items: ['Sitios corporativos y landings', 'Ecommerce y catálogos', 'UX/UI orientado a conversión', 'Performance + analytics'], accent: 'var(--glicina)' },
+    { n: '06', tag: 'Tecnología', title: 'Software a la medida', headline: 'Sistemas que aceleran tu operación.', description: 'CRM, automatizaciones e integraciones para que el equipo opere con menos fricción y más visibilidad.', items: ['CRM y plataformas internas', 'Integraciones API', 'Automatización de procesos', 'Dashboards y BI a medida'], accent: 'var(--laguna)' },
+    { n: '07', tag: 'Vanguardia', title: 'Inteligencia Artificial', headline: 'IA aplicada — operación, marketing y producto.', description: 'No hablamos de IA, la implementamos: agentes, LLMs y automatización inteligente para escalar sin escalar costos.', items: ['Agentes WhatsApp y voz', 'LLMs custom para tu negocio', 'IA generativa de contenido', 'Optimización de campañas con IA'], accent: 'var(--glicina)' },
   ]
 
   const [activeIdx, setActiveIdx] = useState(0)
   const active = caps[activeIdx]
 
   return (
-    <section id="servicios" className="relative bg-marfil">
+    <section
+      id="servicios"
+      data-theme="light"
+      className="relative bg-marfil"
+    >
       <div className="section-pad mx-auto max-w-[1180px]">
         <motion.div
           initial="hidden"
           whileInView="show"
           viewport={{ once: true }}
           variants={rise}
-          className="mb-12 sm:mb-16"
+          className="mb-10 sm:mb-14"
         >
-          <div className="flex items-center gap-3">
-            <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-plomo">
-              I · Oficios
-            </span>
-            <span className="h-px w-12 bg-onyx/10" />
-            <span className="eyebrow">Qué hacemos</span>
-          </div>
-          <h2 className="display mt-7 max-w-[20ch] text-[36px] text-onyx sm:text-[58px] lg:text-[72px]">
+          <ChapterTag roman="I" label="Oficios" sub="Qué hacemos" />
+          <h2
+            className="hero-type mt-6 max-w-[20ch] text-[32px] text-onyx sm:text-[44px] lg:text-[52px]"
+            style={{ fontWeight: 300 }}
+          >
             Una sola dirección,{' '}
             <span className="multi-grad">muchas capacidades.</span>
           </h2>
-          <p className="lead-type mt-7 max-w-[52ch] text-[16px] sm:text-[18px]">
+          <p className="lead-type mt-5 max-w-[54ch] text-[15px] sm:text-[16.5px]">
             Construimos sistemas comerciales completos para empresas de
             servicios. No vendemos piezas sueltas: tomamos una marca, la
             posicionamos, la ponemos a producir leads y los convertimos en
@@ -773,7 +896,7 @@ function ServicesSection() {
           </p>
         </motion.div>
 
-        {/* MOBILE — tabs en scroll horizontal */}
+        {/* Mobile — chips */}
         <div className="lg:hidden">
           <div className="no-scrollbar -mx-5 mb-4 overflow-x-auto px-5">
             <div className="flex w-max gap-2">
@@ -783,7 +906,7 @@ function ServicesSection() {
                   <button
                     key={c.title}
                     onClick={() => setActiveIdx(i)}
-                    className={`whitespace-nowrap rounded-full px-4 py-2 text-[12px] font-medium transition-all duration-300 ${
+                    className={`whitespace-nowrap rounded-full px-4 py-2 text-[11.5px] font-medium transition-all duration-300 ${
                       isActive
                         ? 'bg-onyx text-papel'
                         : 'bg-papel text-grafito shadow-soft'
@@ -798,7 +921,7 @@ function ServicesSection() {
           <CapabilityPanel cap={active} mobile />
         </div>
 
-        {/* DESKTOP — lista vertical + panel */}
+        {/* Desktop */}
         <div className="hidden grid-cols-12 gap-10 lg:grid">
           <ul className="lg:col-span-5">
             {caps.map((c, i) => {
@@ -808,7 +931,7 @@ function ServicesSection() {
                   <button
                     onClick={() => setActiveIdx(i)}
                     onMouseEnter={() => setActiveIdx(i)}
-                    className="group relative flex w-full items-center gap-5 py-4 text-left transition-colors"
+                    className="group relative flex w-full items-center gap-5 py-3 text-left transition-colors"
                   >
                     <span
                       aria-hidden
@@ -825,17 +948,15 @@ function ServicesSection() {
                       {c.n}
                     </span>
                     <span
-                      className={`flex-1 text-[17px] font-medium tracking-tight transition-colors ${
-                        isActive
-                          ? 'text-onyx'
-                          : 'text-niebla group-hover:text-grafito'
+                      className={`flex-1 text-[16px] font-medium tracking-tight transition-colors ${
+                        isActive ? 'text-onyx' : 'text-niebla group-hover:text-grafito'
                       }`}
                       style={{ letterSpacing: '-0.014em' }}
                     >
                       {c.title}
                     </span>
                     <ArrowUpRight
-                      className="h-4 w-4 -translate-x-2 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100"
+                      className="h-4 w-4 -translate-x-1 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100"
                       style={{ color: c.accent }}
                     />
                   </button>
@@ -873,11 +994,11 @@ function CapabilityPanel({
     <AnimatePresence mode="wait">
       <motion.div
         key={cap.title}
-        initial={{ opacity: 0, y: 14 }}
+        initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -8 }}
+        exit={{ opacity: 0, y: -6 }}
         transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-        className={`card-bb-elev relative overflow-hidden ${mobile ? 'p-6' : 'p-8'}`}
+        className={`card-bb-float relative overflow-hidden ${mobile ? 'p-6' : 'p-8'}`}
       >
         <span
           aria-hidden
@@ -901,28 +1022,26 @@ function CapabilityPanel({
 
           <h3
             className={`mt-4 font-medium tracking-tight text-onyx ${
-              mobile ? 'text-[26px]' : 'text-[34px]'
+              mobile ? 'text-[22px]' : 'text-[28px]'
             }`}
             style={{ letterSpacing: '-0.022em', lineHeight: 1.08 }}
           >
             {cap.title}
           </h3>
           <p
-            className={`mt-3 font-light tracking-tight text-grafito ${
-              mobile ? 'text-[15px]' : 'text-[18px]'
+            className={`mt-2.5 font-light tracking-tight text-grafito ${
+              mobile ? 'text-[14px]' : 'text-[16.5px]'
             }`}
-            style={{ letterSpacing: '-0.012em', lineHeight: 1.32 }}
+            style={{ letterSpacing: '-0.012em', lineHeight: 1.36 }}
           >
             {cap.headline}
           </p>
-          <p
-            className={`body-type mt-3 ${mobile ? 'text-[13px]' : 'text-[14px]'}`}
-          >
+          <p className={`body-type mt-3 ${mobile ? 'text-[13px]' : 'text-[14px]'}`}>
             {cap.description}
           </p>
 
           <ul
-            className={`mt-6 grid gap-2 ${
+            className={`mt-5 grid gap-2 ${
               mobile ? 'grid-cols-1' : 'grid-cols-2 gap-x-6'
             }`}
           >
@@ -930,7 +1049,7 @@ function CapabilityPanel({
               <li
                 key={it}
                 className={`flex items-start gap-2.5 text-grafito ${
-                  mobile ? 'text-[13px]' : 'text-[13.5px]'
+                  mobile ? 'text-[12.5px]' : 'text-[13.5px]'
                 }`}
               >
                 <span
@@ -948,49 +1067,23 @@ function CapabilityPanel({
   )
 }
 
-// ─── 04 · DIFERENCIADORES (Bento dark) ─────────────────────────────────────
+/* ═══════════════ 04 · DIFERENCIADORES ═══════════════ */
 function DifferentiatorsSection() {
   const items = [
-    {
-      key: 'accountability',
-      title: 'Accountability real',
-      text: 'Respondemos por resultados, no por tareas. Cada compromiso tiene un dueño y una métrica.',
-      accent: 'var(--cobalto-b)',
-    },
-    {
-      key: 'data',
-      title: 'Sistemas de datos',
-      text: 'Tableros vivos para que cada decisión esté basada en información — no en intuición.',
-      accent: 'var(--laguna-b)',
-    },
-    {
-      key: 'vanguard',
-      title: 'Vanguardia con IA',
-      text: 'Mientras la mayoría apenas la nombra, nosotros la operamos. IA en marketing, operación y producto para soluciones más rápidas y económicas.',
-      accent: 'var(--glicina-b)',
-    },
-    {
-      key: 'strategy',
-      title: 'Estrategia + estructura',
-      text: 'Aportamos visión completa: del posicionamiento al funnel, del producto a la operación. Ordenamos lo que está suelto.',
-      accent: 'var(--rubor-b)',
-    },
-    {
-      key: 'partner',
-      title: 'Partner end-to-end',
-      text: 'De la estrategia a la optimización. Podemos ejecutar todo o sumarnos a tu equipo donde haga falta.',
-      accent: 'var(--salvia-b)',
-    },
-    {
-      key: 'simple',
-      title: 'Simplicidad con criterio',
-      text: 'No complicamos por complicar. Buscamos la solución más simple que funcione bien — y la ejecutamos con calidad.',
-      accent: 'var(--nectar-b)',
-    },
+    { key: 'accountability', title: 'Accountability real', text: 'Respondemos por resultados, no por tareas. Cada compromiso tiene un dueño y una métrica.', accent: 'var(--cobalto-b)' },
+    { key: 'data', title: 'Sistemas de datos', text: 'Tableros vivos para que cada decisión esté basada en información — no en intuición.', accent: 'var(--laguna-b)' },
+    { key: 'vanguard', title: 'Vanguardia con IA', text: 'Mientras la mayoría apenas la nombra, nosotros la operamos. IA en marketing, operación y producto.', accent: 'var(--glicina-b)' },
+    { key: 'strategy', title: 'Estrategia + estructura', text: 'Visión completa: del posicionamiento al funnel, del producto a la operación. Ordenamos lo suelto.', accent: 'var(--rubor-b)' },
+    { key: 'partner', title: 'Partner end-to-end', text: 'De la estrategia a la optimización. Podemos ejecutar todo o sumarnos a tu equipo donde haga falta.', accent: 'var(--salvia-b)' },
+    { key: 'simple', title: 'Simplicidad con criterio', text: 'No complicamos por complicar. Buscamos la solución más simple que funcione bien — y la ejecutamos con calidad.', accent: 'var(--nectar-b)' },
   ]
 
   return (
-    <section id="diferenciadores" className="relative isolate overflow-hidden bg-onyx text-papel">
+    <section
+      id="diferenciadores"
+      data-theme="dark"
+      className="relative isolate overflow-hidden bg-onyx text-papel"
+    >
       <div className="aurora aurora-deep inset-0 opacity-50" aria-hidden />
       <div className="grid-pattern-dark pointer-events-none absolute inset-0 opacity-20" />
 
@@ -1000,20 +1093,17 @@ function DifferentiatorsSection() {
           whileInView="show"
           viewport={{ once: true }}
           variants={rise}
-          className="mb-12 sm:mb-16"
+          className="mb-10 sm:mb-14"
         >
-          <div className="flex items-center gap-3">
-            <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-papel/40">
-              I · Diferenciadores
-            </span>
-            <span className="h-px w-12 bg-papel/15" />
-            <span className="eyebrow-light">Por qué Antuario</span>
-          </div>
-          <h2 className="display mt-7 max-w-[18ch] text-[36px] text-papel sm:text-[58px] lg:text-[72px]">
+          <ChapterTag roman="I" label="Diferenciadores" sub="Por qué Antuario" dark />
+          <h2
+            className="hero-type mt-6 max-w-[18ch] text-[32px] text-papel sm:text-[44px] lg:text-[52px]"
+            style={{ fontWeight: 300 }}
+          >
             Lo que nos hace{' '}
             <span className="multi-grad-bright">diferentes.</span>
           </h2>
-          <p className="lead-type mt-7 max-w-[52ch] text-[15px] !text-papel/65 sm:text-[18px]">
+          <p className="lead-type mt-5 max-w-[54ch] text-[15px] !text-papel/65 sm:text-[16.5px]">
             Una agencia a la vanguardia, en un mercado donde muchos siguen
             atorados en la vieja escuela.
           </p>
@@ -1028,14 +1118,18 @@ function DifferentiatorsSection() {
               whileInView="show"
               viewport={{ once: true }}
               variants={rise}
-              className="group relative overflow-hidden rounded-[22px] bg-papel/4 p-6 backdrop-blur-sm transition-all duration-500 hover:-translate-y-0.5 hover:bg-papel/8 sm:p-7"
+              className="group relative overflow-hidden rounded-[24px] bg-papel/[0.04] p-6 transition-all duration-500 hover:-translate-y-1 hover:bg-papel/[0.07]"
+              style={{
+                backdropFilter: 'blur(10px)',
+                boxShadow:
+                  'inset 0 1px 0 rgba(255,255,255,0.05), 0 18px 36px rgba(0,0,0,0.30)',
+              }}
             >
               <span
                 aria-hidden
                 className="pointer-events-none absolute -right-12 -top-12 h-32 w-32 rounded-full opacity-30 blur-3xl transition-opacity duration-500 group-hover:opacity-60"
                 style={{ background: it.accent }}
               />
-
               <span
                 aria-hidden
                 className="mb-4 block h-1.5 w-1.5 rounded-full"
@@ -1045,12 +1139,12 @@ function DifferentiatorsSection() {
                 }}
               />
               <h3
-                className="text-[17px] font-medium tracking-tight text-papel"
+                className="text-[16px] font-medium tracking-tight text-papel"
                 style={{ letterSpacing: '-0.018em' }}
               >
                 {it.title}
               </h3>
-              <p className="mt-3 text-[13.5px] leading-[1.56] text-papel/60">
+              <p className="mt-3 text-[13px] leading-[1.55] text-papel/60">
                 {it.text}
               </p>
             </motion.div>
@@ -1061,7 +1155,7 @@ function DifferentiatorsSection() {
   )
 }
 
-// ─── 05 · DATOS / DASHBOARD ────────────────────────────────────────────────
+/* ═══════════════ 05 · DATOS / DASHBOARD ═══════════════ */
 function DataSection() {
   const features = [
     { positive: false, text: 'Datos de vanidad sin contexto' },
@@ -1071,7 +1165,11 @@ function DataSection() {
   ]
 
   return (
-    <section id="datos" className="relative bg-nieve">
+    <section
+      id="datos"
+      data-theme="light"
+      className="relative bg-nieve"
+    >
       <div className="section-pad mx-auto max-w-[1180px]">
         <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
           <motion.div
@@ -1081,61 +1179,43 @@ function DataSection() {
             variants={rise}
             className="lg:col-span-5"
           >
-            <div className="flex items-center gap-3">
-              <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-plomo">
-                III · Datos
-              </span>
-              <span className="h-px w-12 bg-onyx/10" />
-              <span className="eyebrow">Información</span>
-            </div>
-            <h2 className="display mt-7 max-w-[14ch] text-[36px] text-onyx sm:text-[54px] lg:text-[64px]">
+            <ChapterTag roman="III" label="Datos" sub="Información" />
+            <h2
+              className="hero-type mt-6 max-w-[14ch] text-[30px] text-onyx sm:text-[42px] lg:text-[50px]"
+              style={{ fontWeight: 300 }}
+            >
               Medición estratégica,{' '}
               <span className="multi-grad">no reportes genéricos.</span>
             </h2>
-            <p className="lead-type mt-7 max-w-[44ch] text-[15px] sm:text-[17px]">
+            <p className="lead-type mt-5 max-w-[44ch] text-[15px] sm:text-[16px]">
               Construimos sistemas de información estratégicos — no PDFs con
               likes y alcance.
             </p>
 
-            <ul className="mt-8 space-y-2.5">
+            <ul className="mt-7 space-y-2.5">
               {features.map((f) => (
                 <li key={f.text} className="flex items-start gap-3">
                   <span
-                    className={`mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full ${
+                    className="mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full"
+                    style={
                       f.positive
-                        ? 'bg-salvia/15 text-salvia'
-                        : 'bg-onyx/06 text-niebla'
-                    }`}
-                    style={!f.positive ? { background: 'rgba(10,10,10,0.06)' } : {}}
+                        ? { background: 'rgba(52,211,153,0.16)', color: 'var(--salvia)' }
+                        : { background: 'rgba(10,10,10,0.06)', color: 'var(--niebla)' }
+                    }
                     aria-hidden
                   >
                     {f.positive ? (
-                      <svg
-                        viewBox="0 0 16 16"
-                        className="h-3 w-3"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2.4"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
+                      <svg viewBox="0 0 16 16" className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M3 8.5l3 3 7-7" />
                       </svg>
                     ) : (
-                      <svg
-                        viewBox="0 0 16 16"
-                        className="h-2.5 w-2.5"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2.4"
-                        strokeLinecap="round"
-                      >
+                      <svg viewBox="0 0 16 16" className="h-2.5 w-2.5" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round">
                         <path d="M4 4l8 8M12 4l-8 8" />
                       </svg>
                     )}
                   </span>
                   <span
-                    className={`text-[14px] leading-snug ${
+                    className={`text-[13.5px] leading-snug ${
                       f.positive
                         ? 'font-medium text-grafito'
                         : 'text-niebla line-through decoration-niebla'
@@ -1149,7 +1229,7 @@ function DataSection() {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 22 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
@@ -1167,15 +1247,21 @@ function DashboardImage() {
   return (
     <div className="relative">
       <div
-        className="pointer-events-none absolute -inset-10 -z-10 rounded-[36px] opacity-50 blur-[60px]"
+        className="pointer-events-none absolute -inset-10 -z-10 rounded-[44px] opacity-55 blur-[55px]"
         style={{
           background:
-            'radial-gradient(60% 60% at 30% 30%, rgba(79,70,229,0.18), transparent 60%), radial-gradient(50% 50% at 70% 70%, rgba(34,211,238,0.15), transparent 60%)',
+            'radial-gradient(60% 60% at 30% 30%, rgba(79,70,229,0.20), transparent 60%), radial-gradient(50% 50% at 70% 70%, rgba(34,211,238,0.16), transparent 60%)',
         }}
         aria-hidden
       />
 
-      <div className="overflow-hidden rounded-[22px] bg-onyx shadow-elevated sm:rounded-[28px]">
+      <div
+        className="overflow-hidden rounded-[24px] bg-onyx sm:rounded-[28px]"
+        style={{
+          boxShadow:
+            '0 2px 4px rgba(15,15,30,0.10), 0 28px 64px rgba(0,0,0,0.18), 0 10px 24px rgba(0,0,0,0.12)',
+        }}
+      >
         <div className="flex items-center gap-1.5 bg-carbon px-3.5 py-2.5">
           <span className="h-2.5 w-2.5 rounded-full bg-rubor/60" />
           <span className="h-2.5 w-2.5 rounded-full bg-nectar/60" />
@@ -1200,11 +1286,49 @@ function DashboardImage() {
           draggable={false}
         />
       </div>
+
+      {/* Mini cards flotantes alrededor */}
+      <div
+        className="absolute -left-4 top-12 hidden rounded-[18px] bg-papel p-3 sm:block"
+        style={{
+          boxShadow:
+            '0 2px 4px rgba(15,15,30,0.10), 0 18px 40px rgba(15,15,30,0.10)',
+          transform: 'rotate(-3deg)',
+        }}
+      >
+        <span className="font-mono text-[9px] uppercase tracking-[0.22em] text-plomo">
+          ROAS
+        </span>
+        <p
+          className="mt-1 text-[20px] font-light text-onyx"
+          style={{ letterSpacing: '-0.024em' }}
+        >
+          4.8×
+        </p>
+      </div>
+      <div
+        className="absolute -right-4 bottom-12 hidden rounded-[18px] bg-papel p-3 sm:block"
+        style={{
+          boxShadow:
+            '0 2px 4px rgba(15,15,30,0.10), 0 18px 40px rgba(15,15,30,0.10)',
+          transform: 'rotate(3deg)',
+        }}
+      >
+        <span className="font-mono text-[9px] uppercase tracking-[0.22em] text-plomo">
+          Leads
+        </span>
+        <p
+          className="mt-1 text-[20px] font-light text-onyx"
+          style={{ letterSpacing: '-0.024em' }}
+        >
+          +212
+        </p>
+      </div>
     </div>
   )
 }
 
-// ─── 06 · CASOS DE ÉXITO ───────────────────────────────────────────────────
+/* ═══════════════ 06 · CASOS ═══════════════ */
 function CasesSection() {
   const cases = [
     { src: '/portfolio/acriland.jpg', name: 'Acriland', tag: 'Diseño Web · SEO' },
@@ -1217,7 +1341,6 @@ function CasesSection() {
     { src: '/portfolio/acriland-web.jpg', name: 'Acriland Web', tag: 'Diseño Web · SEO' },
   ]
   const loop = [...cases, ...cases]
-
   const trackRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -1226,15 +1349,11 @@ function CasesSection() {
     let raf = 0
     let last = performance.now()
     let pauseUntil = 0
-
-    const bumpPause = () => {
-      pauseUntil = performance.now() + 1800
-    }
+    const bumpPause = () => { pauseUntil = performance.now() + 1800 }
     track.addEventListener('pointerdown', bumpPause, { passive: true })
     track.addEventListener('wheel', bumpPause, { passive: true })
     track.addEventListener('touchmove', bumpPause, { passive: true })
     track.addEventListener('mouseenter', bumpPause)
-
     const tick = (now: number) => {
       const dt = Math.min(now - last, 60)
       last = now
@@ -1247,7 +1366,6 @@ function CasesSection() {
       raf = requestAnimationFrame(tick)
     }
     raf = requestAnimationFrame(tick)
-
     return () => {
       cancelAnimationFrame(raf)
       track.removeEventListener('pointerdown', bumpPause)
@@ -1258,7 +1376,11 @@ function CasesSection() {
   }, [])
 
   return (
-    <section id="casos" className="relative bg-marfil">
+    <section
+      id="casos"
+      data-theme="light"
+      className="relative bg-marfil"
+    >
       <div className="section-pad mx-auto max-w-[1400px]">
         <div className="mx-auto max-w-[1180px]">
           <motion.div
@@ -1266,20 +1388,17 @@ function CasesSection() {
             whileInView="show"
             viewport={{ once: true }}
             variants={rise}
-            className="mb-10 sm:mb-14"
+            className="mb-8 sm:mb-12"
           >
-            <div className="flex items-center gap-3">
-              <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-plomo">
-                IV · Casos
-              </span>
-              <span className="h-px w-12 bg-onyx/10" />
-              <span className="eyebrow">Trabajo</span>
-            </div>
-            <h2 className="display mt-7 max-w-[18ch] text-[36px] text-onyx sm:text-[54px] lg:text-[68px]">
+            <ChapterTag roman="IV" label="Casos" sub="Trabajo" />
+            <h2
+              className="hero-type mt-6 max-w-[18ch] text-[32px] text-onyx sm:text-[44px] lg:text-[52px]"
+              style={{ fontWeight: 300 }}
+            >
               Nuestro trabajo{' '}
               <span className="multi-grad">habla por sí mismo.</span>
             </h2>
-            <p className="lead-type mt-7 max-w-[52ch] text-[15px] sm:text-[17px]">
+            <p className="lead-type mt-5 max-w-[54ch] text-[15px] sm:text-[16px]">
               Marcas que confían en Antuario para su marketing digital,
               desarrollo web y posicionamiento.
             </p>
@@ -1302,10 +1421,10 @@ function CasesSection() {
               {loop.map((c, i) => (
                 <article
                   key={`${c.name}-${i}`}
-                  className="group relative aspect-[4/5] w-[200px] flex-shrink-0 select-none overflow-hidden rounded-[22px] bg-lino sm:w-[240px] lg:w-[260px]"
+                  className="group relative aspect-[4/5] w-[190px] flex-shrink-0 select-none overflow-hidden rounded-[22px] bg-lino sm:w-[230px] lg:w-[250px]"
                   style={{
                     boxShadow:
-                      '0 2px 4px rgba(15,15,30,0.08), 0 8px 18px rgba(15,15,30,0.08)',
+                      '0 2px 4px rgba(15,15,30,0.08), 0 12px 26px rgba(15,15,30,0.10), 0 28px 56px rgba(15,15,30,0.06)',
                   }}
                   aria-label={c.name}
                 >
@@ -1318,11 +1437,11 @@ function CasesSection() {
                     loading="lazy"
                   />
                   <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent p-4">
-                    <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-papel/65">
+                    <span className="font-mono text-[9.5px] uppercase tracking-[0.22em] text-papel/65">
                       {c.tag}
                     </span>
                     <h3
-                      className="mt-1 text-[16px] font-medium tracking-tight text-papel sm:text-[18px]"
+                      className="mt-1 text-[15px] font-medium tracking-tight text-papel sm:text-[17px]"
                       style={{ letterSpacing: '-0.018em' }}
                     >
                       {c.name}
@@ -1338,7 +1457,7 @@ function CasesSection() {
   )
 }
 
-// ─── 07 · ACCOUNTABILITY ───────────────────────────────────────────────────
+/* ═══════════════ 07 · ACCOUNTABILITY ═══════════════ */
 function AccountabilitySection() {
   const us = [
     'Metas claras desde el día 1',
@@ -1360,9 +1479,10 @@ function AccountabilitySection() {
   return (
     <section
       id="accountability"
+      data-theme="dark"
       className="relative isolate overflow-hidden bg-carbon text-papel"
     >
-      <div className="grid-pattern-dark pointer-events-none absolute inset-0 opacity-30" />
+      <div className="grid-pattern-dark pointer-events-none absolute inset-0 opacity-25" />
 
       <div className="section-pad relative mx-auto max-w-[1180px]">
         <motion.div
@@ -1370,36 +1490,38 @@ function AccountabilitySection() {
           whileInView="show"
           viewport={{ once: true }}
           variants={rise}
-          className="mb-12 sm:mb-16"
+          className="mb-10 sm:mb-14"
         >
-          <div className="flex items-center gap-3">
-            <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-papel/40">
-              IV · Accountability
-            </span>
-            <span className="h-px w-12 bg-papel/15" />
-            <span className="eyebrow-light">Cómo trabajamos</span>
-          </div>
-          <h2 className="display mt-7 max-w-[20ch] text-[36px] text-papel sm:text-[58px] lg:text-[68px]">
+          <ChapterTag roman="IV" label="Accountability" sub="Cómo trabajamos" dark />
+          <h2
+            className="hero-type mt-6 max-w-[20ch] text-[32px] text-papel sm:text-[44px] lg:text-[52px]"
+            style={{ fontWeight: 300 }}
+          >
             Resultados concretos.{' '}
             <span className="multi-grad-bright">Responsabilidad total.</span>
           </h2>
         </motion.div>
 
-        <div className="grid gap-4 sm:gap-6 lg:grid-cols-2">
+        <div className="grid gap-4 sm:gap-5 lg:grid-cols-2">
           <motion.div
             custom={1}
             initial="hidden"
             whileInView="show"
             viewport={{ once: true }}
             variants={rise}
-            className="rounded-[22px] bg-papel/4 p-7 backdrop-blur-sm sm:p-8"
+            className="rounded-[24px] bg-papel/[0.04] p-7 sm:p-8"
+            style={{
+              backdropFilter: 'blur(10px)',
+              boxShadow:
+                'inset 0 1px 0 rgba(255,255,255,0.04), 0 14px 30px rgba(0,0,0,0.30)',
+            }}
           >
             <span className="eyebrow-light">Otra agencia</span>
             <ul className="mt-5 space-y-3">
               {them.map((t) => (
                 <li
                   key={t}
-                  className="flex items-start gap-3 text-[13.5px] text-papel/45 line-through decoration-papel/20 sm:text-[14px]"
+                  className="flex items-start gap-3 text-[13.5px] text-papel/45 line-through decoration-papel/20"
                 >
                   <span className="mt-1.5 h-1 w-1 flex-shrink-0 rounded-full bg-papel/20" />
                   {t}
@@ -1414,10 +1536,10 @@ function AccountabilitySection() {
             whileInView="show"
             viewport={{ once: true }}
             variants={rise}
-            className="rounded-[22px] bg-papel p-7 text-onyx sm:p-8"
+            className="relative rounded-[24px] bg-papel p-7 text-onyx sm:p-8"
             style={{
               boxShadow:
-                '0 3px 6px rgba(0,0,0,0.10), 0 14px 26px rgba(0,0,0,0.10)',
+                '0 2px 4px rgba(0,0,0,0.16), 0 22px 50px rgba(0,0,0,0.30), 0 8px 18px rgba(0,0,0,0.20)',
             }}
           >
             <span className="eyebrow">Antuario</span>
@@ -1425,13 +1547,14 @@ function AccountabilitySection() {
               {us.map((t) => (
                 <li
                   key={t}
-                  className="flex items-start gap-3 text-[14px] font-medium text-onyx sm:text-[14.5px]"
+                  className="flex items-start gap-3 text-[14px] font-medium text-onyx"
                 >
                   <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-onyx" />
                   {t}
                 </li>
               ))}
             </ul>
+            <div className="spectrum-bar mt-6" />
           </motion.div>
         </div>
       </div>
@@ -1439,7 +1562,7 @@ function AccountabilitySection() {
   )
 }
 
-// ─── 08 · INTELIGENCIA ARTIFICIAL ──────────────────────────────────────────
+/* ═══════════════ 08 · IA ═══════════════ */
 function AISection() {
   const items = [
     { title: 'Agentes WhatsApp', text: 'Atienden, califican y dan seguimiento las 24 horas.' },
@@ -1453,17 +1576,18 @@ function AISection() {
   return (
     <section
       id="ia"
+      data-theme="dark"
       className="relative isolate overflow-hidden bg-onyx text-papel"
     >
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="ai-aurora" />
       </div>
-      <div className="grid-pattern-dark pointer-events-none absolute inset-0 opacity-20" />
+      <div className="grid-pattern-dark pointer-events-none absolute inset-0 opacity-15" />
       <div
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            'linear-gradient(to bottom, rgba(10,10,10,0.40), transparent 30%, transparent 70%, rgba(10,10,10,0.70))',
+            'linear-gradient(to bottom, rgba(10,10,10,0.50), transparent 30%, transparent 70%, rgba(10,10,10,0.70))',
         }}
       />
 
@@ -1473,7 +1597,7 @@ function AISection() {
           whileInView="show"
           viewport={{ once: true }}
           variants={rise}
-          className="mb-12 sm:mb-16"
+          className="mb-10 sm:mb-14"
         >
           <div className="flex items-center gap-3">
             <span className="relative inline-flex h-3 w-3 items-center justify-center">
@@ -1482,17 +1606,20 @@ function AISection() {
             </span>
             <span className="eyebrow-light">Inteligencia Artificial</span>
           </div>
-          <h2 className="display mt-7 max-w-[20ch] text-[36px] text-papel sm:text-[58px] lg:text-[72px]">
+          <h2
+            className="hero-type mt-6 max-w-[18ch] text-[32px] text-papel sm:text-[44px] lg:text-[54px]"
+            style={{ fontWeight: 300 }}
+          >
             No hablamos de IA.{' '}
             <span className="multi-grad-bright">La implementamos.</span>
           </h2>
-          <p className="lead-type mt-7 max-w-[52ch] text-[15px] !text-papel/65 sm:text-[18px]">
+          <p className="lead-type mt-5 max-w-[54ch] text-[15px] !text-papel/65 sm:text-[16.5px]">
             Mientras la mayoría apenas la conoce como tendencia, nosotros la
             operamos en proyectos reales.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 gap-4 sm:gap-5 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-3 sm:gap-4 md:grid-cols-2 lg:grid-cols-3">
           {items.map((it, i) => (
             <motion.div
               key={it.title}
@@ -1501,15 +1628,20 @@ function AISection() {
               whileInView="show"
               viewport={{ once: true }}
               variants={rise}
-              className="rounded-[22px] bg-papel/4 p-7 backdrop-blur-sm transition-colors duration-300 hover:bg-papel/8"
+              className="rounded-[24px] bg-papel/[0.04] p-6 transition-all duration-500 hover:-translate-y-1 hover:bg-papel/[0.07]"
+              style={{
+                backdropFilter: 'blur(10px)',
+                boxShadow:
+                  'inset 0 1px 0 rgba(255,255,255,0.04), 0 14px 30px rgba(0,0,0,0.30)',
+              }}
             >
               <h3
-                className="text-[17px] font-medium tracking-tight text-papel"
+                className="text-[16px] font-medium tracking-tight text-papel"
                 style={{ letterSpacing: '-0.018em' }}
               >
                 {it.title}
               </h3>
-              <p className="mt-3 text-[13.5px] leading-[1.56] text-papel/60">
+              <p className="mt-3 text-[13px] leading-[1.55] text-papel/60">
                 {it.text}
               </p>
             </motion.div>
@@ -1520,10 +1652,14 @@ function AISection() {
   )
 }
 
-// ─── 09 · COBERTURA / MAPA MÉXICO ──────────────────────────────────────────
+/* ═══════════════ 09 · COBERTURA ═══════════════ */
 function CoverageSection() {
   return (
-    <section id="cobertura" className="relative bg-nieve">
+    <section
+      id="cobertura"
+      data-theme="light"
+      className="relative bg-nieve"
+    >
       <div className="section-pad mx-auto max-w-[1180px]">
         <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
           <motion.div
@@ -1533,35 +1669,32 @@ function CoverageSection() {
             variants={rise}
             className="lg:col-span-5"
           >
-            <div className="flex items-center gap-3">
-              <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-plomo">
-                IV · Cobertura
-              </span>
-              <span className="h-px w-12 bg-onyx/10" />
-              <span className="eyebrow">Ubicación</span>
-            </div>
-            <h2 className="display mt-7 max-w-[14ch] text-[36px] text-onyx sm:text-[54px] lg:text-[64px]">
+            <ChapterTag roman="IV" label="Cobertura" sub="Ubicación" />
+            <h2
+              className="hero-type mt-6 max-w-[14ch] text-[32px] text-onyx sm:text-[44px] lg:text-[50px]"
+              style={{ fontWeight: 300 }}
+            >
               Sede en CDMX,{' '}
               <span className="multi-grad">cobertura nacional.</span>
             </h2>
-            <p className="lead-type mt-7 max-w-[44ch] text-[15px] sm:text-[17px]">
+            <p className="lead-type mt-5 max-w-[44ch] text-[15px] sm:text-[16px]">
               Trabajamos con marcas en todo México. Desde nuestra base en la
               Ciudad de México operamos proyectos en cualquier estado del país,
               de forma remota o presencial cuando se requiera.
             </p>
 
-            <div className="mt-8 grid grid-cols-3 gap-3">
+            <div className="mt-7 grid grid-cols-3 gap-3">
               {[
                 { label: 'Sede', value: 'CDMX' },
                 { label: 'Cobertura', value: 'Nacional' },
                 { label: 'Modalidad', value: 'Remoto + presencial' },
               ].map((s) => (
-                <div key={s.label} className="card-bb-soft p-4">
+                <div key={s.label} className="card-bb-soft p-3.5 sm:p-4">
                   <span className="font-mono text-[9.5px] uppercase tracking-[0.22em] text-plomo">
                     {s.label}
                   </span>
                   <p
-                    className="mt-1.5 text-[13.5px] font-medium text-onyx"
+                    className="mt-1.5 text-[13px] font-medium text-onyx"
                     style={{ letterSpacing: '-0.014em' }}
                   >
                     {s.value}
@@ -1572,7 +1705,7 @@ function CoverageSection() {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 22 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
@@ -1599,22 +1732,21 @@ function MexicoMap() {
     { name: 'Puebla', x: 640, y: 460 },
   ]
   const cdmx = cities.find((c) => c.primary)!
-
   const mainland = 'M 88 8 C 120 10 200 18 280 28 C 360 38 450 80 530 135 C 590 175 630 210 660 235 C 670 280 660 320 650 355 C 665 395 690 430 715 455 C 740 470 770 482 800 475 C 830 468 860 448 885 425 C 888 400 890 380 920 372 C 945 370 970 378 990 385 C 998 395 1000 405 995 420 C 975 448 955 468 930 485 C 910 495 885 505 860 510 C 845 530 838 555 835 580 C 835 592 832 598 825 598 C 790 585 750 565 720 552 C 680 535 640 525 600 518 C 560 510 530 500 505 488 C 480 475 458 460 440 445 C 425 428 415 408 405 390 C 395 370 385 348 370 322 C 350 290 325 262 300 238 C 275 215 250 190 230 165 C 210 140 185 105 165 70 C 150 48 138 30 128 20 Z'
   const baja = 'M 42 10 C 50 15 60 28 72 48 C 90 80 110 130 130 180 C 150 220 175 255 200 280 C 225 300 250 315 270 325 C 265 310 255 290 248 270 C 240 250 232 228 225 205 C 215 175 205 148 192 120 C 178 90 160 60 140 38 C 120 20 100 10 85 8 Z'
 
   return (
     <div className="relative mx-auto max-w-[560px] lg:max-w-none">
       <div
-        className="pointer-events-none absolute -inset-8 -z-10 rounded-[36px] opacity-50 blur-[60px]"
+        className="pointer-events-none absolute -inset-8 -z-10 rounded-[44px] opacity-50 blur-[55px]"
         style={{
           background:
-            'radial-gradient(60% 60% at 30% 30%, rgba(79,70,229,0.16), transparent 60%), radial-gradient(50% 50% at 70% 70%, rgba(34,211,238,0.14), transparent 60%)',
+            'radial-gradient(60% 60% at 30% 30%, rgba(79,70,229,0.18), transparent 60%), radial-gradient(50% 50% at 70% 70%, rgba(34,211,238,0.14), transparent 60%)',
         }}
         aria-hidden
       />
 
-      <div className="card-bb-elev overflow-hidden bg-papel/70 backdrop-blur-sm p-5 sm:p-7">
+      <div className="card-bb-float overflow-hidden bg-papel/80 p-5 backdrop-blur-sm sm:p-7">
         <svg
           viewBox="0 0 1020 620"
           className="h-auto w-full"
@@ -1637,21 +1769,17 @@ function MexicoMap() {
               <stop offset="100%" stopColor="#4F46E5" stopOpacity="0" />
             </radialGradient>
           </defs>
-
           <path d={mainland} fill="url(#mx-fill)" />
           <path d={baja} fill="url(#mx-fill)" />
-
           <g fill="none" stroke="url(#mx-stroke)" strokeWidth="1.6" strokeLinejoin="round" strokeLinecap="round">
             <path d={mainland} />
             <path d={baja} />
           </g>
-
           <g stroke="#4F46E5" strokeWidth="0.7" strokeLinecap="round" strokeDasharray="4 6" opacity="0.35">
             {cities.filter((c) => !c.primary).map((c) => (
               <line key={c.name} x1={cdmx.x} y1={cdmx.y} x2={c.x} y2={c.y} />
             ))}
           </g>
-
           <g>
             {cities.filter((c) => !c.primary).map((c) => (
               <g key={c.name}>
@@ -1673,7 +1801,6 @@ function MexicoMap() {
               </g>
             ))}
           </g>
-
           <g>
             <circle cx={cdmx.x} cy={cdmx.y} r="45" fill="url(#cdmx-glow)" />
             <circle cx={cdmx.x} cy={cdmx.y} r="18" fill="none" stroke="#4F46E5" strokeWidth="1.4" className="mx-pulse" />
@@ -1704,126 +1831,225 @@ function MexicoMap() {
   )
 }
 
-// ─── 10 · CTA FINAL ────────────────────────────────────────────────────────
+/* ═══════════════ 10 · CTA FINAL ═══════════════ */
 function CTASection() {
   return (
-    <section id="cta" className="relative isolate overflow-hidden bg-onyx text-papel">
-      <div className="aurora aurora-deep inset-0 opacity-60" aria-hidden />
-      <div className="grid-pattern-dark pointer-events-none absolute inset-0 opacity-20" />
+    <section
+      id="cta"
+      data-theme="dark"
+      className="relative bg-nieve"
+    >
+      <div className="section-pad mx-auto max-w-[1180px]">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          className="relative isolate overflow-hidden rounded-[32px] bg-onyx p-8 text-papel sm:rounded-[44px] sm:p-16 lg:p-20"
+          style={{
+            boxShadow:
+              '0 2px 6px rgba(15,15,30,0.12), 0 30px 70px rgba(15,15,30,0.18), 0 14px 32px rgba(15,15,30,0.10)',
+          }}
+        >
+          <div className="aurora aurora-deep inset-0 opacity-60" aria-hidden />
+          <div className="grid-pattern-dark pointer-events-none absolute inset-0 opacity-15" />
 
-      <div className="section-pad relative z-10 mx-auto max-w-[1180px]">
-        <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
-          <motion.div initial="hidden" whileInView="show" viewport={{ once: true }} variants={rise}>
-            <AntuarioMark className="mx-auto h-10 w-auto text-papel sm:h-14" />
-          </motion.div>
+          <div className="relative z-10 mx-auto flex max-w-3xl flex-col items-center text-center">
+            <AntuarioMark className="h-10 w-auto text-papel sm:h-14" />
 
-          <motion.h2
-            custom={1}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true }}
-            variants={rise}
-            className="display mt-10 max-w-[16ch] text-[42px] text-papel sm:text-[68px] lg:text-[88px]"
-          >
-            ¿Hay un proyecto{' '}
-            <span className="multi-grad-bright">sobre la mesa?</span>
-          </motion.h2>
-
-          <motion.p
-            custom={2}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true }}
-            variants={rise}
-            className="lead-type mt-7 max-w-[44ch] text-[16px] !text-papel/65 sm:text-[19px]"
-          >
-            Platícanos sobre él — aunque sea solo una dirección general.
-            Nosotros construimos la propuesta.
-          </motion.p>
-
-          <motion.div
-            custom={3}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true }}
-            variants={rise}
-            className="mt-10 flex flex-col items-center gap-3 sm:flex-row sm:gap-4"
-          >
-            <a
-              href={siteConfig.whatsapp}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-primary-inv"
+            <h2
+              className="hero-type mt-8 max-w-[18ch] text-[32px] text-papel sm:text-[50px] lg:text-[60px]"
+              style={{ fontWeight: 300 }}
             >
-              <WhatsAppIcon className="h-4 w-4" />
-              Cuéntanos tu proyecto
-              <ArrowRight className="h-3.5 w-3.5" />
-            </a>
-            <a
-              href={siteConfig.whatsapp}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-ghost-dark"
-            >
-              Agendar videollamada
-            </a>
-          </motion.div>
+              ¿Hay un proyecto{' '}
+              <span className="multi-grad-bright">sobre la mesa?</span>
+            </h2>
 
-          <motion.p
-            custom={4}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true }}
-            variants={rise}
-            className="mt-5 text-[12px] text-papel/40"
-          >
-            Sin costo · Sin compromiso
-          </motion.p>
+            <p className="lead-type mt-5 max-w-[42ch] text-[15px] !text-papel/65 sm:text-[17px]">
+              Platícanos sobre él — aunque sea solo una dirección general.
+              Nosotros construimos la propuesta.
+            </p>
 
-          <motion.div
-            custom={5}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true }}
-            variants={rise}
-            className="mt-12 flex items-center gap-4"
-          >
-            <span className="spectrum-bar" style={{ width: 96 }} />
-          </motion.div>
-        </div>
+            <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:gap-3">
+              <a
+                href={siteConfig.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-primary-inv"
+              >
+                <WhatsAppIcon className="h-4 w-4" />
+                Cuéntanos tu proyecto
+                <ArrowRight className="h-3.5 w-3.5" />
+              </a>
+              <a
+                href={siteConfig.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-ghost-dark"
+              >
+                Agendar videollamada
+              </a>
+            </div>
+
+            <p className="mt-4 text-[11.5px] text-papel/40">
+              Sin costo · Sin compromiso
+            </p>
+
+            <div className="mt-10 flex items-center gap-4">
+              <span className="spectrum-bar" style={{ width: 80 }} />
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   )
 }
 
-// ─── Footer minimal ────────────────────────────────────────────────────────
-function FooterMin() {
+/* ═══════════════ FOOTER FLOTANTE ═══════════════ */
+function FloatingFooter() {
   return (
-    <footer className="relative bg-onyx text-papel/55">
-      <div className="hair-w" />
-      <div className="mx-auto flex max-w-[1180px] flex-col gap-6 px-5 py-10 sm:flex-row sm:items-center sm:justify-between sm:px-10 sm:py-12">
-        <div className="flex items-center gap-3">
-          <AntuarioLogotype className="h-[22px] w-auto" dark />
-          <span className="ml-2 font-mono text-[10px] uppercase tracking-[0.22em] text-papel/35">
-            Vol. 01 · MMXXVI
-          </span>
-        </div>
-        <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-[12px]">
-          <a href={`mailto:${siteConfig.email}`} className="transition-colors hover:text-papel">
-            {siteConfig.email}
-          </a>
-          <a
-            href={siteConfig.whatsapp}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="transition-colors hover:text-papel"
-          >
-            {siteConfig.phone}
-          </a>
-          <span>CDMX · México</span>
-          <span>© {new Date().getFullYear()} Antuario</span>
+    <footer
+      data-theme="light"
+      className="relative bg-nieve"
+    >
+      <div className="mx-auto max-w-[1180px] px-[clamp(20px,5.5vw,120px)] pb-6 pt-2 lg:px-[clamp(56px,7vw,140px)]">
+        <div
+          className="relative isolate overflow-hidden rounded-[28px] bg-onyx p-7 text-papel sm:rounded-[36px] sm:p-10"
+          style={{
+            boxShadow:
+              '0 2px 6px rgba(15,15,30,0.10), 0 22px 50px rgba(15,15,30,0.14)',
+          }}
+        >
+          <div
+            className="pointer-events-none absolute inset-0 opacity-25"
+            style={{
+              background:
+                'radial-gradient(40% 60% at 18% 30%, rgba(79,70,229,0.40), transparent 60%), radial-gradient(35% 55% at 82% 70%, rgba(251,113,133,0.30), transparent 60%)',
+              filter: 'blur(50px)',
+            }}
+            aria-hidden
+          />
+
+          <div className="relative grid gap-10 lg:grid-cols-12">
+            {/* Brand */}
+            <div className="lg:col-span-5">
+              <AntuarioLogotype className="h-[26px] w-auto" dark />
+              <p className="mt-5 max-w-[30ch] text-[13px] text-papel/55">
+                Soluciones de marketing digital a la medida — bajo una sola
+                dirección estratégica, con accountability total.
+              </p>
+              <div className="mt-6 flex items-center gap-3">
+                <span className="spectrum-bar" style={{ width: 56 }} />
+                <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-papel/35">
+                  Vol. 01 · MMXXVI
+                </span>
+              </div>
+            </div>
+
+            {/* Nav */}
+            <nav className="lg:col-span-3">
+              <span className="eyebrow-light">Páginas</span>
+              <ul className="mt-4 space-y-2 text-[13px] text-papel/65">
+                {siteConfig.footerNav.map((n) => (
+                  <li key={n.href}>
+                    <Link href={n.href} className="transition-colors hover:text-papel">
+                      {n.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+
+            {/* Contacto */}
+            <div className="lg:col-span-4">
+              <span className="eyebrow-light">Contacto</span>
+              <div className="mt-4 space-y-1.5 text-[13px] text-papel/65">
+                <a
+                  href={`mailto:${siteConfig.email}`}
+                  className="block transition-colors hover:text-papel"
+                >
+                  {siteConfig.email}
+                </a>
+                <a
+                  href={siteConfig.whatsapp}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block transition-colors hover:text-papel"
+                >
+                  {siteConfig.phone} · WhatsApp
+                </a>
+                <p className="text-papel/45">CDMX · México</p>
+              </div>
+
+              <a
+                href={siteConfig.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-primary-inv mt-6"
+              >
+                <WhatsAppIcon className="h-3.5 w-3.5" />
+                Cuéntanos tu proyecto
+                <ArrowRight className="h-3 w-3" />
+              </a>
+            </div>
+          </div>
+
+          <div className="hair-w relative mt-10" />
+          <div className="relative mt-5 flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
+            <span className="text-[11.5px] text-papel/40">
+              © {new Date().getFullYear()} Antuario · Hecho con intención.
+            </span>
+            <div className="flex gap-5 text-[11.5px] text-papel/40">
+              <Link href="/aviso-privacidad" className="hover:text-papel/80">
+                Privacidad
+              </Link>
+              <Link href="/terminos" className="hover:text-papel/80">
+                Términos
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </footer>
+  )
+}
+
+/* ═══════════════ HELPERS ═══════════════ */
+function ChapterTag({
+  roman,
+  label,
+  sub,
+  dark = false,
+}: {
+  roman: string
+  label: string
+  sub?: string
+  dark?: boolean
+}) {
+  return (
+    <div className="flex items-center gap-3">
+      <span
+        className={`rounded-md px-1.5 py-0.5 font-mono text-[9px] tracking-[0.10em] ${
+          dark ? 'bg-papel text-onyx' : 'bg-onyx text-papel'
+        }`}
+      >
+        {roman}
+      </span>
+      <span
+        className={`font-mono text-[10px] uppercase tracking-[0.22em] ${
+          dark ? 'text-papel/55' : 'text-plomo'
+        }`}
+      >
+        {label}
+      </span>
+      {sub && (
+        <>
+          <span
+            className={`h-px w-10 ${dark ? 'bg-papel/15' : 'bg-onyx/10'}`}
+          />
+          <span className={dark ? 'eyebrow-light' : 'eyebrow'}>{sub}</span>
+        </>
+      )}
+    </div>
   )
 }
