@@ -85,6 +85,7 @@ type SectionTheme = 'dark' | 'light'
 export default function HomePage() {
   const [theme, setTheme] = useState<SectionTheme>('dark')
   const [showLogotype, setShowLogotype] = useState(true)
+  const [atTop, setAtTop] = useState(true)
   const [menuOpen, setMenuOpen] = useState(false)
 
   useEffect(() => {
@@ -118,6 +119,7 @@ export default function HomePage() {
   useEffect(() => {
     const onScroll = () => {
       setShowLogotype(window.scrollY < window.innerHeight * 0.55)
+      setAtTop(window.scrollY < 24)
     }
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
@@ -129,6 +131,7 @@ export default function HomePage() {
       <FloatingHeader
         theme={theme}
         showLogotype={showLogotype}
+        atTop={atTop}
         onOpenMenu={() => setMenuOpen(true)}
       />
       <NavOverlay open={menuOpen} onClose={() => setMenuOpen(false)} />
@@ -154,20 +157,28 @@ export default function HomePage() {
 function FloatingHeader({
   theme,
   showLogotype,
+  atTop,
   onOpenMenu,
 }: {
   theme: SectionTheme
   showLogotype: boolean
+  atTop: boolean
   onOpenMenu: () => void
 }) {
   const isDark = theme === 'dark'
+  // Al inicio sobre hero oscuro: el header se funde con el color del hero (sin blur)
+  const useSolidOnyx = atTop && isDark
 
   return (
     <header className="pointer-events-none fixed inset-x-0 top-3 z-50 sm:top-4">
       <div className="pointer-events-auto mx-auto w-full max-w-[1440px] px-[clamp(10px,2.4vw,24px)]">
         <div
-          className={`flex items-center justify-between rounded-full px-4 py-2.5 transition-colors duration-700 ease-out sm:px-5 sm:py-3 ${
-            isDark ? 'float-bar-dark text-papel' : 'float-bar-light text-onyx'
+          className={`flex items-center justify-between rounded-full px-4 py-2.5 transition-all duration-700 ease-out sm:px-5 sm:py-3 ${
+            useSolidOnyx
+              ? 'bg-onyx text-papel'
+              : isDark
+              ? 'float-bar-dark text-papel'
+              : 'float-bar-light text-onyx'
           }`}
         >
           <button
@@ -414,19 +425,27 @@ function HeroSection() {
   const services = ['Performance Ads', 'SEO', 'Diseño Web', 'Redes Sociales', 'Software', 'IA aplicada']
 
   return (
-    <ShellWrap data="dark" variant="dark" topPad>
-      {/* Aurora muy sutil */}
-      <div className="aurora aurora-deep absolute inset-0 opacity-65" aria-hidden />
-      <div className="grid-pattern-dark pointer-events-none absolute inset-0 opacity-15" />
-      <div
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background:
-            'radial-gradient(ellipse at center, transparent 35%, rgba(5,5,5,0.45) 100%)',
-        }}
-      />
+    <section
+      data-theme="dark"
+      className="pt-[6px] sm:pt-[8px]"
+      style={{ paddingBottom: 'clamp(20px, 2.4vh, 36px)' }}
+    >
+      <div className="mx-auto w-full max-w-[1440px] px-[clamp(10px,2.4vw,28px)]">
+        <div
+          className="section-shell shell-dark pt-[88px] sm:pt-[100px] lg:pt-[112px]"
+        >
+          {/* Aurora muy sutil */}
+          <div className="aurora aurora-deep absolute inset-0 opacity-65" aria-hidden />
+          <div className="grid-pattern-dark pointer-events-none absolute inset-0 opacity-15" />
+          <div
+            className="pointer-events-none absolute inset-0"
+            style={{
+              background:
+                'radial-gradient(ellipse at center, transparent 35%, rgba(5,5,5,0.45) 100%)',
+            }}
+          />
 
-      <div className="relative z-10 grid items-center gap-12 pt-4 sm:pt-8 lg:grid-cols-12 lg:gap-14">
+          <div className="relative z-10 grid items-center gap-12 lg:grid-cols-12 lg:gap-14">
         {/* Texto */}
         <div className="lg:col-span-6">
           <motion.span
@@ -457,11 +476,12 @@ function HeroSection() {
             whileInView="show"
             viewport={{ once: true }}
             variants={rise}
-            className="mt-6 max-w-[44ch] text-[15px] leading-[1.55] text-papel/70 sm:text-[16.5px]"
+            className="mt-6 max-w-[46ch] text-[15px] leading-[1.55] text-papel/70 sm:text-[16.5px]"
           >
-            Posicionamiento, adquisición, estrategia, estructura. Diseñamos
-            cada solución a la medida — sin paquetes prefabricados, sin
-            plantillas. Lo que tu marca necesite, lo construimos bien.
+            Posicionamiento, adquisición, estrategia, estructura y medición.
+            Diseñamos cada solución a la medida y la respaldamos con data útil
+            que mueve el negocio — sin paquetes prefabricados, sin plantillas.
+            Lo que tu marca necesite, lo construimos y lo medimos bien.
           </motion.p>
 
           <motion.div
@@ -532,8 +552,10 @@ function HeroSection() {
         >
           <HeroDeck />
         </motion.div>
+          </div>
+        </div>
       </div>
-    </ShellWrap>
+    </section>
   )
 }
 
@@ -708,50 +730,52 @@ function CasesSection() {
   }, [])
 
   return (
-    <ShellWrap data="light" variant="marfil">
-      <motion.div
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true }}
-        variants={rise}
-        className="mb-8 flex flex-wrap items-end justify-between gap-6 sm:mb-10"
-      >
-        <div>
-          <ChapterTag roman="II" label="Casos" sub="Trabajo" />
-          <h2
-            className="hero-type mt-5 max-w-[18ch] text-[28px] text-onyx sm:text-[40px] lg:text-[46px]"
-            style={{ fontWeight: 300 }}
-          >
-            Nuestro trabajo{' '}
-            <span className="multi-grad">habla por sí mismo.</span>
-          </h2>
-        </div>
-        <p className="lead-type max-w-[40ch] text-[14px] sm:text-[15.5px]">
-          Marcas que confían en Antuario para su marketing digital, desarrollo
-          web y posicionamiento.
-        </p>
-      </motion.div>
+    <section data-theme="light" className="bg-papel py-[clamp(56px,7vh,100px)]">
+      <div className="mx-auto w-full max-w-[1440px] px-[clamp(16px,3vw,40px)]">
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          variants={rise}
+          className="mb-8 flex flex-wrap items-end justify-between gap-6 sm:mb-12"
+        >
+          <div>
+            <ChapterTag roman="II" label="Casos" sub="Trabajo" />
+            <h2
+              className="hero-type mt-5 max-w-[18ch] text-[30px] text-onyx sm:text-[42px] lg:text-[50px]"
+              style={{ fontWeight: 300 }}
+            >
+              Nuestro trabajo{' '}
+              <span className="multi-grad">habla por sí mismo.</span>
+            </h2>
+          </div>
+          <p className="lead-type max-w-[40ch] text-[14.5px] sm:text-[16px]">
+            Marcas que confían en Antuario para su marketing digital,
+            desarrollo web y posicionamiento.
+          </p>
+        </motion.div>
+      </div>
 
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
-        className="relative -mx-[clamp(28px,4.5vw,80px)] sm:-mx-[clamp(40px,4.5vw,80px)]"
+        className="relative"
       >
         <div
           ref={trackRef}
-          className="marquee-mask no-scrollbar overflow-x-auto px-[clamp(28px,4.5vw,80px)] sm:px-[clamp(40px,4.5vw,80px)]"
+          className="marquee-mask no-scrollbar overflow-x-auto px-[clamp(16px,3vw,40px)]"
           style={{ WebkitOverflowScrolling: 'touch' }}
         >
           <div className="flex w-max gap-5 pb-2 sm:gap-6">
             {loop.map((c, i) => (
               <article
                 key={`${c.name}-${i}`}
-                className="group relative aspect-[4/5] w-[240px] flex-shrink-0 select-none overflow-hidden rounded-[24px] bg-lino sm:w-[300px] lg:w-[340px]"
+                className="group relative aspect-[4/5] w-[280px] flex-shrink-0 select-none overflow-hidden rounded-[28px] bg-lino sm:w-[340px] lg:w-[380px]"
                 style={{
                   boxShadow:
-                    '0 2px 4px rgba(15,15,30,0.08), 0 16px 32px rgba(15,15,30,0.10), 0 32px 64px rgba(15,15,30,0.06)',
+                    '0 2px 4px rgba(15,15,30,0.08), 0 18px 36px rgba(15,15,30,0.10), 0 36px 72px rgba(15,15,30,0.07)',
                 }}
                 aria-label={c.name}
               >
@@ -768,7 +792,7 @@ function CasesSection() {
                     {c.tag}
                   </span>
                   <h3
-                    className="mt-1.5 text-[17px] font-medium tracking-tight text-papel sm:text-[20px]"
+                    className="mt-1.5 text-[18px] font-medium tracking-tight text-papel sm:text-[22px]"
                     style={{ letterSpacing: '-0.018em' }}
                   >
                     {c.name}
@@ -779,7 +803,7 @@ function CasesSection() {
           </div>
         </div>
       </motion.div>
-    </ShellWrap>
+    </section>
   )
 }
 
@@ -1924,95 +1948,87 @@ function CTASection() {
   )
 }
 
-/* ═══════════════ FOOTER FLOTANTE ═══════════════ */
+/* ═══════════════ FOOTER (full-width, sin contenedor) ═══════════════ */
 function FloatingFooter() {
   return (
-    <footer data-theme="light" className="section-pad">
-      <div className="mx-auto w-full max-w-[1440px]">
-        <div
-          className="relative isolate overflow-hidden rounded-[24px] bg-onyx p-7 text-papel sm:rounded-[32px] sm:p-10 lg:rounded-[36px]"
-          style={{
-            boxShadow:
-              '0 2px 6px rgba(15,15,30,0.10), 0 22px 50px rgba(15,15,30,0.14)',
-          }}
-        >
-          <div
-            className="pointer-events-none absolute inset-0 opacity-25"
-            style={{
-              background:
-                'radial-gradient(40% 60% at 18% 30%, rgba(79,70,229,0.40), transparent 60%), radial-gradient(35% 55% at 82% 70%, rgba(251,113,133,0.30), transparent 60%)',
-              filter: 'blur(50px)',
-            }}
-            aria-hidden
-          />
+    <footer data-theme="dark" className="relative isolate overflow-hidden bg-onyx text-papel">
+      <div
+        className="pointer-events-none absolute inset-0 opacity-22"
+        style={{
+          background:
+            'radial-gradient(35% 55% at 12% 30%, rgba(79,70,229,0.38), transparent 60%), radial-gradient(30% 50% at 88% 70%, rgba(251,113,133,0.28), transparent 60%)',
+          filter: 'blur(70px)',
+        }}
+        aria-hidden
+      />
 
-          <div className="relative grid gap-10 lg:grid-cols-12">
-            <div className="lg:col-span-5">
-              <AntuarioLogotype className="h-[26px] w-auto" dark />
-              <p className="mt-5 max-w-[32ch] text-[13px] text-papel/55">
-                Soluciones de marketing digital a la medida — bajo una sola
-                dirección estratégica, con accountability total sobre cada
-                resultado.
-              </p>
-              <div className="mt-6 flex items-center gap-3">
-                <span className="spectrum-bar" style={{ width: 56 }} />
-                <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-papel/35">
-                  Vol. 01 · MMXXVI
-                </span>
-              </div>
-            </div>
-
-            <nav className="lg:col-span-3">
-              <span className="eyebrow-light">Páginas</span>
-              <ul className="mt-4 space-y-2 text-[13px] text-papel/65">
-                {siteConfig.footerNav.map((n) => (
-                  <li key={n.href}>
-                    <Link href={n.href} className="transition-colors hover:text-papel">
-                      {n.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-
-            <div className="lg:col-span-4">
-              <span className="eyebrow-light">Contacto</span>
-              <div className="mt-4 space-y-1.5 text-[13px] text-papel/65">
-                <a href={`mailto:${siteConfig.email}`} className="block transition-colors hover:text-papel">
-                  {siteConfig.email}
-                </a>
-                <a href={siteConfig.whatsapp} target="_blank" rel="noopener noreferrer" className="block transition-colors hover:text-papel">
-                  {siteConfig.phone} · WhatsApp
-                </a>
-                <p className="text-papel/45">CDMX · México</p>
-              </div>
-
-              <a
-                href={siteConfig.whatsapp}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-primary-inv mt-6"
-              >
-                <WhatsAppIcon className="h-3.5 w-3.5" />
-                Cuéntanos tu proyecto
-                <ArrowRight className="h-3 w-3" />
-              </a>
+      <div className="relative mx-auto w-full max-w-[1440px] px-[clamp(16px,3vw,40px)] pb-10 pt-16 sm:pt-20">
+        <div className="grid gap-10 lg:grid-cols-12">
+          <div className="lg:col-span-5">
+            <AntuarioLogotype className="h-[28px] w-auto" dark />
+            <p className="mt-5 max-w-[34ch] text-[13.5px] text-papel/55">
+              Soluciones de marketing digital a la medida — bajo una sola
+              dirección estratégica, con accountability total sobre cada
+              resultado.
+            </p>
+            <div className="mt-6 flex items-center gap-3">
+              <span className="spectrum-bar" style={{ width: 64 }} />
+              <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-papel/35">
+                Vol. 01 · MMXXVI
+              </span>
             </div>
           </div>
 
-          <div className="hair-w relative mt-10" />
-          <div className="relative mt-5 flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
-            <span className="text-[11.5px] text-papel/40">
-              © {new Date().getFullYear()} Antuario · Hecho con intención.
-            </span>
-            <div className="flex gap-5 text-[11.5px] text-papel/40">
-              <Link href="/aviso-privacidad" className="hover:text-papel/80">
-                Privacidad
-              </Link>
-              <Link href="/terminos" className="hover:text-papel/80">
-                Términos
-              </Link>
+          <nav className="lg:col-span-3">
+            <span className="eyebrow-light">Páginas</span>
+            <ul className="mt-4 space-y-2 text-[13px] text-papel/65">
+              {siteConfig.footerNav.map((n) => (
+                <li key={n.href}>
+                  <Link href={n.href} className="transition-colors hover:text-papel">
+                    {n.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <div className="lg:col-span-4">
+            <span className="eyebrow-light">Contacto</span>
+            <div className="mt-4 space-y-1.5 text-[13px] text-papel/65">
+              <a href={`mailto:${siteConfig.email}`} className="block transition-colors hover:text-papel">
+                {siteConfig.email}
+              </a>
+              <a href={siteConfig.whatsapp} target="_blank" rel="noopener noreferrer" className="block transition-colors hover:text-papel">
+                {siteConfig.phone} · WhatsApp
+              </a>
+              <p className="text-papel/45">CDMX · México</p>
             </div>
+
+            <a
+              href={siteConfig.whatsapp}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-primary-inv mt-6"
+            >
+              <WhatsAppIcon className="h-3.5 w-3.5" />
+              Cuéntanos tu proyecto
+              <ArrowRight className="h-3 w-3" />
+            </a>
+          </div>
+        </div>
+
+        <div className="hair-w mt-12" />
+        <div className="mt-5 flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
+          <span className="text-[11.5px] text-papel/40">
+            © {new Date().getFullYear()} Antuario · Hecho con intención.
+          </span>
+          <div className="flex gap-5 text-[11.5px] text-papel/40">
+            <Link href="/aviso-privacidad" className="hover:text-papel/80">
+              Privacidad
+            </Link>
+            <Link href="/terminos" className="hover:text-papel/80">
+              Términos
+            </Link>
           </div>
         </div>
       </div>
