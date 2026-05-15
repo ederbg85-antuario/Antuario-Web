@@ -196,27 +196,37 @@
 
   /* Eyebrow — micro tipo etiqueta */
   .eyebrow {
-    font-size: 10.5px;
+    font-size: 11px;
     font-weight: 600;
     letter-spacing: 0.22em;
     text-transform: uppercase;
     color: var(--plomo);
   }
+  @media (min-width: 640px) { .eyebrow { font-size: 10.5px; } }
 
   .eyebrow-light {
-    font-size: 10.5px;
+    font-size: 11px;
     font-weight: 600;
     letter-spacing: 0.22em;
     text-transform: uppercase;
     color: rgba(255, 255, 255, 0.55);
   }
+  @media (min-width: 640px) { .eyebrow-light { font-size: 10.5px; } }
 
   .micro {
-    font-size: 11.5px;
+    font-size: 12px;
     line-height: 1.5;
     color: var(--plomo);
     letter-spacing: 0.005em;
     font-weight: 400;
+  }
+  @media (min-width: 640px) { .micro { font-size: 11.5px; } }
+
+  /* Mobile readability floor — el plan SEO pide que body en móvil >= 14.5px.
+     Aplica un sutil bump a textos pequeños solo en viewports < 640px. */
+  @media (max-width: 639px) {
+    .lead-type { font-size: max(15.5px, 1em); line-height: 1.50; }
+    .body-type { font-size: max(14.5px, 1em); line-height: 1.58; }
   }
 
   /* ─── Multicolor — gradient real "lámpara de plasma" ──────────────
@@ -361,7 +371,7 @@
 
   .card-bb-soft {
     background: var(--papel);
-    border-radius: 16px;
+    border-radius: 20px;
     box-shadow:
       inset 0 0 0 1px rgba(15, 15, 30, 0.04),
       0 1px 3px rgba(15, 15, 30, 0.06),
@@ -571,8 +581,8 @@
 
   /* Section shell — contenedor flotante (oscuro o claro) */
   .section-shell {
-    border-radius: 24px;
-    padding: clamp(28px, 4.5vw, 64px);
+    border-radius: 28px;
+    padding: clamp(24px, 5vw, 64px);
     position: relative;
     overflow: hidden;
     isolation: isolate;

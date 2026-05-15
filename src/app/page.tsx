@@ -863,8 +863,8 @@ function AgencySection() {
                 className="hero-type mt-5 max-w-[20ch] text-[28px] text-onyx sm:text-[40px] lg:text-[48px]"
                 style={{ fontWeight: 300 }}
               >
-                Una agencia diseñada para{' '}
-                <span className="multi-grad">empresas con proyectos serios.</span>
+                Una agencia de marketing digital{' '}
+                <span className="multi-grad">para empresas con proyectos serios.</span>
               </motion.h2>
 
               <motion.p
@@ -917,10 +917,10 @@ function AgencySection() {
                     >
                       <span className="multi-grad">{s.v}</span>
                     </p>
-                    <span className="mt-2 block text-[12px] font-medium leading-tight text-onyx sm:text-[12.5px]">
+                    <span className="mt-2 block text-[13px] font-medium leading-tight text-onyx sm:text-[12.5px]">
                       {s.l}
                     </span>
-                    <span className="mt-0.5 block text-[10.5px] leading-tight text-plomo sm:text-[11px]">
+                    <span className="mt-0.5 block text-[11.5px] leading-tight text-plomo sm:text-[11px]">
                       {s.sub}
                     </span>
                   </div>
@@ -1061,7 +1061,7 @@ function ServicesSection() {
       </motion.div>
 
       {/* Tabs — cada una en su propio container redondeado con sombra, separadas, visibles siempre */}
-      <div className="mb-8 grid grid-cols-2 gap-2 sm:mb-10 sm:grid-cols-4 sm:gap-2.5 lg:grid-cols-7 lg:gap-3">
+      <div className="mb-8 grid grid-cols-2 gap-2.5 sm:mb-10 sm:grid-cols-4 sm:gap-3 lg:grid-cols-7 lg:gap-3">
         {caps.map((c, i) => {
           const isActive = i === activeIdx
           return (
@@ -1069,7 +1069,7 @@ function ServicesSection() {
               key={c.title}
               onClick={() => setActiveIdx(i)}
               onMouseEnter={() => setActiveIdx(i)}
-              className="group relative flex items-center justify-center rounded-2xl px-2 py-3 text-center transition-all duration-300 sm:px-2.5 sm:py-3.5"
+              className="group relative flex items-center justify-center rounded-2xl px-3 py-3.5 text-center transition-all duration-300 sm:px-3 sm:py-4"
               style={{
                 background: isActive ? 'var(--onyx)' : 'var(--papel)',
                 color: isActive ? 'var(--papel)' : 'var(--grafito)',
@@ -1080,16 +1080,7 @@ function ServicesSection() {
               }}
             >
               <span
-                aria-hidden
-                className="pointer-events-none absolute left-2 top-2 h-1.5 w-1.5 rounded-full transition-all duration-300"
-                style={{
-                  background: c.accent,
-                  opacity: isActive ? 1 : 0.45,
-                  boxShadow: isActive ? `0 0 10px ${c.accent}` : 'none',
-                }}
-              />
-              <span
-                className="text-[11.5px] font-medium leading-tight tracking-tight sm:text-[12px] lg:text-[12.5px]"
+                className="text-[12.5px] font-medium leading-tight tracking-tight sm:text-[12.5px] lg:text-[13px]"
                 style={{ letterSpacing: '-0.012em' }}
               >
                 {c.title}
@@ -1266,7 +1257,7 @@ function DifferentiatorsSection() {
                 >
                   {it.title}
                 </h3>
-                <p className="mt-2 max-w-[42ch] text-[13.5px] leading-[1.55] text-papel/60 sm:text-[14.5px]">
+                <p className="mt-2 max-w-[42ch] text-[14px] leading-[1.55] text-papel/60 sm:text-[14.5px]">
                   {it.text}
                 </p>
               </div>
@@ -1627,7 +1618,7 @@ function AISection() {
                           >
                             {it.title}
                           </h3>
-                          <p className="mt-1 text-[12.5px] leading-[1.5] text-grafito sm:text-[13px]">
+                          <p className="mt-1 text-[13px] leading-[1.5] text-grafito sm:text-[13px]">
                             {it.text}
                           </p>
                         </div>
@@ -1769,13 +1760,13 @@ function CoverageSection() {
                 <span className="multi-grad">toda la República Mexicana.</span>
               </h2>
               <p className="lead-type mt-5 max-w-[52ch] text-[14.5px] sm:text-[15.5px]">
-                Antuario es una <strong className="font-medium text-onyx">agencia de marketing digital con sede en la Ciudad de México</strong>. Operamos proyectos en todo el país — desde campañas de performance para marcas industriales en Monterrey hasta posicionamiento orgánico para empresas de servicios en Guadalajara, Querétaro y Mérida.
+                Antuario es una <strong className="font-medium text-onyx">agencia de marketing digital con sede en la Ciudad de México</strong>. Operamos proyectos en todo el país — desde campañas de performance para marcas industriales en <strong className="font-medium text-onyx">Monterrey</strong> hasta posicionamiento orgánico para empresas de servicios en <strong className="font-medium text-onyx">Guadalajara, Querétaro, Puebla, León, Mérida y Cancún</strong>.
               </p>
               <p className="body-type mt-3 max-w-[52ch] text-[13.5px] sm:text-[14.5px]">
                 Diseñamos <strong className="font-medium text-onyx">soluciones de marketing digital a la medida</strong> para empresas que necesitan un partner externo con accountability real, capacidad estratégica y velocidad de ejecución. Cada propuesta se construye a la medida — no vendemos paquetes, vendemos sistemas.
               </p>
               <p className="body-type mt-3 max-w-[52ch] text-[13.5px] sm:text-[14.5px]">
-                Si tu empresa busca una <strong className="font-medium text-onyx">agencia de marketing digital en CDMX o en cualquier estado de México</strong> con visión completa — del posicionamiento a la medición —, estamos para construir lo que necesites.
+                Si tu empresa busca una <strong className="font-medium text-onyx">agencia de marketing digital en CDMX o en cualquier estado de México</strong> con visión completa — del posicionamiento a la medición —, estamos para construir lo que necesites. Trabajamos con marcas mexicanas y latinoamericanas que operan en México.
               </p>
 
               <div className="mt-7 grid grid-cols-3 gap-3">
@@ -1813,172 +1804,261 @@ function CoverageSection() {
 }
 
 function MexicoMap() {
-  // Coordenadas SVG basadas en proyección lat/lon real (viewBox 1000x620).
-  // Mainland: traza el contorno desde la frontera con EEUU bajando por el
-  // Golfo, rodeando Yucatán, subiendo por el Pacífico de vuelta a Sonora.
+  // Silueta de México refinada con curvas Bézier — viewBox 1000×640.
+  // Forma más orgánica y reconocible, con norte ancho, golfo, Yucatán y pacífico.
   const mainland =
-    'M 172 50 L 235 56 L 280 56 L 376 44 L 440 110 L 500 122 L 560 138 L 595 176 L 656 226 L 663 282 L 645 338 L 660 388 L 700 436 L 752 470 L 798 470 L 834 458 L 858 432 L 880 410 L 903 382 L 945 370 L 978 360 L 992 374 L 988 388 L 970 404 L 952 426 L 942 458 L 905 472 L 870 470 L 860 504 L 862 524 L 838 552 L 820 572 L 776 552 L 745 532 L 712 526 L 670 538 L 608 510 L 540 488 L 510 478 L 470 458 L 440 442 L 414 392 L 392 348 L 376 308 L 350 280 L 320 254 L 295 232 L 268 204 L 244 178 L 232 158 L 218 138 L 200 116 L 178 86 L 162 60 Z'
+    'M 172 88 C 226 70, 296 68, 366 74 C 412 78, 462 100, 504 134 C 542 162, 580 178, 612 198 C 642 220, 660 252, 668 286 C 672 322, 658 354, 656 384 C 660 416, 682 444, 712 466 C 746 484, 782 488, 814 480 C 844 470, 868 448, 884 424 C 902 404, 924 388, 952 384 C 974 384, 988 396, 988 412 C 988 432, 970 444, 950 454 C 932 468, 914 490, 906 514 C 894 538, 870 552, 838 552 C 808 552, 778 540, 748 526 C 712 510, 676 506, 642 510 C 596 512, 552 502, 512 488 C 466 472, 434 444, 416 410 C 398 372, 388 332, 374 298 C 358 264, 330 240, 300 218 C 268 196, 244 178, 222 156 C 202 136, 186 116, 176 96 Z'
 
-  // Baja California peninsula.
+  // Baja California — curva natural más fluida.
   const baja =
-    'M 44 18 L 96 18 L 110 38 L 118 70 L 132 110 L 148 142 L 168 174 L 188 206 L 210 232 L 230 256 L 248 282 L 260 304 L 264 318 L 252 308 L 236 286 L 218 262 L 196 240 L 174 218 L 152 192 L 132 162 L 116 132 L 100 100 L 86 70 L 70 44 L 56 28 Z'
+    'M 66 32 C 96 28, 120 38, 134 64 C 146 90, 156 120, 168 152 C 184 188, 204 222, 224 256 C 240 282, 252 304, 258 320 C 256 332, 244 326, 230 312 C 212 290, 192 266, 170 240 C 148 212, 128 184, 112 154 C 96 124, 82 94, 72 66 C 66 52, 64 42, 66 32 Z'
 
-  // Ciudades mexicanas — coordenadas calculadas desde lat/lon real.
-  type City = { name: string; x: number; y: number; primary?: boolean }
+  type City = {
+    name: string
+    x: number
+    y: number
+    primary?: boolean
+    anchor?: 'start' | 'middle' | 'end'
+    dx?: number
+    dy?: number
+  }
   const cities: City[] = [
-    { name: 'Tijuana',     x:  50, y:  22 },
-    { name: 'Cd. Juárez',  x: 376, y:  48 },
-    { name: 'Monterrey',   x: 564, y: 196 },
-    { name: 'Guadalajara', x: 420, y: 360 },
-    { name: 'León',        x: 488, y: 366 },
-    { name: 'CDMX',        x: 605, y: 430, primary: true },
-    { name: 'Puebla',      x: 622, y: 444 },
-    { name: 'Mérida',      x: 903, y: 380 },
-    { name: 'Cancún',      x: 985, y: 372 },
+    { name: 'Tijuana',     x:  82, y:  64, anchor: 'start', dx: 12, dy: 5 },
+    { name: 'Cd. Juárez',  x: 360, y:  98, anchor: 'middle', dx: 0, dy: -16 },
+    { name: 'Monterrey',   x: 560, y: 222, anchor: 'start', dx: 12, dy: -8 },
+    { name: 'Guadalajara', x: 432, y: 372, anchor: 'end',   dx: -12, dy: 5 },
+    { name: 'León',        x: 502, y: 376, anchor: 'middle', dx: 0, dy: -16 },
+    { name: 'CDMX',        x: 596, y: 432, primary: true },
+    { name: 'Puebla',      x: 632, y: 454, anchor: 'start', dx: 14, dy: 16 },
+    { name: 'Mérida',      x: 882, y: 416, anchor: 'middle', dx: 0, dy: -16 },
+    { name: 'Cancún',      x: 952, y: 392, anchor: 'middle', dx: 0, dy: -16 },
   ]
   const cdmx = cities.find((c) => c.primary)!
 
   return (
-    <div className="relative mx-auto max-w-[640px] lg:max-w-none">
-      {/* Glow exterior multicolor */}
+    <div className="relative mx-auto w-full max-w-[640px] lg:max-w-none">
+      {/* Aura exterior multicolor que respira */}
       <div
-        className="pointer-events-none absolute -inset-10 -z-10 rounded-[56px] opacity-70 blur-[70px] animate-aurora-drift"
+        className="pointer-events-none absolute -inset-8 -z-10 rounded-[48px] opacity-80 blur-[80px] animate-aurora-drift"
         style={{
           background:
-            'radial-gradient(50% 50% at 25% 25%, rgba(79,70,229,0.30), transparent 60%), radial-gradient(45% 45% at 75% 35%, rgba(167,139,250,0.26), transparent 60%), radial-gradient(50% 50% at 65% 80%, rgba(34,211,238,0.30), transparent 60%), radial-gradient(40% 45% at 30% 85%, rgba(253,164,175,0.22), transparent 60%)',
+            'radial-gradient(50% 50% at 25% 25%, rgba(129,140,248,0.50), transparent 60%), radial-gradient(45% 45% at 78% 35%, rgba(196,181,253,0.40), transparent 60%), radial-gradient(50% 55% at 65% 80%, rgba(103,232,249,0.45), transparent 60%), radial-gradient(40% 45% at 30% 88%, rgba(253,164,175,0.35), transparent 60%)',
         }}
         aria-hidden
       />
 
+      {/* Card oscura tipo "command center" */}
       <div
-        className="card-bb-float relative bg-papel/90 p-5 backdrop-blur-sm sm:p-7"
-        style={{ overflow: 'visible' }}
+        className="relative overflow-hidden rounded-[28px] sm:rounded-[32px]"
+        style={{
+          background:
+            'linear-gradient(155deg, #0E0E14 0%, #14141C 55%, #0A0A12 100%)',
+          boxShadow:
+            'inset 0 1px 0 rgba(255,255,255,0.05), inset 0 0 0 1px rgba(255,255,255,0.04), 0 4px 14px rgba(0,0,0,0.30), 0 28px 64px rgba(15,15,30,0.35), 0 16px 36px rgba(79,70,229,0.18)',
+        }}
       >
-        <svg
-          viewBox="0 -10 1000 660"
-          className="h-auto w-full"
-          xmlns="http://www.w3.org/2000/svg"
-          role="img"
-          aria-label="Mapa de México con cobertura nacional. Sede en CDMX y operación remota o presencial en cualquier estado del país."
-          style={{ overflow: 'visible' }}
-        >
-          <defs>
-            <linearGradient id="mx-fill-v2" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%"   stopColor="#4F46E5" stopOpacity="0.10" />
-              <stop offset="45%"  stopColor="#A78BFA" stopOpacity="0.08" />
-              <stop offset="100%" stopColor="#22D3EE" stopOpacity="0.10" />
-            </linearGradient>
-            <linearGradient id="mx-stroke-v2" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%"   stopColor="#4F46E5" stopOpacity="0.80" />
-              <stop offset="35%"  stopColor="#A78BFA" stopOpacity="0.70" />
-              <stop offset="65%"  stopColor="#FDA4AF" stopOpacity="0.65" />
-              <stop offset="100%" stopColor="#22D3EE" stopOpacity="0.80" />
-            </linearGradient>
-            <radialGradient id="cdmx-glow-v2" cx="50%" cy="50%" r="50%">
-              <stop offset="0%"   stopColor="#4F46E5" stopOpacity="0.45" />
-              <stop offset="100%" stopColor="#4F46E5" stopOpacity="0" />
-            </radialGradient>
-            <radialGradient id="map-aura" cx="50%" cy="50%" r="70%">
-              <stop offset="0%"   stopColor="#A78BFA" stopOpacity="0.22" />
-              <stop offset="55%"  stopColor="#22D3EE" stopOpacity="0.12" />
-              <stop offset="100%" stopColor="#FDA4AF" stopOpacity="0" />
-            </radialGradient>
-            <filter id="map-glow" x="-30%" y="-30%" width="160%" height="160%">
-              <feGaussianBlur stdDeviation="6" result="blur" />
-              <feMerge>
-                <feMergeNode in="blur" />
-                <feMergeNode in="SourceGraphic" />
-              </feMerge>
-            </filter>
-            <pattern id="mx-grid" width="40" height="40" patternUnits="userSpaceOnUse">
-              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(10,10,10,0.025)" strokeWidth="1" />
-            </pattern>
-          </defs>
+        {/* Glow internal radials sutiles */}
+        <div
+          className="pointer-events-none absolute inset-0 opacity-65"
+          style={{
+            background:
+              'radial-gradient(60% 60% at 60% 60%, rgba(79,70,229,0.18), transparent 60%), radial-gradient(40% 50% at 25% 25%, rgba(167,139,250,0.12), transparent 60%), radial-gradient(35% 45% at 90% 30%, rgba(34,211,238,0.10), transparent 60%)',
+            filter: 'blur(40px)',
+          }}
+          aria-hidden
+        />
 
-          <rect x="0" y="-10" width="1000" height="660" fill="url(#mx-grid)" />
+        {/* Header de status */}
+        <div className="relative flex items-center justify-between px-5 pt-5 sm:px-7 sm:pt-6">
+          <div className="flex items-center gap-2">
+            <span className="pulse-live h-1.5 w-1.5 rounded-full bg-salvia-b" />
+            <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-papel/60 sm:text-[10.5px]">
+              Cobertura · México
+            </span>
+          </div>
+          <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-papel/40 sm:text-[10.5px]">
+            8 ciudades · 1 sede
+          </span>
+        </div>
 
-          {/* Aura multicolor detrás del país */}
-          <ellipse cx="500" cy="320" rx="450" ry="280" fill="url(#map-aura)" />
+        {/* Mapa SVG */}
+        <div className="relative px-3 pb-2 pt-2 sm:px-5 sm:pb-3 sm:pt-3">
+          <svg
+            viewBox="0 0 1000 640"
+            className="h-auto w-full"
+            xmlns="http://www.w3.org/2000/svg"
+            role="img"
+            aria-label="Mapa de México con cobertura nacional. Sede en CDMX y operación remota o presencial en toda la República Mexicana."
+            style={{ overflow: 'visible' }}
+          >
+            <defs>
+              <linearGradient id="mx-fill-pro" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%"   stopColor="#818CF8" stopOpacity="0.18" />
+                <stop offset="50%"  stopColor="#A78BFA" stopOpacity="0.13" />
+                <stop offset="100%" stopColor="#67E8F9" stopOpacity="0.16" />
+              </linearGradient>
+              <linearGradient id="mx-stroke-pro" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%"   stopColor="#818CF8" stopOpacity="0.95" />
+                <stop offset="30%"  stopColor="#C4B5FD" stopOpacity="0.85" />
+                <stop offset="60%"  stopColor="#FDA4AF" stopOpacity="0.80" />
+                <stop offset="100%" stopColor="#67E8F9" stopOpacity="0.95" />
+              </linearGradient>
+              <radialGradient id="mx-aura-pro" cx="55%" cy="50%" r="60%">
+                <stop offset="0%"   stopColor="#A78BFA" stopOpacity="0.30" />
+                <stop offset="55%"  stopColor="#67E8F9" stopOpacity="0.18" />
+                <stop offset="100%" stopColor="#A78BFA" stopOpacity="0" />
+              </radialGradient>
+              <radialGradient id="cdmx-glow-pro" cx="50%" cy="50%" r="50%">
+                <stop offset="0%"   stopColor="#818CF8" stopOpacity="0.85" />
+                <stop offset="40%"  stopColor="#818CF8" stopOpacity="0.35" />
+                <stop offset="100%" stopColor="#818CF8" stopOpacity="0" />
+              </radialGradient>
+              <linearGradient id="route-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%"   stopColor="#818CF8" stopOpacity="0.75" />
+                <stop offset="100%" stopColor="#C4B5FD" stopOpacity="0.30" />
+              </linearGradient>
+              <filter id="mx-soft-glow" x="-30%" y="-30%" width="160%" height="160%">
+                <feGaussianBlur stdDeviation="3.5" result="b" />
+                <feMerge>
+                  <feMergeNode in="b" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+              <filter id="city-glow" x="-100%" y="-100%" width="300%" height="300%">
+                <feGaussianBlur stdDeviation="4" result="b" />
+                <feMerge>
+                  <feMergeNode in="b" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+              <pattern id="topo-dots" width="32" height="32" patternUnits="userSpaceOnUse">
+                <circle cx="2" cy="2" r="0.8" fill="rgba(255,255,255,0.06)" />
+              </pattern>
+            </defs>
 
-          {/* Silueta con relleno suave */}
-          <g filter="url(#map-glow)">
-            <path d={mainland} fill="url(#mx-fill-v2)" />
-            <path d={baja}     fill="url(#mx-fill-v2)" />
-          </g>
+            {/* Background topo pattern */}
+            <rect width="1000" height="640" fill="url(#topo-dots)" />
 
-          {/* Contorno con stroke gradient y animación de "drawing" */}
-          <g fill="none" stroke="url(#mx-stroke-v2)" strokeWidth="2" strokeLinejoin="round" strokeLinecap="round">
-            <path d={mainland} className="mx-state-draw" />
-            <path d={baja}     className="mx-state-draw" style={{ animationDelay: '0.6s' }} />
-          </g>
+            {/* Aura grande detrás del país */}
+            <ellipse cx="540" cy="340" rx="500" ry="320" fill="url(#mx-aura-pro)" />
 
-          {/* Líneas suaves CDMX → ciudades */}
-          <g stroke="#4F46E5" strokeWidth="0.8" strokeLinecap="round" strokeDasharray="3 6" opacity="0.40">
-            {cities.filter((c) => !c.primary).map((c) => (
-              <line key={c.name} x1={cdmx.x} y1={cdmx.y} x2={c.x} y2={c.y} />
-            ))}
-          </g>
+            {/* Silueta de México — fill con glow */}
+            <g filter="url(#mx-soft-glow)">
+              <path d={mainland} fill="url(#mx-fill-pro)" />
+              <path d={baja}     fill="url(#mx-fill-pro)" />
+            </g>
 
-          {/* Ciudades secundarias */}
-          <g>
-            {cities.filter((c) => !c.primary).map((c) => (
-              <g key={c.name}>
-                <circle cx={c.x} cy={c.y} r="9" fill="#A78BFA" opacity="0.14" />
-                <circle cx={c.x} cy={c.y} r="3.5" fill="#4F46E5" opacity="0.75" />
-                <circle cx={c.x} cy={c.y} r="1.4" fill="#ffffff" />
+            {/* Contorno con animación de drawing */}
+            <g fill="none" stroke="url(#mx-stroke-pro)" strokeWidth="2.4" strokeLinejoin="round" strokeLinecap="round">
+              <path d={mainland} className="mx-state-draw" />
+              <path d={baja}     className="mx-state-draw" style={{ animationDelay: '0.5s' }} />
+            </g>
+
+            {/* Rutas curvas CDMX → ciudades con flujo animado */}
+            <g fill="none" strokeWidth="1.4" strokeLinecap="round" opacity="0.55">
+              {cities.filter((c) => !c.primary).map((c, i) => {
+                const mx = (cdmx.x + c.x) / 2
+                const lift = Math.abs(c.x - cdmx.x) > 200 ? 38 : 18
+                const my = (cdmx.y + c.y) / 2 - lift
+                return (
+                  <path
+                    key={c.name}
+                    d={`M ${cdmx.x} ${cdmx.y} Q ${mx} ${my} ${c.x} ${c.y}`}
+                    stroke="url(#route-gradient)"
+                    strokeDasharray="4 8"
+                    style={{
+                      animation: `routeFlow 3.5s linear infinite`,
+                      animationDelay: `${i * 0.3}s`,
+                    }}
+                  />
+                )
+              })}
+            </g>
+
+            {/* Ciudades secundarias */}
+            <g>
+              {cities.filter((c) => !c.primary).map((c) => (
+                <g key={c.name}>
+                  <circle cx={c.x} cy={c.y} r="14" fill="#818CF8" opacity="0.10" filter="url(#city-glow)" />
+                  <circle cx={c.x} cy={c.y} r="7" fill="#818CF8" opacity="0.22" />
+                  <circle cx={c.x} cy={c.y} r="5" fill="none" stroke="#A78BFA" strokeWidth="1" opacity="0.65" />
+                  <circle cx={c.x} cy={c.y} r="3" fill="#C4B5FD" />
+                  <circle cx={c.x} cy={c.y} r="1.4" fill="#ffffff" />
+                  <text
+                    x={c.x + (c.dx ?? 0)}
+                    y={c.y + (c.dy ?? -14)}
+                    textAnchor={c.anchor ?? 'middle'}
+                    fontSize="13"
+                    fontWeight="500"
+                    fontFamily="Geist, -apple-system, sans-serif"
+                    fill="rgba(255,255,255,0.86)"
+                    letterSpacing="0.2"
+                  >
+                    {c.name}
+                  </text>
+                </g>
+              ))}
+            </g>
+
+            {/* CDMX — sede principal */}
+            <g>
+              <circle cx={cdmx.x} cy={cdmx.y} r="76" fill="url(#cdmx-glow-pro)" />
+              <circle cx={cdmx.x} cy={cdmx.y} r="28" fill="none" stroke="#A78BFA" strokeWidth="1.5" className="mx-pulse" />
+              <circle cx={cdmx.x} cy={cdmx.y} r="28" fill="none" stroke="#A78BFA" strokeWidth="1.5" className="mx-pulse delay-1" />
+              <circle cx={cdmx.x} cy={cdmx.y} r="28" fill="none" stroke="#A78BFA" strokeWidth="1.5" className="mx-pulse delay-2" />
+              <circle cx={cdmx.x} cy={cdmx.y} r="20" fill="rgba(129,140,248,0.20)" />
+              <circle cx={cdmx.x} cy={cdmx.y} r="10" fill="#818CF8" filter="url(#city-glow)" />
+              <circle cx={cdmx.x} cy={cdmx.y} r="5"  fill="#ffffff" />
+              {/* Pill etiqueta blanca para contrastar sobre fondo oscuro */}
+              <g>
+                <rect
+                  x={cdmx.x - 58}
+                  y={cdmx.y + 30}
+                  width="116"
+                  height="30"
+                  rx="15"
+                  fill="rgba(255,255,255,0.96)"
+                  style={{ filter: 'drop-shadow(0 4px 12px rgba(79,70,229,0.40))' }}
+                />
                 <text
-                  x={c.x}
-                  y={c.y - 14}
+                  x={cdmx.x}
+                  y={cdmx.y + 50}
                   textAnchor="middle"
-                  fontSize="11"
-                  fontWeight="500"
+                  fontSize="12"
+                  fontWeight="600"
                   fontFamily="Geist, -apple-system, sans-serif"
-                  fill="rgba(10,10,10,0.65)"
-                  letterSpacing="0.3"
+                  fill="#0A0A0A"
+                  letterSpacing="0.5"
                 >
-                  {c.name}
+                  CDMX · Sede
                 </text>
               </g>
-            ))}
-          </g>
-
-          {/* CDMX destacado con halo + pulsos */}
-          <g>
-            <circle cx={cdmx.x} cy={cdmx.y} r="58" fill="url(#cdmx-glow-v2)" />
-            <circle cx={cdmx.x} cy={cdmx.y} r="22" fill="none" stroke="#4F46E5" strokeWidth="1.6" className="mx-pulse" />
-            <circle cx={cdmx.x} cy={cdmx.y} r="22" fill="none" stroke="#4F46E5" strokeWidth="1.6" className="mx-pulse delay-1" />
-            <circle cx={cdmx.x} cy={cdmx.y} r="22" fill="none" stroke="#4F46E5" strokeWidth="1.6" className="mx-pulse delay-2" />
-            <circle cx={cdmx.x} cy={cdmx.y} r="16" fill="rgba(79,70,229,0.20)" />
-            <circle cx={cdmx.x} cy={cdmx.y} r="8"  fill="#4F46E5" />
-            <circle cx={cdmx.x} cy={cdmx.y} r="3.5"  fill="#ffffff" />
-            <g>
-              <rect x={cdmx.x - 48} y={cdmx.y + 22} width="96" height="28" rx="14" fill="#0A0A0A" />
-              <text
-                x={cdmx.x}
-                y={cdmx.y + 40}
-                textAnchor="middle"
-                fontSize="11"
-                fontWeight="600"
-                fontFamily="Geist, -apple-system, sans-serif"
-                fill="#FFFFFF"
-                letterSpacing="0.5"
-              >
-                CDMX · Sede
-              </text>
             </g>
-          </g>
+          </svg>
+        </div>
 
-          {/* Etiqueta decorativa de marca */}
-          <g>
-            <text x="40" y="630" fontSize="9" fontFamily="ui-monospace, SFMono-Regular, monospace" fill="rgba(10,10,10,0.30)" letterSpacing="0.18em">
-              ANTUARIO · MX MMXXVI
-            </text>
-            <text x="960" y="630" textAnchor="end" fontSize="9" fontFamily="ui-monospace, SFMono-Regular, monospace" fill="rgba(10,10,10,0.30)" letterSpacing="0.18em">
-              COBERTURA NACIONAL
-            </text>
-          </g>
-        </svg>
+        {/* Footer informativo */}
+        <div className="relative flex items-center justify-between border-t border-papel/8 px-5 pb-5 pt-3 sm:px-7 sm:pb-6 sm:pt-3.5">
+          <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-papel/40 sm:text-[10.5px]">
+            Antuario · MX
+          </span>
+          <div className="flex items-center gap-2">
+            <span
+              className="h-1.5 w-1.5 rounded-full"
+              style={{ background: 'var(--salvia-b)', boxShadow: '0 0 8px var(--salvia-b)' }}
+            />
+            <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-papel/60 sm:text-[10.5px]">
+              Operación activa
+            </span>
+          </div>
+        </div>
       </div>
+
+      <style jsx>{`
+        @keyframes routeFlow {
+          to { stroke-dashoffset: -36; }
+        }
+      `}</style>
     </div>
   )
 }

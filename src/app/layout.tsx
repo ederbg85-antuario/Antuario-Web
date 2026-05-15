@@ -7,9 +7,9 @@ import FloatingWhatsApp from '@/components/common/FloatingWhatsApp'
 import './globals.css'
 
 export const metadata: Metadata = generatePageMetadata({
-  title: 'Agencia de Marketing Digital en México',
+  title: 'Agencia de Marketing Digital en CDMX',
   description:
-    'Antuario es una agencia de marketing digital en CDMX. Diseñamos soluciones de marketing digital a la medida — con accountability, datos y estrategia bajo una sola dirección.',
+    'Agencia de marketing digital en CDMX. Soluciones de marketing digital a la medida para empresas en México — SEO, performance, web, redes, IA bajo una sola dirección.',
 })
 
 export const viewport: Viewport = {
@@ -28,7 +28,7 @@ const professionalServiceSchema = {
     'Agencia de marketing digital en CDMX. Soluciones de marketing digital a la medida.',
   url: siteConfig.url,
   logo: `${siteConfig.url}/logos/logotype.svg`,
-  image: `${siteConfig.url}/og-image.png`,
+  image: `${siteConfig.url}/opengraph-image`,
   telephone: siteConfig.phone,
   email: siteConfig.email,
   priceRange: '$$$',

@@ -3,6 +3,7 @@ import Script from 'next/script'
 import { generatePageMetadata } from '@/config/metadata'
 import { siteConfig } from '@/config/site'
 import { ServiciosContent } from './ServiciosContent'
+import { SERVICIOS_FAQS } from './faqs'
 
 export const metadata: Metadata = generatePageMetadata({
   title: 'Servicios de Marketing Digital — bajo una sola dirección',
@@ -37,6 +38,16 @@ const breadcrumbSchema = {
   ],
 }
 
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: SERVICIOS_FAQS.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+}
+
 export default function ServiciosPage() {
   return (
     <>
@@ -49,6 +60,11 @@ export default function ServiciosPage() {
         id="schema-services-breadcrumb"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <Script
+        id="schema-services-faq"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
       <ServiciosContent />
     </>

@@ -12,11 +12,11 @@ export function generatePageMetadata({
   title,
   description,
   path = '',
-  image = '/og-image.png',
+  image = '/opengraph-image',
 }: GenerateMetadataOptions = {}): Metadata {
   const fullTitle = title
     ? `${title} | ${siteConfig.name}`
-    : `Agencia de Marketing Digital en México | ${siteConfig.name}`
+    : `Agencia de Marketing Digital en CDMX | ${siteConfig.name}`
   const fullDescription =
     description ??
     'Antuario es una agencia de marketing digital en CDMX. Diseñamos soluciones de marketing digital a la medida — con accountability, datos y estrategia bajo una sola dirección.'
