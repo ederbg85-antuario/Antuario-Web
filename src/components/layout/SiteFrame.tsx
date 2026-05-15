@@ -391,39 +391,44 @@ export function SiteFrame({ children }: { children: React.ReactNode }) {
     const sections = Array.from(
       document.querySelectorAll<HTMLElement>('[data-theme]')
     )
-    if (sections.length === 0) return
 
+    let raf = 0
+    let pending = false
     const compute = () => {
+      pending = false
       const probeY = 88
       let current: SectionTheme = 'dark'
-      for (const s of sections) {
-        const r = s.getBoundingClientRect()
-        if (r.top <= probeY && r.bottom > probeY) {
-          current = (s.dataset.theme as SectionTheme) || 'light'
-          break
+      if (sections.length > 0) {
+        for (const s of sections) {
+          const r = s.getBoundingClientRect()
+          if (r.top <= probeY && r.bottom > probeY) {
+            current = (s.dataset.theme as SectionTheme) || 'light'
+            break
+          }
         }
       }
       setTheme(current)
+
+      const trigger = Math.min(window.innerHeight * 0.55, 420)
+      const y = window.scrollY
+      setShowLogotype(y < trigger)
+      setAtTop(y < 24)
+    }
+
+    const onScroll = () => {
+      if (pending) return
+      pending = true
+      raf = requestAnimationFrame(compute)
     }
 
     compute()
-    window.addEventListener('scroll', compute, { passive: true })
-    window.addEventListener('resize', compute)
-    return () => {
-      window.removeEventListener('scroll', compute)
-      window.removeEventListener('resize', compute)
-    }
-  }, [])
-
-  useEffect(() => {
-    const onScroll = () => {
-      const trigger = Math.min(window.innerHeight * 0.55, 420)
-      setShowLogotype(window.scrollY < trigger)
-      setAtTop(window.scrollY < 24)
-    }
-    onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
+    window.addEventListener('resize', onScroll)
+    return () => {
+      cancelAnimationFrame(raf)
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+    }
   }, [])
 
   return (

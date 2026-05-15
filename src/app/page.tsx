@@ -104,38 +104,43 @@ export default function HomePage() {
     const sections = Array.from(
       document.querySelectorAll<HTMLElement>('[data-theme]')
     )
-    if (sections.length === 0) return
 
+    let raf = 0
+    let pending = false
     const compute = () => {
+      pending = false
       const probeY = 88
       let current: SectionTheme = 'dark'
-      for (const s of sections) {
-        const r = s.getBoundingClientRect()
-        if (r.top <= probeY && r.bottom > probeY) {
-          current = (s.dataset.theme as SectionTheme) || 'light'
-          break
+      if (sections.length > 0) {
+        for (const s of sections) {
+          const r = s.getBoundingClientRect()
+          if (r.top <= probeY && r.bottom > probeY) {
+            current = (s.dataset.theme as SectionTheme) || 'light'
+            break
+          }
         }
       }
       setTheme(current)
+
+      const y = window.scrollY
+      setShowLogotype(y < window.innerHeight * 0.55)
+      setAtTop(y < 24)
+    }
+
+    const onScroll = () => {
+      if (pending) return
+      pending = true
+      raf = requestAnimationFrame(compute)
     }
 
     compute()
-    window.addEventListener('scroll', compute, { passive: true })
-    window.addEventListener('resize', compute)
-    return () => {
-      window.removeEventListener('scroll', compute)
-      window.removeEventListener('resize', compute)
-    }
-  }, [])
-
-  useEffect(() => {
-    const onScroll = () => {
-      setShowLogotype(window.scrollY < window.innerHeight * 0.55)
-      setAtTop(window.scrollY < 24)
-    }
-    onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
+    window.addEventListener('resize', onScroll)
+    return () => {
+      cancelAnimationFrame(raf)
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+    }
   }, [])
 
   return (
@@ -436,12 +441,12 @@ function HeroSection() {
   return (
     <section
       data-theme="dark"
-      className="pt-[72px] sm:pt-[84px] lg:pt-[92px]"
+      className="pt-[68px] sm:pt-[84px] lg:pt-[92px]"
       style={{ paddingBottom: 'clamp(20px, 2.4vh, 36px)' }}
     >
       <div className="mx-auto w-full max-w-[1440px] px-[clamp(10px,2.4vw,28px)]">
         <div
-          className="section-shell shell-dark pt-[44px] sm:pt-[52px] lg:pt-[60px]"
+          className="section-shell shell-dark pt-[36px] pb-[40px] sm:pt-[52px] sm:pb-[56px] lg:pt-[60px] lg:pb-[64px]"
         >
           {/* Aurora muy sutil */}
           <div className="aurora aurora-deep absolute inset-0 opacity-65" aria-hidden />
@@ -454,7 +459,7 @@ function HeroSection() {
             }}
           />
 
-          <div className="relative z-10 grid items-center gap-12 lg:grid-cols-12 lg:gap-14">
+          <div className="relative z-10 grid items-center gap-8 sm:gap-12 lg:grid-cols-12 lg:gap-14">
         {/* Texto */}
         <div className="lg:col-span-6">
           <motion.h1
@@ -463,7 +468,7 @@ function HeroSection() {
             whileInView="show"
             viewport={{ once: true }}
             variants={rise}
-            className="display max-w-[14ch] text-balance text-[36px] leading-[1.02] text-papel sm:text-[52px] lg:text-[62px]"
+            className="display max-w-[14ch] text-balance text-[42px] leading-[1.02] text-papel sm:text-[52px] lg:text-[62px]"
           >
             Agencia de{' '}
             <span className="multi-grad-bright">marketing digital</span>.
@@ -475,7 +480,7 @@ function HeroSection() {
             whileInView="show"
             viewport={{ once: true }}
             variants={rise}
-            className="mt-6 max-w-[48ch] text-[15px] leading-[1.55] text-papel/70 sm:text-[16.5px]"
+            className="mt-5 max-w-[48ch] text-[14.5px] leading-[1.55] text-papel/70 sm:mt-6 sm:text-[16.5px]"
           >
             Antuario es una agencia de marketing digital con sede en Ciudad de
             México. Diseñamos{' '}
@@ -483,9 +488,7 @@ function HeroSection() {
               soluciones de marketing digital a la medida
             </span>
             : estrategia, posicionamiento, performance, desarrollo web e
-            inteligencia artificial — bajo una sola dirección, con
-            accountability sobre cada resultado y transparencia total en los
-            datos.
+            inteligencia artificial.
           </motion.p>
 
           <motion.div
@@ -508,25 +511,14 @@ function HeroSection() {
             </a>
           </motion.div>
 
+          {/* Tagline destacado · soluciones a la medida */}
           <motion.div
             custom={4}
             initial="hidden"
             whileInView="show"
             viewport={{ once: true }}
             variants={rise}
-            className="mt-3.5 text-[11.5px] text-papel/40"
-          >
-            Sin costo · Sin compromiso
-          </motion.div>
-
-          {/* Tagline destacado · soluciones a la medida */}
-          <motion.div
-            custom={5}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true }}
-            variants={rise}
-            className="mt-10 inline-flex max-w-full items-center gap-3 rounded-2xl bg-papel/[0.06] px-4 py-3 backdrop-blur-md sm:px-5 sm:py-3.5"
+            className="mt-7 inline-flex max-w-full items-center gap-3 rounded-2xl bg-papel/[0.06] px-4 py-3 backdrop-blur-md sm:px-5 sm:py-3.5"
             style={{
               boxShadow:
                 'inset 0 1px 0 rgba(255,255,255,0.08), 0 8px 24px rgba(0,0,0,0.25)',
@@ -567,7 +559,7 @@ function HeroSection() {
 
 function HeroDeck() {
   return (
-    <div className="relative mx-auto h-[440px] w-full max-w-[540px] sm:h-[520px]">
+    <div className="relative mx-auto h-[400px] w-full max-w-[540px] sm:h-[520px]">
       <div
         className="pointer-events-none absolute -inset-8 -z-10 rounded-[64px] opacity-75 animate-plasma"
         style={{
@@ -687,7 +679,7 @@ function HeroDeck() {
             className="mt-3 text-[18px] font-medium tracking-tight text-onyx sm:text-[20px]"
             style={{ letterSpacing: '-0.020em' }}
           >
-            Un sistema, siete oficios.
+            Un sistema, siete servicios.
           </h3>
           <ul className="mt-4 grid grid-cols-2 gap-x-3 gap-y-2">
             {[
@@ -914,7 +906,7 @@ function AgencySection() {
                 className="mt-8 grid grid-cols-3 gap-3"
               >
                 {[
-                  { v: '7', l: 'Oficios bajo una dirección', sub: 'Disciplinas integradas' },
+                  { v: '7', l: 'Servicios bajo una dirección', sub: 'Disciplinas integradas' },
                   { v: '100%', l: 'A la medida', sub: 'Sin paquetes prefabricados' },
                   { v: '24/7', l: 'Accountability', sub: 'Datos abiertos en tiempo real' },
                 ].map((s) => (
@@ -1068,45 +1060,43 @@ function ServicesSection() {
         </p>
       </motion.div>
 
-      {/* Tabs — contenedor rounded + sombra, simétrico */}
-      <div className="mb-8 sm:mb-10">
-        <div
-          className="no-scrollbar -mx-2 overflow-x-auto px-2 sm:overflow-visible sm:px-0"
-        >
-          <div
-            className="mx-auto flex w-max gap-1.5 rounded-full bg-papel p-1.5 sm:w-full sm:justify-between sm:gap-1"
-            style={{
-              boxShadow:
-                'inset 0 0 0 1px rgba(15,15,30,0.05), 0 2px 4px rgba(15,15,30,0.06), 0 14px 32px rgba(15,15,30,0.08)',
-            }}
-          >
-            {caps.map((c, i) => {
-              const isActive = i === activeIdx
-              return (
-                <button
-                  key={c.title}
-                  onClick={() => setActiveIdx(i)}
-                  onMouseEnter={() => setActiveIdx(i)}
-                  className={`relative flex-1 whitespace-nowrap rounded-full px-3 py-2 text-[11.5px] font-medium tracking-tight transition-all duration-300 sm:px-2 sm:text-[12px] lg:text-[12.5px] ${
-                    isActive
-                      ? 'bg-onyx text-papel'
-                      : 'text-grafito hover:bg-onyx/[0.04]'
-                  }`}
-                  style={
-                    isActive
-                      ? {
-                          boxShadow:
-                            '0 1px 2px rgba(15,15,30,0.10), 0 6px 14px rgba(15,15,30,0.18)',
-                        }
-                      : undefined
-                  }
-                >
-                  {c.title}
-                </button>
-              )
-            })}
-          </div>
-        </div>
+      {/* Tabs — cada una en su propio container redondeado con sombra, separadas, visibles siempre */}
+      <div className="mb-8 grid grid-cols-2 gap-2 sm:mb-10 sm:grid-cols-4 sm:gap-2.5 lg:grid-cols-7 lg:gap-3">
+        {caps.map((c, i) => {
+          const isActive = i === activeIdx
+          return (
+            <button
+              key={c.title}
+              onClick={() => setActiveIdx(i)}
+              onMouseEnter={() => setActiveIdx(i)}
+              className="group relative flex items-center justify-center rounded-2xl px-2 py-3 text-center transition-all duration-300 sm:px-2.5 sm:py-3.5"
+              style={{
+                background: isActive ? 'var(--onyx)' : 'var(--papel)',
+                color: isActive ? 'var(--papel)' : 'var(--grafito)',
+                boxShadow: isActive
+                  ? `inset 0 0 0 1px rgba(15,15,30,0.10), 0 2px 4px rgba(15,15,30,0.10), 0 10px 24px ${c.accent}55, 0 4px 12px rgba(15,15,30,0.18)`
+                  : 'inset 0 0 0 1px rgba(15,15,30,0.05), 0 1px 2px rgba(15,15,30,0.04), 0 6px 16px rgba(15,15,30,0.06)',
+                transform: isActive ? 'translateY(-1px)' : 'translateY(0)',
+              }}
+            >
+              <span
+                aria-hidden
+                className="pointer-events-none absolute left-2 top-2 h-1.5 w-1.5 rounded-full transition-all duration-300"
+                style={{
+                  background: c.accent,
+                  opacity: isActive ? 1 : 0.45,
+                  boxShadow: isActive ? `0 0 10px ${c.accent}` : 'none',
+                }}
+              />
+              <span
+                className="text-[11.5px] font-medium leading-tight tracking-tight sm:text-[12px] lg:text-[12.5px]"
+                style={{ letterSpacing: '-0.012em' }}
+              >
+                {c.title}
+              </span>
+            </button>
+          )
+        })}
       </div>
 
       <CapabilityPanel cap={active} />

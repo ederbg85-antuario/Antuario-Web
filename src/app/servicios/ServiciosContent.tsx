@@ -57,7 +57,7 @@ export function ServiciosContent() {
         eyebrow="Servicios · Marketing Digital · CDMX"
         title="Servicios de marketing digital —"
         highlight="bajo una sola dirección."
-        description="Performance Ads, SEO, desarrollo web, redes sociales, diseño creativo, software a la medida e inteligencia artificial. Siete oficios integrados bajo una misma estrategia, con accountability sobre cada resultado."
+        description="Performance Ads, SEO, desarrollo web, redes sociales, diseño creativo, software a la medida e inteligencia artificial. Siete servicios integrados bajo una misma estrategia, con accountability sobre cada resultado."
         keyword="servicios de marketing digital"
         ctaSecondary={{ label: 'Ver casos de éxito', href: '/casos' }}
       />

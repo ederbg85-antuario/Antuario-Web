@@ -95,6 +95,7 @@ export function PageHero({
   keyword,
   ctaSecondary,
   topPad = true,
+  mobileMarkAbove = false,
 }: {
   eyebrow: string
   title: string
@@ -103,6 +104,8 @@ export function PageHero({
   keyword?: string
   ctaSecondary?: { label: string; href: string }
   topPad?: boolean
+  /** Si es true, el isotipo animado se renderiza arriba del texto en móvil (default: abajo) */
+  mobileMarkAbove?: boolean
 }) {
   return (
     <section
@@ -123,16 +126,18 @@ export function PageHero({
           />
 
           <div className="relative z-10 grid items-center gap-10 lg:grid-cols-12 lg:gap-14">
-            {/* Mobile · Antuario mark animado (sólo visible < lg) */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-              className="relative mx-auto flex justify-center lg:hidden"
-            >
-              <HeroMarkMobile />
-            </motion.div>
+            {/* Mobile · Antuario mark animado (sólo visible < lg) — arriba si mobileMarkAbove */}
+            {mobileMarkAbove && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                className="relative mx-auto flex justify-center lg:hidden"
+              >
+                <HeroMarkMobile />
+              </motion.div>
+            )}
 
             <div className="lg:col-span-7">
               <motion.span
@@ -210,6 +215,19 @@ export function PageHero({
                 </motion.div>
               )}
             </div>
+
+            {/* Mobile · Antuario mark animado debajo del texto (default) */}
+            {!mobileMarkAbove && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                className="relative mx-auto flex justify-center lg:hidden"
+              >
+                <HeroMarkMobile />
+              </motion.div>
+            )}
 
             <motion.div
               initial={{ opacity: 0, y: 28 }}

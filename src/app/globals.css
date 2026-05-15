@@ -911,5 +911,19 @@
   @media (prefers-reduced-motion: reduce) {
     .ai-cursor { animation: none; opacity: 1; }
     .mx-state-draw { animation: none; stroke-dashoffset: 0; }
+    .animate-plasma,
+    .animate-aurora-drift { animation: none !important; }
+  }
+
+  /* Performance: skip rendering off-screen sections completely */
+  section[data-theme] {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 800px;
+  }
+  /* El primer section (hero) debe quedar siempre visible para evitar saltos en el LCP */
+  main > section[data-theme]:first-child,
+  main > section[data-theme]:nth-child(2) {
+    content-visibility: visible;
+    contain-intrinsic-size: auto;
   }
 }

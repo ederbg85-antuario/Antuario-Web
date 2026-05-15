@@ -78,6 +78,7 @@ export function NosotrosContent() {
         description="Operamos como un equipo de marketing digital integrado para empresas en México. Diseñamos soluciones de marketing digital a la medida — estrategia, ejecución y medición bajo una sola dirección, con accountability sobre cada compromiso."
         keyword="agencia de marketing digital con visión estratégica"
         ctaSecondary={{ label: 'Ver nuestros servicios', href: '/servicios' }}
+        mobileMarkAbove
       />
 
       <SharedCases />
@@ -114,7 +115,7 @@ export function NosotrosContent() {
               sin perder el rigor en datos ni la velocidad en la operación.
             </p>
             <p className="body-type mt-4 max-w-[56ch] text-[14.5px]">
-              Operamos siete oficios bajo un mismo techo —{' '}
+              Operamos siete servicios bajo un mismo techo —{' '}
               <strong className="font-medium text-onyx">SEO, Performance Ads, Desarrollo Web, Redes Sociales, Diseño Creativo, Software a la medida e Inteligencia Artificial</strong>{' '}
               — porque las marcas modernas no se construyen en silos.
             </p>
