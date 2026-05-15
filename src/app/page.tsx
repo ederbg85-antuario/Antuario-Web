@@ -8,13 +8,6 @@ import {
   ArrowUpRight,
   Menu,
   X,
-  Target,
-  TrendingUp,
-  Zap,
-  BarChart3,
-  Calendar,
-  Coins,
-  Check,
   MessageCircle,
   Mic,
   Workflow,
@@ -162,7 +155,6 @@ export default function HomePage() {
         <ServicesSection />
         <DifferentiatorsSection />
         <DataSection />
-        <AccountabilitySection />
         <AISection />
         <CoverageSection />
         <CTASection />
@@ -192,7 +184,7 @@ function FloatingHeader({
     <header className="pointer-events-none fixed inset-x-0 top-3 z-50 sm:top-4">
       <div className="pointer-events-auto mx-auto w-full max-w-[1440px] px-[clamp(10px,2.4vw,24px)]">
         <div
-          className={`flex items-center justify-between rounded-full px-4 py-3 transition-all duration-700 ease-out sm:px-5 sm:py-3.5 ${
+          className={`flex items-center justify-between rounded-full px-4 py-2 transition-all duration-700 ease-out sm:px-5 sm:py-2.5 ${
             useSolidOnyx
               ? 'bg-onyx text-papel'
               : isDark
@@ -202,7 +194,7 @@ function FloatingHeader({
         >
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="relative flex h-9 items-center overflow-visible sm:h-10"
+            className="relative flex h-8 items-center overflow-visible sm:h-9"
             style={{
               width: showLogotype ? 192 : 38,
               transition: 'width 0.75s cubic-bezier(0.22, 1, 0.36, 1)',
@@ -210,7 +202,7 @@ function FloatingHeader({
             aria-label="Antuario · Ir al inicio"
           >
             <AntuarioLogotype
-              className="absolute left-0 top-1/2 h-[26px] w-auto -translate-y-1/2 sm:h-[30px]"
+              className="absolute left-0 top-1/2 h-[22px] w-auto -translate-y-1/2 sm:h-[26px]"
               dark={isDark}
               style={{
                 opacity: showLogotype ? 1 : 0,
@@ -220,7 +212,7 @@ function FloatingHeader({
               }}
             />
             <AntuarioMark
-              className="absolute left-0 top-1/2 h-[30px] w-auto -translate-y-1/2 sm:h-[34px]"
+              className="absolute left-0 top-1/2 h-[26px] w-auto -translate-y-1/2 sm:h-[30px]"
               style={{
                 color: isDark ? 'var(--papel)' : 'var(--onyx)',
                 opacity: showLogotype ? 0 : 1,
@@ -236,7 +228,7 @@ function FloatingHeader({
               href={siteConfig.whatsapp}
               target="_blank"
               rel="noopener noreferrer"
-              className={`hidden items-center gap-1.5 rounded-full px-4 py-2 text-[12.5px] font-medium transition-colors sm:inline-flex ${
+              className={`hidden items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[12px] font-medium transition-colors sm:inline-flex ${
                 isDark
                   ? 'bg-papel/10 text-papel hover:bg-papel/16'
                   : 'bg-onyx text-papel hover:bg-grafito'
@@ -248,7 +240,7 @@ function FloatingHeader({
             <button
               onClick={onOpenMenu}
               aria-label="Abrir menú"
-              className={`flex h-10 w-10 items-center justify-center rounded-full transition-colors ${
+              className={`flex h-9 w-9 items-center justify-center rounded-full transition-colors ${
                 isDark
                   ? 'bg-papel/10 text-papel hover:bg-papel/16'
                   : 'text-onyx'
@@ -441,17 +433,15 @@ function ShellWrap({
 
 /* ═══════════════ 01 · HERO ═══════════════ */
 function HeroSection() {
-  const services = ['Performance Ads', 'SEO', 'Diseño Web', 'Redes Sociales', 'Software', 'IA aplicada']
-
   return (
     <section
       data-theme="dark"
-      className="pt-[80px] sm:pt-[92px] lg:pt-[100px]"
+      className="pt-[72px] sm:pt-[84px] lg:pt-[92px]"
       style={{ paddingBottom: 'clamp(20px, 2.4vh, 36px)' }}
     >
       <div className="mx-auto w-full max-w-[1440px] px-[clamp(10px,2.4vw,28px)]">
         <div
-          className="section-shell shell-dark pt-[48px] sm:pt-[56px] lg:pt-[64px]"
+          className="section-shell shell-dark pt-[44px] sm:pt-[52px] lg:pt-[60px]"
         >
           {/* Aurora muy sutil */}
           <div className="aurora aurora-deep absolute inset-0 opacity-65" aria-hidden />
@@ -467,23 +457,13 @@ function HeroSection() {
           <div className="relative z-10 grid items-center gap-12 lg:grid-cols-12 lg:gap-14">
         {/* Texto */}
         <div className="lg:col-span-6">
-          <motion.span
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true }}
-            variants={rise}
-            className="eyebrow-light"
-          >
-            Agencia de Marketing Digital · CDMX · México
-          </motion.span>
-
           <motion.h1
             custom={1}
             initial="hidden"
             whileInView="show"
             viewport={{ once: true }}
             variants={rise}
-            className="display mt-5 max-w-[14ch] text-balance text-[36px] leading-[1.02] text-papel sm:text-[52px] lg:text-[62px]"
+            className="display max-w-[14ch] text-balance text-[36px] leading-[1.02] text-papel sm:text-[52px] lg:text-[62px]"
           >
             Agencia de{' '}
             <span className="multi-grad-bright">marketing digital</span>.
@@ -498,9 +478,12 @@ function HeroSection() {
             className="mt-6 max-w-[48ch] text-[15px] leading-[1.55] text-papel/70 sm:text-[16.5px]"
           >
             Antuario es una agencia de marketing digital con sede en Ciudad de
-            México. Diseñamos soluciones a la medida para medianas y grandes
-            empresas: estrategia, posicionamiento, performance, desarrollo web
-            e inteligencia artificial — bajo una sola dirección, con
+            México. Diseñamos{' '}
+            <span className="multi-grad-bright font-medium">
+              soluciones de marketing digital a la medida
+            </span>
+            : estrategia, posicionamiento, performance, desarrollo web e
+            inteligencia artificial — bajo una sola dirección, con
             accountability sobre cada resultado y transparencia total en los
             datos.
           </motion.p>
@@ -523,9 +506,6 @@ function HeroSection() {
               Cuéntanos tu proyecto
               <ArrowRight className="h-3 w-3" />
             </a>
-            <a href="#agencia" className="btn-ghost-dark">
-              Conocer Antuario
-            </a>
           </motion.div>
 
           <motion.div
@@ -539,27 +519,32 @@ function HeroSection() {
             Sin costo · Sin compromiso
           </motion.div>
 
-          {/* Chips de servicios — contenedor pill elegante */}
+          {/* Tagline destacado · soluciones a la medida */}
           <motion.div
             custom={5}
             initial="hidden"
             whileInView="show"
             viewport={{ once: true }}
             variants={rise}
-            className="mt-10 inline-flex max-w-full flex-wrap items-center gap-1.5 rounded-2xl bg-papel/[0.05] p-1.5 backdrop-blur-md sm:gap-2"
+            className="mt-10 inline-flex max-w-full items-center gap-3 rounded-2xl bg-papel/[0.06] px-4 py-3 backdrop-blur-md sm:px-5 sm:py-3.5"
             style={{
               boxShadow:
-                'inset 0 1px 0 rgba(255,255,255,0.06), 0 8px 20px rgba(0,0,0,0.20)',
+                'inset 0 1px 0 rgba(255,255,255,0.08), 0 8px 24px rgba(0,0,0,0.25)',
             }}
           >
-            {services.map((s) => (
-              <span
-                key={s}
-                className="rounded-xl px-2.5 py-1.5 text-[11px] font-medium text-papel/75 transition-colors hover:bg-papel/8 hover:text-papel sm:px-3 sm:text-[12px]"
-              >
-                {s}
-              </span>
-            ))}
+            <span
+              aria-hidden
+              className="h-2 w-2 flex-shrink-0 rounded-full"
+              style={{
+                background:
+                  'conic-gradient(from 0deg, #818CF8, #C4B5FD, #FDA4AF, #FCD34D, #6EE7B7, #67E8F9, #818CF8)',
+                animation: 'aiCursorPulse 1.6s ease-in-out infinite',
+                boxShadow: '0 0 12px rgba(196,181,253,0.6)',
+              }}
+            />
+            <span className="text-[13px] font-medium tracking-tight text-papel sm:text-[14px]">
+              <span className="multi-grad-bright">Soluciones de marketing digital a la medida.</span>
+            </span>
           </motion.div>
         </div>
 
@@ -725,7 +710,6 @@ function HeroDeck() {
               </li>
             ))}
           </ul>
-          <div className="spectrum-bar mt-5" />
         </div>
       </div>
     </div>
@@ -800,8 +784,9 @@ function CasesSection() {
             </h2>
           </div>
           <p className="lead-type max-w-[42ch] text-[14.5px] sm:text-[16px]">
-            Medianas y grandes empresas mexicanas que nos confían su
-            marketing digital, desarrollo web y posicionamiento orgánico.
+            Empresas mexicanas que nos confían su marketing digital,
+            desarrollo web y posicionamiento orgánico —{' '}
+            <span className="multi-grad font-medium">soluciones de marketing digital a la medida</span>.
           </p>
         </motion.div>
       </div>
@@ -900,9 +885,12 @@ function AgencySection() {
               >
                 Antuario opera como un equipo de marketing digital integrado:
                 estrategia, performance, posicionamiento orgánico, desarrollo
-                web e inteligencia artificial bajo una sola dirección. Sin
-                paquetes prefabricados — cada pieza se construye en función
-                de lo que tu negocio necesita.
+                web e inteligencia artificial bajo una sola dirección.{' '}
+                <strong className="font-medium text-onyx">
+                  Soluciones de marketing digital a la medida
+                </strong>{' '}
+                — cada pieza se construye en función de lo que tu negocio
+                necesita.
               </motion.p>
 
               <motion.p
@@ -926,19 +914,22 @@ function AgencySection() {
                 className="mt-8 grid grid-cols-3 gap-3"
               >
                 {[
-                  { v: '04', l: 'Oficios bajo un techo' },
-                  { v: '07', l: 'Disciplinas integradas' },
-                  { v: '100%', l: 'Hecho a la medida' },
+                  { v: '7', l: 'Oficios bajo una dirección', sub: 'Disciplinas integradas' },
+                  { v: '100%', l: 'A la medida', sub: 'Sin paquetes prefabricados' },
+                  { v: '24/7', l: 'Accountability', sub: 'Datos abiertos en tiempo real' },
                 ].map((s) => (
                   <div key={s.l} className="card-bb-soft p-4">
                     <p
-                      className="text-[24px] font-light tracking-tight text-onyx sm:text-[28px]"
-                      style={{ letterSpacing: '-0.028em' }}
+                      className="text-[26px] font-light tracking-tight text-onyx sm:text-[32px]"
+                      style={{ letterSpacing: '-0.028em', lineHeight: 1 }}
                     >
-                      {s.v}
+                      <span className="multi-grad">{s.v}</span>
                     </p>
-                    <span className="mt-1 block text-[11px] leading-tight text-plomo sm:text-[11.5px]">
+                    <span className="mt-2 block text-[12px] font-medium leading-tight text-onyx sm:text-[12.5px]">
                       {s.l}
+                    </span>
+                    <span className="mt-0.5 block text-[10.5px] leading-tight text-plomo sm:text-[11px]">
+                      {s.sub}
                     </span>
                   </div>
                 ))}
@@ -1036,16 +1027,16 @@ function AgencyConstellation() {
 /* ═══════════════ 04 · SERVICIOS ═══════════════ */
 function ServicesSection() {
   type Cap = {
-    n: string; tag: string; title: string; headline: string; description: string; items: string[]; accent: string
+    n: string; tag: string; title: string; href: string; headline: string; description: string; items: string[]; accent: string
   }
   const caps: Cap[] = [
-    { n: '01', tag: 'Paid Media', title: 'Performance Ads', headline: 'Campañas que mueven la aguja, no que ganan premios.', description: 'Optimizamos cada peso invertido — desde la creatividad hasta la puja — para conseguir leads, ventas y crecimiento real. Estrategia 100% adaptada a tu vertical.', items: ['Google, Meta y TikTok Ads', 'ROAS, CPA y CPL reales', 'Testing creativo continuo', 'Reportes con accountability'], accent: 'var(--cobalto)' },
-    { n: '02', tag: 'Orgánico', title: 'SEO', headline: 'Crecer en búsquedas, sin pagar por cada click.', description: 'Auditoría técnica, estrategia de contenidos y autoridad de dominio para posicionarte donde tus clientes te buscan.', items: ['Auditoría técnica + competencia', 'Estrategia de keywords', 'Contenido y linkbuilding', 'Reportes mensuales de posiciones'], accent: 'var(--salvia)' },
-    { n: '03', tag: 'Contenido', title: 'Redes Sociales', headline: 'Estrategia, contenido y producción bajo el mismo techo.', description: 'Comunicamos tu marca con consistencia: planeamos, producimos y publicamos contenido que conecta y convierte.', items: ['Calendarios estratégicos', 'Producción foto y video', 'Edición y post profesional', 'Community y rendimiento'], accent: 'var(--nectar)' },
-    { n: '04', tag: 'Diseño', title: 'Diseño Creativo', headline: 'Identidad visual que diferencia a tu marca.', description: 'Branding, dirección de arte y sistemas visuales escalables — el lenguaje gráfico que sostiene toda tu comunicación.', items: ['Branding e identidad', 'Dirección de arte', 'Sistemas visuales', 'Piezas para campañas'], accent: 'var(--rubor)' },
-    { n: '05', tag: 'Web', title: 'Desarrollo Web', headline: 'Sitios y plataformas pensados para convertir.', description: 'Construimos webs rápidas, optimizadas para SEO y enfocadas en la experiencia del usuario y el cierre de venta.', items: ['Sitios corporativos y landings', 'Ecommerce y catálogos', 'UX/UI orientado a conversión', 'Performance + analytics'], accent: 'var(--glicina)' },
-    { n: '06', tag: 'Tecnología', title: 'Software a la medida', headline: 'Sistemas que aceleran tu operación.', description: 'CRM, automatizaciones e integraciones para que el equipo opere con menos fricción y más visibilidad.', items: ['CRM y plataformas internas', 'Integraciones API', 'Automatización de procesos', 'Dashboards y BI a medida'], accent: 'var(--laguna)' },
-    { n: '07', tag: 'Vanguardia', title: 'Inteligencia Artificial', headline: 'IA aplicada — operación, marketing y producto.', description: 'No hablamos de IA, la implementamos: agentes, LLMs y automatización inteligente para escalar sin escalar costos.', items: ['Agentes WhatsApp y voz', 'LLMs custom para tu negocio', 'IA generativa de contenido', 'Optimización de campañas con IA'], accent: 'var(--glicina)' },
+    { n: '01', tag: 'Paid Media', title: 'Performance Ads', href: '/servicios/performance-ads', headline: 'Campañas que mueven la aguja, no que ganan premios.', description: 'Optimizamos cada peso invertido — desde la creatividad hasta la puja — para conseguir leads, ventas y crecimiento real. Estrategia 100% adaptada a tu vertical.', items: ['Google, Meta y TikTok Ads', 'ROAS, CPA y CPL reales', 'Testing creativo continuo', 'Reportes con accountability'], accent: 'var(--cobalto)' },
+    { n: '02', tag: 'Orgánico', title: 'SEO', href: '/servicios/seo', headline: 'Crecer en búsquedas, sin pagar por cada click.', description: 'Auditoría técnica, estrategia de contenidos y autoridad de dominio para posicionarte donde tus clientes te buscan.', items: ['Auditoría técnica + competencia', 'Estrategia de keywords', 'Contenido y linkbuilding', 'Reportes mensuales de posiciones'], accent: 'var(--salvia)' },
+    { n: '03', tag: 'Contenido', title: 'Redes Sociales', href: '/servicios/redes-sociales', headline: 'Estrategia, contenido y producción bajo el mismo techo.', description: 'Comunicamos tu marca con consistencia: planeamos, producimos y publicamos contenido que conecta y convierte.', items: ['Calendarios estratégicos', 'Producción foto y video', 'Edición y post profesional', 'Community y rendimiento'], accent: 'var(--nectar)' },
+    { n: '04', tag: 'Diseño', title: 'Diseño Creativo', href: '/servicios/diseno-creativo', headline: 'Identidad visual que diferencia a tu marca.', description: 'Branding, dirección de arte y sistemas visuales escalables — el lenguaje gráfico que sostiene toda tu comunicación.', items: ['Branding e identidad', 'Dirección de arte', 'Sistemas visuales', 'Piezas para campañas'], accent: 'var(--rubor)' },
+    { n: '05', tag: 'Web', title: 'Desarrollo Web', href: '/servicios/desarrollo-web', headline: 'Sitios y plataformas pensados para convertir.', description: 'Construimos webs rápidas, optimizadas para SEO y enfocadas en la experiencia del usuario y el cierre de venta.', items: ['Sitios corporativos y landings', 'Ecommerce y catálogos', 'UX/UI orientado a conversión', 'Performance + analytics'], accent: 'var(--glicina)' },
+    { n: '06', tag: 'Tecnología', title: 'Software a la medida', href: '/servicios/software', headline: 'Sistemas que aceleran tu operación.', description: 'CRM, automatizaciones e integraciones para que el equipo opere con menos fricción y más visibilidad.', items: ['CRM y plataformas internas', 'Integraciones API', 'Automatización de procesos', 'Dashboards y BI a medida'], accent: 'var(--laguna)' },
+    { n: '07', tag: 'Vanguardia', title: 'Inteligencia Artificial', href: '/servicios/inteligencia-artificial', headline: 'IA aplicada — operación, marketing y producto.', description: 'No hablamos de IA, la implementamos: agentes, LLMs y automatización inteligente para escalar sin escalar costos.', items: ['Agentes WhatsApp y voz', 'LLMs custom para tu negocio', 'IA generativa de contenido', 'Optimización de campañas con IA'], accent: 'var(--glicina)' },
   ]
 
   const [activeIdx, setActiveIdx] = useState(0)
@@ -1060,7 +1051,7 @@ function ServicesSection() {
         variants={rise}
         className="mb-10 sm:mb-12"
       >
-        <ChapterTag roman="I" label="Oficios" sub="Qué hacemos" />
+        <ChapterTag roman="I" label="Servicios" sub="Nuestros servicios" />
         <h2
           className="hero-type mt-5 max-w-[24ch] text-[28px] text-onyx sm:text-[40px] lg:text-[48px]"
           style={{ fontWeight: 300 }}
@@ -1070,25 +1061,45 @@ function ServicesSection() {
         </h2>
         <p className="lead-type mt-5 max-w-[58ch] text-[15px] sm:text-[16px]">
           Performance Ads, SEO, redes sociales, diseño creativo, desarrollo
-          web, software a la medida e inteligencia artificial. No vendemos
-          piezas sueltas: tomamos una marca, la posicionamos, la ponemos a
-          producir leads y los convertimos en ventas.
+          web, software a la medida e inteligencia artificial —{' '}
+          <span className="multi-grad font-medium">soluciones de marketing digital a la medida</span>.
+          No vendemos piezas sueltas: tomamos una marca, la posicionamos, la
+          ponemos a producir leads y los convertimos en ventas.
         </p>
       </motion.div>
 
-      {/* Mobile chips */}
-      <div className="lg:hidden">
-        <div className="no-scrollbar -mx-[clamp(28px,4.5vw,80px)] mb-4 overflow-x-auto px-[clamp(28px,4.5vw,80px)]">
-          <div className="flex w-max gap-2">
+      {/* Tabs — contenedor rounded + sombra, simétrico */}
+      <div className="mb-8 sm:mb-10">
+        <div
+          className="no-scrollbar -mx-2 overflow-x-auto px-2 sm:overflow-visible sm:px-0"
+        >
+          <div
+            className="mx-auto flex w-max gap-1.5 rounded-full bg-papel p-1.5 sm:w-full sm:justify-between sm:gap-1"
+            style={{
+              boxShadow:
+                'inset 0 0 0 1px rgba(15,15,30,0.05), 0 2px 4px rgba(15,15,30,0.06), 0 14px 32px rgba(15,15,30,0.08)',
+            }}
+          >
             {caps.map((c, i) => {
               const isActive = i === activeIdx
               return (
                 <button
                   key={c.title}
                   onClick={() => setActiveIdx(i)}
-                  className={`whitespace-nowrap rounded-full px-4 py-2 text-[11.5px] font-medium transition-all duration-300 ${
-                    isActive ? 'bg-onyx text-papel' : 'bg-papel text-grafito shadow-soft'
+                  onMouseEnter={() => setActiveIdx(i)}
+                  className={`relative flex-1 whitespace-nowrap rounded-full px-3 py-2 text-[11.5px] font-medium tracking-tight transition-all duration-300 sm:px-2 sm:text-[12px] lg:text-[12.5px] ${
+                    isActive
+                      ? 'bg-onyx text-papel'
+                      : 'text-grafito hover:bg-onyx/[0.04]'
                   }`}
+                  style={
+                    isActive
+                      ? {
+                          boxShadow:
+                            '0 1px 2px rgba(15,15,30,0.10), 0 6px 14px rgba(15,15,30,0.18)',
+                        }
+                      : undefined
+                  }
                 >
                   {c.title}
                 </button>
@@ -1096,68 +1107,17 @@ function ServicesSection() {
             })}
           </div>
         </div>
-        <CapabilityPanel cap={active} mobile />
       </div>
 
-      {/* Desktop */}
-      <div className="hidden grid-cols-12 gap-10 lg:grid">
-        <ul className="lg:col-span-5">
-          {caps.map((c, i) => {
-            const isActive = i === activeIdx
-            return (
-              <li key={c.title}>
-                <button
-                  onClick={() => setActiveIdx(i)}
-                  onMouseEnter={() => setActiveIdx(i)}
-                  className="group relative flex w-full items-center gap-5 py-3 text-left transition-colors"
-                >
-                  <span
-                    aria-hidden
-                    className="absolute -left-px top-0 h-full w-[2px] origin-top transition-transform duration-500"
-                    style={{
-                      background: c.accent,
-                      transform: `scaleY(${isActive ? 1 : 0})`,
-                    }}
-                  />
-                  <span
-                    className="font-mono text-[10px] tracking-widest transition-colors"
-                    style={{ color: isActive ? c.accent : 'var(--niebla)' }}
-                  >
-                    {c.n}
-                  </span>
-                  <span
-                    className={`flex-1 text-[16px] font-medium tracking-tight transition-colors ${
-                      isActive ? 'text-onyx' : 'text-niebla group-hover:text-grafito'
-                    }`}
-                    style={{ letterSpacing: '-0.014em' }}
-                  >
-                    {c.title}
-                  </span>
-                  <ArrowUpRight
-                    className="h-4 w-4 -translate-x-1 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100"
-                    style={{ color: c.accent }}
-                  />
-                </button>
-                {i < caps.length - 1 && <div className="hair" />}
-              </li>
-            )
-          })}
-        </ul>
-
-        <div className="lg:col-span-7">
-          <CapabilityPanel cap={active} />
-        </div>
-      </div>
+      <CapabilityPanel cap={active} />
     </ShellWrap>
   )
 }
 
 function CapabilityPanel({
   cap,
-  mobile = false,
 }: {
-  cap: { n: string; tag: string; title: string; headline: string; description: string; items: string[]; accent: string }
-  mobile?: boolean
+  cap: { n: string; tag: string; title: string; href: string; headline: string; description: string; items: string[]; accent: string }
 }) {
   return (
     <AnimatePresence mode="wait">
@@ -1167,7 +1127,7 @@ function CapabilityPanel({
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -6 }}
         transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-        className={`card-bb-float relative overflow-hidden ${mobile ? 'p-6' : 'p-8'}`}
+        className="card-bb-float relative overflow-hidden p-6 sm:p-8 lg:p-10"
       >
         <span
           aria-hidden
@@ -1188,37 +1148,53 @@ function CapabilityPanel({
             </span>
           </div>
 
-          <h3
-            className={`mt-4 font-medium tracking-tight text-onyx ${mobile ? 'text-[22px]' : 'text-[28px]'}`}
-            style={{ letterSpacing: '-0.022em', lineHeight: 1.08 }}
-          >
-            {cap.title}
-          </h3>
-          <p
-            className={`mt-2.5 font-light tracking-tight text-grafito ${mobile ? 'text-[14px]' : 'text-[16.5px]'}`}
-            style={{ letterSpacing: '-0.012em', lineHeight: 1.36 }}
-          >
-            {cap.headline}
-          </p>
-          <p className={`body-type mt-3 ${mobile ? 'text-[13px]' : 'text-[14px]'}`}>
-            {cap.description}
-          </p>
-
-          <ul className={`mt-5 grid gap-2 ${mobile ? 'grid-cols-1' : 'grid-cols-2 gap-x-6'}`}>
-            {cap.items.map((it) => (
-              <li
-                key={it}
-                className={`flex items-start gap-2.5 text-grafito ${mobile ? 'text-[12.5px]' : 'text-[13.5px]'}`}
+          <div className="mt-4 grid gap-6 lg:grid-cols-12 lg:gap-10">
+            <div className="lg:col-span-7">
+              <h3
+                className="text-[24px] font-medium tracking-tight text-onyx sm:text-[28px] lg:text-[32px]"
+                style={{ letterSpacing: '-0.022em', lineHeight: 1.08 }}
               >
-                <span
-                  aria-hidden
-                  className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full"
-                  style={{ background: cap.accent }}
-                />
-                {it}
-              </li>
-            ))}
-          </ul>
+                {cap.title}
+              </h3>
+              <p
+                className="mt-2.5 text-[15px] font-light tracking-tight text-grafito sm:text-[16.5px]"
+                style={{ letterSpacing: '-0.012em', lineHeight: 1.36 }}
+              >
+                {cap.headline}
+              </p>
+              <p className="body-type mt-3 text-[13.5px] sm:text-[14px]">
+                {cap.description}
+              </p>
+
+              <Link
+                href={cap.href}
+                className="mt-6 inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-[12.5px] font-medium text-papel transition-all hover:translate-x-0.5 sm:text-[13px]"
+                style={{
+                  background: 'var(--onyx)',
+                  boxShadow: `0 4px 12px ${cap.accent}40, 0 1px 2px rgba(15,15,30,0.10)`,
+                }}
+              >
+                Ver {cap.title}
+                <ArrowUpRight className="h-3.5 w-3.5" />
+              </Link>
+            </div>
+
+            <ul className="grid gap-2 lg:col-span-5">
+              {cap.items.map((it) => (
+                <li
+                  key={it}
+                  className="flex items-start gap-2.5 text-[13px] text-grafito sm:text-[13.5px]"
+                >
+                  <span
+                    aria-hidden
+                    className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full"
+                    style={{ background: cap.accent }}
+                  />
+                  {it}
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </motion.div>
     </AnimatePresence>
@@ -1483,164 +1459,6 @@ function DashboardImage() {
   )
 }
 
-/* ═══════════════ 07 · ACCOUNTABILITY (rediseñado · cards visuales) ═══════════════ */
-function AccountabilitySection() {
-  const cards = [
-    {
-      theme: 'Compromisos',
-      Icon: Target,
-      them: 'Objetivos vagos o cambiantes',
-      us: 'Metas claras desde el día uno',
-      accent: 'var(--cobalto-b)',
-    },
-    {
-      theme: 'Resultados',
-      Icon: TrendingUp,
-      them: 'Entregan tareas, no resultados',
-      us: 'Compromisos con métrica medible',
-      accent: 'var(--salvia-b)',
-    },
-    {
-      theme: 'Cuando falla',
-      Icon: Zap,
-      them: 'Justificación y excusas',
-      us: 'Acción inmediata y transparencia',
-      accent: 'var(--rubor-b)',
-    },
-    {
-      theme: 'Métricas',
-      Icon: BarChart3,
-      them: 'Reportes que nadie entiende',
-      us: 'Datos que mueven el negocio',
-      accent: 'var(--laguna-b)',
-    },
-    {
-      theme: 'Seguimiento',
-      Icon: Calendar,
-      them: 'La marca persigue al equipo',
-      us: 'Empujamos cada semana',
-      accent: 'var(--glicina-b)',
-    },
-    {
-      theme: 'ROI',
-      Icon: Coins,
-      them: 'No saben qué vale cada peso',
-      us: 'Trazabilidad completa por canal',
-      accent: 'var(--nectar-b)',
-    },
-  ]
-
-  return (
-    <ShellWrap data="dark" variant="dark">
-      <div className="grid-pattern-dark pointer-events-none absolute inset-0 opacity-15" />
-      <div className="aurora aurora-quiet absolute inset-0 opacity-40" aria-hidden />
-
-      <div className="relative z-10">
-        <motion.div
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
-          variants={rise}
-          className="mb-10 sm:mb-14"
-        >
-          <ChapterTag roman="IV" label="Accountability" sub="Cómo trabajamos" dark />
-          <h2
-            className="hero-type mt-5 max-w-[20ch] text-[30px] text-papel sm:text-[42px] lg:text-[50px]"
-            style={{ fontWeight: 300 }}
-          >
-            Resultados concretos.{' '}
-            <span className="multi-grad-bright">Responsabilidad total.</span>
-          </h2>
-          <p className="lead-type mt-5 max-w-[52ch] text-[14.5px] !text-papel/65 sm:text-[15.5px]">
-            Seis dimensiones donde la mayoría de las agencias se ablanda — y
-            donde Antuario sostiene cada compromiso con datos y transparencia.
-          </p>
-        </motion.div>
-
-        <div className="grid gap-3 sm:gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {cards.map((c, i) => (
-            <motion.article
-              key={c.theme}
-              custom={i}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true }}
-              variants={rise}
-              className="group relative overflow-hidden rounded-[24px] p-6 sm:p-7"
-              style={{
-                background:
-                  'linear-gradient(155deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.015) 100%)',
-                boxShadow:
-                  'inset 0 1px 0 rgba(255,255,255,0.06), 0 4px 14px rgba(0,0,0,0.30)',
-              }}
-            >
-              <span
-                aria-hidden
-                className="pointer-events-none absolute -right-12 -top-12 h-32 w-32 rounded-full opacity-30 blur-2xl transition-opacity duration-700 group-hover:opacity-50"
-                style={{ background: c.accent }}
-              />
-
-              <div className="relative flex items-start justify-between">
-                <span
-                  className="font-mono text-[42px] font-light leading-none tabular-nums text-papel/20 transition-colors duration-500 group-hover:text-papel/35"
-                  style={{ letterSpacing: '-0.04em' }}
-                >
-                  {String(i + 1).padStart(2, '0')}
-                </span>
-                <span
-                  className="inline-flex h-9 w-9 items-center justify-center rounded-full"
-                  style={{
-                    background: `linear-gradient(135deg, ${c.accent}28, transparent)`,
-                    boxShadow: `inset 0 0 0 1px ${c.accent}30`,
-                  }}
-                >
-                  <c.Icon className="h-4 w-4" style={{ color: c.accent }} />
-                </span>
-              </div>
-
-              <h3
-                className="relative mt-5 text-[17px] font-medium tracking-tight text-papel sm:text-[18.5px]"
-                style={{ letterSpacing: '-0.018em' }}
-              >
-                {c.theme}
-              </h3>
-
-              <div className="relative mt-5 space-y-2.5">
-                <div className="flex items-start gap-2.5">
-                  <span className="mt-1 inline-flex h-3.5 w-3.5 flex-shrink-0 items-center justify-center rounded-full bg-papel/8">
-                    <X className="h-[8px] w-[8px] text-papel/35" />
-                  </span>
-                  <span className="text-[12.5px] leading-snug text-papel/35 line-through decoration-papel/12 sm:text-[13px]">
-                    {c.them}
-                  </span>
-                </div>
-                <div className="flex items-start gap-2.5">
-                  <span
-                    className="mt-1 inline-flex h-3.5 w-3.5 flex-shrink-0 items-center justify-center rounded-full"
-                    style={{ background: `${c.accent}28` }}
-                  >
-                    <Check className="h-[9px] w-[9px]" style={{ color: c.accent }} />
-                  </span>
-                  <span className="text-[13px] font-medium leading-snug text-papel sm:text-[14px]">
-                    {c.us}
-                  </span>
-                </div>
-              </div>
-            </motion.article>
-          ))}
-        </div>
-
-        <div className="mt-10 flex items-center gap-3">
-          <span className="spectrum-bar" style={{ width: 64 }} />
-          <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-papel/45">
-            Si lo prometimos · lo medimos
-          </span>
-        </div>
-      </div>
-    </ShellWrap>
-  )
-}
-
 /* ═══════════════ 08 · IA (rediseñado · Apple Intelligence vibes) ═══════════════ */
 function AISection() {
   const items = [
@@ -1653,153 +1471,186 @@ function AISection() {
   ]
 
   return (
-    <ShellWrap data="dark" variant="dark">
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="ai-aurora opacity-90" />
+    <section data-theme="light" className="section-pad">
+      <div className="mx-auto w-full max-w-[1440px] px-[clamp(10px,2.4vw,28px)]">
         <div
-          className="absolute inset-0 animate-plasma"
+          className="section-shell relative overflow-hidden p-[clamp(28px,4.5vw,80px)]"
           style={{
             background:
-              'radial-gradient(40% 50% at 15% 30%, rgba(129,140,248,0.32), transparent 60%), radial-gradient(35% 45% at 85% 25%, rgba(196,181,253,0.28), transparent 60%), radial-gradient(45% 55% at 70% 80%, rgba(103,232,249,0.26), transparent 60%), radial-gradient(35% 45% at 25% 85%, rgba(253,164,175,0.22), transparent 60%)',
-            backgroundSize: '200% 200%',
-            filter: 'blur(60px) saturate(120%)',
-            mixBlendMode: 'screen',
+              'linear-gradient(160deg, #F4F1FF 0%, #FEF6F9 35%, #F0F9FF 65%, #F5FEF8 100%)',
+            boxShadow:
+              'inset 0 0 0 1px rgba(15,15,30,0.04), 0 4px 14px rgba(15,15,30,0.06), 0 32px 80px rgba(167,139,250,0.18)',
+            borderRadius: 'clamp(28px, 3vw, 44px)',
           }}
-        />
-        <AIFloatingBlob />
-      </div>
-      <div className="grid-pattern-dark pointer-events-none absolute inset-0 opacity-10" />
-      <div
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background:
-            'linear-gradient(to bottom, rgba(10,10,10,0.45), transparent 25%, transparent 75%, rgba(10,10,10,0.55))',
-        }}
-      />
-
-      <div className="relative z-10">
-        <motion.div
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
-          variants={rise}
-          className="mb-10 sm:mb-14"
         >
-          <div className="flex items-center gap-3">
-            <span className="relative inline-flex h-4 w-4 items-center justify-center">
-              <span className="ai-orb absolute inset-0" />
-              <span className="relative h-2.5 w-2.5 rounded-full bg-papel shadow-[0_0_10px_rgba(255,255,255,0.6)]" />
-            </span>
-            <span className="eyebrow-light">Inteligencia Artificial</span>
+          {/* Aurora multicolor mágica - light mode */}
+          <div className="pointer-events-none absolute inset-0 overflow-hidden">
+            <div
+              className="absolute inset-0 animate-plasma"
+              style={{
+                background:
+                  'radial-gradient(45% 55% at 12% 20%, rgba(167,139,250,0.50), transparent 60%), radial-gradient(40% 50% at 88% 25%, rgba(253,164,175,0.40), transparent 60%), radial-gradient(50% 60% at 70% 85%, rgba(103,232,249,0.45), transparent 60%), radial-gradient(40% 50% at 20% 90%, rgba(110,231,183,0.40), transparent 60%), radial-gradient(35% 40% at 50% 50%, rgba(252,211,77,0.30), transparent 60%)',
+                backgroundSize: '220% 220%',
+                filter: 'blur(80px) saturate(140%)',
+              }}
+            />
+            <span
+              className="pointer-events-none absolute -left-32 top-1/4 h-[480px] w-[480px] animate-aurora-drift opacity-55"
+              style={{
+                background:
+                  'conic-gradient(from 0deg at 50% 50%, rgba(167,139,250,0.65), rgba(196,181,253,0.55), rgba(253,164,175,0.55), rgba(252,211,77,0.45), rgba(110,231,183,0.55), rgba(103,232,249,0.65), rgba(167,139,250,0.65))',
+                filter: 'blur(90px) saturate(150%)',
+                borderRadius: '50%',
+              }}
+              aria-hidden
+            />
+            <span
+              className="pointer-events-none absolute -right-32 bottom-0 h-[420px] w-[420px] animate-aurora-drift opacity-50"
+              style={{
+                background:
+                  'conic-gradient(from 180deg at 50% 50%, rgba(103,232,249,0.60), rgba(196,181,253,0.50), rgba(253,164,175,0.50), rgba(252,211,77,0.40), rgba(110,231,183,0.50), rgba(103,232,249,0.60))',
+                filter: 'blur(80px) saturate(140%)',
+                borderRadius: '50%',
+                animationDelay: '-8s',
+              }}
+              aria-hidden
+            />
           </div>
-          <h2
-            className="hero-type mt-5 max-w-[18ch] text-[30px] text-papel sm:text-[42px] lg:text-[50px]"
-            style={{ fontWeight: 300 }}
-          >
-            No hablamos de IA.{' '}
-            <span className="multi-grad-bright">La implementamos.</span>
-          </h2>
-        </motion.div>
 
-        <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">
-          <motion.div
-            initial={{ opacity: 0, y: 22 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="relative lg:col-span-5"
-          >
-            <AIChat />
-          </motion.div>
+          {/* Sutil grid sobre el aurora */}
+          <div
+            className="pointer-events-none absolute inset-0 opacity-[0.04]"
+            style={{
+              backgroundImage:
+                'linear-gradient(rgba(10,10,10,1) 1px, transparent 1px), linear-gradient(90deg, rgba(10,10,10,1) 1px, transparent 1px)',
+              backgroundSize: '60px 60px',
+            }}
+            aria-hidden
+          />
 
-          <div className="lg:col-span-7">
-            <p className="lead-type mb-6 max-w-[44ch] text-[14.5px] !text-papel/65 sm:text-[15.5px]">
-              Mientras la mayoría apenas la conoce como tendencia, nosotros la
-              operamos en proyectos reales — todo a la medida.
-            </p>
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-              {items.map((it, i) => (
-                <motion.article
-                  key={it.title}
-                  custom={i}
-                  initial="hidden"
-                  whileInView="show"
-                  viewport={{ once: true }}
-                  variants={rise}
-                  className="group relative overflow-hidden rounded-2xl p-4 sm:p-5"
-                  style={{
-                    background:
-                      'linear-gradient(155deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.015) 100%)',
-                    boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.06)',
-                  }}
-                >
+          <div className="relative z-10">
+            <motion.div
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+              variants={rise}
+              className="mb-10 sm:mb-14"
+            >
+              <div className="flex items-center gap-3">
+                <span className="relative inline-flex h-5 w-5 items-center justify-center">
                   <span
-                    aria-hidden
-                    className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                    className="absolute inset-0 rounded-full"
                     style={{
-                      padding: 1,
-                      background: `linear-gradient(135deg, ${it.accent}55, transparent 50%, ${it.accent}22)`,
-                      WebkitMask:
-                        'linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)',
-                      WebkitMaskComposite: 'xor',
-                      maskComposite: 'exclude',
+                      background:
+                        'conic-gradient(from 0deg, #818CF8, #C4B5FD, #FDA4AF, #FCD34D, #6EE7B7, #67E8F9, #818CF8)',
+                      animation: 'ai-orb-spin 8s linear infinite',
+                      filter: 'blur(2px)',
                     }}
                   />
                   <span
-                    aria-hidden
-                    className="pointer-events-none absolute -right-6 -top-6 h-20 w-20 rounded-full opacity-25 blur-2xl transition-opacity duration-500 group-hover:opacity-50"
-                    style={{ background: it.accent }}
+                    className="relative h-3 w-3 rounded-full bg-papel"
+                    style={{
+                      boxShadow:
+                        '0 0 12px rgba(167,139,250,0.7), inset 0 0 0 1px rgba(15,15,30,0.06)',
+                    }}
                   />
-                  <div className="relative flex items-start gap-3.5">
-                    <span
-                      className="inline-flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full"
+                </span>
+                <span className="eyebrow">Inteligencia Artificial</span>
+              </div>
+              <h2
+                className="hero-type mt-5 max-w-[18ch] text-[30px] text-onyx sm:text-[42px] lg:text-[50px]"
+                style={{ fontWeight: 300 }}
+              >
+                No hablamos de IA.{' '}
+                <span className="multi-grad">La implementamos.</span>
+              </h2>
+              <p className="lead-type mt-5 max-w-[52ch] text-[14.5px] sm:text-[16px]">
+                Mientras la mayoría apenas la conoce como tendencia, nosotros la
+                operamos en proyectos reales — todo a la medida.
+              </p>
+            </motion.div>
+
+            <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">
+              <motion.div
+                initial={{ opacity: 0, y: 22 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                className="relative lg:col-span-5"
+              >
+                <AIChat />
+              </motion.div>
+
+              <div className="lg:col-span-7">
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                  {items.map((it, i) => (
+                    <motion.article
+                      key={it.title}
+                      custom={i}
+                      initial="hidden"
+                      whileInView="show"
+                      viewport={{ once: true }}
+                      variants={rise}
+                      className="group relative overflow-hidden rounded-2xl bg-papel/70 p-4 backdrop-blur-md sm:p-5"
                       style={{
-                        background: `linear-gradient(135deg, ${it.accent}22, transparent)`,
-                        boxShadow: `inset 0 0 0 1px ${it.accent}30`,
+                        boxShadow:
+                          'inset 0 0 0 1px rgba(15,15,30,0.05), 0 2px 4px rgba(15,15,30,0.04), 0 8px 24px rgba(167,139,250,0.10)',
                       }}
                     >
-                      <it.Icon className="h-4 w-4" style={{ color: it.accent }} />
-                    </span>
-                    <div className="min-w-0">
-                      <div className="flex items-center gap-2">
-                        <span className="font-mono text-[10px] tracking-[0.18em] text-papel/40">
-                          {it.n}
+                      <span
+                        aria-hidden
+                        className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                        style={{
+                          padding: 1,
+                          background: `linear-gradient(135deg, ${it.accent}88, transparent 50%, ${it.accent}44)`,
+                          WebkitMask:
+                            'linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)',
+                          WebkitMaskComposite: 'xor',
+                          maskComposite: 'exclude',
+                        }}
+                      />
+                      <span
+                        aria-hidden
+                        className="pointer-events-none absolute -right-6 -top-6 h-20 w-20 rounded-full opacity-25 blur-2xl transition-opacity duration-500 group-hover:opacity-50"
+                        style={{ background: it.accent }}
+                      />
+                      <div className="relative flex items-start gap-3.5">
+                        <span
+                          className="inline-flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full"
+                          style={{
+                            background: `linear-gradient(135deg, ${it.accent}28, transparent)`,
+                            boxShadow: `inset 0 0 0 1px ${it.accent}55`,
+                          }}
+                        >
+                          <it.Icon className="h-4 w-4" style={{ color: it.accent }} />
                         </span>
-                        <span className="h-px flex-1 bg-papel/8" />
+                        <div className="min-w-0">
+                          <div className="flex items-center gap-2">
+                            <span className="font-mono text-[10px] tracking-[0.18em] text-plomo">
+                              {it.n}
+                            </span>
+                            <span className="h-px flex-1 bg-onyx/10" />
+                          </div>
+                          <h3
+                            className="mt-1.5 text-[14.5px] font-medium tracking-tight text-onyx sm:text-[15.5px]"
+                            style={{ letterSpacing: '-0.014em' }}
+                          >
+                            {it.title}
+                          </h3>
+                          <p className="mt-1 text-[12.5px] leading-[1.5] text-grafito sm:text-[13px]">
+                            {it.text}
+                          </p>
+                        </div>
                       </div>
-                      <h3
-                        className="mt-1.5 text-[14.5px] font-medium tracking-tight text-papel sm:text-[15.5px]"
-                        style={{ letterSpacing: '-0.014em' }}
-                      >
-                        {it.title}
-                      </h3>
-                      <p className="mt-1 text-[12.5px] leading-[1.5] text-papel/55 sm:text-[13px]">
-                        {it.text}
-                      </p>
-                    </div>
-                  </div>
-                </motion.article>
-              ))}
+                    </motion.article>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </ShellWrap>
-  )
-}
-
-function AIFloatingBlob() {
-  return (
-    <span
-      className="pointer-events-none absolute left-1/2 top-1/2 h-[480px] w-[480px] -translate-x-1/2 -translate-y-1/2 animate-aurora-drift opacity-50"
-      style={{
-        background:
-          'conic-gradient(from 0deg at 50% 50%, rgba(129,140,248,0.65), rgba(196,181,253,0.55), rgba(253,164,175,0.55), rgba(252,211,77,0.45), rgba(110,231,183,0.55), rgba(103,232,249,0.65), rgba(129,140,248,0.65))',
-        filter: 'blur(80px) saturate(140%)',
-        borderRadius: '50%',
-      }}
-      aria-hidden
-    />
+    </section>
   )
 }
 
@@ -1931,7 +1782,7 @@ function CoverageSection() {
                 Antuario es una <strong className="font-medium text-onyx">agencia de marketing digital con sede en la Ciudad de México</strong>. Operamos proyectos en todo el país — desde campañas de performance para marcas industriales en Monterrey hasta posicionamiento orgánico para empresas de servicios en Guadalajara, Querétaro y Mérida.
               </p>
               <p className="body-type mt-3 max-w-[52ch] text-[13.5px] sm:text-[14.5px]">
-                Trabajamos con <strong className="font-medium text-onyx">medianas y grandes empresas mexicanas</strong> que ya tienen un equipo interno de marketing y necesitan un partner externo con accountability real, capacidad estratégica y velocidad de ejecución. Cada propuesta se construye a la medida — no vendemos paquetes, vendemos sistemas.
+                Diseñamos <strong className="font-medium text-onyx">soluciones de marketing digital a la medida</strong> para empresas que necesitan un partner externo con accountability real, capacidad estratégica y velocidad de ejecución. Cada propuesta se construye a la medida — no vendemos paquetes, vendemos sistemas.
               </p>
               <p className="body-type mt-3 max-w-[52ch] text-[13.5px] sm:text-[14.5px]">
                 Si tu empresa busca una <strong className="font-medium text-onyx">agencia de marketing digital en CDMX o en cualquier estado de México</strong> con visión completa — del posicionamiento a la medición —, estamos para construir lo que necesites.
@@ -1998,58 +1849,81 @@ function MexicoMap() {
   const cdmx = cities.find((c) => c.primary)!
 
   return (
-    <div className="relative mx-auto max-w-[600px] lg:max-w-none">
+    <div className="relative mx-auto max-w-[640px] lg:max-w-none">
+      {/* Glow exterior multicolor */}
       <div
-        className="pointer-events-none absolute -inset-10 -z-10 rounded-[48px] opacity-55 blur-[60px]"
+        className="pointer-events-none absolute -inset-10 -z-10 rounded-[56px] opacity-70 blur-[70px] animate-aurora-drift"
         style={{
           background:
-            'radial-gradient(60% 60% at 30% 30%, rgba(79,70,229,0.20), transparent 60%), radial-gradient(50% 50% at 70% 70%, rgba(34,211,238,0.18), transparent 60%), radial-gradient(45% 50% at 50% 90%, rgba(167,139,250,0.16), transparent 60%)',
+            'radial-gradient(50% 50% at 25% 25%, rgba(79,70,229,0.30), transparent 60%), radial-gradient(45% 45% at 75% 35%, rgba(167,139,250,0.26), transparent 60%), radial-gradient(50% 50% at 65% 80%, rgba(34,211,238,0.30), transparent 60%), radial-gradient(40% 45% at 30% 85%, rgba(253,164,175,0.22), transparent 60%)',
         }}
         aria-hidden
       />
 
-      <div className="card-bb-float overflow-hidden bg-papel/90 p-5 backdrop-blur-sm sm:p-7">
+      <div
+        className="card-bb-float relative bg-papel/90 p-5 backdrop-blur-sm sm:p-7"
+        style={{ overflow: 'visible' }}
+      >
         <svg
-          viewBox="0 0 1000 620"
+          viewBox="0 -10 1000 660"
           className="h-auto w-full"
           xmlns="http://www.w3.org/2000/svg"
           role="img"
           aria-label="Mapa de México con cobertura nacional. Sede en CDMX y operación remota o presencial en cualquier estado del país."
+          style={{ overflow: 'visible' }}
         >
           <defs>
             <linearGradient id="mx-fill-v2" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%"   stopColor="#4F46E5" stopOpacity="0.08" />
-              <stop offset="45%"  stopColor="#A78BFA" stopOpacity="0.05" />
-              <stop offset="100%" stopColor="#22D3EE" stopOpacity="0.08" />
+              <stop offset="0%"   stopColor="#4F46E5" stopOpacity="0.10" />
+              <stop offset="45%"  stopColor="#A78BFA" stopOpacity="0.08" />
+              <stop offset="100%" stopColor="#22D3EE" stopOpacity="0.10" />
             </linearGradient>
             <linearGradient id="mx-stroke-v2" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%"   stopColor="#4F46E5" stopOpacity="0.65" />
-              <stop offset="50%"  stopColor="#A78BFA" stopOpacity="0.50" />
-              <stop offset="100%" stopColor="#22D3EE" stopOpacity="0.65" />
+              <stop offset="0%"   stopColor="#4F46E5" stopOpacity="0.80" />
+              <stop offset="35%"  stopColor="#A78BFA" stopOpacity="0.70" />
+              <stop offset="65%"  stopColor="#FDA4AF" stopOpacity="0.65" />
+              <stop offset="100%" stopColor="#22D3EE" stopOpacity="0.80" />
             </linearGradient>
             <radialGradient id="cdmx-glow-v2" cx="50%" cy="50%" r="50%">
-              <stop offset="0%"   stopColor="#4F46E5" stopOpacity="0.40" />
+              <stop offset="0%"   stopColor="#4F46E5" stopOpacity="0.45" />
               <stop offset="100%" stopColor="#4F46E5" stopOpacity="0" />
             </radialGradient>
+            <radialGradient id="map-aura" cx="50%" cy="50%" r="70%">
+              <stop offset="0%"   stopColor="#A78BFA" stopOpacity="0.22" />
+              <stop offset="55%"  stopColor="#22D3EE" stopOpacity="0.12" />
+              <stop offset="100%" stopColor="#FDA4AF" stopOpacity="0" />
+            </radialGradient>
+            <filter id="map-glow" x="-30%" y="-30%" width="160%" height="160%">
+              <feGaussianBlur stdDeviation="6" result="blur" />
+              <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
             <pattern id="mx-grid" width="40" height="40" patternUnits="userSpaceOnUse">
               <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(10,10,10,0.025)" strokeWidth="1" />
             </pattern>
           </defs>
 
-          <rect width="1000" height="620" fill="url(#mx-grid)" />
+          <rect x="0" y="-10" width="1000" height="660" fill="url(#mx-grid)" />
+
+          {/* Aura multicolor detrás del país */}
+          <ellipse cx="500" cy="320" rx="450" ry="280" fill="url(#map-aura)" />
 
           {/* Silueta con relleno suave */}
-          <path d={mainland} fill="url(#mx-fill-v2)" />
-          <path d={baja}     fill="url(#mx-fill-v2)" />
+          <g filter="url(#map-glow)">
+            <path d={mainland} fill="url(#mx-fill-v2)" />
+            <path d={baja}     fill="url(#mx-fill-v2)" />
+          </g>
 
           {/* Contorno con stroke gradient y animación de "drawing" */}
-          <g fill="none" stroke="url(#mx-stroke-v2)" strokeWidth="1.8" strokeLinejoin="round" strokeLinecap="round">
+          <g fill="none" stroke="url(#mx-stroke-v2)" strokeWidth="2" strokeLinejoin="round" strokeLinecap="round">
             <path d={mainland} className="mx-state-draw" />
             <path d={baja}     className="mx-state-draw" style={{ animationDelay: '0.6s' }} />
           </g>
 
           {/* Líneas suaves CDMX → ciudades */}
-          <g stroke="#4F46E5" strokeWidth="0.6" strokeLinecap="round" strokeDasharray="3 6" opacity="0.30">
+          <g stroke="#4F46E5" strokeWidth="0.8" strokeLinecap="round" strokeDasharray="3 6" opacity="0.40">
             {cities.filter((c) => !c.primary).map((c) => (
               <line key={c.name} x1={cdmx.x} y1={cdmx.y} x2={c.x} y2={c.y} />
             ))}
@@ -2059,9 +1933,9 @@ function MexicoMap() {
           <g>
             {cities.filter((c) => !c.primary).map((c) => (
               <g key={c.name}>
-                <circle cx={c.x} cy={c.y} r="9" fill="#4F46E5" opacity="0.08" />
-                <circle cx={c.x} cy={c.y} r="3" fill="#4F46E5" opacity="0.60" />
-                <circle cx={c.x} cy={c.y} r="1.2" fill="#ffffff" />
+                <circle cx={c.x} cy={c.y} r="9" fill="#A78BFA" opacity="0.14" />
+                <circle cx={c.x} cy={c.y} r="3.5" fill="#4F46E5" opacity="0.75" />
+                <circle cx={c.x} cy={c.y} r="1.4" fill="#ffffff" />
                 <text
                   x={c.x}
                   y={c.y - 14}
@@ -2069,7 +1943,7 @@ function MexicoMap() {
                   fontSize="11"
                   fontWeight="500"
                   fontFamily="Geist, -apple-system, sans-serif"
-                  fill="rgba(10,10,10,0.55)"
+                  fill="rgba(10,10,10,0.65)"
                   letterSpacing="0.3"
                 >
                   {c.name}
@@ -2080,18 +1954,18 @@ function MexicoMap() {
 
           {/* CDMX destacado con halo + pulsos */}
           <g>
-            <circle cx={cdmx.x} cy={cdmx.y} r="52" fill="url(#cdmx-glow-v2)" />
-            <circle cx={cdmx.x} cy={cdmx.y} r="20" fill="none" stroke="#4F46E5" strokeWidth="1.4" className="mx-pulse" />
-            <circle cx={cdmx.x} cy={cdmx.y} r="20" fill="none" stroke="#4F46E5" strokeWidth="1.4" className="mx-pulse delay-1" />
-            <circle cx={cdmx.x} cy={cdmx.y} r="20" fill="none" stroke="#4F46E5" strokeWidth="1.4" className="mx-pulse delay-2" />
-            <circle cx={cdmx.x} cy={cdmx.y} r="14" fill="rgba(79,70,229,0.16)" />
-            <circle cx={cdmx.x} cy={cdmx.y} r="7"  fill="#4F46E5" />
-            <circle cx={cdmx.x} cy={cdmx.y} r="3"  fill="#ffffff" />
+            <circle cx={cdmx.x} cy={cdmx.y} r="58" fill="url(#cdmx-glow-v2)" />
+            <circle cx={cdmx.x} cy={cdmx.y} r="22" fill="none" stroke="#4F46E5" strokeWidth="1.6" className="mx-pulse" />
+            <circle cx={cdmx.x} cy={cdmx.y} r="22" fill="none" stroke="#4F46E5" strokeWidth="1.6" className="mx-pulse delay-1" />
+            <circle cx={cdmx.x} cy={cdmx.y} r="22" fill="none" stroke="#4F46E5" strokeWidth="1.6" className="mx-pulse delay-2" />
+            <circle cx={cdmx.x} cy={cdmx.y} r="16" fill="rgba(79,70,229,0.20)" />
+            <circle cx={cdmx.x} cy={cdmx.y} r="8"  fill="#4F46E5" />
+            <circle cx={cdmx.x} cy={cdmx.y} r="3.5"  fill="#ffffff" />
             <g>
-              <rect x={cdmx.x - 46} y={cdmx.y + 20} width="92" height="26" rx="13" fill="#0A0A0A" />
+              <rect x={cdmx.x - 48} y={cdmx.y + 22} width="96" height="28" rx="14" fill="#0A0A0A" />
               <text
                 x={cdmx.x}
-                y={cdmx.y + 37}
+                y={cdmx.y + 40}
                 textAnchor="middle"
                 fontSize="11"
                 fontWeight="600"
@@ -2106,10 +1980,10 @@ function MexicoMap() {
 
           {/* Etiqueta decorativa de marca */}
           <g>
-            <text x="40" y="600" fontSize="9" fontFamily="ui-monospace, SFMono-Regular, monospace" fill="rgba(10,10,10,0.30)" letterSpacing="0.18em">
+            <text x="40" y="630" fontSize="9" fontFamily="ui-monospace, SFMono-Regular, monospace" fill="rgba(10,10,10,0.30)" letterSpacing="0.18em">
               ANTUARIO · MX MMXXVI
             </text>
-            <text x="960" y="600" textAnchor="end" fontSize="9" fontFamily="ui-monospace, SFMono-Regular, monospace" fill="rgba(10,10,10,0.30)" letterSpacing="0.18em">
+            <text x="960" y="630" textAnchor="end" fontSize="9" fontFamily="ui-monospace, SFMono-Regular, monospace" fill="rgba(10,10,10,0.30)" letterSpacing="0.18em">
               COBERTURA NACIONAL
             </text>
           </g>
@@ -2166,10 +2040,6 @@ function CTASection() {
         <p className="mt-4 text-[11.5px] text-papel/40">
           Sin costo · Sin compromiso
         </p>
-
-        <div className="mt-9 flex items-center gap-4">
-          <span className="spectrum-bar" style={{ width: 80 }} />
-        </div>
       </div>
     </ShellWrap>
   )
@@ -2199,7 +2069,6 @@ function FloatingFooter() {
               resultado.
             </p>
             <div className="mt-6 flex items-center gap-3">
-              <span className="spectrum-bar" style={{ width: 64 }} />
               <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-papel/35">
                 Vol. 01 · MMXXVI
               </span>

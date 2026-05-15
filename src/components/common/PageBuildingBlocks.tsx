@@ -122,7 +122,18 @@ export function PageHero({
             }}
           />
 
-          <div className="relative z-10 grid items-center gap-12 lg:grid-cols-12 lg:gap-14">
+          <div className="relative z-10 grid items-center gap-10 lg:grid-cols-12 lg:gap-14">
+            {/* Mobile · Antuario mark animado (sólo visible < lg) */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+              className="relative mx-auto flex justify-center lg:hidden"
+            >
+              <HeroMarkMobile />
+            </motion.div>
+
             <div className="lg:col-span-7">
               <motion.span
                 initial="hidden"
@@ -213,6 +224,49 @@ export function PageHero({
         </div>
       </div>
     </section>
+  )
+}
+
+function HeroMarkMobile() {
+  return (
+    <div className="relative flex h-[200px] w-[200px] items-center justify-center sm:h-[240px] sm:w-[240px]">
+      {/* Aurora orbital — conic multicolor */}
+      <span
+        className="pointer-events-none absolute -inset-2 rounded-full opacity-60 blur-[28px] animate-aurora-drift"
+        style={{
+          background:
+            'conic-gradient(from 0deg at 50% 50%, rgba(129,140,248,0.55), rgba(196,181,253,0.45), rgba(253,164,175,0.50), rgba(252,211,77,0.35), rgba(110,231,183,0.45), rgba(103,232,249,0.55), rgba(129,140,248,0.55))',
+        }}
+        aria-hidden
+      />
+      <span
+        className="pointer-events-none absolute inset-3 rounded-full opacity-50 blur-[22px] animate-plasma"
+        style={{
+          background:
+            'radial-gradient(45% 50% at 30% 30%, rgba(167,139,250,0.55), transparent 60%), radial-gradient(40% 50% at 70% 80%, rgba(34,211,238,0.50), transparent 60%)',
+          backgroundSize: '220% 220%',
+        }}
+        aria-hidden
+      />
+      {/* Orb conic */}
+      <span
+        className="absolute h-[80px] w-[80px] rounded-full opacity-55 blur-md sm:h-[100px] sm:w-[100px]"
+        style={{
+          background:
+            'conic-gradient(from 0deg, #818CF8, #C4B5FD, #FDA4AF, #FCD34D, #6EE7B7, #67E8F9, #818CF8)',
+          animation: 'ai-orb-spin 12s linear infinite',
+        }}
+        aria-hidden
+      />
+      <div className="relative z-10 agency-core-breath">
+        <AntuarioMark
+          className="h-[80px] w-auto text-papel sm:h-[100px]"
+          style={{
+            filter: 'drop-shadow(0 6px 18px rgba(129,140,248,0.45))',
+          }}
+        />
+      </div>
+    </div>
   )
 }
 
@@ -409,10 +463,6 @@ export function CTASection({
         <p className="mt-4 text-[11.5px] text-papel/40">
           Sin costo · Sin compromiso
         </p>
-
-        <div className="mt-9 flex items-center gap-4">
-          <span className="spectrum-bar" style={{ width: 80 }} />
-        </div>
       </div>
     </ShellWrap>
   )

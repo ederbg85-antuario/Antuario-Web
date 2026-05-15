@@ -51,13 +51,13 @@ export const SERVICES: Record<string, ServiceData> = {
     highlight: 'posicionamiento orgánico medible.',
     metaTitle: 'Agencia SEO en México — posicionamiento orgánico medible',
     metaDescription:
-      'Agencia SEO en CDMX para empresas medianas y grandes. Auditoría técnica, estrategia de contenidos, autoridad de dominio y reportes mensuales con métricas reales.',
+      'Agencia SEO en CDMX con soluciones de marketing digital a la medida. Auditoría técnica, estrategia de contenidos, autoridad de dominio y reportes mensuales con métricas reales.',
     keyword: 'agencia SEO en México',
     tagline: 'Crecer en búsquedas, sin pagar por cada click.',
     description:
       'Diseñamos estrategias SEO para empresas que necesitan crecimiento orgánico sostenido en México. Auditoría técnica, contenido estratégico, link building y reportes de posiciones, tráfico cualificado y conversiones.',
     problem: {
-      headline: 'Por qué el SEO suele fallar en empresas medianas y grandes.',
+      headline: 'Por qué el SEO suele fallar en la mayoría de las empresas.',
       sub: 'No es por falta de presupuesto — es por falta de método.',
       points: [
         {
@@ -104,7 +104,7 @@ export const SERVICES: Record<string, ServiceData> = {
     faqs: [
       { q: '¿En cuánto tiempo veré resultados de SEO?', a: 'Los primeros movimientos en posiciones se ven entre 8 y 12 semanas. El tráfico cualificado y los leads orgánicos sostenidos llegan típicamente entre el mes 4 y el mes 6, y siguen creciendo a partir de ahí.' },
       { q: '¿Hacen SEO local para empresas en CDMX?', a: 'Sí. Optimizamos Google Business Profile, citas locales, schema LocalBusiness y contenido geo-segmentado para CDMX y otras plazas mexicanas.' },
-      { q: '¿Qué tipo de empresas trabajan mejor con su servicio SEO?', a: 'Medianas y grandes empresas con un sitio web ya productivo y un equipo interno de marketing. Especialmente B2B de servicios profesionales, industria y SaaS.' },
+      { q: '¿Qué tipo de empresas trabajan mejor con su servicio SEO?', a: 'Empresas con un sitio web ya productivo y un equipo interno de marketing. Especialmente B2B de servicios profesionales, industria y SaaS.' },
       { q: '¿El SEO requiere un mínimo de meses?', a: 'Recomendamos ciclos de 6 meses como mínimo porque los movimientos significativos toman tiempo. Renovamos por trimestre con métricas de continuidad.' },
       { q: '¿Cómo miden el éxito del SEO?', a: 'Posiciones por cluster, tráfico orgánico cualificado, leads/MQLs orgánicos, conversiones asistidas por canal orgánico y autoridad de dominio.' },
     ],
@@ -128,7 +128,7 @@ export const SERVICES: Record<string, ServiceData> = {
     keyword: 'agencia de Google Ads',
     tagline: 'Cada peso invertido tiene que regresar más caro.',
     description:
-      'Operamos campañas de performance en Google Ads, Meta y TikTok para medianas y grandes empresas mexicanas. Cada euro invertido se mide contra ROAS, CPA y CPL — sin medias tintas, sin métricas de vanidad.',
+      'Operamos campañas de performance en Google Ads, Meta y TikTok como parte de nuestras soluciones de marketing digital a la medida. Cada peso invertido se mide contra ROAS, CPA y CPL — sin medias tintas, sin métricas de vanidad.',
     problem: {
       headline: 'Por qué la mayoría de las cuentas de Ads no rinde.',
       sub: 'Tres errores que vemos una y otra vez en auditorías.',
@@ -349,7 +349,7 @@ export const SERVICES: Record<string, ServiceData> = {
     description:
       'Construimos identidades visuales y sistemas de diseño escalables para empresas que necesitan diferenciarse en mercados saturados. Branding, dirección de arte, packaging y piezas para campaña con coherencia editorial.',
     problem: {
-      headline: 'Por qué el branding falla en empresas medianas.',
+      headline: 'Por qué el branding falla en la mayoría de las empresas.',
       sub: 'Tres síntomas que vemos cuando una marca pierde su lenguaje.',
       points: [
         {

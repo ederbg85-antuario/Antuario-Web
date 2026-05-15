@@ -98,7 +98,7 @@ export default async function OGImage() {
                 lineHeight: 1.5,
               }}
             >
-              Soluciones a la medida para medianas y grandes empresas — con accountability, datos y estrategia bajo una sola dirección.
+              Soluciones de marketing digital a la medida — con accountability, datos y estrategia bajo una sola dirección.
             </span>
           </div>
           <span

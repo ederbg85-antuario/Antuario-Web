@@ -22,7 +22,7 @@ export function CasosContent() {
         eyebrow="Casos · Antuario · México"
         title="Marcas que ya confían en"
         highlight="nuestra agencia de marketing digital."
-        description="Casos de éxito de empresas medianas y grandes mexicanas que operan su marketing digital, desarrollo web y posicionamiento orgánico con Antuario. Cada proyecto es un sistema diseñado a la medida — no una plantilla."
+        description="Casos de éxito de empresas mexicanas que operan su marketing digital, desarrollo web y posicionamiento orgánico con Antuario. Soluciones de marketing digital a la medida — cada proyecto es un sistema, no una plantilla."
         keyword="casos de éxito · marketing digital"
         ctaSecondary={{ label: 'Ver servicios', href: '/servicios' }}
       />

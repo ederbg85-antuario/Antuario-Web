@@ -75,10 +75,12 @@ export function NosotrosContent() {
         eyebrow="Nosotros · Antuario · CDMX"
         title="Somos Antuario — una agencia de marketing digital"
         highlight="con visión estratégica."
-        description="Operamos como un equipo de marketing digital integrado para empresas medianas y grandes en México. Estrategia, ejecución y medición bajo una sola dirección — con accountability sobre cada compromiso."
+        description="Operamos como un equipo de marketing digital integrado para empresas en México. Diseñamos soluciones de marketing digital a la medida — estrategia, ejecución y medición bajo una sola dirección, con accountability sobre cada compromiso."
         keyword="agencia de marketing digital con visión estratégica"
         ctaSecondary={{ label: 'Ver nuestros servicios', href: '/servicios' }}
       />
+
+      <SharedCases />
 
       <ShellWrap data="light" variant="papel">
         <Breadcrumbs trail={[{ label: 'Inicio', href: '/' }, { label: 'Nosotros' }]} />
@@ -311,10 +313,9 @@ export function NosotrosContent() {
         </div>
       </ShellWrap>
 
-      {/* Shared sections — Diferenciadores · Medición · Casos · Cobertura */}
+      {/* Shared sections — Diferenciadores · Medición · Cobertura */}
       <SharedDifferentiators />
       <SharedData />
-      <SharedCases />
       <SharedCoverage />
 
       <CTASection

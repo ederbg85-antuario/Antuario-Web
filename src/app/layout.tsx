@@ -9,7 +9,7 @@ import './globals.css'
 export const metadata: Metadata = generatePageMetadata({
   title: 'Agencia de Marketing Digital en México',
   description:
-    'Antuario es una agencia de marketing digital en CDMX. Diseñamos soluciones a la medida para medianas y grandes empresas — con accountability, datos y estrategia bajo una sola dirección.',
+    'Antuario es una agencia de marketing digital en CDMX. Diseñamos soluciones de marketing digital a la medida — con accountability, datos y estrategia bajo una sola dirección.',
 })
 
 export const viewport: Viewport = {
@@ -25,7 +25,7 @@ const professionalServiceSchema = {
   name: 'Antuario',
   alternateName: 'Antuario Marketing Digital',
   description:
-    'Agencia de marketing digital en CDMX. Soluciones a la medida para medianas y grandes empresas.',
+    'Agencia de marketing digital en CDMX. Soluciones de marketing digital a la medida.',
   url: siteConfig.url,
   logo: `${siteConfig.url}/logos/logotype.svg`,
   image: `${siteConfig.url}/og-image.png`,

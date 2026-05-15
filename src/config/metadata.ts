@@ -19,7 +19,7 @@ export function generatePageMetadata({
     : `Agencia de Marketing Digital en México | ${siteConfig.name}`
   const fullDescription =
     description ??
-    'Antuario es una agencia de marketing digital en CDMX. Diseñamos soluciones a la medida para medianas y grandes empresas — con accountability, datos y estrategia bajo una sola dirección.'
+    'Antuario es una agencia de marketing digital en CDMX. Diseñamos soluciones de marketing digital a la medida — con accountability, datos y estrategia bajo una sola dirección.'
   const url = `${siteConfig.url}${path}`
 
   return {

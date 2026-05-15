@@ -7,7 +7,7 @@ import { NosotrosContent } from './NosotrosContent'
 export const metadata: Metadata = generatePageMetadata({
   title: 'Somos Antuario — agencia de marketing digital con visión estratégica',
   description:
-    'Antuario es una agencia de marketing digital con sede en CDMX. Conoce al equipo, la metodología y la filosofía detrás de cada proyecto que operamos para empresas medianas y grandes en México.',
+    'Antuario es una agencia de marketing digital con sede en CDMX. Conoce al equipo, la metodología y la filosofía detrás de cada proyecto. Soluciones de marketing digital a la medida.',
   path: '/nosotros',
 })
 
@@ -19,7 +19,7 @@ const organizationSchema = {
   url: siteConfig.url,
   logo: `${siteConfig.url}/logos/logotype.svg`,
   description:
-    'Agencia de marketing digital en CDMX. Soluciones a la medida para medianas y grandes empresas — con accountability, datos y estrategia bajo una sola dirección.',
+    'Agencia de marketing digital en CDMX. Soluciones de marketing digital a la medida — con accountability, datos y estrategia bajo una sola dirección.',
   email: siteConfig.email,
   telephone: siteConfig.phone,
   address: {

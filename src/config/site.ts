@@ -2,7 +2,7 @@ export const siteConfig = {
   name: 'Antuario',
   tagline: 'Agencia de Marketing Digital en CDMX y México',
   description:
-    'Antuario es una agencia de marketing digital en CDMX. Diseñamos soluciones a la medida para medianas y grandes empresas — con accountability, datos y estrategia bajo una sola dirección.',
+    'Antuario es una agencia de marketing digital en CDMX. Diseñamos soluciones de marketing digital a la medida — con accountability, datos y estrategia bajo una sola dirección.',
   url: process.env.NEXT_PUBLIC_SITE_URL ?? 'https://antuario.mx',
   email: 'hola@antuario.mx',
   phone: '+52 55 1192 7007',

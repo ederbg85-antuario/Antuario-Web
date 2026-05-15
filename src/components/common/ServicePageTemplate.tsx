@@ -42,6 +42,8 @@ export function ServicePageTemplate({ slug }: { slug: string }) {
         ctaSecondary={{ label: 'Ver casos relacionados', href: '/casos' }}
       />
 
+      <SharedCases />
+
       <ShellWrap data="light" variant="papel">
         <Breadcrumbs
           trail={[
@@ -329,11 +331,10 @@ export function ServicePageTemplate({ slug }: { slug: string }) {
         </div>
       </ShellWrap>
 
-      {/* Shared sections — Diferenciadores · Medición · Cobertura · Casos */}
+      {/* Shared sections — Diferenciadores · Medición · Cobertura */}
       <SharedDifferentiators />
       <SharedData />
       <SharedCoverage />
-      <SharedCases />
 
       <CTASection
         title={data.ctaTitle}

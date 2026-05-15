@@ -11,6 +11,7 @@ import {
   Breadcrumbs,
   rise,
 } from '@/components/common/PageBuildingBlocks'
+import { SharedCases } from '@/components/common/PageSharedSections'
 
 type SubmitState = 'idle' | 'sending' | 'sent' | 'error'
 
@@ -284,6 +285,8 @@ export function ContactoContent() {
           </div>
         </div>
       </section>
+
+      <SharedCases />
 
       <ShellWrap data="light" variant="papel">
         <Breadcrumbs trail={[{ label: 'Inicio', href: '/' }, { label: 'Contacto' }]} />

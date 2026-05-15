@@ -11,6 +11,7 @@ import {
   Breadcrumbs,
   rise,
 } from '@/components/common/PageBuildingBlocks'
+import { SharedCases } from '@/components/common/PageSharedSections'
 
 const clusters = [
   {
@@ -23,7 +24,7 @@ const clusters = [
       'Qué incluir en un brief para una agencia de marketing',
       'Cuánto cuesta una agencia de marketing digital en México',
       'In-house vs. agencia: cuándo conviene cada uno',
-      'ROI real del marketing digital en empresas medianas',
+      'ROI real del marketing digital con soluciones a la medida',
     ],
   },
   {
@@ -65,6 +66,8 @@ export function BlogContent() {
         keyword="blog · marketing digital · estrategia"
         ctaSecondary={{ label: 'Ver casos de éxito', href: '/casos' }}
       />
+
+      <SharedCases />
 
       <ShellWrap data="light" variant="papel">
         <Breadcrumbs trail={[{ label: 'Inicio', href: '/' }, { label: 'Blog' }]} />

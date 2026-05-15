@@ -13,6 +13,7 @@ import {
   Breadcrumbs,
   rise,
 } from '@/components/common/PageBuildingBlocks'
+import { SharedCases } from '@/components/common/PageSharedSections'
 import { ServiceIcon } from '@/components/common/ServiceIcon'
 import { SERVICE_LIST } from '@/lib/services-data'
 
@@ -45,7 +46,7 @@ const faqs = [
   },
   {
     q: '¿Son una agencia para empresas pequeñas?',
-    a: 'Trabajamos mejor con medianas y grandes empresas que ya tienen un equipo interno de marketing y necesitan un partner externo con accountability real. Si estás arrancando, podemos sumar valor pero no somos la opción más eficiente para presupuestos muy bajos.',
+    a: 'Trabajamos mejor con empresas que ya tienen un equipo interno de marketing y necesitan un partner externo con accountability real. Si estás arrancando, podemos sumar valor pero no somos la opción más eficiente para presupuestos muy bajos.',
   },
 ]
 
@@ -60,6 +61,8 @@ export function ServiciosContent() {
         keyword="servicios de marketing digital"
         ctaSecondary={{ label: 'Ver casos de éxito', href: '/casos' }}
       />
+
+      <SharedCases />
 
       <ShellWrap data="light" variant="papel">
         <Breadcrumbs trail={[{ label: 'Inicio', href: '/' }, { label: 'Servicios' }]} />
