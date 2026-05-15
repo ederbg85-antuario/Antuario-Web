@@ -1,8 +1,8 @@
 export const siteConfig = {
   name: 'Antuario',
-  tagline: 'Agencia de Generación de Demanda Digital',
+  tagline: 'Agencia de Marketing Digital en CDMX y México',
   description:
-    'Construimos y operamos tu sistema completo de captación digital: web, SEO, Google Ads, Dashboard y optimización continua. Para empresas de servicios B2B en México.',
+    'Antuario es una agencia de marketing digital en CDMX. Diseñamos soluciones a la medida para medianas y grandes empresas — con accountability, datos y estrategia bajo una sola dirección.',
   url: process.env.NEXT_PUBLIC_SITE_URL ?? 'https://antuario.mx',
   email: 'hola@antuario.mx',
   phone: '+52 55 1192 7007',

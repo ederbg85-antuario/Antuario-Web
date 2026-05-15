@@ -848,4 +848,33 @@
   /* Compatibilidad con clases legacy aún usadas en otras páginas */
   .gradient-anim { @apply multi-grad; }
   .gradient-anim-bright { @apply multi-grad-bright; }
+
+  /* AI cursor — parpadeo tipo Apple Intelligence */
+  .ai-cursor {
+    animation: aiCursorBlink 1.05s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+    border-radius: 1px;
+  }
+  @keyframes aiCursorBlink {
+    0%, 45%   { opacity: 1; transform: scaleY(1); }
+    55%, 100% { opacity: 0; transform: scaleY(0.6); }
+  }
+  @keyframes aiCursorPulse {
+    0%, 100% { transform: scale(1); filter: brightness(1); }
+    50%      { transform: scale(1.18); filter: brightness(1.25); }
+  }
+
+  /* Drawing animation for the redesigned Mexico map */
+  .mx-state-draw {
+    stroke-dasharray: 1600;
+    stroke-dashoffset: 1600;
+    animation: mxStateDraw 2.6s cubic-bezier(0.22, 1, 0.36, 1) 0.2s forwards;
+  }
+  @keyframes mxStateDraw {
+    to { stroke-dashoffset: 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ai-cursor { animation: none; opacity: 1; }
+    .mx-state-draw { animation: none; stroke-dashoffset: 0; }
+  }
 }
