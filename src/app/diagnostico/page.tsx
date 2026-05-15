@@ -127,7 +127,7 @@ export default function DiagnosticoPage() {
               Esto NO es un pitch de ventas
             </h2>
             <p className="text-lg text-slate-600 mb-6 leading-relaxed">
-              Sabemos que probablemente ya recibiste muchas "auditorías gratis" que terminan siendo un pitch agresivo. La nuestra es diferente.
+              Sabemos que probablemente ya recibiste muchas &ldquo;auditorías gratis&rdquo; que terminan siendo un pitch agresivo. La nuestra es diferente.
             </p>
             <p className="text-lg text-slate-600 mb-6 leading-relaxed">
               Lo que vas a recibir es un análisis real, hecho por nuestros especialistas. Vamos a identificar exactamente qué está funcionando y qué no. Te vamos a dar recomendaciones concretas que puedas implementar.

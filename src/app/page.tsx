@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   ArrowRight,
@@ -1410,12 +1411,13 @@ function DashboardImage() {
           </div>
         </div>
 
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <Image
           src="/dashboard-marketing-digital-antuario.jpg"
           alt="Dashboard de marketing digital a la medida construido por Antuario para empresas en CDMX y toda la República Mexicana."
+          width={1600}
+          height={888}
+          priority
           className="block h-auto w-full select-none"
-          loading="lazy"
           draggable={false}
         />
       </div>

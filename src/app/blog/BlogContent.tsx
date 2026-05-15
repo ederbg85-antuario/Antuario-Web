@@ -158,7 +158,7 @@ export function BlogContent() {
           <a href="mailto:hola@antuario.mx" className="text-onyx underline">
             hola@antuario.mx
           </a>{' '}
-          con el asunto "Blog Antuario".
+          con el asunto &ldquo;Blog Antuario&rdquo;.
         </p>
       </ShellWrap>
 

@@ -460,17 +460,17 @@ function AISection() {
               <div className="space-y-4 text-left">
                 <div className="text-[13px] italic text-slate-600">
                   <p className="mb-2">¿Cómo va mi pipeline este mes?</p>
-                  <p className="mb-4 text-slate-400">La IA analiza tus datos y responde: "Tienes 247 prospectos nuevos, 12% más que el mes pasado. Tu tasa de conversión bajó de 8% a 6.8%, principalmente en la etapa de cotización..."</p>
+                  <p className="mb-4 text-slate-400">La IA analiza tus datos y responde: &ldquo;Tienes 247 prospectos nuevos, 12% más que el mes pasado. Tu tasa de conversión bajó de 8% a 6.8%, principalmente en la etapa de cotización...&rdquo;</p>
                 </div>
 
                 <div className="text-[13px] italic text-slate-600">
                   <p className="mb-2">¿Qué canal está trayendo el mejor CAC?</p>
-                  <p className="mb-4 text-slate-400">La IA responde en segundos: "Google Ads está en $120 por cliente, Meta en $95. Pero esos clientes de Meta tienen 30% menos valor de ciclo de vida..."</p>
+                  <p className="mb-4 text-slate-400">La IA responde en segundos: &ldquo;Google Ads está en $120 por cliente, Meta en $95. Pero esos clientes de Meta tienen 30% menos valor de ciclo de vida...&rdquo;</p>
                 </div>
 
                 <div className="text-[13px] italic text-slate-600">
                   <p className="mb-2">¿Qué me falta para alcanzar mi objetivo del mes?</p>
-                  <p className="text-slate-400">La IA entiende tu objetivo y te dice exactamente qué necesitas: "Necesitas cerrar 8 deals más de $50k para llegar a tu meta. Con tu velocidad actual, lo logras en 5 días..."</p>
+                  <p className="text-slate-400">La IA entiende tu objetivo y te dice exactamente qué necesitas: &ldquo;Necesitas cerrar 8 deals más de $50k para llegar a tu meta. Con tu velocidad actual, lo logras en 5 días...&rdquo;</p>
                 </div>
               </div>
             </div>

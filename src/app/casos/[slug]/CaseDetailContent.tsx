@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { ArrowRight, ArrowUpRight } from 'lucide-react'
@@ -96,13 +97,14 @@ export function CaseDetailContent({ slug }: { slug: string }) {
                   '0 2px 4px rgba(15,15,30,0.08), 0 24px 50px rgba(15,15,30,0.12)',
               }}
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src={c.imageSrc}
                 alt={c.imageAlt}
+                width={1200}
+                height={1500}
+                priority
                 draggable={false}
                 className="aspect-[4/5] w-full object-cover"
-                loading="lazy"
               />
             </div>
           </motion.div>
@@ -270,13 +272,14 @@ export function CaseDetailContent({ slug }: { slug: string }) {
                     '0 2px 4px rgba(15,15,30,0.08), 0 18px 36px rgba(15,15,30,0.10)',
                 }}
               >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+                <Image
                   src={rc.imageSrc}
                   alt={rc.imageAlt}
+                  width={1200}
+                  height={1500}
                   draggable={false}
                   className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-                  loading="lazy"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 />
                 <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent p-5 sm:p-6">
                   <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-papel/65">
