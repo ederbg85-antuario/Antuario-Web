@@ -863,6 +863,28 @@
     50%      { transform: scale(1.18); filter: brightness(1.25); }
   }
 
+  /* Form fields para /contacto sobre fondos oscuros */
+  .contact-field {
+    width: 100%;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.10);
+    border-radius: 12px;
+    color: var(--papel);
+    padding: 11px 14px;
+    font-size: 13.5px;
+    transition: border-color 0.25s ease, background 0.25s ease;
+    outline: none;
+  }
+  .contact-field::placeholder { color: rgba(255,255,255,0.30); }
+  .contact-field:focus {
+    border-color: rgba(129,140,248,0.55);
+    background: rgba(255,255,255,0.07);
+  }
+  .contact-field option {
+    background: var(--carbon);
+    color: var(--papel);
+  }
+
   /* Drawing animation for the redesigned Mexico map */
   .mx-state-draw {
     stroke-dasharray: 1600;
