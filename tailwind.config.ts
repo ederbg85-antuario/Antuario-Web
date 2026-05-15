@@ -85,11 +85,11 @@ const config: Config = {
         '3xl': '48px',
       },
       boxShadow: {
-        /* Sombras brandbook — suaves, nunca duras */
-        soft:     '0 1px 2px rgba(15,15,30,0.06), 0 4px 10px rgba(15,15,30,0.06)',
-        card:     '0 2px 4px rgba(15,15,30,0.08), 0 8px 18px rgba(15,15,30,0.08)',
-        elevated: '0 3px 6px rgba(15,15,30,0.10), 0 14px 26px rgba(15,15,30,0.10)',
-        floating: '0 5px 10px rgba(15,15,30,0.14), 0 18px 30px rgba(15,15,30,0.14)',
+        /* Sombras brandbook v2 — más presencia, contenedores que se distinguen */
+        soft:     'inset 0 0 0 1px rgba(15,15,30,0.04), 0 1px 3px rgba(15,15,30,0.06), 0 6px 16px rgba(15,15,30,0.08)',
+        card:     'inset 0 0 0 1px rgba(15,15,30,0.04), 0 2px 6px rgba(15,15,30,0.10), 0 10px 24px rgba(15,15,30,0.12)',
+        elevated: 'inset 0 0 0 1px rgba(15,15,30,0.05), 0 3px 8px rgba(15,15,30,0.14), 0 18px 36px rgba(15,15,30,0.16)',
+        floating: 'inset 0 0 0 1px rgba(15,15,30,0.06), 0 5px 12px rgba(15,15,30,0.16), 0 24px 48px rgba(15,15,30,0.18)',
         wa:       '0 8px 32px rgba(37,211,102,0.40), 0 2px 8px rgba(37,211,102,0.20)',
       },
       animation: {
@@ -98,8 +98,8 @@ const config: Config = {
         'wa-ring':       'waRing 2.6s cubic-bezier(0.22, 1, 0.36, 1) infinite',
         'subtle-pulse':  'subtlePulse 3.2s ease-in-out infinite',
         'marquee':       'marquee 36s linear infinite',
-        'plasma':        'plasmaFlow 38s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite',
-        'aurora-drift':  'auroraDrift 28s ease-in-out infinite',
+        'plasma':        'plasmaFlow 14s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite',
+        'aurora-drift':  'auroraDrift 22s ease-in-out infinite',
       },
       keyframes: {
         fadeIn: {

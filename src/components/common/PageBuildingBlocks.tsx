@@ -140,7 +140,7 @@ export function PageHero({
                 whileInView="show"
                 viewport={{ once: true }}
                 variants={rise}
-                className="display mt-5 max-w-[20ch] text-balance text-[36px] leading-[1.04] text-papel sm:text-[50px] lg:text-[60px]"
+                className="display mt-5 max-w-[22ch] text-balance text-[32px] leading-[1.04] text-papel sm:text-[44px] lg:text-[52px]"
               >
                 {title}{' '}
                 <span className="multi-grad-bright">{highlight}</span>
@@ -218,17 +218,98 @@ export function PageHero({
 
 function HeroMark() {
   return (
-    <div className="relative mx-auto flex h-[360px] w-full max-w-[400px] items-center justify-center sm:h-[420px]">
-      <div
-        className="pointer-events-none absolute -inset-8 rounded-[64px] opacity-70 blur-[60px]"
+    <div className="relative mx-auto flex h-[400px] w-full max-w-[440px] items-center justify-center sm:h-[480px]">
+      {/* Aurora orbital — conic multicolor que rota lento */}
+      <span
+        className="pointer-events-none absolute -inset-4 rounded-full opacity-65 blur-[55px] animate-aurora-drift"
         style={{
           background:
-            'radial-gradient(45% 50% at 60% 30%, rgba(167,139,250,0.40), transparent 60%), radial-gradient(40% 50% at 20% 80%, rgba(34,211,238,0.30), transparent 60%), radial-gradient(35% 40% at 80% 75%, rgba(251,113,133,0.22), transparent 60%)',
+            'conic-gradient(from 0deg at 50% 50%, rgba(129,140,248,0.55), rgba(196,181,253,0.45), rgba(253,164,175,0.50), rgba(252,211,77,0.35), rgba(110,231,183,0.45), rgba(103,232,249,0.55), rgba(129,140,248,0.55))',
         }}
         aria-hidden
       />
-      <span className="ai-orb absolute inset-12 rounded-full opacity-30 sm:inset-14" aria-hidden />
-      <AntuarioMark className="relative h-[160px] w-auto text-papel sm:h-[200px]" />
+
+      {/* Plasma layer detrás — anima rapido (heredando 14s plasma) */}
+      <span
+        className="pointer-events-none absolute inset-6 rounded-full opacity-50 blur-[40px] animate-plasma"
+        style={{
+          background:
+            'radial-gradient(45% 50% at 30% 30%, rgba(167,139,250,0.6), transparent 60%), radial-gradient(40% 50% at 70% 80%, rgba(34,211,238,0.5), transparent 60%), radial-gradient(35% 40% at 80% 30%, rgba(251,113,133,0.4), transparent 60%)',
+          backgroundSize: '220% 220%',
+        }}
+        aria-hidden
+      />
+
+      {/* Ring dashed rotando — like agency-ring-dashed */}
+      <svg
+        className="absolute h-[300px] w-[300px] animate-[ringDash_36s_linear_infinite] sm:h-[360px] sm:w-[360px]"
+        viewBox="0 0 200 200"
+        aria-hidden
+      >
+        <defs>
+          <linearGradient id="hero-mark-ring" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%"   stopColor="#C4B5FD" stopOpacity="0.45" />
+            <stop offset="50%"  stopColor="#FDA4AF" stopOpacity="0.35" />
+            <stop offset="100%" stopColor="#67E8F9" stopOpacity="0.45" />
+          </linearGradient>
+        </defs>
+        <circle
+          cx="100"
+          cy="100"
+          r="98"
+          fill="none"
+          stroke="url(#hero-mark-ring)"
+          strokeWidth="1"
+          strokeDasharray="2 8"
+        />
+      </svg>
+
+      {/* Pulsos cobalto-bright concentrico */}
+      <span
+        className="absolute h-[180px] w-[180px] rounded-full sm:h-[220px] sm:w-[220px]"
+        style={{
+          boxShadow: 'inset 0 0 0 1px rgba(196,181,253,0.18), 0 0 80px rgba(196,181,253,0.10)',
+        }}
+        aria-hidden
+      />
+
+      {/* Orb conic (ai-orb) en escala grande */}
+      <span
+        className="absolute h-[140px] w-[140px] rounded-full opacity-55 blur-md sm:h-[170px] sm:w-[170px]"
+        style={{
+          background:
+            'conic-gradient(from 0deg, #818CF8, #C4B5FD, #FDA4AF, #FCD34D, #6EE7B7, #67E8F9, #818CF8)',
+          animation: 'ai-orb-spin 12s linear infinite',
+        }}
+        aria-hidden
+      />
+
+      {/* Halo central que respira */}
+      <span
+        className="absolute h-[140px] w-[140px] rounded-full sm:h-[170px] sm:w-[170px]"
+        style={{
+          background:
+            'radial-gradient(circle, rgba(255,255,255,0.18) 0%, transparent 70%)',
+          animation: 'agency-core-pulse 4s ease-in-out infinite',
+        }}
+        aria-hidden
+      />
+
+      {/* Isotipo central — respira sutilmente */}
+      <div className="relative z-10 agency-core-breath">
+        <AntuarioMark
+          className="h-[150px] w-auto text-papel sm:h-[190px]"
+          style={{
+            filter: 'drop-shadow(0 8px 24px rgba(129,140,248,0.45))',
+          }}
+        />
+      </div>
+
+      <style jsx>{`
+        @keyframes ringDash {
+          to { transform: rotate(360deg); }
+        }
+      `}</style>
     </div>
   )
 }

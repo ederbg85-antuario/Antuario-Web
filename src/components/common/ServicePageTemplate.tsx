@@ -15,6 +15,12 @@ import {
   Breadcrumbs,
   rise,
 } from '@/components/common/PageBuildingBlocks'
+import {
+  SharedDifferentiators,
+  SharedData,
+  SharedCoverage,
+  SharedCases,
+} from '@/components/common/PageSharedSections'
 import type { ServiceData } from '@/lib/services-data'
 import { SERVICES, SERVICE_LIST } from '@/lib/services-data'
 
@@ -322,6 +328,12 @@ export function ServicePageTemplate({ slug }: { slug: string }) {
           ))}
         </div>
       </ShellWrap>
+
+      {/* Shared sections — Diferenciadores · Medición · Cobertura · Casos */}
+      <SharedDifferentiators />
+      <SharedData />
+      <SharedCoverage />
+      <SharedCases />
 
       <CTASection
         title={data.ctaTitle}

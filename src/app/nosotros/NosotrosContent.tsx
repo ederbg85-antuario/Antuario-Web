@@ -11,6 +11,12 @@ import {
   Breadcrumbs,
   rise,
 } from '@/components/common/PageBuildingBlocks'
+import {
+  SharedDifferentiators,
+  SharedData,
+  SharedCoverage,
+  SharedCases,
+} from '@/components/common/PageSharedSections'
 
 const principles = [
   {
@@ -305,99 +311,11 @@ export function NosotrosContent() {
         </div>
       </ShellWrap>
 
-      <ShellWrap data="light" variant="papel">
-        <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
-          <motion.div
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true }}
-            variants={rise}
-            className="lg:col-span-7"
-          >
-            <ChapterTag roman="V" label="Oficinas" sub="Dónde estamos" />
-            <h2
-              className="hero-type mt-5 max-w-[22ch] text-[28px] text-onyx sm:text-[38px] lg:text-[44px]"
-              style={{ fontWeight: 300 }}
-            >
-              Oficinas en CDMX,{' '}
-              <span className="multi-grad">operación en toda la República.</span>
-            </h2>
-            <p className="lead-type mt-5 max-w-[52ch] text-[15px] sm:text-[16px]">
-              Trabajamos desde Ciudad de México y atendemos proyectos en
-              Guadalajara, Monterrey, Mérida, Querétaro, Puebla, León,
-              Tijuana y cualquier estado de la República. Para clientes en
-              CDMX y zona metropolitana, también ofrecemos sesiones de
-              trabajo presencial cuando el proyecto lo requiere.
-            </p>
-
-            <div className="mt-7 grid grid-cols-3 gap-3">
-              {[
-                { label: 'Sede', value: 'CDMX · México' },
-                { label: 'Cobertura', value: 'Nacional + LATAM' },
-                { label: 'Modalidad', value: 'Remoto + presencial' },
-              ].map((s) => (
-                <div key={s.label} className="card-bb-soft p-4">
-                  <span className="font-mono text-[9.5px] uppercase tracking-[0.22em] text-plomo">
-                    {s.label}
-                  </span>
-                  <p
-                    className="mt-1.5 text-[13px] font-medium text-onyx"
-                    style={{ letterSpacing: '-0.014em' }}
-                  >
-                    {s.value}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, scale: 0.96 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="lg:col-span-5"
-          >
-            <div
-              className="card-bb-float relative overflow-hidden p-6 sm:p-8"
-              style={{
-                background:
-                  'linear-gradient(135deg, rgba(79,70,229,0.06), rgba(34,211,238,0.04) 60%, rgba(167,139,250,0.06))',
-              }}
-            >
-              <span
-                aria-hidden
-                className="pointer-events-none absolute -right-12 -top-12 h-44 w-44 rounded-full opacity-30 blur-3xl"
-                style={{ background: 'var(--cobalto)' }}
-              />
-              <div className="relative">
-                <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-plomo">
-                  Antuario · Sede
-                </span>
-                <h3
-                  className="mt-3 text-[24px] font-light tracking-tight text-onyx sm:text-[28px]"
-                  style={{ letterSpacing: '-0.024em' }}
-                >
-                  Ciudad de México
-                </h3>
-                <p className="mt-2 text-[13.5px] text-grafito">
-                  Por agendar visitas a oficina, escríbenos a {' '}
-                  <a href={`mailto:hola@antuario.mx`} className="underline">
-                    hola@antuario.mx
-                  </a>
-                  .
-                </p>
-                <div className="mt-6 flex items-center gap-3">
-                  <span className="spectrum-bar" style={{ width: 56 }} />
-                  <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-plomo">
-                    Vol. 01 · MMXXVI
-                  </span>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </ShellWrap>
+      {/* Shared sections — Diferenciadores · Medición · Casos · Cobertura */}
+      <SharedDifferentiators />
+      <SharedData />
+      <SharedCases />
+      <SharedCoverage />
 
       <CTASection
         title="¿Quieres conocer al equipo"

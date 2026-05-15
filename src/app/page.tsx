@@ -192,7 +192,7 @@ function FloatingHeader({
     <header className="pointer-events-none fixed inset-x-0 top-3 z-50 sm:top-4">
       <div className="pointer-events-auto mx-auto w-full max-w-[1440px] px-[clamp(10px,2.4vw,24px)]">
         <div
-          className={`flex items-center justify-between rounded-full px-4 py-2.5 transition-all duration-700 ease-out sm:px-5 sm:py-3 ${
+          className={`flex items-center justify-between rounded-full px-4 py-3 transition-all duration-700 ease-out sm:px-5 sm:py-3.5 ${
             useSolidOnyx
               ? 'bg-onyx text-papel'
               : isDark
@@ -202,15 +202,15 @@ function FloatingHeader({
         >
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="relative flex h-8 items-center overflow-visible sm:h-9"
+            className="relative flex h-9 items-center overflow-visible sm:h-10"
             style={{
-              width: showLogotype ? 168 : 34,
+              width: showLogotype ? 192 : 38,
               transition: 'width 0.75s cubic-bezier(0.22, 1, 0.36, 1)',
             }}
             aria-label="Antuario · Ir al inicio"
           >
             <AntuarioLogotype
-              className="absolute left-0 top-1/2 h-[22px] w-auto -translate-y-1/2 sm:h-[26px]"
+              className="absolute left-0 top-1/2 h-[26px] w-auto -translate-y-1/2 sm:h-[30px]"
               dark={isDark}
               style={{
                 opacity: showLogotype ? 1 : 0,
@@ -220,7 +220,7 @@ function FloatingHeader({
               }}
             />
             <AntuarioMark
-              className="absolute left-0 top-1/2 h-[26px] w-auto -translate-y-1/2 sm:h-[30px]"
+              className="absolute left-0 top-1/2 h-[30px] w-auto -translate-y-1/2 sm:h-[34px]"
               style={{
                 color: isDark ? 'var(--papel)' : 'var(--onyx)',
                 opacity: showLogotype ? 0 : 1,
@@ -236,7 +236,7 @@ function FloatingHeader({
               href={siteConfig.whatsapp}
               target="_blank"
               rel="noopener noreferrer"
-              className={`hidden items-center gap-1.5 rounded-full px-4 py-1.5 text-[12.5px] font-medium transition-colors sm:inline-flex ${
+              className={`hidden items-center gap-1.5 rounded-full px-4 py-2 text-[12.5px] font-medium transition-colors sm:inline-flex ${
                 isDark
                   ? 'bg-papel/10 text-papel hover:bg-papel/16'
                   : 'bg-onyx text-papel hover:bg-grafito'
@@ -248,7 +248,7 @@ function FloatingHeader({
             <button
               onClick={onOpenMenu}
               aria-label="Abrir menú"
-              className={`flex h-9 w-9 items-center justify-center rounded-full transition-colors ${
+              className={`flex h-10 w-10 items-center justify-center rounded-full transition-colors ${
                 isDark
                   ? 'bg-papel/10 text-papel hover:bg-papel/16'
                   : 'text-onyx'
@@ -483,10 +483,10 @@ function HeroSection() {
             whileInView="show"
             viewport={{ once: true }}
             variants={rise}
-            className="display mt-5 max-w-[18ch] text-balance text-[38px] leading-[1.02] text-papel sm:text-[54px] lg:text-[66px]"
+            className="display mt-5 max-w-[14ch] text-balance text-[36px] leading-[1.02] text-papel sm:text-[52px] lg:text-[62px]"
           >
-            Agencia de Marketing Digital{' '}
-            <span className="multi-grad-bright">a la medida</span> — en CDMX y todo México.
+            Agencia de{' '}
+            <span className="multi-grad-bright">marketing digital</span>.
           </motion.h1>
 
           <motion.p
@@ -582,61 +582,78 @@ function HeroSection() {
 
 function HeroDeck() {
   return (
-    <div className="relative mx-auto h-[420px] w-full max-w-[540px] sm:h-[500px]">
+    <div className="relative mx-auto h-[440px] w-full max-w-[540px] sm:h-[520px]">
       <div
-        className="pointer-events-none absolute -inset-8 -z-10 rounded-[64px] opacity-65"
+        className="pointer-events-none absolute -inset-8 -z-10 rounded-[64px] opacity-75 animate-plasma"
         style={{
           background:
-            'radial-gradient(45% 50% at 60% 30%, rgba(167,139,250,0.32), transparent 60%), radial-gradient(40% 50% at 20% 80%, rgba(34,211,238,0.26), transparent 60%), radial-gradient(35% 40% at 80% 75%, rgba(251,113,133,0.18), transparent 60%)',
-          filter: 'blur(50px)',
+            'conic-gradient(from 90deg at 50% 50%, rgba(167,139,250,0.40), rgba(251,113,133,0.34), rgba(245,158,11,0.28), rgba(52,211,153,0.30), rgba(34,211,238,0.40), rgba(79,70,229,0.40), rgba(167,139,250,0.40))',
+          backgroundSize: '260% 260%',
+          filter: 'blur(60px)',
         }}
         aria-hidden
       />
 
-      {/* Card 3 — atrás */}
-      <div className="absolute right-0 top-0 w-[78%]" style={{ transform: 'rotate(3deg)' }}>
+      {/* Card 3 — atrás · Posicionamiento de marca */}
+      <div className="absolute right-0 top-0 w-[80%]" style={{ transform: 'rotate(3deg)' }}>
         <div className="card-bb-glass p-5 sm:p-6">
           <div className="flex items-center justify-between">
-            <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-papel/45">
-              03 · Conversión
+            <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-papel/55">
+              03 · Posicionamiento de marca
             </span>
             <span className="h-1.5 w-1.5 rounded-full bg-salvia-b shadow-[0_0_10px_rgba(110,231,183,0.7)]" />
           </div>
           <h3
-            className="mt-3 text-[15px] font-medium tracking-tight text-papel sm:text-[16px]"
+            className="mt-3 text-[15px] font-medium tracking-tight text-papel sm:text-[16.5px]"
             style={{ letterSpacing: '-0.014em' }}
           >
-            CRM con accountability
+            SEO orgánico medible.
           </h3>
-          <div className="mt-4 flex items-center gap-2">
-            <div className="h-1 flex-1 rounded-full bg-papel/8">
-              <div className="h-full w-[72%] rounded-full bg-salvia-b" />
-            </div>
-            <span className="font-mono text-[10px] text-papel/55">72%</span>
+          <div className="mt-4 grid grid-cols-3 gap-3">
+            {[
+              { l: 'Keywords top 10', v: '37' },
+              { l: 'Tráfico org.', v: '+312%' },
+              { l: 'Autoridad', v: '+24' },
+            ].map((m) => (
+              <div key={m.l}>
+                <span className="font-mono text-[8.5px] uppercase tracking-[0.18em] text-papel/40">
+                  {m.l}
+                </span>
+                <p
+                  className="mt-1 text-[15px] font-light tracking-tight text-papel"
+                  style={{ letterSpacing: '-0.022em' }}
+                >
+                  {m.v}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </div>
 
-      {/* Card 2 — medio */}
-      <div className="absolute left-0 top-[112px] w-[78%]" style={{ transform: 'rotate(-2deg)' }}>
+      {/* Card 2 — medio · Adquisición de clientes */}
+      <div className="absolute left-0 top-[120px] w-[80%]" style={{ transform: 'rotate(-2deg)' }}>
         <div
           className="rounded-[24px] bg-onyx p-5 sm:p-6"
           style={{
             boxShadow:
-              'inset 0 1px 0 rgba(255,255,255,0.06), 0 20px 44px rgba(0,0,0,0.55), 0 4px 10px rgba(0,0,0,0.40)',
+              'inset 0 1px 0 rgba(255,255,255,0.08), inset 0 0 0 1px rgba(255,255,255,0.06), 0 22px 48px rgba(0,0,0,0.55), 0 4px 12px rgba(0,0,0,0.40)',
           }}
         >
           <div className="flex items-center justify-between">
-            <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-papel/45">
-              02 · Adquisición
+            <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-papel/55">
+              02 · Adquisición de clientes
             </span>
-            <span className="font-mono text-[10px] text-papel/45">+4.2×</span>
+            <span className="inline-flex items-center gap-1.5">
+              <span className="font-mono text-[10px] text-cobalto-b">ROAS</span>
+              <span className="font-mono text-[10px] font-medium text-papel">4.8×</span>
+            </span>
           </div>
           <h3
-            className="mt-3 text-[15px] font-medium tracking-tight text-papel sm:text-[16px]"
+            className="mt-3 text-[15px] font-medium tracking-tight text-papel sm:text-[16.5px]"
             style={{ letterSpacing: '-0.014em' }}
           >
-            Leads que cierran
+            Performance Ads que escala.
           </h3>
           <div className="mt-5 flex items-end gap-1.5">
             {[14, 22, 30, 26, 38, 50, 44, 62].map((h, i) => (
@@ -649,53 +666,65 @@ function HeroDeck() {
                     i === 7
                       ? 'var(--cobalto-b)'
                       : `rgba(129, 140, 248, ${0.18 + i * 0.06})`,
+                  boxShadow: i === 7 ? '0 0 12px rgba(129,140,248,0.6)' : 'none',
                 }}
               />
             ))}
           </div>
+          <div className="mt-3 flex items-center justify-between">
+            <span className="font-mono text-[9px] uppercase tracking-[0.18em] text-papel/40">
+              CPL · 8 semanas
+            </span>
+            <span className="font-mono text-[9px] text-salvia-b">-44%</span>
+          </div>
         </div>
       </div>
 
-      {/* Card 1 — frente */}
-      <div className="absolute right-[4%] top-[230px] w-[84%]" style={{ transform: 'rotate(1deg)' }}>
+      {/* Card 1 — frente · Soluciones a la medida */}
+      <div className="absolute right-[4%] top-[248px] w-[86%]" style={{ transform: 'rotate(1deg)' }}>
         <div
           className="rounded-[24px] bg-papel p-5 text-onyx sm:p-7"
           style={{
             boxShadow:
-              '0 2px 4px rgba(15,15,30,0.10), 0 30px 64px rgba(0,0,0,0.55), 0 6px 14px rgba(0,0,0,0.30)',
+              'inset 0 0 0 1px rgba(15,15,30,0.05), 0 4px 8px rgba(15,15,30,0.12), 0 32px 70px rgba(0,0,0,0.55), 0 8px 18px rgba(0,0,0,0.30)',
           }}
         >
           <div className="flex items-center justify-between">
             <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-plomo">
-              01 · Posicionamiento
+              01 · Soluciones a la medida
             </span>
             <span className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-salvia">
               <span className="pulse-live h-1.5 w-1.5 rounded-full bg-salvia" />
               Live
             </span>
           </div>
-          <div className="mt-4 grid grid-cols-2 gap-5">
-            <div>
-              <span className="micro">MRR trimestre</span>
-              <p
-                className="mt-1 text-[26px] font-light tracking-tight text-onyx sm:text-[28px]"
-                style={{ letterSpacing: '-0.028em' }}
+          <h3
+            className="mt-3 text-[18px] font-medium tracking-tight text-onyx sm:text-[20px]"
+            style={{ letterSpacing: '-0.020em' }}
+          >
+            Un sistema, siete oficios.
+          </h3>
+          <ul className="mt-4 grid grid-cols-2 gap-x-3 gap-y-2">
+            {[
+              { color: 'var(--cobalto)', t: 'SEO' },
+              { color: 'var(--glicina)', t: 'Performance Ads' },
+              { color: 'var(--rubor)',   t: 'Desarrollo Web' },
+              { color: 'var(--nectar)',  t: 'Redes Sociales' },
+              { color: 'var(--salvia)',  t: 'Diseño Creativo' },
+              { color: 'var(--laguna)',  t: 'IA aplicada' },
+            ].map((it) => (
+              <li
+                key={it.t}
+                className="flex items-center gap-2 text-[12.5px] font-medium text-grafito"
               >
-                $112k
-              </p>
-              <span className="text-[11px] font-medium text-salvia">+133%</span>
-            </div>
-            <div>
-              <span className="micro">CPA</span>
-              <p
-                className="mt-1 text-[26px] font-light tracking-tight text-onyx sm:text-[28px]"
-                style={{ letterSpacing: '-0.028em' }}
-              >
-                $48
-              </p>
-              <span className="text-[11px] font-medium text-cobalto">-38%</span>
-            </div>
-          </div>
+                <span
+                  className="h-1.5 w-1.5 flex-shrink-0 rounded-full"
+                  style={{ background: it.color, boxShadow: `0 0 8px ${it.color}` }}
+                />
+                {it.t}
+              </li>
+            ))}
+          </ul>
           <div className="spectrum-bar mt-5" />
         </div>
       </div>

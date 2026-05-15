@@ -83,7 +83,7 @@ function FloatingHeader({
     <header className="pointer-events-none fixed inset-x-0 top-3 z-50 sm:top-4">
       <div className="pointer-events-auto mx-auto w-full max-w-[1440px] px-[clamp(10px,2.4vw,24px)]">
         <div
-          className={`flex items-center justify-between rounded-full px-4 py-2.5 transition-all duration-700 ease-out sm:px-5 sm:py-3 ${
+          className={`flex items-center justify-between rounded-full px-4 py-3 transition-all duration-700 ease-out sm:px-5 sm:py-3.5 ${
             useSolidOnyx
               ? 'bg-onyx text-papel'
               : isDark
@@ -93,15 +93,15 @@ function FloatingHeader({
         >
           <Link
             href="/"
-            className="relative flex h-8 items-center overflow-visible sm:h-9"
+            className="relative flex h-9 items-center overflow-visible sm:h-10"
             style={{
-              width: showLogotype ? 168 : 34,
+              width: showLogotype ? 192 : 38,
               transition: 'width 0.75s cubic-bezier(0.22, 1, 0.36, 1)',
             }}
             aria-label="Antuario · Ir al inicio"
           >
             <AntuarioLogotype
-              className="absolute left-0 top-1/2 h-[22px] w-auto -translate-y-1/2 sm:h-[26px]"
+              className="absolute left-0 top-1/2 h-[26px] w-auto -translate-y-1/2 sm:h-[30px]"
               dark={isDark}
               style={{
                 opacity: showLogotype ? 1 : 0,
@@ -111,7 +111,7 @@ function FloatingHeader({
               }}
             />
             <AntuarioMark
-              className="absolute left-0 top-1/2 h-[26px] w-auto -translate-y-1/2 sm:h-[30px]"
+              className="absolute left-0 top-1/2 h-[30px] w-auto -translate-y-1/2 sm:h-[34px]"
               style={{
                 color: isDark ? 'var(--papel)' : 'var(--onyx)',
                 opacity: showLogotype ? 0 : 1,
@@ -127,7 +127,7 @@ function FloatingHeader({
               href={siteConfig.whatsapp}
               target="_blank"
               rel="noopener noreferrer"
-              className={`hidden items-center gap-1.5 rounded-full px-4 py-1.5 text-[12.5px] font-medium transition-colors sm:inline-flex ${
+              className={`hidden items-center gap-1.5 rounded-full px-4 py-2 text-[12.5px] font-medium transition-colors sm:inline-flex ${
                 isDark
                   ? 'bg-papel/10 text-papel hover:bg-papel/16'
                   : 'bg-onyx text-papel hover:bg-grafito'
@@ -139,7 +139,7 @@ function FloatingHeader({
             <button
               onClick={onOpenMenu}
               aria-label="Abrir menú"
-              className={`flex h-9 w-9 items-center justify-center rounded-full transition-colors ${
+              className={`flex h-10 w-10 items-center justify-center rounded-full transition-colors ${
                 isDark
                   ? 'bg-papel/10 text-papel hover:bg-papel/16'
                   : 'text-onyx'
