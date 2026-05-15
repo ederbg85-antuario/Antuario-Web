@@ -427,12 +427,12 @@ function HeroSection() {
   return (
     <section
       data-theme="dark"
-      className="pt-[6px] sm:pt-[8px]"
+      className="pt-[80px] sm:pt-[92px] lg:pt-[100px]"
       style={{ paddingBottom: 'clamp(20px, 2.4vh, 36px)' }}
     >
       <div className="mx-auto w-full max-w-[1440px] px-[clamp(10px,2.4vw,28px)]">
         <div
-          className="section-shell shell-dark pt-[88px] sm:pt-[100px] lg:pt-[112px]"
+          className="section-shell shell-dark pt-[48px] sm:pt-[56px] lg:pt-[64px]"
         >
           {/* Aurora muy sutil */}
           <div className="aurora aurora-deep absolute inset-0 opacity-65" aria-hidden />
