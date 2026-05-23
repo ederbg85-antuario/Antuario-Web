@@ -58,6 +58,14 @@ export default function LeadForm() {
         message: 'Recibimos tu información. Te contactaremos en las próximas 24 horas hábiles.',
       })
       reset()
+      if (typeof window !== 'undefined') {
+        ;(window as any).dataLayer = (window as any).dataLayer || []
+        ;(window as any).dataLayer.push({
+          event: 'lead_submit',
+          form_id: 'lead_form',
+          interest: data.servicio_interes,
+        })
+      }
     } catch {
       setFormState({
         status: 'error',

@@ -37,6 +37,14 @@ export function ContactoContent() {
       })
       if (!r.ok) throw new Error('failed')
       setState('sent')
+      if (typeof window !== 'undefined') {
+        ;(window as any).dataLayer = (window as any).dataLayer || []
+        ;(window as any).dataLayer.push({
+          event: 'lead_submit',
+          form_id: 'contacto',
+          interest: form.interest,
+        })
+      }
     } catch {
       setState('error')
     }
