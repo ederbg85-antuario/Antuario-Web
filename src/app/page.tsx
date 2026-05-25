@@ -441,7 +441,7 @@ function HeroSection() {
   return (
     <section
       data-theme="dark"
-      className="pt-[88px] sm:pt-[84px] lg:pt-[92px]"
+      className="pt-[78px] sm:pt-[84px] lg:pt-[92px]"
       style={{ paddingBottom: 'clamp(20px, 2.4vh, 36px)' }}
     >
       <div className="mx-auto w-full max-w-[1440px] px-[clamp(10px,2.4vw,28px)]">
@@ -728,14 +728,16 @@ function CasesSection() {
     if (!track) return
     let raf = 0
     let last = performance.now()
+    let offset = 0
     const tick = (now: number) => {
       const dt = Math.min(now - last, 60)
       last = now
       const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
       if (!reduceMotion) {
-        track.scrollLeft += 0.04 * dt
+        offset += 0.045 * dt
         const half = track.scrollWidth / 2
-        if (track.scrollLeft >= half) track.scrollLeft -= half
+        if (half > 0 && offset >= half) offset -= half
+        track.style.transform = `translate3d(${-offset}px, 0, 0)`
       }
       raf = requestAnimationFrame(tick)
     }
@@ -781,11 +783,13 @@ function CasesSection() {
         className="relative"
       >
         <div
-          ref={trackRef}
-          className="marquee-mask no-scrollbar overflow-x-auto px-[clamp(16px,3vw,40px)]"
-          style={{ WebkitOverflowScrolling: 'touch' }}
+          className="marquee-mask no-scrollbar overflow-hidden px-[clamp(16px,3vw,40px)]"
         >
-          <div className="flex w-max gap-5 pb-2 sm:gap-6">
+          <div
+            ref={trackRef}
+            className="flex w-max gap-5 pb-2 sm:gap-6"
+            style={{ willChange: 'transform' }}
+          >
             {loop.map((c, i) => (
               <article
                 key={`${c.name}-${i}`}
