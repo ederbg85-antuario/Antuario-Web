@@ -441,7 +441,7 @@ function HeroSection() {
   return (
     <section
       data-theme="dark"
-      className="pt-[68px] sm:pt-[84px] lg:pt-[92px]"
+      className="pt-[88px] sm:pt-[84px] lg:pt-[92px]"
       style={{ paddingBottom: 'clamp(20px, 2.4vh, 36px)' }}
     >
       <div className="mx-auto w-full max-w-[1440px] px-[clamp(10px,2.4vw,28px)]">
@@ -728,17 +728,11 @@ function CasesSection() {
     if (!track) return
     let raf = 0
     let last = performance.now()
-    let pauseUntil = 0
-    const bumpPause = () => { pauseUntil = performance.now() + 1800 }
-    track.addEventListener('pointerdown', bumpPause, { passive: true })
-    track.addEventListener('wheel', bumpPause, { passive: true })
-    track.addEventListener('touchmove', bumpPause, { passive: true })
-    track.addEventListener('mouseenter', bumpPause)
     const tick = (now: number) => {
       const dt = Math.min(now - last, 60)
       last = now
       const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-      if (!reduceMotion && now > pauseUntil) {
+      if (!reduceMotion) {
         track.scrollLeft += 0.04 * dt
         const half = track.scrollWidth / 2
         if (track.scrollLeft >= half) track.scrollLeft -= half
@@ -748,10 +742,6 @@ function CasesSection() {
     raf = requestAnimationFrame(tick)
     return () => {
       cancelAnimationFrame(raf)
-      track.removeEventListener('pointerdown', bumpPause)
-      track.removeEventListener('wheel', bumpPause)
-      track.removeEventListener('touchmove', bumpPause)
-      track.removeEventListener('mouseenter', bumpPause)
     }
   }, [])
 
