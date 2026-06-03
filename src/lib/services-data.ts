@@ -97,7 +97,7 @@ export const SERVICES: Record<string, ServiceData> = {
       ],
     },
     cases: [
-      { name: 'Acriland', slug: 'acriland' },
+      { name: 'Acriland', slug: 'acriland-desarrollo-web-seo' },
       { name: 'Aracnene', slug: 'aracnene' },
       { name: 'Métrica BTL', slug: 'metrica-btl' },
     ],
@@ -243,7 +243,7 @@ export const SERVICES: Record<string, ServiceData> = {
       ],
     },
     cases: [
-      { name: 'Acriland', slug: 'acriland-web' },
+      { name: 'Acriland', slug: 'acriland-desarrollo-web-seo' },
       { name: 'Aracnene', slug: 'aracnene' },
       { name: 'Magia Travel', slug: 'magia-travel' },
     ],
@@ -462,7 +462,7 @@ export const SERVICES: Record<string, ServiceData> = {
       ],
     },
     cases: [
-      { name: 'Acriland', slug: 'acriland-web' },
+      { name: 'Acriland', slug: 'acriland-desarrollo-web-seo' },
       { name: 'Métrica BTL', slug: 'metrica-btl' },
       { name: 'Aracnene', slug: 'aracnene' },
     ],
@@ -535,7 +535,7 @@ export const SERVICES: Record<string, ServiceData> = {
       ],
     },
     cases: [
-      { name: 'Acriland', slug: 'acriland-web' },
+      { name: 'Acriland', slug: 'acriland-desarrollo-web-seo' },
       { name: 'Métrica BTL', slug: 'metrica-btl' },
       { name: 'Reserva 27', slug: 'reserva-27' },
     ],

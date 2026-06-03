@@ -50,5 +50,11 @@ Captura de pantalla*
 
 # Material fuente (no commitear las imágenes pesadas originales)
 /Material Portafolio/
+/Material Casos/
+/plan-seo/
+/plan-ads/
 *.jpeg
 !public/**/*.jpeg
+
+# Config local de Claude Code (no commitear)
+/.claude/

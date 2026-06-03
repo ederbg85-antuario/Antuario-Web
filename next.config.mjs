@@ -44,6 +44,13 @@ const nextConfig = {
       },
     ]
   },
+  async redirects() {
+    return [
+      // Consolidación del caso Acriland — preserva enlaces antiguos (301)
+      { source: '/casos/acriland', destination: '/casos/acriland-desarrollo-web-seo', permanent: true },
+      { source: '/casos/acriland-web', destination: '/casos/acriland-desarrollo-web-seo', permanent: true },
+    ]
+  },
   experimental: {
     optimizePackageImports: ['framer-motion', 'lucide-react'],
   },

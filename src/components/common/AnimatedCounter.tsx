@@ -9,6 +9,8 @@ interface AnimatedCounterProps {
   suffix?: string
   decimals?: number
   className?: string
+  /** Inserta separador de miles (es-MX) en el valor mostrado. */
+  separator?: boolean
 }
 
 export default function AnimatedCounter({
@@ -18,6 +20,7 @@ export default function AnimatedCounter({
   suffix = '',
   decimals = 0,
   className,
+  separator = false,
 }: AnimatedCounterProps) {
   const [count, setCount] = useState(0)
   const [hasAnimated, setHasAnimated] = useState(false)
@@ -55,7 +58,14 @@ export default function AnimatedCounter({
     return () => observer.disconnect()
   }, [target, duration, hasAnimated])
 
-  const displayValue = decimals > 0 ? count.toFixed(decimals) : Math.round(count)
+  const displayValue = separator
+    ? (decimals > 0 ? count : Math.round(count)).toLocaleString('es-MX', {
+        minimumFractionDigits: decimals,
+        maximumFractionDigits: decimals,
+      })
+    : decimals > 0
+    ? count.toFixed(decimals)
+    : Math.round(count)
 
   return (
     <span ref={ref} className={className}>

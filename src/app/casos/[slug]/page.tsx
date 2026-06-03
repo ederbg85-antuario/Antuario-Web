@@ -36,6 +36,14 @@ export default function Page({ params }: { params: { slug: string } }) {
     author: { '@id': `${siteConfig.url}/#agencia` },
     publisher: { '@id': `${siteConfig.url}/#agencia` },
     about: c.industry,
+    keywords: [
+      'caso de éxito marketing digital',
+      ...c.services.map((s) => s.toLowerCase()),
+      c.industry,
+      'agencia de marketing digital',
+      'CDMX',
+      'México',
+    ].join(', '),
   }
 
   const breadcrumbSchema = {

@@ -75,7 +75,7 @@ export function CasosContent() {
                   draggable={false}
                   className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  priority={c.slug === 'acriland'}
+                  priority={c.slug === 'acriland-desarrollo-web-seo'}
                 />
                 <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent p-5 sm:p-6">
                   <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-papel/65">

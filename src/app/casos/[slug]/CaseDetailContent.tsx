@@ -16,8 +16,12 @@ import {
 } from '@/components/common/PageBuildingBlocks'
 import { CASES, DETAILED_CASES } from '@/lib/cases-data'
 import { SERVICES } from '@/lib/services-data'
+import { AcrilandCaseContent } from './AcrilandCaseContent'
 
 export function CaseDetailContent({ slug }: { slug: string }) {
+  // Caso destacado con contenido a la medida (multimedia + dashboard animado)
+  if (slug === 'acriland-desarrollo-web-seo') return <AcrilandCaseContent />
+
   const c = CASES[slug]
   if (!c) return null
 

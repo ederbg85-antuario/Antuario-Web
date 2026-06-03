@@ -711,14 +711,14 @@ function HeroDeck() {
 /* ═══════════════ 02 · CASOS (movido aquí) ═══════════════ */
 function CasesSection() {
   const cases = [
-    { src: '/portfolio/acriland-marketing-digital.jpg', slug: 'acriland', name: 'Acriland', tag: 'Marketing Digital · SEO', alt: 'Acriland — caso de éxito de marketing digital y SEO con Antuario en CDMX.' },
+    { src: '/portfolio/acriland-desarrollo-web-seo.jpg', slug: 'acriland-desarrollo-web-seo', name: 'Acriland', tag: 'Desarrollo Web · SEO', alt: 'Acriland — caso de éxito de desarrollo web y posicionamiento SEO con Antuario en CDMX.' },
     { src: '/portfolio/aracnene-desarrollo-web-seo.jpg', slug: 'aracnene', name: 'Aracnene', tag: 'Desarrollo Web · SEO', alt: 'Aracnene — caso de éxito de desarrollo web y posicionamiento SEO con Antuario.' },
     { src: '/portfolio/maggadan-marketing-digital.jpg', slug: 'maggadan', name: 'Maggadan', tag: 'Marketing Digital', alt: 'Maggadan — caso de éxito de marketing digital y performance ads con Antuario.' },
     { src: '/portfolio/magia-travel-desarrollo-web.jpg', slug: 'magia-travel', name: 'Magia Travel', tag: 'Desarrollo Web', alt: 'Magia Travel — caso de éxito de desarrollo web turístico con Antuario.' },
     { src: '/portfolio/metrica-btl-desarrollo-web-seo.jpg', slug: 'metrica-btl', name: 'Métrica BTL', tag: 'Desarrollo Web · SEO', alt: 'Métrica BTL — caso de éxito de desarrollo web y SEO B2B con Antuario.' },
     { src: '/portfolio/reserva-27-marketing-digital.jpg', slug: 'reserva-27', name: 'Reserva 27', tag: 'Marketing Digital', alt: 'Reserva 27 — caso de éxito de marketing digital en hospitality con Antuario.' },
     { src: '/portfolio/somos-unno-marketing-digital.jpg', slug: 'somos-unno', name: 'Somos Unno', tag: 'Marketing Digital', alt: 'Somos Unno — caso de éxito de marketing digital en alimentos gourmet con Antuario.' },
-    { src: '/portfolio/acriland-desarrollo-web-seo.jpg', slug: 'acriland-web', name: 'Acriland Web', tag: 'Desarrollo Web · SEO', alt: 'Acriland Web — caso de éxito de desarrollo web y SEO industrial con Antuario.' },
+    { src: '/portfolio/acriland-marketing-digital.jpg', slug: 'acriland-desarrollo-web-seo', name: 'Acriland', tag: 'Marca · Contenido', alt: 'Acriland — contenido de marca y redes sociales producido por Antuario, agencia de marketing digital.' },
   ]
   const loop = [...cases, ...cases]
   const trackRef = useRef<HTMLDivElement>(null)
