@@ -99,7 +99,7 @@ export const SERVICES: Record<string, ServiceData> = {
     cases: [
       { name: 'Acriland', slug: 'acriland-desarrollo-web-seo' },
       { name: 'Aracnene', slug: 'aracnene' },
-      { name: 'Métrica BTL', slug: 'metrica-btl' },
+      { name: 'Métrica BTL', slug: 'metrica-btl-desarrollo-web-seo' },
     ],
     faqs: [
       { q: '¿En cuánto tiempo veré resultados de SEO?', a: 'Los primeros movimientos en posiciones se ven entre 8 y 12 semanas. El tráfico cualificado y los leads orgánicos sostenidos llegan típicamente entre el mes 4 y el mes 6, y siguen creciendo a partir de ahí.' },
@@ -463,7 +463,7 @@ export const SERVICES: Record<string, ServiceData> = {
     },
     cases: [
       { name: 'Acriland', slug: 'acriland-desarrollo-web-seo' },
-      { name: 'Métrica BTL', slug: 'metrica-btl' },
+      { name: 'Métrica BTL', slug: 'metrica-btl-desarrollo-web-seo' },
       { name: 'Aracnene', slug: 'aracnene' },
     ],
     faqs: [
@@ -536,7 +536,7 @@ export const SERVICES: Record<string, ServiceData> = {
     },
     cases: [
       { name: 'Acriland', slug: 'acriland-desarrollo-web-seo' },
-      { name: 'Métrica BTL', slug: 'metrica-btl' },
+      { name: 'Métrica BTL', slug: 'metrica-btl-desarrollo-web-seo' },
       { name: 'Reserva 27', slug: 'reserva-27' },
     ],
     faqs: [

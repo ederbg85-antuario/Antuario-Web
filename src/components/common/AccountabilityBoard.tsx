@@ -12,7 +12,11 @@ import AnimatedCounter from './AnimatedCounter'
  * Diseño 100% responsive (móvil y escritorio) y ligero (sin imágenes pesadas).
  */
 
-const KPIS = [
+type KPI = { label: string; value: number; suffix?: string; owner: string; accent: string }
+type ReportContent = { tag: string; title: string; body: string; items: string[] }
+type Reports = { mensual: ReportContent; trimestral: ReportContent }
+
+const DEFAULT_KPIS: KPI[] = [
   { label: 'Sesiones orgánicas', value: 33947, suffix: '', owner: 'SEO Lead', accent: '#818CF8' },
   { label: 'Clics desde Google', value: 16800, suffix: '', owner: 'SEO Lead', accent: '#6EE7B7' },
   { label: 'Visitantes únicos', value: 28321, suffix: '', owner: 'Growth', accent: '#67E8F9' },
@@ -20,10 +24,9 @@ const KPIS = [
 ]
 
 // Curva de sesiones orgánicas mes a mes (tendencia real: crecimiento sostenido).
-const BARS = [14, 18, 22, 27, 24, 33, 41, 52, 48, 63, 74, 88]
-const MAX_BAR = Math.max(...BARS)
+const DEFAULT_BARS = [14, 18, 22, 27, 24, 33, 41, 52, 48, 63, 74, 88]
 
-const REPORTS = {
+const DEFAULT_REPORTS: Reports = {
   mensual: {
     tag: 'Reporte mensual',
     title: 'Lectura táctica, cada mes.',
@@ -38,9 +41,30 @@ const REPORTS = {
   },
 }
 
-export function AccountabilityBoard() {
+export function AccountabilityBoard({
+  kpis = DEFAULT_KPIS,
+  bars = DEFAULT_BARS,
+  reports = DEFAULT_REPORTS,
+  label = 'dashboard.acriland · antuario',
+  barsTitle = 'Sesiones orgánicas · 12 meses',
+  barsFootStart = 'Inicio',
+  barsFootEnd = 'Hoy · 100% orgánico',
+  footnote,
+}: {
+  kpis?: KPI[]
+  bars?: number[]
+  reports?: Reports
+  label?: string
+  barsTitle?: string
+  barsFootStart?: string
+  barsFootEnd?: string
+  footnote?: React.ReactNode
+} = {}) {
   const [tab, setTab] = useState<'mensual' | 'trimestral'>('mensual')
-  const report = REPORTS[tab]
+  const report = reports[tab]
+  const KPIS = kpis
+  const BARS = bars
+  const MAX_BAR = Math.max(...BARS)
 
   return (
     <div
@@ -69,7 +93,7 @@ export function AccountabilityBoard() {
             <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
           </span>
           <span className="ml-1 font-mono text-[10px] uppercase tracking-[0.18em] text-papel/45 sm:text-[11px]">
-            dashboard.acriland · antuario
+            {label}
           </span>
         </div>
         <span className="inline-flex items-center gap-1.5 rounded-full bg-white/5 px-2.5 py-1">
@@ -122,7 +146,7 @@ export function AccountabilityBoard() {
             <div className="flex items-center justify-between">
               <span className="inline-flex items-center gap-2 text-[12px] font-medium text-papel/85 sm:text-[13px]">
                 <Activity className="h-3.5 w-3.5 text-cobalto-b" />
-                Sesiones orgánicas · 12 meses
+                {barsTitle}
               </span>
               <span className="font-mono text-[9.5px] uppercase tracking-[0.14em] text-salvia-b">↑ tendencia</span>
             </div>
@@ -145,8 +169,8 @@ export function AccountabilityBoard() {
               ))}
             </div>
             <div className="mt-2 flex justify-between font-mono text-[8.5px] uppercase tracking-[0.12em] text-papel/30">
-              <span>Inicio</span>
-              <span>Hoy · 100% orgánico</span>
+              <span>{barsFootStart}</span>
+              <span>{barsFootEnd}</span>
             </div>
           </div>
 
@@ -195,7 +219,11 @@ export function AccountabilityBoard() {
         <div className="mt-4 flex items-center gap-2.5 rounded-[14px] bg-white/[0.03] px-4 py-3 sm:mt-5">
           <ArrowUpRight className="h-4 w-4 flex-shrink-0 text-cobalto-b" />
           <p className="text-[11.5px] leading-snug text-papel/65 sm:text-[12.5px]">
-            Cada líder del proyecto es responsable de <span className="text-papel">un número concreto</span>. Optimizamos web, SEO y embudo de forma quirúrgica — todo trackeable, todo transparente.
+            {footnote ?? (
+              <>
+                Cada líder del proyecto es responsable de <span className="text-papel">un número concreto</span>. Optimizamos web, SEO y embudo de forma quirúrgica — todo trackeable, todo transparente.
+              </>
+            )}
           </p>
         </div>
       </div>

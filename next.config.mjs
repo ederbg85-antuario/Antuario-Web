@@ -49,6 +49,8 @@ const nextConfig = {
       // Consolidación del caso Acriland — preserva enlaces antiguos (301)
       { source: '/casos/acriland', destination: '/casos/acriland-desarrollo-web-seo', permanent: true },
       { source: '/casos/acriland-web', destination: '/casos/acriland-desarrollo-web-seo', permanent: true },
+      // Consolidación del caso Métrica BTL — slug con keyword (301)
+      { source: '/casos/metrica-btl', destination: '/casos/metrica-btl-desarrollo-web-seo', permanent: true },
     ]
   },
   experimental: {

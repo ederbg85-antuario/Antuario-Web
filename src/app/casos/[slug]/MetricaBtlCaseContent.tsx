@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { ArrowRight, ArrowUpRight, Heart, Share2, UserPlus, Eye, Check, Search } from 'lucide-react'
+import { ArrowRight, ArrowUpRight, Check, Search, MessageCircle, Mail, Phone, FileText } from 'lucide-react'
 import { siteConfig } from '@/config/site'
 import { SiteFrame, WhatsAppIcon } from '@/components/layout/SiteFrame'
 import {
@@ -16,84 +16,83 @@ import {
 import { CASES, DETAILED_CASES } from '@/lib/cases-data'
 import { SERVICES } from '@/lib/services-data'
 import AnimatedCounter from '@/components/common/AnimatedCounter'
-import { LazyVideo } from '@/components/common/LazyVideo'
 import { AccountabilityBoard } from '@/components/common/AccountabilityBoard'
 
-const SLUG = 'acriland-desarrollo-web-seo'
+const SLUG = 'metrica-btl-desarrollo-web-seo'
 
 const HERO_STATS = [
-  { v: '100%', l: 'demanda orgánica' },
-  { v: '+8,787%', l: 'sesiones del sitio' },
-  { v: '1.25M', l: 'impresiones en Google' },
-  { v: '2022', l: 'juntos desde' },
+  { v: 'Demanda 0', l: 'punto de partida' },
+  { v: '+25 años', l: 'de experiencia BTL' },
+  { v: '278', l: 'solicitudes de contacto' },
+  { v: '6 meses', l: 'desde nov. 2025' },
 ]
 
 const PILLARS = [
   {
     n: '01',
-    t: 'Marca, logotipo y desarrollo web',
-    d: 'Desarrollamos su identidad de marca y un sitio en arquitectura optimizada para CTR, con ecommerce, fichas de producto con fotografía de primera y schema markup. Acriland pasó a percibirse tan profesional como realmente es.',
+    t: 'Rediseño web estratégico',
+    d: 'Su sitio era un folleto digital: deuda técnica, cero SEO y cero CRO. Lo reconstruimos por completo, con cada copy pensado para posicionar, persuadir y —sobre todo— generar confianza, comunicando su experiencia, equipo, oficinas, capacidad operativa y su permiso REPSE.',
     accent: '#818CF8',
     href: '/servicios/desarrollo-web',
     anchor: 'desarrollo web profesional',
   },
   {
     n: '02',
-    t: 'Posicionamiento SEO orgánico',
-    d: 'Armamos todo el SEO técnico y de contenido de su web. Con el tiempo, la demanda orgánica superó por completo a la pagada — hoy la demanda de Acriland nunca duerme y proviene en su mayoría de búsquedas en Google.',
+    t: 'Posicionamiento SEO técnico',
+    d: 'Montamos todo el SEO técnico y de contenido para que Métrica BTL apareciera en Google ante quien busca activaciones, promotoría y eventos. Empezamos por dominar su propia marca y escalamos hacia las keywords del negocio.',
     accent: '#6EE7B7',
     href: '/servicios/seo',
     anchor: 'agencia SEO en México',
   },
   {
     n: '03',
-    t: 'Software a la medida (CRM)',
-    d: 'Les desarrollamos un software fullstack donde reúnen toda su información: CRM con pipelines, bandeja unificada de conversaciones de todos los canales, informes e indicadores clave de cada etapa del embudo comercial.',
+    t: 'Google Ads para activar demanda',
+    d: 'Lanzamos campañas para activar la demanda de inmediato, sin esperar a que madurara el SEO. La pauta además alimenta el posicionamiento: trae tráfico relevante y recurrente que acelera la confianza de Google en el dominio.',
     accent: '#67E8F9',
-    href: '/servicios/software',
-    anchor: 'software a la medida',
+    href: '/servicios/performance-ads',
+    anchor: 'agencia de Google Ads',
   },
   {
     n: '04',
-    t: 'Contenido y presencia en IA',
-    d: 'Producimos contenido orgánico para redes —concepto, guion, grabación y edición— que despierta confianza y posiciona la marca. Hoy Acriland aparece también en buscadores de IA como ChatGPT y Gemini.',
+    t: 'Sistema comercial y accountability',
+    d: 'Montamos la gestión del área comercial y de marketing con todo trackeable y unificado, con reporte mensual al cliente. Cada número tiene un responsable: trabajamos con accountability total, igual que con nuestros mejores casos.',
     accent: '#FDA4AF',
-    href: '/servicios/inteligencia-artificial',
-    anchor: 'inteligencia artificial aplicada',
+    href: '/servicios',
+    anchor: 'agencia de marketing digital',
   },
 ]
 
+// Resultados — datos reales (Wix Analytics, Search Console, GA4) nov 2025 → may 2026.
 const METRICS = [
-  { target: 33947, sep: true, suffix: '', label: 'Sesiones del sitio', delta: '+8,787% vs. baseline' },
-  { target: 28321, sep: true, suffix: '', label: 'Visitantes únicos', delta: '+257,364%' },
-  { target: 16.8, sep: false, decimals: 1, suffix: ' mil', label: 'Clics desde Google', delta: 'Search Console' },
-  { target: 1.25, sep: false, decimals: 2, suffix: 'M', label: 'Impresiones en búsqueda', delta: 'posición media 7.4' },
+  { target: 278, sep: false, suffix: '', label: 'Solicitudes de contacto', delta: 'nov 2025 — may 2026' },
+  { target: 1900, sep: true, suffix: '', label: 'Sesiones del sitio', delta: '+14,515% vs. baseline' },
+  { target: 1419, sep: true, suffix: '', label: 'Visitantes únicos', delta: '+17,638%' },
+  { target: 22.2, sep: false, decimals: 1, suffix: '%', label: 'Tasa de conversión', delta: 'B2B · pico sin pauta' },
 ]
 
+// Sesiones por fuente de tráfico (Wix Analytics — periodo completo).
 const CHANNELS = [
-  { name: 'Google', sub: 'Orgánica', value: 26089, accent: '#818CF8' },
-  { name: 'Directa', sub: '↑ 2,567%', value: 5308, accent: '#67E8F9' },
-  { name: 'Bing', sub: 'Orgánica', value: 1179, accent: '#6EE7B7' },
-  { name: 'Yahoo', sub: 'Orgánica', value: 374, accent: '#FCD34D' },
-  { name: 'ChatGPT', sub: 'IA', value: 134, accent: '#FDA4AF' },
+  { name: 'Google', sub: 'De pago', value: 650, accent: '#FCD34D' },
+  { name: 'Google', sub: 'Orgánica · ↑27,300%', value: 548, accent: '#6EE7B7' },
+  { name: 'Directa', sub: '↑ 4,000%', value: 451, accent: '#67E8F9' },
+  { name: 'Referencia', sub: 'metricaprom.', value: 64, accent: '#818CF8' },
+  { name: 'ChatGPT', sub: 'IA', value: 48, accent: '#FDA4AF' },
 ]
 const CHANNEL_MAX = Math.max(...CHANNELS.map((c) => c.value))
 
-const REELS = [
-  { src: '/portfolio/acriland/acriland-personificadores.mp4', poster: '/portfolio/acriland/acriland-personificadores-poster.jpg', label: '1,500 piezas · Liverpool' },
-  { src: '/portfolio/acriland/acriland-euphoria.mp4', poster: '/portfolio/acriland/acriland-euphoria-poster.jpg', label: 'Exhibidor · Euphoria' },
-  { src: '/portfolio/acriland/acriland-exhibidor.mp4', poster: '/portfolio/acriland/acriland-exhibidor-poster.jpg', label: 'Fabricación a medida' },
-  { src: '/portfolio/acriland/acriland-orogold.mp4', poster: '/portfolio/acriland/acriland-orogold-poster.jpg', label: 'Proyecto · Orogold' },
+// Cómo contactan — distribución de las acciones de contacto (datos GA4 + Wix).
+const CONTACTS = [
+  { icon: MessageCircle, name: 'WhatsApp', sub: 'Flotante + contacto', pct: 69.1, accent: '#6EE7B7' },
+  { icon: Mail, name: 'Correo', sub: 'Hablemos por correo', pct: 11.5, accent: '#67E8F9' },
+  { icon: Phone, name: 'Llamada', sub: 'Hablemos por teléfono', pct: 10.8, accent: '#818CF8' },
+  { icon: FileText, name: 'Formulario', sub: 'Formulario enviado', pct: 8.6, accent: '#FDA4AF' },
 ]
+const CONTACT_MAX = Math.max(...CONTACTS.map((c) => c.pct))
 
-const TIKTOK_STATS = [
-  { icon: Eye, v: 88032, label: 'Visualizaciones' },
-  { icon: Heart, v: 1261, label: 'Me gusta' },
-  { icon: Share2, v: 509, label: 'Compartidos' },
-  { icon: UserPlus, v: 752, label: 'Nuevos seguidores' },
-]
+const NEW_CLIENTS = ['Uber Eats', 'Telcel', 'Macropay']
+const LEGACY_CLIENTS = ['Colgate', 'Suavitel', 'Palmolive']
 
-export function AcrilandCaseContent() {
+export function MetricaBtlCaseContent() {
   const c = CASES[SLUG]
   const relatedCases = DETAILED_CASES.filter((x) => x.slug !== SLUG)
 
@@ -154,7 +153,7 @@ export function AcrilandCaseContent() {
                 </motion.div>
               </div>
 
-              {/* Imagen principal — la web (fondo rojo) */}
+              {/* Imagen principal — portada del caso */}
               <motion.div
                 initial={{ opacity: 0, y: 28, scale: 0.97 }}
                 whileInView={{ opacity: 1, y: 0, scale: 1 }}
@@ -190,7 +189,7 @@ export function AcrilandCaseContent() {
             >
               {HERO_STATS.map((s) => (
                 <div key={s.l} className="rounded-[16px] bg-white/[0.04] p-4" style={{ boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.06)' }}>
-                  <p className="text-[24px] font-light tracking-tight text-papel sm:text-[28px]" style={{ letterSpacing: '-0.03em' }}>
+                  <p className="text-[22px] font-light tracking-tight text-papel sm:text-[26px]" style={{ letterSpacing: '-0.03em' }}>
                     {s.v}
                   </p>
                   <span className="mt-0.5 block font-mono text-[9.5px] uppercase tracking-[0.14em] text-papel/45">{s.l}</span>
@@ -208,11 +207,12 @@ export function AcrilandCaseContent() {
             Posicionamiento orgánico · Google
           </span>
           <h2 className="hero-type mx-auto mt-4 max-w-[22ch] text-[26px] text-onyx sm:text-[36px] lg:text-[42px]" style={{ fontWeight: 300 }}>
-            Así aparece Acriland cuando <span className="multi-grad">buscas en Google.</span>
+            Así aparece Métrica BTL cuando <span className="multi-grad">buscas en Google.</span>
           </h2>
-          <p className="lead-type mx-auto mt-4 max-w-[58ch] text-[14px] sm:text-[15px]">
-            Resultado orgánico con sitelinks y ficha de Google Business — sin un solo peso en pauta. Posicionamiento SEO
-            real que pone a Acriland frente a quien busca su producto.
+          <p className="lead-type mx-auto mt-4 max-w-[60ch] text-[14px] sm:text-[15px]">
+            De no existir en buscadores a dominar su marca con sitelinks y ficha de negocio verificada. Y más allá de su
+            nombre, hoy aparece para keywords del negocio como «agencia btl» y «empresas btl» — posicionamiento SEO real
+            que pone a Métrica BTL frente a quien busca activaciones.
           </p>
         </div>
 
@@ -240,7 +240,7 @@ export function AcrilandCaseContent() {
                 style={{ boxShadow: 'inset 0 0 0 1px rgba(15,15,30,0.06)' }}
               >
                 <GoogleG className="h-4 w-4 flex-shrink-0" />
-                <span className="flex-1 truncate text-[13px] text-onyx sm:text-[14px]">exhibidores de acrílico</span>
+                <span className="flex-1 truncate text-[13px] text-onyx sm:text-[14px]">agencia btl</span>
                 <span className="hidden h-4 w-px bg-onyx/10 sm:block" />
                 <Search className="h-4 w-4 flex-shrink-0" style={{ color: '#4285F4' }} />
               </div>
@@ -255,11 +255,12 @@ export function AcrilandCaseContent() {
 
             {/* Captura del resultado */}
             <Image
-              src="/portfolio/acriland/acriland-google-serp.jpg"
-              alt="Acriland posicionado en Google con sitelinks y ficha de Google Business — 4.5 estrellas y 17 reseñas, posicionamiento SEO orgánico logrado por Antuario en CDMX."
+              src="/portfolio/metrica-btl/metrica-google-serp.jpg"
+              alt="Métrica BTL posicionado en Google con sitelinks y ficha de Google Business verificada — agencia de marketing en CDMX, posicionamiento SEO orgánico logrado por Antuario."
               width={1600}
-              height={713}
+              height={737}
               draggable={false}
+              loading="lazy"
               className="w-full"
               sizes="(max-width: 1024px) 100vw, 1040px"
             />
@@ -267,11 +268,11 @@ export function AcrilandCaseContent() {
 
           {/* Highlights de la ficha de Google Business */}
           <div className="mt-5 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-[12px] text-grafito sm:text-[12.5px]">
-            <span className="inline-flex items-center gap-1.5"><span style={{ color: '#F59E0B' }}>★</span> 4.5 · 17 reseñas en Google</span>
+            <span className="inline-flex items-center gap-1.5"><span style={{ color: '#F59E0B' }}>★</span> 3.9 · 26 reseñas en Google</span>
             <span className="hidden h-3 w-px bg-onyx/12 sm:block" />
-            <span>Ficha de Google Business activa</span>
+            <span>Ficha de Google Business verificada</span>
             <span className="hidden h-3 w-px bg-onyx/12 sm:block" />
-            <span>Posición media 7.4 · Search Console</span>
+            <span>Posición media 7.8 · Search Console</span>
           </div>
         </motion.div>
       </ShellWrap>
@@ -294,35 +295,37 @@ export function AcrilandCaseContent() {
             </h2>
             <div className="mt-6 space-y-4 text-[14px] leading-[1.65] text-grafito sm:text-[15px]">
               <p>
-                Acriland es una empresa y fábrica mexicana que produce artículos de acrílico: maneja SKUs de línea y
-                producción 100% a la medida para proyectos de retail, perfumerías, joyerías y más. Trabajamos juntos
-                desde <strong className="text-onyx">2022</strong>, y como{' '}
-                <Link href="/servicios" className="font-medium text-cobalto underline decoration-cobalto/30 underline-offset-2 transition-opacity hover:opacity-70">agencia de marketing digital</Link> nos encargamos de
-                su marca, su web, su posicionamiento orgánico y su sistema comercial — bajo una sola dirección.
+                Métrica BTL es una agencia mexicana de activaciones, promotoría y experiencias de marca con más de{' '}
+                <strong className="text-onyx">25 años de trayectoria</strong>. Tiene oficinas, equipo interno para operar
+                casi cualquier proyecto y toda la regulación legal requerida (permiso REPSE). En su historia ha trabajado
+                con marcas globales como Colgate, Suavitel y Palmolive. Como{' '}
+                <Link href="/servicios" className="font-medium text-cobalto underline decoration-cobalto/30 underline-offset-2 transition-opacity hover:opacity-70">agencia de marketing digital</Link>,
+                desde noviembre de 2025 nos encargamos de su sitio, su posicionamiento y su sistema comercial — bajo una sola dirección.
               </p>
               <p>
-                No solo hicimos la página y el logo: los liberamos de su antigua fuente de adquisición, montamos un
-                sistema con datos reales y los apoyamos a nivel estratégico. Hoy Acriland es un competidor notable y
-                uno de los líderes en su rubro — con una demanda <strong className="text-onyx">100% orgánica</strong>{' '}
-                que llega por Google, redes sociales y buscadores de IA.
+                Es un negocio B2B de nicho: sus números no son masivos, pero cada solicitud de contacto pesa muchísimo
+                porque puede valer un proyecto de seis cifras. Por eso el reto no era «traer tráfico», sino traer el{' '}
+                <strong className="text-onyx">tráfico correcto</strong> y convertirlo. Reconstruimos su{' '}
+                <Link href="/servicios/desarrollo-web" className="font-medium text-cobalto underline decoration-cobalto/30 underline-offset-2 transition-opacity hover:opacity-70">desarrollo web profesional</Link>,
+                montamos el SEO técnico y activamos Google Ads para encender la demanda desde el primer mes.
               </p>
               <p>
                 Este es el tipo de proyecto que define a Antuario como{' '}
                 <Link href="/servicios/seo" className="font-medium text-cobalto underline decoration-cobalto/30 underline-offset-2 transition-opacity hover:opacity-70">agencia SEO en México</Link>:
-                no vendemos volumen ni paquetes prefabricados, construimos sistemas a la medida para empresas medianas y
-                grandes con proyectos serios. Desde nuestra sede en CDMX operamos cuentas en toda la República — y el caso
-                Acriland es la prueba de qué pasa cuando el desarrollo web, el posicionamiento orgánico, el software comercial
-                y el contenido de marca trabajan bajo una sola dirección estratégica, con accountability y transparencia total.
+                no vendemos volumen ni paquetes prefabricados, construimos sistemas a la medida para empresas con proyectos
+                serios. Desde nuestra sede en CDMX operamos cuentas en toda la República — y el caso Métrica BTL es la prueba
+                de qué pasa cuando el desarrollo web, el posicionamiento orgánico y el performance trabajan juntos, con
+                accountability y transparencia total.
               </p>
             </div>
           </div>
 
           <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:col-span-5">
             {[
-              { label: 'Marca', value: 'Acriland' },
-              { label: 'Industria', value: 'Fabricación de acrílico' },
+              { label: 'Marca', value: 'Métrica BTL' },
+              { label: 'Industria', value: 'Agencia BTL · Activaciones' },
               { label: 'Servicios', value: c.services.join(' · ') },
-              { label: 'Colaboración', value: 'Desde 2022 · activa' },
+              { label: 'Colaboración', value: 'Desde nov. 2025 · activa' },
             ].map((m) => (
               <div key={m.label} className="card-bb-soft p-4">
                 <span className="font-mono text-[9.5px] uppercase tracking-[0.22em] text-plomo">{m.label}</span>
@@ -340,11 +343,24 @@ export function AcrilandCaseContent() {
         <div className="aurora aurora-quiet absolute inset-0 opacity-40" aria-hidden />
         <div className="grid-pattern-dark pointer-events-none absolute inset-0 opacity-12" />
         <div className="relative z-10">
-          <ChapterTag roman="I" label="El reto" sub="Punto de partida" dark />
+          <ChapterTag roman="I" label="El reto" sub="Demanda en cero" dark />
           <h2 className="hero-type mt-5 max-w-[26ch] text-[26px] text-papel sm:text-[36px] lg:text-[42px]" style={{ fontWeight: 300 }}>
             {c.challenge.headline}
           </h2>
           <p className="lead-type mt-6 max-w-[66ch] text-[14.5px] !text-papel/70 sm:text-[15.5px]">{c.challenge.body}</p>
+
+          <div className="mt-8 grid gap-3 sm:grid-cols-3">
+            {[
+              { t: 'Adquisición en cero', d: 'Vivían de clientes cautivos de hace años. Perdían cuentas sin ganar una sola nueva.' },
+              { t: '3–4 intentos fallidos', d: 'Contrataron a varias personas internas para armar web y campañas. Ninguna dio la talla.' },
+              { t: 'Dueños escépticos', d: 'Creían que a las marcas grandes solo se llega por contactos o boca a boca, nunca por internet.' },
+            ].map((b) => (
+              <div key={b.t} className="rounded-[18px] p-5" style={{ background: 'rgba(255,255,255,0.03)', boxShadow: 'inset 0 0 0 1px rgba(255,255,255,0.05)' }}>
+                <h3 className="text-[14.5px] font-medium text-papel sm:text-[15.5px]">{b.t}</h3>
+                <p className="mt-2 text-[12.5px] leading-[1.55] text-papel/60 sm:text-[13px]">{b.d}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </ShellWrap>
 
@@ -355,9 +371,9 @@ export function AcrilandCaseContent() {
           {c.strategy.headline}
         </h2>
         <p className="lead-type mt-5 max-w-[64ch] text-[14.5px] sm:text-[15.5px]">
-          No atacamos un solo frente. Diseñamos para Acriland un sistema completo donde cada pieza —marca, web, SEO,
-          software y contenido— se refuerza con las demás. Así es como una agencia de marketing digital convierte
-          esfuerzos sueltos en un motor de adquisición orgánica que crece solo.
+          No atacamos un solo frente. Diseñamos para Métrica BTL un sistema donde cada pieza —web, SEO, Google Ads y
+          gestión comercial— se refuerza con las demás. Así es como una agencia de marketing digital convierte 25 años de
+          capacidad operativa en demanda real y medible.
         </p>
 
         <div className="mt-10 grid gap-3 sm:gap-4 lg:grid-cols-2">
@@ -418,26 +434,44 @@ export function AcrilandCaseContent() {
             <span className="multi-grad-bright">número — y cada número tiene un responsable.</span>
           </h2>
           <p className="lead-type mt-6 max-w-[64ch] text-[14.5px] !text-papel/70 sm:text-[15.5px]">
-            Implementamos para Acriland un sistema 100% transparente y trackeable. Todo nuestro equipo de líderes trabaja
-            con accountability: cada uno es responsable de uno o más números, y las tareas que ejecutamos existen solo para
-            mover esos resultados. Entregamos reportes <strong className="!text-papel">mensuales</strong> y{' '}
-            <strong className="!text-papel">trimestrales</strong> estratégicos con toda la información que dirección necesita
-            para tomar las mejores decisiones.
+            Implementamos para Métrica BTL un sistema 100% transparente y trackeable: web, SEO, Google Ads y embudo
+            comercial bajo un mismo tablero. Entregamos un reporte <strong className="!text-papel">mensual</strong> con
+            cada métrica y su responsable, y lecturas <strong className="!text-papel">trimestrales</strong> estratégicas
+            con toda la información que dirección necesita para decidir.
           </p>
 
           <div className="mt-10">
             <AccountabilityBoard
-              label="dashboard.acriland · antuario"
-              barsTitle="Sesiones orgánicas · 12 meses"
-              barsFootStart="Inicio"
-              barsFootEnd="Hoy · 100% orgánico"
+              label="dashboard.metricabtl · antuario"
+              barsTitle="Sesiones del sitio · dic — may"
+              barsFootStart="Demanda 0"
+              barsFootEnd="Hoy · sin pauta"
               kpis={[
-                { label: 'Sesiones orgánicas', value: 33947, suffix: '', owner: 'SEO Lead', accent: '#818CF8' },
-                { label: 'Clics desde Google', value: 16800, suffix: '', owner: 'SEO Lead', accent: '#6EE7B7' },
-                { label: 'Visitantes únicos', value: 28321, suffix: '', owner: 'Growth', accent: '#67E8F9' },
-                { label: 'Inversión en pauta', value: 0, suffix: '%', owner: 'Estrategia', accent: '#FDA4AF' },
+                { label: 'Solicitudes de contacto', value: 278, suffix: '', owner: 'Growth', accent: '#818CF8' },
+                { label: 'Sesiones del sitio', value: 1900, suffix: '', owner: 'Growth', accent: '#67E8F9' },
+                { label: 'Impresiones en Google', value: 22200, suffix: '', owner: 'SEO Lead', accent: '#6EE7B7' },
+                { label: 'Tasa de conversión', value: 22, suffix: '%', owner: 'Estrategia', accent: '#FDA4AF' },
               ]}
-              bars={[14, 18, 22, 27, 24, 33, 41, 52, 48, 63, 74, 88]}
+              bars={[3, 5, 9, 29, 47, 33, 26, 23, 34, 40, 19, 21]}
+              reports={{
+                mensual: {
+                  tag: 'Reporte mensual',
+                  title: 'Lectura táctica, cada mes.',
+                  body: 'Cada mes entregamos a Métrica BTL un reporte con tráfico, conversiones por canal, queries y posición orgánica, rendimiento de Ads y costo por solicitud — con la acción concreta detrás de cada número.',
+                  items: ['Wix + GA4 · sesiones y conversiones', 'Search Console · queries y posición', 'Google Ads · inversión, CTR y costo/contacto'],
+                },
+                trimestral: {
+                  tag: 'Reporte trimestral',
+                  title: 'Lectura estratégica, cada trimestre.',
+                  body: 'Cada trimestre subimos a altura estratégica: cuándo escalar pauta, cuándo apagarla y dejar que el orgánico cargue, qué servicio empujar y qué decisiones tomar — con toda la data sobre la mesa.',
+                  items: ['Mix de pauta vs. orgánico', 'Calidad del contacto, no solo volumen', 'Decisiones con data, no con corazonadas'],
+                },
+              }}
+              footnote={
+                <>
+                  Cada líder del proyecto es responsable de <span className="text-papel">un número concreto</span>. Web, SEO, Ads y embudo se optimizan de forma quirúrgica — todo trackeable, todo transparente.
+                </>
+              }
             />
           </div>
         </div>
@@ -477,111 +511,135 @@ export function AcrilandCaseContent() {
             ))}
           </div>
 
-          {/* Desglose por canal — 100% orgánico */}
-          <div className="mt-8 rounded-[22px] p-5 sm:p-7" style={{ background: 'rgba(255,255,255,0.025)', boxShadow: 'inset 0 0 0 1px rgba(255,255,255,0.05)' }}>
-            <div className="flex flex-wrap items-end justify-between gap-2">
-              <h3 className="text-[15px] font-medium text-papel sm:text-[17px]">Sesiones por fuente de tráfico</h3>
-              <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-salvia-b">100% orgánico · sin pauta</span>
-            </div>
-            <div className="mt-6 space-y-3.5">
-              {CHANNELS.map((ch, i) => (
-                <div key={ch.name} className="flex items-center gap-3">
-                  <span className="w-[88px] flex-shrink-0 text-[12.5px] text-papel/80 sm:w-[120px] sm:text-[13.5px]">
-                    {ch.name}
-                    <span className="ml-1.5 font-mono text-[9px] uppercase tracking-[0.1em] text-papel/40">{ch.sub}</span>
-                  </span>
-                  <div className="h-2.5 flex-1 overflow-hidden rounded-full bg-white/6">
-                    <motion.div
-                      initial={{ width: 0 }}
-                      whileInView={{ width: `${(ch.value / CHANNEL_MAX) * 100}%` }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 1, delay: 0.1 + i * 0.1, ease: [0.22, 1, 0.36, 1] }}
-                      className="h-full rounded-full"
-                      style={{ background: ch.accent }}
-                    />
+          <div className="mt-8 grid gap-3 sm:gap-4 lg:grid-cols-12">
+            {/* Desglose por canal — sesiones */}
+            <div className="rounded-[22px] p-5 sm:p-7 lg:col-span-7" style={{ background: 'rgba(255,255,255,0.025)', boxShadow: 'inset 0 0 0 1px rgba(255,255,255,0.05)' }}>
+              <div className="flex flex-wrap items-end justify-between gap-2">
+                <h3 className="text-[15px] font-medium text-papel sm:text-[17px]">Sesiones por fuente de tráfico</h3>
+                <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-salvia-b">activación · 6 meses</span>
+              </div>
+              <div className="mt-6 space-y-3.5">
+                {CHANNELS.map((ch, i) => (
+                  <div key={ch.name + ch.sub} className="flex items-center gap-3">
+                    <span className="w-[92px] flex-shrink-0 text-[12.5px] text-papel/80 sm:w-[124px] sm:text-[13.5px]">
+                      {ch.name}
+                      <span className="ml-1.5 font-mono text-[9px] uppercase tracking-[0.1em] text-papel/40">{ch.sub}</span>
+                    </span>
+                    <div className="h-2.5 flex-1 overflow-hidden rounded-full bg-white/6">
+                      <motion.div
+                        initial={{ width: 0 }}
+                        whileInView={{ width: `${(ch.value / CHANNEL_MAX) * 100}%` }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 1, delay: 0.1 + i * 0.1, ease: [0.22, 1, 0.36, 1] }}
+                        className="h-full rounded-full"
+                        style={{ background: ch.accent }}
+                      />
+                    </div>
+                    <span className="w-[52px] flex-shrink-0 text-right text-[12.5px] font-medium tabular-nums text-papel sm:text-[13.5px]">
+                      <AnimatedCounter target={ch.value} separator duration={1600} />
+                    </span>
                   </div>
-                  <span className="w-[58px] flex-shrink-0 text-right text-[12.5px] font-medium tabular-nums text-papel sm:text-[13.5px]">
-                    <AnimatedCounter target={ch.value} separator duration={1600} />
-                  </span>
-                </div>
-              ))}
+                ))}
+              </div>
+            </div>
+
+            {/* Cómo contactan — distribución de conversiones */}
+            <div className="rounded-[22px] p-5 sm:p-7 lg:col-span-5" style={{ background: 'rgba(255,255,255,0.025)', boxShadow: 'inset 0 0 0 1px rgba(255,255,255,0.05)' }}>
+              <div className="flex flex-wrap items-end justify-between gap-2">
+                <h3 className="text-[15px] font-medium text-papel sm:text-[17px]">Cómo contactan</h3>
+                <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-salvia-b">% de contactos</span>
+              </div>
+              <div className="mt-6 space-y-4">
+                {CONTACTS.map((ct, i) => (
+                  <div key={ct.name}>
+                    <div className="flex items-center justify-between text-[12.5px] text-papel/80 sm:text-[13px]">
+                      <span className="inline-flex items-center gap-1.5">
+                        <ct.icon className="h-3.5 w-3.5" style={{ color: ct.accent }} />
+                        {ct.name}
+                        <span className="font-mono text-[9px] uppercase tracking-[0.1em] text-papel/40">{ct.sub}</span>
+                      </span>
+                      <span className="font-medium tabular-nums text-papel">{ct.pct}%</span>
+                    </div>
+                    <div className="mt-1.5 h-2 overflow-hidden rounded-full bg-white/6">
+                      <motion.div
+                        initial={{ width: 0 }}
+                        whileInView={{ width: `${(ct.pct / CONTACT_MAX) * 100}%` }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 1, delay: 0.1 + i * 0.1, ease: [0.22, 1, 0.36, 1] }}
+                        className="h-full rounded-full"
+                        style={{ background: ct.accent }}
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <p className="mt-4 text-[11px] leading-snug text-papel/45">
+                WhatsApp es el canal preferido del público B2B en México — casi 7 de cada 10 contactos.
+              </p>
             </div>
           </div>
 
           <p className="lead-type mt-9 max-w-[66ch] text-[14.5px] !text-papel/70 sm:text-[15.5px]">{c.results.body}</p>
-          <p className="mt-5 max-w-[60ch] text-[11.5px] uppercase tracking-[0.16em] text-papel/40">
-            Datos reales de Acriland · Google Search Console y analítica del sitio.
+
+          {/* Nuevos clientes — prueba */}
+          <div className="mt-8 rounded-[22px] p-6 sm:p-7" style={{ background: 'rgba(255,255,255,0.03)', boxShadow: 'inset 0 0 0 1px rgba(255,255,255,0.05)' }}>
+            <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-papel/50">Nuevos clientes cerrados por vía digital</span>
+            <div className="mt-4 flex flex-wrap gap-2.5">
+              {NEW_CLIENTS.map((cl) => (
+                <span key={cl} className="inline-flex items-center gap-1.5 rounded-full bg-white/8 px-3.5 py-2 text-[13px] font-medium text-papel">
+                  <span className="h-1.5 w-1.5 rounded-full bg-salvia-b" />
+                  {cl}
+                </span>
+              ))}
+              <span className="inline-flex items-center rounded-full bg-white/[0.04] px-3.5 py-2 text-[13px] text-papel/55">y más</span>
+            </div>
+            <p className="mt-4 max-w-[60ch] text-[12.5px] leading-[1.55] text-papel/55">
+              Justo el tipo de marcas que los dueños creían inalcanzables por internet — llegaron a través del sistema
+              digital que construimos.
+            </p>
+          </div>
+
+          <p className="mt-5 max-w-[64ch] text-[11.5px] uppercase tracking-[0.16em] text-papel/40">
+            Datos reales de Métrica BTL · Wix Analytics, Google Search Console y GA4 · nov 2025 — may 2026.
           </p>
         </div>
       </ShellWrap>
 
-      {/* ═══════════ V · CONTENIDO Y REDES ═══════════ */}
+      {/* ═══════════ V · SITIO EN VIVO ═══════════ */}
       <ShellWrap data="light" variant="papel">
-        <ChapterTag roman="V" label="Contenido y marca" sub="Redes sociales" />
+        <ChapterTag roman="V" label="El sitio en vivo" sub="Web que genera confianza" />
         <div className="mt-5 grid items-end gap-6 lg:grid-cols-12">
           <h2 className="hero-type max-w-[24ch] text-[26px] text-onyx sm:text-[36px] lg:col-span-7 lg:text-[40px]" style={{ fontWeight: 300 }}>
-            Contenido que <span className="multi-grad">despierta confianza</span> y se queda en la mente.
+            Un sitio que comunica <span className="multi-grad">25 años de capacidad</span> y convierte.
           </h2>
           <p className="lead-type text-[14.5px] sm:text-[15.5px] lg:col-span-5">
-            Producimos los conceptos, guiones, grabación y edición. Todo orgánico, sin pauta — con piezas que rozaron las
-            100,000 vistas. Los clientes empezaron a llegar diciendo que los vieron en TikTok e Instagram.
+            Rediseñamos cada página para posicionar en Google, transmitir confianza e incentivar el contacto. Páginas de
+            activaciones, promotoría, eventos y experiencias — con prueba social, capacidad operativa y CTAs claros.
           </p>
         </div>
 
-        {/* Galería de reels — lazy, preload none */}
-        <div className="mt-10 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
-          {REELS.map((r, i) => (
-            <motion.div key={r.src} custom={i} initial="hidden" whileInView="show" viewport={{ once: true }} variants={rise}>
-              <LazyVideo src={r.src} poster={r.poster} label={r.label} />
-            </motion.div>
-          ))}
+        <div className="mt-10 overflow-hidden rounded-[20px] bg-lino shadow-soft sm:rounded-[24px]">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/portfolio/metrica-btl/metrica-sitio-activaciones.jpg"
+            alt="Sitio web de Métrica BTL desarrollado por Antuario — landing de activaciones BTL en México con copy optimizado para SEO y conversión."
+            loading="lazy"
+            className="w-full"
+          />
         </div>
 
-        {/* Stat destacado de un reel */}
-        <div className="mt-5 grid items-stretch gap-3 sm:gap-4 lg:grid-cols-12">
-          <div className="rounded-[22px] bg-onyx p-6 sm:p-8 lg:col-span-7" style={{ boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.06), 0 18px 40px rgba(0,0,0,0.16)' }}>
-            <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-papel/50">Un solo reel · 100% orgánico</span>
-            <div className="mt-5 grid grid-cols-2 gap-5 sm:grid-cols-4">
-              {TIKTOK_STATS.map((t) => (
-                <div key={t.label}>
-                  <t.icon className="h-4 w-4 text-rubor-b" />
-                  <p className="mt-2 text-[22px] font-light tracking-tight text-papel sm:text-[26px]" style={{ letterSpacing: '-0.03em' }}>
-                    <AnimatedCounter target={t.v} separator />
-                  </p>
-                  <span className="font-mono text-[9px] uppercase tracking-[0.12em] text-papel/45">{t.label}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="relative overflow-hidden rounded-[22px] bg-lino lg:col-span-5">
-            <Image
-              src="/portfolio/acriland-marketing-digital.jpg"
-              alt="Contenido de redes sociales de Acriland producido por Antuario — donde la precisión se encuentra con la creatividad."
-              width={900}
-              height={1125}
-              draggable={false}
-              loading="lazy"
-              className="h-full min-h-[220px] w-full object-cover"
-              sizes="(max-width: 1024px) 100vw, 40vw"
-            />
-          </div>
-        </div>
-
-        {/* Sitio en vivo */}
+        {/* Clientes históricos */}
         <div className="mt-12">
-          <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-plomo">El sitio en vivo</span>
-          <p className="mt-2 max-w-[60ch] text-[14px] text-grafito sm:text-[15px]">
-            Una web con ecommerce optimizado, fichas de producto y fabricación a la medida — pensada para convertir.
+          <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-plomo">Su trayectoria habla</span>
+          <p className="mt-2 max-w-[64ch] text-[14px] text-grafito sm:text-[15px]">
+            Más de 25 años operando activaciones para marcas globalmente reconocidas. La web por fin comunica esa autoridad.
           </p>
-          <div className="mt-6 grid gap-3 sm:gap-4 sm:grid-cols-2">
-            {[
-              { src: '/portfolio/acriland/acriland-sitio-catalogo.jpg', alt: 'Catálogo del sitio web de Acriland desarrollado por Antuario con exhibidores de acrílico.' },
-              { src: '/portfolio/acriland/acriland-sitio-ecommerce.jpg', alt: 'Ficha de producto y ecommerce del sitio de Acriland desarrollado por Antuario.' },
-            ].map((shot) => (
-              <div key={shot.src} className="overflow-hidden rounded-[18px] bg-lino shadow-soft">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={shot.src} alt={shot.alt} loading="lazy" className="w-full" />
-              </div>
+          <div className="mt-5 flex flex-wrap gap-2.5">
+            {LEGACY_CLIENTS.map((cl) => (
+              <span key={cl} className="inline-flex items-center gap-1.5 rounded-full bg-marfil px-3.5 py-2 text-[13px] font-medium text-onyx shadow-soft">
+                <span className="h-1.5 w-1.5 rounded-full bg-cobalto" />
+                {cl}
+              </span>
             ))}
           </div>
         </div>
@@ -591,17 +649,18 @@ export function AcrilandCaseContent() {
       <ShellWrap data="dark" variant="dark">
         <div className="aurora aurora-quiet absolute inset-0 opacity-40" aria-hidden />
         <div className="relative z-10 mx-auto max-w-3xl text-center">
-          <ChapterTag roman="VI" label="El cierre" sub="Blindaje comercial" dark />
-          <h2 className="hero-type mx-auto mt-6 max-w-[22ch] text-[26px] text-papel sm:text-[38px] lg:text-[44px]" style={{ fontWeight: 300 }}>
-            Le dimos a Acriland <span className="multi-grad-bright">orden, estructura y todos los fierros</span> para crecer.
+          <ChapterTag roman="VI" label="El cierre" sub="La apuesta que valió la pena" dark />
+          <h2 className="hero-type mx-auto mt-6 max-w-[24ch] text-[26px] text-papel sm:text-[38px] lg:text-[44px]" style={{ fontWeight: 300 }}>
+            Se arriesgaron, invirtieron, y les <span className="multi-grad-bright">demostramos que sí se puede.</span>
           </h2>
-          <p className="lead-type mx-auto mt-6 max-w-[58ch] text-[14.5px] !text-papel/70 sm:text-[16px]">
-            Hemos blindado comercial y estructuralmente a Acriland: marca, web, SEO, software a la medida y contenido —
-            con gestión mes tras mes y números 100% reales y transparentes. Hoy es uno de nuestros mejores clientes.
-            Los recomendamos muchísimo: no les fallarán.
+          <p className="lead-type mx-auto mt-6 max-w-[60ch] text-[14.5px] !text-papel/70 sm:text-[16px]">
+            Los dueños de Métrica BTL eran escépticos: estaban convencidos de que clientes de esa talla solo se consiguen
+            por contactos. Apostaron por nosotros, y en seis meses pasaron de demanda cero a no dar abasto — con marcas
+            como Uber Eats, Telcel y Macropay tocando la puerta por vía digital. Tan exitosa fue la activación que su propio
+            equipo comercial pidió pausar las campañas. Hoy operan con un sistema medible, transparente y que camina solo.
           </p>
           <div className="mt-7 flex flex-wrap justify-center gap-2.5">
-            {['Marca y web', 'SEO orgánico', 'Software / CRM', 'Contenido', 'Presencia en IA'].map((t) => (
+            {['Web que genera confianza', 'SEO técnico', 'Google Ads', 'Sistema comercial', 'Accountability'].map((t) => (
               <span key={t} className="inline-flex items-center gap-1.5 rounded-full bg-white/6 px-3 py-1.5 text-[11.5px] text-papel/80">
                 <Check className="h-3 w-3 text-salvia-b" />
                 {t}
@@ -655,7 +714,7 @@ export function AcrilandCaseContent() {
 
       <CTASection
         title="¿Quieres un caso de éxito"
-        highlight="parecido al de Acriland?"
+        highlight="parecido al de Métrica BTL?"
         description="Cuéntanos qué reto persigues. Diseñamos un sistema a la medida para tu empresa — con accountability y métricas medibles desde el día uno."
         secondary={{ label: 'Conocer servicios', href: '/servicios' }}
       />
