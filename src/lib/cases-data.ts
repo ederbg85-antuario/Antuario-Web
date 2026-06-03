@@ -65,6 +65,52 @@ export const CASES: Record<string, CaseData> = {
     detail: true,
   },
 
+  'usg-agente-ia-software-a-la-medida': {
+    slug: 'usg-agente-ia-software-a-la-medida',
+    name: 'USG',
+    imageSrc: '/portfolio/usg-agente-ia-software-a-la-medida.jpg',
+    imageAlt: 'USG — caso de éxito de agente de inteligencia artificial en WhatsApp y software a la medida desarrollado por Antuario para automatizar una promoción nacional.',
+    industry: 'Industria · Materiales de construcción',
+    tagline: 'Cómo un agente de IA en WhatsApp automatizó al 90% una promoción nacional.',
+    services: ['Inteligencia Artificial', 'Software a la medida', 'Desarrollo Web'],
+    servicesSlug: ['inteligencia-artificial', 'software', 'desarrollo-web'],
+    year: '2026',
+    metaTitle: 'Caso USG — agente de IA y software a la medida | Antuario',
+    metaDescription:
+      'Caso de éxito USG: cómo Antuario automatizó al 90% una promoción nacional con un agente de inteligencia artificial en WhatsApp, una landing con ranking en vivo, una base de datos en tiempo real y un panel de control a la medida — todo desarrollado en 15 días. Agencia de IA y software a la medida en CDMX, México.',
+    hero: {
+      eyebrow: 'Caso de éxito · USG · Promoción nacional',
+      title: 'Caso USG —',
+      highlight: 'cómo un agente de IA y software a la medida automatizaron una promoción nacional.',
+      description:
+        'USG, líder en materiales de construcción, lanzó por el Mundial la “Liga USG de Campeones”: una promoción donde sus clientes acumulaban puntos por sus compras para ganar motos, pantallas y premios en efectivo. Antuario desarrolló en 15 días la landing con ranking en vivo, un agente de inteligencia artificial en WhatsApp y un panel de control a la medida que, juntos, automatizaron al 90% una dinámica que antes era 100% manual.',
+    },
+    challenge: {
+      headline: 'El reto: una promoción nacional gestionada a mano.',
+      body: 'Años atrás, USG ya operaba esta promoción de forma totalmente manual: contrataban capturistas y equipos de asistencia para recibir cada remisión, factura o ticket por separado, leer los productos, sumar los puntos a mano y actualizar el ranking. Era caro, lento y propenso a errores — y mantener informados tanto a USG como a sus clientes participantes generaba fricción constante. Con miles de participantes a nivel nacional enviando comprobantes de compra, la operación no escalaba: cada punto mal sumado o cada respuesta tardía erosionaba la confianza en la dinámica. El reto era claro: automatizar casi por completo la gestión de la promoción sin sacrificar la experiencia del participante, y hacerlo a tiempo para el arranque.',
+    },
+    strategy: {
+      headline: 'La solución: un sistema de IA y software, bajo una sola dirección.',
+      pillars: [
+        { t: 'Landing con ranking en vivo', d: 'Diseñamos y desarrollamos la landing de la “Liga USG de Campeones” con diseño, copy y un ranking público que se conecta en tiempo real a la base de datos: cada participante consulta su lugar al instante.' },
+        { t: 'Agente de IA en WhatsApp', d: 'Construimos un agente de inteligencia artificial que atiende el WhatsApp de la promoción, registra a los participantes, analiza sus tickets, remisiones y facturas en imagen o PDF, detecta los productos USG y suma los puntos automáticamente.' },
+        { t: 'Base de datos en tiempo real', d: 'Desarrollamos la base de datos que lleva todo el registro de la dinámica y alimenta tanto el ranking público como el panel del cliente — actualizada al segundo por el propio agente.' },
+        { t: 'Panel de control a la medida', d: 'Entregamos a USG un panel con bandeja de entrada de WhatsApp en vivo, opción de intervenir manualmente y acceso total a la base de datos, tickets y documentos — eliminando la fricción de pedirnos información.' },
+      ],
+    },
+    metrics: [
+      { label: 'Automatización de la dinámica', value: '90%', delta: 'antes 100% manual' },
+      { label: 'Tiempo de desarrollo', value: '15 días', delta: 'end-to-end' },
+      { label: 'Atención del agente', value: '24/7', delta: 'sin esperas' },
+      { label: 'Ranking público', value: 'Tiempo real', delta: 'conectado a la BD' },
+    ],
+    results: {
+      headline: 'Resultado: una promoción que prácticamente se gestiona sola.',
+      body: 'Automatizamos al 90% una dinámica que USG llevaba años haciendo de forma manual. El agente de IA registra participantes, lee comprobantes de compra en imagen o PDF, detecta los productos USG con su puntaje y actualiza la base de datos solo — que a su vez refresca el ranking público en tiempo real. USG ganó control total sin esfuerzo: desde su panel ven cada conversación en vivo, pueden intervenir cuando quieren y consultan toda la base de datos, tickets y documentos cuando los necesitan. Para sus clientes, participar pasó a ser una experiencia simple y 100% conversacional. Y todo esto lo construimos en 15 días — la prueba de que combinamos desarrollo web, software a la medida y agentes de IA con la tecnología más avanzada, en tiempo récord.',
+    },
+    detail: true,
+  },
+
   maggadan: {
     slug: 'maggadan',
     name: 'Maggadan',

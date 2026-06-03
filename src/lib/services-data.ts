@@ -462,9 +462,9 @@ export const SERVICES: Record<string, ServiceData> = {
       ],
     },
     cases: [
+      { name: 'USG', slug: 'usg-agente-ia-software-a-la-medida' },
       { name: 'Acriland', slug: 'acriland-desarrollo-web-seo' },
       { name: 'Métrica BTL', slug: 'metrica-btl-desarrollo-web-seo' },
-      { name: 'Aracnene', slug: 'aracnene' },
     ],
     faqs: [
       { q: '¿Cuándo conviene software a la medida sobre un SaaS?', a: 'Cuando tu proceso es lo suficientemente único como para que ningún SaaS lo cubra bien, cuando el costo acumulado de licencias supera el desarrollo, o cuando los datos integrados son ventaja competitiva.' },
@@ -535,9 +535,9 @@ export const SERVICES: Record<string, ServiceData> = {
       ],
     },
     cases: [
+      { name: 'USG', slug: 'usg-agente-ia-software-a-la-medida' },
       { name: 'Acriland', slug: 'acriland-desarrollo-web-seo' },
       { name: 'Métrica BTL', slug: 'metrica-btl-desarrollo-web-seo' },
-      { name: 'Reserva 27', slug: 'reserva-27' },
     ],
     faqs: [
       { q: '¿Qué modelos de IA usan?', a: 'Trabajamos con Claude (Anthropic), GPT (OpenAI), Gemini (Google) y modelos open source (Llama, Mistral, Qwen) según el caso. La selección depende de calidad, costo y latencia.' },

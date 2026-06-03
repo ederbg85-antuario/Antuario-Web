@@ -18,11 +18,13 @@ import { CASES, DETAILED_CASES } from '@/lib/cases-data'
 import { SERVICES } from '@/lib/services-data'
 import { AcrilandCaseContent } from './AcrilandCaseContent'
 import { MetricaBtlCaseContent } from './MetricaBtlCaseContent'
+import { UsgCaseContent } from './UsgCaseContent'
 
 export function CaseDetailContent({ slug }: { slug: string }) {
   // Caso destacado con contenido a la medida (multimedia + dashboard animado)
   if (slug === 'acriland-desarrollo-web-seo') return <AcrilandCaseContent />
   if (slug === 'metrica-btl-desarrollo-web-seo') return <MetricaBtlCaseContent />
+  if (slug === 'usg-agente-ia-software-a-la-medida') return <UsgCaseContent />
 
   const c = CASES[slug]
   if (!c) return null
