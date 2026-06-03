@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { ArrowRight, ArrowUpRight, Heart, Share2, UserPlus, Eye, Check } from 'lucide-react'
+import { ArrowRight, ArrowUpRight, Heart, Share2, UserPlus, Eye, Check, Search } from 'lucide-react'
 import { siteConfig } from '@/config/site'
 import { SiteFrame, WhatsAppIcon } from '@/components/layout/SiteFrame'
 import {
@@ -200,6 +200,81 @@ export function AcrilandCaseContent() {
           </div>
         </div>
       </section>
+
+      {/* ═══════════ ASÍ APARECE EN GOOGLE ═══════════ */}
+      <ShellWrap data="light" variant="marfil">
+        <div className="mx-auto max-w-[940px] text-center">
+          <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-plomo">
+            Posicionamiento orgánico · Google
+          </span>
+          <h2 className="hero-type mx-auto mt-4 max-w-[22ch] text-[26px] text-onyx sm:text-[36px] lg:text-[42px]" style={{ fontWeight: 300 }}>
+            Así aparece Acriland cuando <span className="multi-grad">buscas en Google.</span>
+          </h2>
+          <p className="lead-type mx-auto mt-4 max-w-[58ch] text-[14px] sm:text-[15px]">
+            Resultado orgánico con sitelinks y ficha de Google Business — sin un solo peso en pauta. Posicionamiento SEO
+            real que pone a Acriland frente a quien busca su producto.
+          </p>
+        </div>
+
+        {/* Mockup buscador */}
+        <motion.div
+          initial={{ opacity: 0, y: 28 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+          className="relative mx-auto mt-10 max-w-[1040px]"
+        >
+          <div
+            className="overflow-hidden rounded-[20px] bg-papel sm:rounded-[26px]"
+            style={{ boxShadow: 'inset 0 0 0 1px rgba(15,15,30,0.05), 0 4px 12px rgba(15,15,30,0.08), 0 30px 64px rgba(15,15,30,0.14)' }}
+          >
+            {/* Chrome + barra de búsqueda Google */}
+            <div className="flex items-center gap-3 border-b border-onyx/6 px-3 py-3 sm:px-4">
+              <span className="hidden gap-1.5 sm:flex">
+                <span className="h-2.5 w-2.5 rounded-full bg-onyx/10" />
+                <span className="h-2.5 w-2.5 rounded-full bg-onyx/10" />
+                <span className="h-2.5 w-2.5 rounded-full bg-onyx/10" />
+              </span>
+              <div
+                className="flex flex-1 items-center gap-2.5 rounded-full bg-marfil px-4 py-2 sm:py-2.5"
+                style={{ boxShadow: 'inset 0 0 0 1px rgba(15,15,30,0.06)' }}
+              >
+                <GoogleG className="h-4 w-4 flex-shrink-0" />
+                <span className="flex-1 truncate text-[13px] text-onyx sm:text-[14px]">exhibidores de acrílico</span>
+                <span className="hidden h-4 w-px bg-onyx/10 sm:block" />
+                <Search className="h-4 w-4 flex-shrink-0" style={{ color: '#4285F4' }} />
+              </div>
+              <span className="hidden items-center gap-1.5 rounded-full px-2.5 py-1 font-mono text-[9px] uppercase tracking-[0.14em] sm:inline-flex" style={{ background: 'rgba(52,211,153,0.14)', color: '#1a7f4b' }}>
+                <span className="relative flex h-1.5 w-1.5">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full opacity-70" style={{ background: '#34D399' }} />
+                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full" style={{ background: '#34D399' }} />
+                </span>
+                Rank orgánico
+              </span>
+            </div>
+
+            {/* Captura del resultado */}
+            <Image
+              src="/portfolio/acriland/acriland-google-serp.jpg"
+              alt="Acriland posicionado en Google con sitelinks y ficha de Google Business — 4.5 estrellas y 17 reseñas, posicionamiento SEO orgánico logrado por Antuario en CDMX."
+              width={1600}
+              height={713}
+              draggable={false}
+              className="w-full"
+              sizes="(max-width: 1024px) 100vw, 1040px"
+            />
+          </div>
+
+          {/* Highlights de la ficha de Google Business */}
+          <div className="mt-5 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-[12px] text-grafito sm:text-[12.5px]">
+            <span className="inline-flex items-center gap-1.5"><span style={{ color: '#F59E0B' }}>★</span> 4.5 · 17 reseñas en Google</span>
+            <span className="hidden h-3 w-px bg-onyx/12 sm:block" />
+            <span>Ficha de Google Business activa</span>
+            <span className="hidden h-3 w-px bg-onyx/12 sm:block" />
+            <span>Posición media 7.4 · Search Console</span>
+          </div>
+        </motion.div>
+      </ShellWrap>
 
       {/* ═══════════ FICHA / INTRO ═══════════ */}
       <ShellWrap data="light" variant="papel">
@@ -573,5 +648,16 @@ export function AcrilandCaseContent() {
         secondary={{ label: 'Conocer servicios', href: '/servicios' }}
       />
     </SiteFrame>
+  )
+}
+
+function GoogleG({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 48 48" className={className} aria-hidden focusable="false">
+      <path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z" />
+      <path fill="#FF3D00" d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z" />
+      <path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238C29.211 35.091 26.715 36 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z" />
+      <path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303c-.792 2.237-2.231 4.166-4.087 5.571l.003-.002 6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z" />
+    </svg>
   )
 }
