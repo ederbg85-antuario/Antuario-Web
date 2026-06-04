@@ -716,8 +716,8 @@ function CasesSection() {
     { src: '/portfolio/maggadan-marketing-digital.jpg', slug: 'maggadan', name: 'Maggadan', tag: 'Marketing Digital', alt: 'Maggadan — caso de éxito de marketing digital y performance ads con Antuario.' },
     { src: '/portfolio/magia-travel-desarrollo-web.jpg', slug: 'magia-travel', name: 'Magia Travel', tag: 'Desarrollo Web', alt: 'Magia Travel — caso de éxito de desarrollo web turístico con Antuario.' },
     { src: '/portfolio/metrica-btl-desarrollo-web-seo.jpg', slug: 'metrica-btl-desarrollo-web-seo', name: 'Métrica BTL', tag: 'Desarrollo Web · SEO', alt: 'Métrica BTL — caso de éxito de desarrollo web, SEO y Google Ads B2B con Antuario.' },
-    { src: '/portfolio/reserva-27-marketing-digital.jpg', slug: 'reserva-27', name: 'Reserva 27', tag: 'Marketing Digital', alt: 'Reserva 27 — caso de éxito de marketing digital en hospitality con Antuario.' },
-    { src: '/portfolio/somos-unno-marketing-digital.jpg', slug: 'somos-unno', name: 'Somos Unno', tag: 'Marketing Digital', alt: 'Somos Unno — caso de éxito de marketing digital en alimentos gourmet con Antuario.' },
+    { src: '/portfolio/reserva-27-desarrollo-web-agente-ia.jpg', slug: 'reserva-27-desarrollo-web-agente-ia', name: 'Reserva 27', tag: 'Web · IA · Ads', alt: 'Reserva 27 — caso de éxito de desarrollo web con cotizador en vivo y agente de IA en WhatsApp con Antuario.' },
+    { src: '/portfolio/somos-unno-redes-sociales-meta-ads.jpg', slug: 'somos-unno-redes-sociales-meta-ads', name: 'Somos Unno', tag: 'Contenido · Redes · Ads', alt: 'Somos Unno — caso de éxito de contenido, redes sociales y Meta Ads para charcutería gourmet con Antuario.' },
     { src: '/portfolio/acriland-marketing-digital.jpg', slug: 'acriland-desarrollo-web-seo', name: 'Acriland', tag: 'Marca · Contenido', alt: 'Acriland — contenido de marca y redes sociales producido por Antuario, agencia de marketing digital.' },
   ]
   const loop = [...cases, ...cases]

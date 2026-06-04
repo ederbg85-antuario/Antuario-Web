@@ -51,6 +51,10 @@ const nextConfig = {
       { source: '/casos/acriland-web', destination: '/casos/acriland-desarrollo-web-seo', permanent: true },
       // Consolidación del caso Métrica BTL — slug con keyword (301)
       { source: '/casos/metrica-btl', destination: '/casos/metrica-btl-desarrollo-web-seo', permanent: true },
+      // Consolidación del caso Reserva 27 — slug con keyword (301)
+      { source: '/casos/reserva-27', destination: '/casos/reserva-27-desarrollo-web-agente-ia', permanent: true },
+      // Consolidación del caso Somos Unno — slug con keyword (301)
+      { source: '/casos/somos-unno', destination: '/casos/somos-unno-redes-sociales-meta-ads', permanent: true },
     ]
   },
   experimental: {

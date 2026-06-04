@@ -19,12 +19,16 @@ import { SERVICES } from '@/lib/services-data'
 import { AcrilandCaseContent } from './AcrilandCaseContent'
 import { MetricaBtlCaseContent } from './MetricaBtlCaseContent'
 import { UsgCaseContent } from './UsgCaseContent'
+import { ReservaCaseContent } from './ReservaCaseContent'
+import { SomosUnnoCaseContent } from './SomosUnnoCaseContent'
 
 export function CaseDetailContent({ slug }: { slug: string }) {
   // Caso destacado con contenido a la medida (multimedia + dashboard animado)
   if (slug === 'acriland-desarrollo-web-seo') return <AcrilandCaseContent />
   if (slug === 'metrica-btl-desarrollo-web-seo') return <MetricaBtlCaseContent />
   if (slug === 'usg-agente-ia-software-a-la-medida') return <UsgCaseContent />
+  if (slug === 'reserva-27-desarrollo-web-agente-ia') return <ReservaCaseContent />
+  if (slug === 'somos-unno-redes-sociales-meta-ads') return <SomosUnnoCaseContent />
 
   const c = CASES[slug]
   if (!c) return null

@@ -171,8 +171,8 @@ export const SERVICES: Record<string, ServiceData> = {
     },
     cases: [
       { name: 'Maggadan', slug: 'maggadan' },
-      { name: 'Reserva 27', slug: 'reserva-27' },
-      { name: 'Somos Unno', slug: 'somos-unno' },
+      { name: 'Reserva 27', slug: 'reserva-27-desarrollo-web-agente-ia' },
+      { name: 'Somos Unno', slug: 'somos-unno-redes-sociales-meta-ads' },
     ],
     faqs: [
       { q: '¿Cuál es el presupuesto mínimo recomendado?', a: 'Para que la operación tenga sentido y los datos sean estadísticamente accionables, recomendamos a partir de $80,000 MXN/mes en media inversion. Por debajo, la dispersión de datos limita la optimización.' },
@@ -317,8 +317,8 @@ export const SERVICES: Record<string, ServiceData> = {
     },
     cases: [
       { name: 'Maggadan', slug: 'maggadan' },
-      { name: 'Reserva 27', slug: 'reserva-27' },
-      { name: 'Somos Unno', slug: 'somos-unno' },
+      { name: 'Reserva 27', slug: 'reserva-27-desarrollo-web-agente-ia' },
+      { name: 'Somos Unno', slug: 'somos-unno-redes-sociales-meta-ads' },
     ],
     faqs: [
       { q: '¿En qué redes sociales operan?', a: 'Instagram, TikTok, LinkedIn, Facebook y YouTube principalmente. La selección depende de dónde está tu audiencia real, no de moda.' },
@@ -389,8 +389,8 @@ export const SERVICES: Record<string, ServiceData> = {
       ],
     },
     cases: [
-      { name: 'Reserva 27', slug: 'reserva-27' },
-      { name: 'Somos Unno', slug: 'somos-unno' },
+      { name: 'Reserva 27', slug: 'reserva-27-desarrollo-web-agente-ia' },
+      { name: 'Somos Unno', slug: 'somos-unno-redes-sociales-meta-ads' },
       { name: 'Maggadan', slug: 'maggadan' },
     ],
     faqs: [
