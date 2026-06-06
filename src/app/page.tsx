@@ -6,6 +6,8 @@ import { motion, AnimatePresence } from 'framer-motion'
 import {
   ArrowRight,
   ArrowUpRight,
+  ChevronLeft,
+  ChevronRight,
   Menu,
   X,
   MessageCircle,
@@ -17,6 +19,8 @@ import {
 } from 'lucide-react'
 import Link from 'next/link'
 import { siteConfig } from '@/config/site'
+import { SharedTeam } from '@/components/common/PageSharedSections'
+import { CASE_LIST } from '@/lib/cases-data'
 
 /* ═══════════════════════════════════════════════════════════════════
    ANTUARIO · Home (Brandbook 2026) · v3
@@ -157,6 +161,7 @@ export default function HomePage() {
         <HeroSection />
         <CasesSection />
         <AgencySection />
+        <SharedTeam />
         <ServicesSection />
         <DifferentiatorsSection />
         <DataSection />
@@ -710,42 +715,56 @@ function HeroDeck() {
 
 /* ═══════════════ 02 · CASOS (movido aquí) ═══════════════ */
 function CasesSection() {
-  const cases = [
-    { src: '/portfolio/acriland-desarrollo-web-seo.jpg', slug: 'acriland-desarrollo-web-seo', name: 'Acriland', tag: 'Desarrollo Web · SEO', alt: 'Acriland — caso de éxito de desarrollo web y posicionamiento SEO con Antuario en CDMX.' },
-    { src: '/portfolio/aracnene-desarrollo-web-seo.jpg', slug: 'aracnene', name: 'Aracnene', tag: 'Desarrollo Web · SEO', alt: 'Aracnene — caso de éxito de desarrollo web y posicionamiento SEO con Antuario.' },
-    { src: '/portfolio/maggadan-marketing-digital.jpg', slug: 'maggadan', name: 'Maggadan', tag: 'Marketing Digital', alt: 'Maggadan — caso de éxito de marketing digital y performance ads con Antuario.' },
-    { src: '/portfolio/magia-travel-desarrollo-web.jpg', slug: 'magia-travel', name: 'Magia Travel', tag: 'Desarrollo Web', alt: 'Magia Travel — caso de éxito de desarrollo web turístico con Antuario.' },
-    { src: '/portfolio/metrica-btl-desarrollo-web-seo.jpg', slug: 'metrica-btl-desarrollo-web-seo', name: 'Métrica BTL', tag: 'Desarrollo Web · SEO', alt: 'Métrica BTL — caso de éxito de desarrollo web, SEO y Google Ads B2B con Antuario.' },
-    { src: '/portfolio/reserva-27-desarrollo-web-agente-ia.jpg', slug: 'reserva-27-desarrollo-web-agente-ia', name: 'Reserva 27', tag: 'Web · IA · Ads', alt: 'Reserva 27 — caso de éxito de desarrollo web con cotizador en vivo y agente de IA en WhatsApp con Antuario.' },
-    { src: '/portfolio/somos-unno-redes-sociales-meta-ads.jpg', slug: 'somos-unno-redes-sociales-meta-ads', name: 'Somos Unno', tag: 'Contenido · Redes · Ads', alt: 'Somos Unno — caso de éxito de contenido, redes sociales y Meta Ads para charcutería gourmet con Antuario.' },
-    { src: '/portfolio/acriland-marketing-digital.jpg', slug: 'acriland-desarrollo-web-seo', name: 'Acriland', tag: 'Marca · Contenido', alt: 'Acriland — contenido de marca y redes sociales producido por Antuario, agencia de marketing digital.' },
-  ]
-  const loop = [...cases, ...cases]
+  const cases = CASE_LIST.map((c) => ({
+    src: c.imageSrc,
+    alt: c.imageAlt,
+    slug: c.slug,
+    name: c.name,
+    tag: c.services.slice(0, 3).join(' · '),
+    detail: !!c.detail,
+  }))
   const trackRef = useRef<HTMLDivElement>(null)
+  const dragMoved = useRef(false)
 
-  useEffect(() => {
-    const track = trackRef.current
-    if (!track) return
-    let raf = 0
-    let last = performance.now()
-    let offset = 0
-    const tick = (now: number) => {
-      const dt = Math.min(now - last, 60)
-      last = now
-      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-      if (!reduceMotion) {
-        offset += 0.045 * dt
-        const half = track.scrollWidth / 2
-        if (half > 0 && offset >= half) offset -= half
-        track.style.transform = `translate3d(${-offset}px, 0, 0)`
-      }
-      raf = requestAnimationFrame(tick)
+  // Desplazar de tarjeta en tarjeta con las flechas.
+  const scrollByCards = (dir: number) => {
+    const el = trackRef.current
+    if (!el) return
+    const card = el.querySelector<HTMLElement>('[data-card]')
+    const amount = card ? card.offsetWidth + 24 : el.clientWidth * 0.85
+    el.scrollBy({ left: dir * amount, behavior: 'smooth' })
+  }
+
+  // Arrastrar con mouse/trackpad (en touch dejamos el scroll/swipe nativo).
+  const onPointerDown = (e: React.PointerEvent) => {
+    if (e.pointerType === 'touch') return
+    const el = trackRef.current
+    if (!el) return
+    const startX = e.clientX
+    const startScroll = el.scrollLeft
+    dragMoved.current = false
+    el.classList.add('cursor-grabbing')
+    const move = (ev: PointerEvent) => {
+      const dx = ev.clientX - startX
+      if (Math.abs(dx) > 4) dragMoved.current = true
+      el.scrollLeft = startScroll - dx
     }
-    raf = requestAnimationFrame(tick)
-    return () => {
-      cancelAnimationFrame(raf)
+    const up = () => {
+      el.classList.remove('cursor-grabbing')
+      window.removeEventListener('pointermove', move)
+      window.removeEventListener('pointerup', up)
     }
-  }, [])
+    window.addEventListener('pointermove', move)
+    window.addEventListener('pointerup', up)
+  }
+
+  // Evita que un arrastre dispare la navegación del enlace.
+  const guardClick = (e: React.MouseEvent) => {
+    if (dragMoved.current) {
+      e.preventDefault()
+      dragMoved.current = false
+    }
+  }
 
   return (
     <section data-theme="light" className="bg-papel py-[clamp(56px,7vh,100px)]">
@@ -767,11 +786,31 @@ function CasesSection() {
               <span className="multi-grad">nuestra agencia de marketing digital.</span>
             </h2>
           </div>
-          <p className="lead-type max-w-[42ch] text-[14.5px] sm:text-[16px]">
-            Empresas mexicanas que nos confían su marketing digital,
-            desarrollo web y posicionamiento orgánico —{' '}
-            <span className="multi-grad font-medium">soluciones de marketing digital a la medida</span>.
-          </p>
+          <div className="flex flex-col items-start gap-4 sm:items-end">
+            <p className="lead-type max-w-[42ch] text-[14.5px] sm:text-[16px]">
+              Empresas mexicanas que nos confían su marketing digital,
+              desarrollo web y posicionamiento orgánico —{' '}
+              <span className="multi-grad font-medium">soluciones de marketing digital a la medida</span>.
+            </p>
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => scrollByCards(-1)}
+                aria-label="Ver casos anteriores"
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-onyx/12 bg-papel text-onyx shadow-soft transition-colors duration-300 hover:bg-onyx hover:text-papel"
+              >
+                <ChevronLeft className="h-5 w-5" />
+              </button>
+              <button
+                type="button"
+                onClick={() => scrollByCards(1)}
+                aria-label="Ver más casos"
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-onyx/12 bg-papel text-onyx shadow-soft transition-colors duration-300 hover:bg-onyx hover:text-papel"
+              >
+                <ChevronRight className="h-5 w-5" />
+              </button>
+            </div>
+          </div>
         </motion.div>
       </div>
 
@@ -783,45 +822,60 @@ function CasesSection() {
         className="relative"
       >
         <div
-          className="marquee-mask no-scrollbar overflow-hidden px-[clamp(16px,3vw,40px)]"
+          ref={trackRef}
+          onPointerDown={onPointerDown}
+          className="marquee-mask no-scrollbar flex w-full cursor-grab snap-x snap-mandatory gap-5 overflow-x-auto px-[clamp(16px,3vw,40px)] pb-2 sm:gap-6"
+          style={{ WebkitOverflowScrolling: 'touch' }}
         >
-          <div
-            ref={trackRef}
-            className="flex w-max gap-5 pb-2 sm:gap-6"
-            style={{ willChange: 'transform' }}
-          >
-            {loop.map((c, i) => (
-              <article
-                key={`${c.name}-${i}`}
-                className="group relative aspect-[4/5] w-[280px] flex-shrink-0 select-none overflow-hidden rounded-[28px] bg-lino sm:w-[340px] lg:w-[380px]"
-                style={{
-                  boxShadow:
-                    '0 2px 4px rgba(15,15,30,0.08), 0 18px 36px rgba(15,15,30,0.10), 0 36px 72px rgba(15,15,30,0.07)',
-                }}
-                aria-label={c.name}
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={c.src}
-                  alt={c.alt}
-                  draggable={false}
-                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-                  loading="lazy"
-                />
-                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent p-5 sm:p-6">
-                  <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-papel/65">
-                    {c.tag}
-                  </span>
-                  <h3
-                    className="mt-1.5 text-[18px] font-medium tracking-tight text-papel sm:text-[22px]"
-                    style={{ letterSpacing: '-0.018em' }}
-                  >
-                    {c.name}
-                  </h3>
+          {cases.map((c) => (
+            <article
+              key={c.slug}
+              data-card
+              className="group relative aspect-[4/5] w-[280px] flex-shrink-0 snap-start select-none overflow-hidden rounded-[28px] bg-lino sm:w-[340px] lg:w-[380px]"
+              style={{
+                boxShadow:
+                  '0 2px 4px rgba(15,15,30,0.08), 0 18px 36px rgba(15,15,30,0.10), 0 36px 72px rgba(15,15,30,0.07)',
+              }}
+              aria-label={c.name}
+            >
+              <Image
+                src={c.src}
+                alt={c.alt}
+                fill
+                draggable={false}
+                className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                sizes="(max-width: 640px) 280px, (max-width: 1024px) 340px, 380px"
+              />
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent p-5 sm:p-6">
+                <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-papel/65">
+                  {c.tag}
+                </span>
+                <h3
+                  className="mt-1.5 text-[18px] font-medium tracking-tight text-papel sm:text-[22px]"
+                  style={{ letterSpacing: '-0.018em' }}
+                >
+                  {c.name}
+                </h3>
+                <div className="pointer-events-auto mt-3">
+                  {c.detail ? (
+                    <Link
+                      href={`/casos/${c.slug}`}
+                      onClick={guardClick}
+                      draggable={false}
+                      className="inline-flex items-center gap-1.5 rounded-full bg-papel/95 px-3.5 py-1.5 text-[12px] font-medium text-onyx shadow-soft transition-colors duration-300 hover:bg-papel"
+                    >
+                      Ver caso
+                      <ArrowUpRight className="h-3.5 w-3.5" />
+                    </Link>
+                  ) : (
+                    <span className="inline-flex items-center rounded-full bg-white/12 px-3.5 py-1.5 font-mono text-[10px] uppercase tracking-[0.18em] text-papel/70">
+                      Próximamente
+                    </span>
+                  )}
                 </div>
-              </article>
-            ))}
-          </div>
+              </div>
+            </article>
+          ))}
         </div>
       </motion.div>
     </section>
@@ -1798,14 +1852,10 @@ function CoverageSection() {
 }
 
 function MexicoMap() {
-  // Silueta de México refinada con curvas Bézier — viewBox 1000×640.
-  // Forma más orgánica y reconocible, con norte ancho, golfo, Yucatán y pacífico.
-  const mainland =
-    'M 172 88 C 226 70, 296 68, 366 74 C 412 78, 462 100, 504 134 C 542 162, 580 178, 612 198 C 642 220, 660 252, 668 286 C 672 322, 658 354, 656 384 C 660 416, 682 444, 712 466 C 746 484, 782 488, 814 480 C 844 470, 868 448, 884 424 C 902 404, 924 388, 952 384 C 974 384, 988 396, 988 412 C 988 432, 970 444, 950 454 C 932 468, 914 490, 906 514 C 894 538, 870 552, 838 552 C 808 552, 778 540, 748 526 C 712 510, 676 506, 642 510 C 596 512, 552 502, 512 488 C 466 472, 434 444, 416 410 C 398 372, 388 332, 374 298 C 358 264, 330 240, 300 218 C 268 196, 244 178, 222 156 C 202 136, 186 116, 176 96 Z'
-
-  // Baja California — curva natural más fluida.
-  const baja =
-    'M 66 32 C 96 28, 120 38, 134 64 C 146 90, 156 120, 168 152 C 184 188, 204 222, 224 256 C 240 282, 252 304, 258 320 C 256 332, 244 326, 230 312 C 212 290, 192 266, 170 240 C 148 212, 128 184, 112 154 C 96 124, 82 94, 72 66 C 66 52, 64 42, 66 32 Z'
+  // Silueta real de México (geografía proyectada a viewBox 1000×640).
+  // Incluye Baja California, golfo de California, península de Yucatán y costa del Pacífico.
+  const mexico =
+    'M 111.5 70.1 L 118.3 84.6 L 124.2 88.9 L 120.7 90.9 L 131.7 106.7 L 131.3 112.7 L 138.5 117.2 L 136.9 126.2 L 144.9 130.7 L 147.3 146.1 L 166.0 156.6 L 188.7 182.0 L 189.0 188.6 L 182.5 196.9 L 179.0 199.6 L 163.1 197.8 L 163.8 201.3 L 177.9 211.0 L 179.9 217.4 L 194.1 223.3 L 201.2 230.8 L 207.4 228.7 L 231.9 243.9 L 238.3 259.8 L 233.5 282.6 L 238.8 289.1 L 239.3 284.7 L 243.5 285.2 L 245.5 289.7 L 241.0 290.7 L 248.5 296.5 L 259.5 298.0 L 282.4 315.8 L 292.6 335.8 L 306.1 327.4 L 307.2 319.9 L 300.2 313.9 L 296.6 302.6 L 292.7 303.0 L 286.6 294.7 L 283.6 295.2 L 284.2 299.3 L 277.3 297.2 L 274.0 289.5 L 275.8 281.8 L 267.0 262.5 L 259.6 255.4 L 260.5 245.5 L 258.6 246.0 L 255.9 234.5 L 246.0 224.3 L 248.1 233.9 L 242.2 222.3 L 244.7 221.1 L 243.5 219.2 L 237.1 215.9 L 233.0 206.0 L 224.8 200.8 L 221.0 182.2 L 214.4 180.0 L 211.4 171.7 L 208.2 171.6 L 200.3 158.5 L 182.8 145.0 L 181.5 139.0 L 175.5 134.1 L 173.7 113.1 L 169.5 107.3 L 172.0 93.4 L 176.2 92.3 L 189.0 98.4 L 192.9 95.4 L 199.0 98.0 L 200.3 103.2 L 211.8 106.2 L 214.6 108.2 L 214.2 110.7 L 212.6 109.0 L 213.0 119.4 L 221.9 133.9 L 222.2 141.9 L 235.5 160.4 L 229.2 161.3 L 226.1 170.0 L 234.5 175.4 L 237.8 168.3 L 261.3 194.9 L 276.5 199.0 L 276.6 213.6 L 291.4 220.3 L 296.6 230.1 L 309.1 234.7 L 305.9 248.4 L 306.6 259.9 L 330.7 270.3 L 341.7 286.0 L 365.6 304.9 L 381.5 326.9 L 398.3 344.0 L 401.5 359.7 L 406.8 370.4 L 412.9 374.9 L 412.2 384.7 L 404.5 394.4 L 409.9 394.7 L 411.7 399.0 L 400.2 404.2 L 417.1 432.0 L 445.2 447.6 L 455.8 461.2 L 499.2 474.0 L 517.6 490.4 L 553.9 506.6 L 575.3 510.2 L 580.9 517.2 L 601.6 526.7 L 612.7 527.3 L 632.7 535.3 L 658.4 527.3 L 666.6 521.3 L 686.3 521.6 L 712.6 536.4 L 741.3 566.0 L 745.7 550.8 L 741.9 545.6 L 754.0 523.3 L 787.0 522.5 L 787.9 513.9 L 781.6 511.9 L 779.5 505.1 L 761.3 490.8 L 772.8 490.8 L 772.8 475.2 L 819.2 475.2 L 819.2 471.4 L 822.5 469.9 L 826.7 473.0 L 835.1 457.5 L 841.3 456.6 L 846.5 448.2 L 846.2 456.9 L 849.6 458.3 L 852.7 465.1 L 862.9 433.7 L 856.9 436.5 L 863.5 427.5 L 862.7 425.3 L 857.1 427.4 L 857.5 424.0 L 862.6 420.2 L 862.2 411.0 L 876.7 392.4 L 880.5 383.4 L 878.9 375.7 L 877.4 379.9 L 873.9 371.2 L 865.0 371.5 L 863.8 373.6 L 870.6 372.4 L 868.1 375.5 L 845.2 369.9 L 795.2 382.6 L 788.4 387.6 L 784.9 401.7 L 786.0 416.2 L 779.6 423.2 L 778.7 433.3 L 774.6 437.2 L 750.9 452.8 L 747.3 450.4 L 732.6 452.2 L 723.3 457.7 L 711.3 457.5 L 683.8 465.2 L 676.1 454.6 L 650.9 447.1 L 639.5 433.8 L 634.8 418.6 L 617.1 396.9 L 610.7 379.7 L 613.2 372.1 L 601.6 354.7 L 599.7 343.7 L 604.0 290.4 L 616.8 257.6 L 617.2 250.6 L 610.6 253.9 L 604.1 248.4 L 590.6 247.9 L 567.4 237.6 L 559.2 221.5 L 556.6 204.9 L 549.0 200.7 L 546.7 194.8 L 537.6 186.5 L 527.9 163.8 L 513.2 152.2 L 509.6 145.4 L 486.4 142.4 L 484.8 145.6 L 477.5 146.1 L 472.5 160.6 L 466.3 167.0 L 462.0 167.3 L 431.0 149.0 L 420.4 122.4 L 408.6 115.6 L 379.9 89.8 L 337.6 89.8 L 337.5 102.2 L 265.1 102.3 L 170.4 70.1 L 172.9 64.0 Z'
 
   type City = {
     name: string
@@ -1817,15 +1867,15 @@ function MexicoMap() {
     dy?: number
   }
   const cities: City[] = [
-    { name: 'Tijuana',     x:  82, y:  64, anchor: 'start', dx: 12, dy: 5 },
-    { name: 'Cd. Juárez',  x: 360, y:  98, anchor: 'middle', dx: 0, dy: -16 },
-    { name: 'Monterrey',   x: 560, y: 222, anchor: 'start', dx: 12, dy: -8 },
-    { name: 'Guadalajara', x: 432, y: 372, anchor: 'end',   dx: -12, dy: 5 },
-    { name: 'León',        x: 502, y: 376, anchor: 'middle', dx: 0, dy: -16 },
-    { name: 'CDMX',        x: 596, y: 432, primary: true },
-    { name: 'Puebla',      x: 632, y: 454, anchor: 'start', dx: 14, dy: 16 },
-    { name: 'Mérida',      x: 882, y: 416, anchor: 'middle', dx: 0, dy: -16 },
-    { name: 'Cancún',      x: 952, y: 392, anchor: 'middle', dx: 0, dy: -16 },
+    { name: 'Tijuana',     x: 114, y:  70, anchor: 'start',  dx: 12, dy: 4 },
+    { name: 'Cd. Juárez',  x: 383, y:  92, anchor: 'middle', dx: 0, dy: -16 },
+    { name: 'Monterrey',   x: 537, y: 258, anchor: 'start',  dx: 12, dy: -8 },
+    { name: 'Guadalajara', x: 460, y: 397, anchor: 'end',    dx: -12, dy: 6 },
+    { name: 'León',        x: 502, y: 384, anchor: 'start',  dx: 12, dy: -8 },
+    { name: 'CDMX',        x: 567, y: 431, primary: true },
+    { name: 'Puebla',      x: 590, y: 441, anchor: 'start',  dx: 14, dy: 14 },
+    { name: 'Mérida',      x: 808, y: 388, anchor: 'middle', dx: 0, dy: -16 },
+    { name: 'Cancún',      x: 877, y: 383, anchor: 'start',  dx: 10, dy: 14 },
   ]
   const cdmx = cities.find((c) => c.primary)!
 
@@ -1938,14 +1988,12 @@ function MexicoMap() {
 
             {/* Silueta de México — fill con glow */}
             <g filter="url(#mx-soft-glow)">
-              <path d={mainland} fill="url(#mx-fill-pro)" />
-              <path d={baja}     fill="url(#mx-fill-pro)" />
+              <path d={mexico} fill="url(#mx-fill-pro)" />
             </g>
 
             {/* Contorno con animación de drawing */}
             <g fill="none" stroke="url(#mx-stroke-pro)" strokeWidth="2.4" strokeLinejoin="round" strokeLinecap="round">
-              <path d={mainland} className="mx-state-draw" />
-              <path d={baja}     className="mx-state-draw" style={{ animationDelay: '0.5s' }} />
+              <path d={mexico} className="mx-state-draw" pathLength={1600} />
             </g>
 
             {/* Rutas curvas CDMX → ciudades con flujo animado */}

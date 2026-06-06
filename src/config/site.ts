@@ -7,7 +7,7 @@ export const siteConfig = {
   email: 'hola@antuario.mx',
   phone: '+52 55 1192 7007',
   whatsapp:
-    'https://wa.me/5215511927007?text=Hola%2C%20me%20interesa%20saber%20m%C3%A1s%20sobre%20Antuario',
+    'https://wa.me/5215511927007?text=Hola%2C%20tengo%20un%20proyecto%20y%20me%20gustar%C3%ADa%20una%20propuesta%20de%20Antuario.',
   dashboardUrl: 'https://dashboard.antuario.mx',
   address: 'México',
   social: {

@@ -11,6 +11,25 @@ import {
 } from '@/components/common/PageBuildingBlocks'
 import { CASE_LIST } from '@/lib/cases-data'
 
+/* Fotos reales del equipo Antuario — reutilizadas en /nosotros y en SharedTeam. */
+export const TEAM_PHOTOS = [
+  {
+    src: '/equipo/equipo-antuario-agencia-marketing-digital-cdmx-1.jpg',
+    alt: 'Equipo de Antuario, agencia de marketing digital en CDMX, en sesión de estrategia de un proyecto de lanzamiento.',
+    orientation: 'landscape' as const,
+  },
+  {
+    src: '/equipo/equipo-antuario-agencia-marketing-digital-cdmx-2.jpg',
+    alt: 'Equipo de Antuario presentando un reporte de marketing digital con métricas, dashboards y ROAS a un cliente.',
+    orientation: 'landscape' as const,
+  },
+  {
+    src: '/equipo/equipo-antuario-agencia-marketing-digital-cdmx-3.jpg',
+    alt: 'Equipo de marketing digital de Antuario trabajando desde sus oficinas WeWork en la Ciudad de México.',
+    orientation: 'portrait' as const,
+  },
+]
+
 /* ───────────────────────────────────────────────────────────────────────────
    Shared sections que se reutilizan en /servicios/*, /nosotros y casos.
    Cada una standalone con data-theme correcto para el theme tracking del header.
@@ -319,15 +338,14 @@ export function SharedCoverage() {
 }
 
 function SharedMiniMap() {
-  const cdmx = { x: 605, y: 430 }
-  const mainland =
-    'M 172 50 L 235 56 L 280 56 L 376 44 L 440 110 L 500 122 L 560 138 L 595 176 L 656 226 L 663 282 L 645 338 L 660 388 L 700 436 L 752 470 L 798 470 L 834 458 L 858 432 L 880 410 L 903 382 L 945 370 L 978 360 L 992 374 L 988 388 L 970 404 L 952 426 L 942 458 L 905 472 L 870 470 L 860 504 L 862 524 L 838 552 L 820 572 L 776 552 L 745 532 L 712 526 L 670 538 L 608 510 L 540 488 L 510 478 L 470 458 L 440 442 L 414 392 L 392 348 L 376 308 L 350 280 L 320 254 L 295 232 L 268 204 L 244 178 L 232 158 L 218 138 L 200 116 L 178 86 L 162 60 Z'
-  const baja =
-    'M 44 18 L 96 18 L 110 38 L 118 70 L 132 110 L 148 142 L 168 174 L 188 206 L 210 232 L 230 256 L 248 282 L 260 304 L 264 318 L 252 308 L 236 286 L 218 262 L 196 240 L 174 218 L 152 192 L 132 162 L 116 132 L 100 100 L 86 70 L 70 44 L 56 28 Z'
+  const cdmx = { x: 567, y: 431 }
+  // Silueta real de México (misma geografía proyectada que el mapa de la home).
+  const mexico =
+    'M 111.5 70.1 L 118.3 84.6 L 124.2 88.9 L 120.7 90.9 L 131.7 106.7 L 131.3 112.7 L 138.5 117.2 L 136.9 126.2 L 144.9 130.7 L 147.3 146.1 L 166.0 156.6 L 188.7 182.0 L 189.0 188.6 L 182.5 196.9 L 179.0 199.6 L 163.1 197.8 L 163.8 201.3 L 177.9 211.0 L 179.9 217.4 L 194.1 223.3 L 201.2 230.8 L 207.4 228.7 L 231.9 243.9 L 238.3 259.8 L 233.5 282.6 L 238.8 289.1 L 239.3 284.7 L 243.5 285.2 L 245.5 289.7 L 241.0 290.7 L 248.5 296.5 L 259.5 298.0 L 282.4 315.8 L 292.6 335.8 L 306.1 327.4 L 307.2 319.9 L 300.2 313.9 L 296.6 302.6 L 292.7 303.0 L 286.6 294.7 L 283.6 295.2 L 284.2 299.3 L 277.3 297.2 L 274.0 289.5 L 275.8 281.8 L 267.0 262.5 L 259.6 255.4 L 260.5 245.5 L 258.6 246.0 L 255.9 234.5 L 246.0 224.3 L 248.1 233.9 L 242.2 222.3 L 244.7 221.1 L 243.5 219.2 L 237.1 215.9 L 233.0 206.0 L 224.8 200.8 L 221.0 182.2 L 214.4 180.0 L 211.4 171.7 L 208.2 171.6 L 200.3 158.5 L 182.8 145.0 L 181.5 139.0 L 175.5 134.1 L 173.7 113.1 L 169.5 107.3 L 172.0 93.4 L 176.2 92.3 L 189.0 98.4 L 192.9 95.4 L 199.0 98.0 L 200.3 103.2 L 211.8 106.2 L 214.6 108.2 L 214.2 110.7 L 212.6 109.0 L 213.0 119.4 L 221.9 133.9 L 222.2 141.9 L 235.5 160.4 L 229.2 161.3 L 226.1 170.0 L 234.5 175.4 L 237.8 168.3 L 261.3 194.9 L 276.5 199.0 L 276.6 213.6 L 291.4 220.3 L 296.6 230.1 L 309.1 234.7 L 305.9 248.4 L 306.6 259.9 L 330.7 270.3 L 341.7 286.0 L 365.6 304.9 L 381.5 326.9 L 398.3 344.0 L 401.5 359.7 L 406.8 370.4 L 412.9 374.9 L 412.2 384.7 L 404.5 394.4 L 409.9 394.7 L 411.7 399.0 L 400.2 404.2 L 417.1 432.0 L 445.2 447.6 L 455.8 461.2 L 499.2 474.0 L 517.6 490.4 L 553.9 506.6 L 575.3 510.2 L 580.9 517.2 L 601.6 526.7 L 612.7 527.3 L 632.7 535.3 L 658.4 527.3 L 666.6 521.3 L 686.3 521.6 L 712.6 536.4 L 741.3 566.0 L 745.7 550.8 L 741.9 545.6 L 754.0 523.3 L 787.0 522.5 L 787.9 513.9 L 781.6 511.9 L 779.5 505.1 L 761.3 490.8 L 772.8 490.8 L 772.8 475.2 L 819.2 475.2 L 819.2 471.4 L 822.5 469.9 L 826.7 473.0 L 835.1 457.5 L 841.3 456.6 L 846.5 448.2 L 846.2 456.9 L 849.6 458.3 L 852.7 465.1 L 862.9 433.7 L 856.9 436.5 L 863.5 427.5 L 862.7 425.3 L 857.1 427.4 L 857.5 424.0 L 862.6 420.2 L 862.2 411.0 L 876.7 392.4 L 880.5 383.4 L 878.9 375.7 L 877.4 379.9 L 873.9 371.2 L 865.0 371.5 L 863.8 373.6 L 870.6 372.4 L 868.1 375.5 L 845.2 369.9 L 795.2 382.6 L 788.4 387.6 L 784.9 401.7 L 786.0 416.2 L 779.6 423.2 L 778.7 433.3 L 774.6 437.2 L 750.9 452.8 L 747.3 450.4 L 732.6 452.2 L 723.3 457.7 L 711.3 457.5 L 683.8 465.2 L 676.1 454.6 L 650.9 447.1 L 639.5 433.8 L 634.8 418.6 L 617.1 396.9 L 610.7 379.7 L 613.2 372.1 L 601.6 354.7 L 599.7 343.7 L 604.0 290.4 L 616.8 257.6 L 617.2 250.6 L 610.6 253.9 L 604.1 248.4 L 590.6 247.9 L 567.4 237.6 L 559.2 221.5 L 556.6 204.9 L 549.0 200.7 L 546.7 194.8 L 537.6 186.5 L 527.9 163.8 L 513.2 152.2 L 509.6 145.4 L 486.4 142.4 L 484.8 145.6 L 477.5 146.1 L 472.5 160.6 L 466.3 167.0 L 462.0 167.3 L 431.0 149.0 L 420.4 122.4 L 408.6 115.6 L 379.9 89.8 L 337.6 89.8 L 337.5 102.2 L 265.1 102.3 L 170.4 70.1 L 172.9 64.0 Z'
 
   return (
     <div className="card-bb-float overflow-hidden bg-papel p-5 sm:p-6">
-      <svg viewBox="0 0 1000 620" className="h-auto w-full" aria-label="Mapa de cobertura nacional con sede en CDMX">
+      <svg viewBox="0 0 1000 640" className="h-auto w-full" aria-label="Mapa de cobertura nacional con sede en CDMX">
         <defs>
           <linearGradient id="mini-mx-fill" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%"   stopColor="#4F46E5" stopOpacity="0.08" />
@@ -338,11 +356,9 @@ function SharedMiniMap() {
             <stop offset="100%" stopColor="#22D3EE" stopOpacity="0.55" />
           </linearGradient>
         </defs>
-        <path d={mainland} fill="url(#mini-mx-fill)" />
-        <path d={baja}     fill="url(#mini-mx-fill)" />
+        <path d={mexico} fill="url(#mini-mx-fill)" />
         <g fill="none" stroke="url(#mini-mx-stroke)" strokeWidth="1.8" strokeLinejoin="round" strokeLinecap="round">
-          <path d={mainland} />
-          <path d={baja} />
+          <path d={mexico} />
         </g>
         <g>
           <circle cx={cdmx.x} cy={cdmx.y} r="50" fill="rgba(79,70,229,0.10)" />
@@ -439,5 +455,107 @@ export function SharedCases({ heading, sub }: { heading?: string; sub?: string }
         </div>
       </div>
     </section>
+  )
+}
+
+/* ═══════════════ EQUIPO (compacta · 3 fotos reales + nota CDMX/freelancers) ═══════════════ */
+export function SharedTeam() {
+  const [landscape1, landscape2, portrait] = TEAM_PHOTOS
+
+  return (
+    <ShellWrap data="light" variant="papel">
+      <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-14">
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          variants={rise}
+          className="lg:col-span-5"
+        >
+          <ChapterTag roman="∗" label="Equipo" sub="Quiénes somos" />
+          <h2
+            className="hero-type mt-5 max-w-[20ch] text-[26px] text-onyx sm:text-[36px] lg:text-[40px]"
+            style={{ fontWeight: 300 }}
+          >
+            Un equipo pequeño de líderes,{' '}
+            <span className="multi-grad">con cobertura nacional.</span>
+          </h2>
+          <p className="lead-type mt-5 max-w-[48ch] text-[14.5px] sm:text-[15.5px]">
+            Antuario es un equipo interno reducido y estratégico, con sede en
+            la Ciudad de México. Operamos desde WeWork y podemos reunirnos en
+            persona con clientes en cualquier WeWork de CDMX para revisar
+            proyectos, reportes y estrategia.
+          </p>
+          <p className="body-type mt-3 max-w-[48ch] text-[13.5px] sm:text-[14.5px]">
+            Operamos desde CDMX, pero damos servicio en{' '}
+            <strong className="font-medium text-onyx">toda la República Mexicana</strong>.
+            Para proyectos de mayor escala sumamos freelancers independientes de
+            nuestra entera confianza — sin perder la dirección ni el accountability.
+          </p>
+
+          <div className="mt-7 grid grid-cols-3 gap-3">
+            {[
+              { label: 'Sede', value: 'CDMX · WeWork' },
+              { label: 'Cobertura', value: 'Nacional' },
+              { label: 'Equipo', value: 'Interno + freelancers' },
+            ].map((s) => (
+              <div key={s.label} className="card-bb-soft p-3.5 sm:p-4">
+                <span className="font-mono text-[9.5px] uppercase tracking-[0.22em] text-plomo">
+                  {s.label}
+                </span>
+                <p
+                  className="mt-1.5 text-[12.5px] font-medium text-onyx sm:text-[13px]"
+                  style={{ letterSpacing: '-0.014em' }}
+                >
+                  {s.value}
+                </p>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, scale: 0.96 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          className="grid grid-cols-12 gap-3 sm:gap-4 lg:col-span-7"
+        >
+          <div className="col-span-7 overflow-hidden rounded-[22px] bg-lino shadow-soft">
+            <Image
+              src={landscape1.src}
+              alt={landscape1.alt}
+              width={1280}
+              height={960}
+              draggable={false}
+              className="aspect-[4/3] h-full w-full object-cover"
+              sizes="(max-width: 1024px) 60vw, 35vw"
+            />
+          </div>
+          <div className="col-span-5 row-span-2 overflow-hidden rounded-[22px] bg-lino shadow-soft">
+            <Image
+              src={portrait.src}
+              alt={portrait.alt}
+              width={960}
+              height={1280}
+              draggable={false}
+              className="h-full w-full object-cover"
+              sizes="(max-width: 1024px) 40vw, 25vw"
+            />
+          </div>
+          <div className="col-span-7 overflow-hidden rounded-[22px] bg-lino shadow-soft">
+            <Image
+              src={landscape2.src}
+              alt={landscape2.alt}
+              width={1280}
+              height={960}
+              draggable={false}
+              className="aspect-[4/3] h-full w-full object-cover"
+              sizes="(max-width: 1024px) 60vw, 35vw"
+            />
+          </div>
+        </motion.div>
+      </div>
+    </ShellWrap>
   )
 }

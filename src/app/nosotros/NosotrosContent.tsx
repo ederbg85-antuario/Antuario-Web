@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { User } from 'lucide-react'
+import Image from 'next/image'
 import { SiteFrame, AntuarioMark } from '@/components/layout/SiteFrame'
 import {
   PageHero,
@@ -16,6 +16,7 @@ import {
   SharedData,
   SharedCoverage,
   SharedCases,
+  TEAM_PHOTOS,
 } from '@/components/common/PageSharedSections'
 
 const principles = [
@@ -49,16 +50,6 @@ const principles = [
     t: 'Transparencia radical',
     d: 'Reportes claros, presupuestos abiertos, métricas accesibles. Sin amarres ni costos escondidos.',
   },
-]
-
-// Equipo en formación — placeholder honesto. Se reemplaza con fotos y bios reales cuando el cliente las tenga.
-const team = [
-  { role: 'Dirección General', name: 'Por presentar', focus: 'Estrategia y crecimiento' },
-  { role: 'Dirección Creativa', name: 'Por presentar', focus: 'Diseño y dirección de arte' },
-  { role: 'Dirección de Performance', name: 'Por presentar', focus: 'Ads, SEO y medición' },
-  { role: 'Dirección de Tecnología', name: 'Por presentar', focus: 'Software, IA, integraciones' },
-  { role: 'Operaciones', name: 'Por presentar', focus: 'Cuentas y delivery' },
-  { role: 'Producción Audiovisual', name: 'Por presentar', focus: 'Foto, video, post' },
 ]
 
 const methodologySteps = [
@@ -194,75 +185,144 @@ export function NosotrosContent() {
       </ShellWrap>
 
       <ShellWrap data="light" variant="marfil">
-        <ChapterTag roman="III" label="Equipo" sub="Quién está detrás" />
+        <ChapterTag roman="III" label="Equipo" sub="Quiénes somos" />
         <h2
-          className="hero-type mt-5 max-w-[24ch] text-[28px] text-onyx sm:text-[38px] lg:text-[44px]"
+          className="hero-type mt-5 max-w-[26ch] text-[28px] text-onyx sm:text-[38px] lg:text-[44px]"
           style={{ fontWeight: 300 }}
         >
-          Un equipo multidisciplinario{' '}
-          <span className="multi-grad">en formación constante.</span>
+          Un equipo pequeño de líderes,{' '}
+          <span className="multi-grad">con visión estratégica y cobertura nacional.</span>
         </h2>
         <p className="lead-type mt-5 max-w-[58ch] text-[15px] sm:text-[16px]">
-          Estamos terminando de presentar a cada miembro del equipo. Por
-          ahora, los roles que sostienen Antuario:
+          No somos una agencia de cientos de personas. Somos un equipo interno
+          reducido, con un rol estratégico y de liderazgo sobre cada proyecto.
+          Operamos desde la Ciudad de México y damos servicio a empresas en
+          toda la República Mexicana.
         </p>
 
-        <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {team.map((member, i) => (
-            <motion.article
-              key={member.role}
-              custom={i}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true }}
-              variants={rise}
-              className="rounded-[24px] bg-papel p-6 sm:p-7"
-              style={{
-                boxShadow:
-                  '0 1px 2px rgba(15,15,30,0.04), 0 4px 14px rgba(15,15,30,0.06)',
-              }}
-            >
-              <div
-                className="relative mb-5 flex aspect-[4/3] items-center justify-center overflow-hidden rounded-2xl"
-                style={{
-                  background:
-                    'linear-gradient(135deg, rgba(79,70,229,0.10), rgba(34,211,238,0.06) 60%, rgba(167,139,250,0.10))',
-                }}
-              >
-                <span
-                  className="absolute inset-0 opacity-50"
-                  style={{
-                    background:
-                      'radial-gradient(50% 50% at 50% 50%, rgba(79,70,229,0.18), transparent 70%)',
-                    filter: 'blur(20px)',
-                  }}
-                  aria-hidden
-                />
-                <User className="relative h-8 w-8 text-plomo opacity-50" />
-                <span className="absolute bottom-3 right-3 font-mono text-[9px] uppercase tracking-[0.22em] text-plomo">
-                  Foto pendiente
-                </span>
-              </div>
-              <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-plomo">
-                {member.role}
-              </span>
-              <h3
-                className="mt-2 text-[17px] font-medium tracking-tight text-onyx sm:text-[18px]"
-                style={{ letterSpacing: '-0.014em' }}
-              >
-                {member.name}
-              </h3>
-              <p className="mt-1 text-[12.5px] text-grafito sm:text-[13px]">
-                {member.focus}
-              </p>
-            </motion.article>
-          ))}
+        {/* Fotos reales del equipo */}
+        <div className="mt-10 grid grid-cols-12 gap-3 sm:gap-4">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.97 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            className="col-span-12 overflow-hidden rounded-[24px] bg-lino shadow-soft sm:col-span-7"
+          >
+            <Image
+              src={TEAM_PHOTOS[0].src}
+              alt={TEAM_PHOTOS[0].alt}
+              width={1280}
+              height={960}
+              draggable={false}
+              className="aspect-[4/3] h-full w-full object-cover"
+              sizes="(max-width: 640px) 100vw, 58vw"
+            />
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.97 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+            className="col-span-12 row-span-2 overflow-hidden rounded-[24px] bg-lino shadow-soft sm:col-span-5"
+          >
+            <Image
+              src={TEAM_PHOTOS[2].src}
+              alt={TEAM_PHOTOS[2].alt}
+              width={960}
+              height={1280}
+              draggable={false}
+              className="aspect-[4/5] h-full w-full object-cover sm:aspect-auto"
+              sizes="(max-width: 640px) 100vw, 40vw"
+            />
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.97 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.16, ease: [0.22, 1, 0.36, 1] }}
+            className="col-span-12 overflow-hidden rounded-[24px] bg-lino shadow-soft sm:col-span-7"
+          >
+            <Image
+              src={TEAM_PHOTOS[1].src}
+              alt={TEAM_PHOTOS[1].alt}
+              width={1280}
+              height={960}
+              draggable={false}
+              className="aspect-[4/3] h-full w-full object-cover"
+              sizes="(max-width: 640px) 100vw, 58vw"
+            />
+          </motion.div>
         </div>
 
-        <p className="mt-8 max-w-[60ch] text-[12.5px] text-plomo">
-          * Estamos finalizando las presentaciones del equipo.
-          Esta sección se actualizará con fotos profesionales y biografías
-          completas en las próximas semanas.
+        {/* Operación · oficinas · red extendida */}
+        <div className="mt-8 grid gap-3 sm:gap-4 lg:grid-cols-3">
+          <motion.div
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+            variants={rise}
+            className="card-bb-soft p-6"
+          >
+            <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-plomo">
+              Sede y oficinas
+            </span>
+            <h3 className="mt-2 text-[16px] font-medium tracking-tight text-onyx" style={{ letterSpacing: '-0.014em' }}>
+              CDMX · WeWork
+            </h3>
+            <p className="mt-2 text-[13px] leading-[1.55] text-grafito">
+              Operamos principalmente desde WeWork Insurgentes:{' '}
+              <strong className="font-medium text-onyx">Av. Insurgentes Sur 1079, Col. del Valle Sur, Benito Juárez, 03720, CDMX</strong>.
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+            variants={rise}
+            custom={1}
+            className="card-bb-soft p-6"
+          >
+            <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-plomo">
+              Reuniones presenciales
+            </span>
+            <h3 className="mt-2 text-[16px] font-medium tracking-tight text-onyx" style={{ letterSpacing: '-0.014em' }}>
+              Cualquier WeWork de CDMX
+            </h3>
+            <p className="mt-2 text-[13px] leading-[1.55] text-grafito">
+              Podemos vernos en persona con clientes en cualquier WeWork de la
+              ciudad para platicar de proyectos, reportes y estrategia.
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+            variants={rise}
+            custom={2}
+            className="card-bb-soft p-6"
+          >
+            <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-plomo">
+              Cobertura
+            </span>
+            <h3 className="mt-2 text-[16px] font-medium tracking-tight text-onyx" style={{ letterSpacing: '-0.014em' }}>
+              Toda la República Mexicana
+            </h3>
+            <p className="mt-2 text-[13px] leading-[1.55] text-grafito">
+              Operamos desde CDMX, pero trabajamos con empresas en cualquier
+              estado del país — de forma remota o presencial cuando el proyecto
+              lo amerita.
+            </p>
+          </motion.div>
+        </div>
+
+        <p className="lead-type mt-8 max-w-[64ch] text-[14.5px] sm:text-[15px]">
+          Para proyectos de mayor escala, nos apoyamos en{' '}
+          <strong className="font-medium text-onyx">freelancers independientes de nuestra entera confianza</strong>{' '}
+          — especialistas que sumamos al equipo manteniendo siempre la dirección,
+          los estándares y el accountability de Antuario.
         </p>
       </ShellWrap>
 

@@ -20,6 +20,7 @@ import {
   SharedData,
   SharedCoverage,
   SharedCases,
+  SharedTeam,
 } from '@/components/common/PageSharedSections'
 import type { ServiceData } from '@/lib/services-data'
 import { SERVICES, SERVICE_LIST } from '@/lib/services-data'
@@ -331,10 +332,11 @@ export function ServicePageTemplate({ slug }: { slug: string }) {
         </div>
       </ShellWrap>
 
-      {/* Shared sections — Diferenciadores · Medición · Cobertura */}
+      {/* Shared sections — Diferenciadores · Medición · Cobertura · Equipo */}
       <SharedDifferentiators />
       <SharedData />
       <SharedCoverage />
+      <SharedTeam />
 
       <CTASection
         title={data.ctaTitle}

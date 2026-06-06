@@ -13,6 +13,7 @@ import {
   Breadcrumbs,
   rise,
 } from '@/components/common/PageBuildingBlocks'
+import { SharedTeam } from '@/components/common/PageSharedSections'
 import { CASE_LIST } from '@/lib/cases-data'
 
 export function CasosContent() {
@@ -110,6 +111,8 @@ export function CasosContent() {
           Se irán publicando en las próximas semanas con resultados detallados.
         </p>
       </ShellWrap>
+
+      <SharedTeam />
 
       <CTASection
         title="¿Quieres construir un caso"

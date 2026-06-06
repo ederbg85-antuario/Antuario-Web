@@ -287,7 +287,7 @@ export const CASES: Record<string, CaseData> = {
   'somos-unno-redes-sociales-meta-ads': {
     slug: 'somos-unno-redes-sociales-meta-ads',
     name: 'Somos Unno',
-    imageSrc: '/portfolio/somos-unno-redes-sociales-meta-ads.jpg',
+    imageSrc: '/portfolio/somos-unno-portada-meta-ads.jpg',
     imageAlt: 'Somos Unno — caso de éxito de creación de contenido, redes sociales y campañas de Meta Ads desarrollado por Antuario para una marca mexicana de charcutería y tablas de quesos gourmet.',
     industry: 'Food · Charcutería gourmet',
     tagline: 'Cómo activamos desde cero la demanda de una marca de charcutería gourmet.',
@@ -331,5 +331,17 @@ export const CASES: Record<string, CaseData> = {
   },
 }
 
-export const CASE_LIST = Object.values(CASES)
+// Orden de presentación de los casos (listado /casos, marquee y casos relacionados).
+const CASE_ORDER = [
+  'acriland-desarrollo-web-seo',
+  'metrica-btl-desarrollo-web-seo',
+  'usg-agente-ia-software-a-la-medida',
+  'reserva-27-desarrollo-web-agente-ia',
+  'somos-unno-redes-sociales-meta-ads',
+  'aracnene',
+  'maggadan',
+  'magia-travel',
+]
+
+export const CASE_LIST = CASE_ORDER.map((slug) => CASES[slug]).filter(Boolean)
 export const DETAILED_CASES = CASE_LIST.filter((c) => c.detail)
