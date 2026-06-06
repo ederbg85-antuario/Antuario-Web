@@ -61,7 +61,7 @@ export function ServicePageTemplate({ slug }: { slug: string }) {
           variants={rise}
           className="mt-8 max-w-3xl"
         >
-          <ChapterTag roman="I" label="El problema" sub="Diagnóstico" />
+          <ChapterTag roman="I" label="El problema" sub="Contexto" />
           <h2
             className="hero-type mt-5 text-[26px] text-onyx sm:text-[36px] lg:text-[42px]"
             style={{ fontWeight: 300 }}

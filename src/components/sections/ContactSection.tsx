@@ -29,7 +29,7 @@ export default function ContactSection() {
               <div>
                 <h3 className="font-bold text-slate-900">30 minutos, sin compromiso</h3>
                 <p className="text-sm text-slate-500">
-                  Conocemos tu negocio, analizamos tu situación actual y te damos un diagnóstico inicial.
+                  Conocemos tu negocio, entendemos tu proyecto y definimos juntos el siguiente paso.
                 </p>
               </div>
             </div>

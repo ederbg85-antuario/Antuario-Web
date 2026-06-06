@@ -82,7 +82,7 @@ export default function AISection() {
               <div className="ml-auto max-w-[80%]">
                 <div className="rounded-2xl rounded-tr-md bg-primary/20 px-4 py-3">
                   <p className="text-sm text-white">
-                    Hola, gracias por escribirnos. Para empresas de TI B2B tenemos un sistema que incluye página web optimizada, SEO y Google Ads. El plan Crecimiento sería ideal para ustedes. ¿Te gustaría agendar una llamada de 30 min para hacer un diagnóstico sin costo?
+                    Hola, gracias por escribirnos. Por lo que me cuentas, una mezcla de página web optimizada, SEO y Google Ads encaja muy bien con tu objetivo. ¿Te gustaría agendar una reunión de 30 min con uno de nuestros asesores para revisar tu proyecto?
                   </p>
                 </div>
                 <div className="mt-1 flex items-center justify-end gap-1.5">

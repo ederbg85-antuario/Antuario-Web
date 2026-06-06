@@ -34,7 +34,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
 
     // Soporte / legacy
-    { url: `${siteConfig.url}/diagnostico`, lastModified: now, changeFrequency: 'monthly', priority: 0.70 },
     { url: `${siteConfig.url}/como-trabajamos`, lastModified: now, changeFrequency: 'monthly', priority: 0.50 },
     { url: `${siteConfig.url}/dashboard`,   lastModified: now, changeFrequency: 'monthly', priority: 0.50 },
     { url: `${siteConfig.url}/agente-ia`,   lastModified: now, changeFrequency: 'monthly', priority: 0.50 },

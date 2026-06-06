@@ -128,7 +128,7 @@ export function CaseDetailContent({ slug }: { slug: string }) {
         <div className="grid-pattern-dark pointer-events-none absolute inset-0 opacity-12" />
 
         <div className="relative z-10">
-          <ChapterTag roman="I" label="El reto" sub="Diagnóstico" dark />
+          <ChapterTag roman="I" label="El reto" sub="Contexto" dark />
           <h2
             className="hero-type mt-5 max-w-[26ch] text-[26px] text-papel sm:text-[36px] lg:text-[42px]"
             style={{ fontWeight: 300 }}

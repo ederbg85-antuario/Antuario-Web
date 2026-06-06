@@ -21,7 +21,7 @@ export default function CTASection() {
             ¿Quieres saber si esta solución le queda a tu empresa?
           </h2>
           <p className="mx-auto mb-10 max-w-2xl text-[15px] leading-relaxed text-slate-400">
-            Hacemos un diagnóstico gratuito donde analizamos tu situación actual, identificamos tus áreas de mejora y te mostramos cómo funciona todo en una demo en vivo. Sin compromiso — si no somos lo que necesitas, no pasa nada.
+            Cuéntanos tu proyecto y te preparamos una propuesta a la medida. ¿Aún no lo tienes bien definido? Con nuestra Consultoría lo aterrizamos contigo y te entregamos un brief listo para cotizar.
           </p>
 
           <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">

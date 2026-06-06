@@ -12,7 +12,6 @@ import {
   rise,
 } from '@/components/common/PageBuildingBlocks'
 import {
-  SharedDifferentiators,
   SharedData,
   SharedCoverage,
   SharedCases,
@@ -52,11 +51,11 @@ const principles = [
   },
 ]
 
-const methodologySteps = [
-  { n: '01', t: 'Diagnóstico', d: 'Antes de proponer, entendemos. Mapeo del negocio, embudo, competidores y oportunidad real.' },
-  { n: '02', t: 'Estrategia', d: 'Plan con objetivos, KPIs y arquitectura técnica clara. Sin promesas vacías ni sales decks vendedores.' },
-  { n: '03', t: 'Ejecución integrada', d: 'Equipos multidisciplinarios trabajando en sincronía bajo una sola dirección operativa.' },
-  { n: '04', t: 'Medición + ajuste', d: 'Dashboards a la medida, reuniones de revisión semanales o quincenales, optimización continua.' },
+const culturePrinciples = [
+  { t: 'Nada al aventón', d: 'No improvisamos ni hacemos las cosas a medias. Cada proyecto se trabaja con método, datos y una sola dirección estratégica.' },
+  { t: 'Primero definir, luego cotizar', d: 'No cotizamos a ciegas. Una propuesta seria necesita objetivos, alcance y estrategia claros. Si aún no los tienes, los aterrizamos contigo en una Consultoría.' },
+  { t: 'El trabajo se respeta', d: 'Definir estrategia y desarrollar un proyecto es trabajo real, no un favor gratis. Lo hacemos en serio y le ponemos un valor justo — para ti y para nosotros.' },
+  { t: 'Relaciones de largo plazo', d: 'Trabajamos con quienes valoran hacer las cosas bien. Cuando no hay esa sintonía, preferimos no avanzar: no estamos hechos para el corto plazo.' },
 ]
 
 export function NosotrosContent() {
@@ -71,6 +70,28 @@ export function NosotrosContent() {
         ctaSecondary={{ label: 'Ver nuestros servicios', href: '/servicios' }}
         mobileMarkAbove
       />
+
+      {/* Portada — equipo */}
+      <ShellWrap data="light" variant="papel">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.985 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          className="overflow-hidden rounded-[28px] bg-lino shadow-soft"
+        >
+          <Image
+            src={TEAM_PHOTOS[0].src}
+            alt={TEAM_PHOTOS[0].alt}
+            width={1600}
+            height={900}
+            priority
+            draggable={false}
+            className="aspect-[16/9] h-full w-full object-cover"
+            sizes="100vw"
+          />
+        </motion.div>
+      </ShellWrap>
 
       <SharedCases />
 
@@ -186,45 +207,29 @@ export function NosotrosContent() {
 
       <ShellWrap data="light" variant="marfil">
         <ChapterTag roman="III" label="Equipo" sub="Quiénes somos" />
-        <h2
-          className="hero-type mt-5 max-w-[26ch] text-[28px] text-onyx sm:text-[38px] lg:text-[44px]"
-          style={{ fontWeight: 300 }}
-        >
-          Un equipo pequeño de líderes,{' '}
-          <span className="multi-grad">con visión estratégica y cobertura nacional.</span>
-        </h2>
-        <p className="lead-type mt-5 max-w-[58ch] text-[15px] sm:text-[16px]">
-          No somos una agencia de cientos de personas. Somos un equipo interno
-          reducido, con un rol estratégico y de liderazgo sobre cada proyecto.
-          Operamos desde la Ciudad de México y damos servicio a empresas en
-          toda la República Mexicana.
-        </p>
+        <div className="mt-2 grid gap-8 lg:grid-cols-12 lg:gap-12 lg:items-center">
+          <div className="lg:col-span-7">
+            <h2
+              className="hero-type max-w-[26ch] text-[28px] text-onyx sm:text-[38px] lg:text-[44px]"
+              style={{ fontWeight: 300 }}
+            >
+              Un equipo pequeño de líderes,{' '}
+              <span className="multi-grad">con visión estratégica y cobertura nacional.</span>
+            </h2>
+            <p className="lead-type mt-5 max-w-[58ch] text-[15px] sm:text-[16px]">
+              No somos una agencia de cientos de personas. Somos un equipo interno
+              reducido, con un rol estratégico y de liderazgo sobre cada proyecto.
+              Operamos desde la Ciudad de México y damos servicio a empresas en
+              toda la República Mexicana.
+            </p>
+          </div>
 
-        {/* Fotos reales del equipo */}
-        <div className="mt-10 grid grid-cols-12 gap-3 sm:gap-4">
           <motion.div
             initial={{ opacity: 0, scale: 0.97 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="col-span-12 overflow-hidden rounded-[24px] bg-lino shadow-soft sm:col-span-7"
-          >
-            <Image
-              src={TEAM_PHOTOS[0].src}
-              alt={TEAM_PHOTOS[0].alt}
-              width={1280}
-              height={960}
-              draggable={false}
-              className="aspect-[4/3] h-full w-full object-cover"
-              sizes="(max-width: 640px) 100vw, 58vw"
-            />
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, scale: 0.97 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
-            className="col-span-12 row-span-2 overflow-hidden rounded-[24px] bg-lino shadow-soft sm:col-span-5"
+            className="overflow-hidden rounded-[24px] bg-lino shadow-soft lg:col-span-5"
           >
             <Image
               src={TEAM_PHOTOS[2].src}
@@ -232,25 +237,8 @@ export function NosotrosContent() {
               width={960}
               height={1280}
               draggable={false}
-              className="aspect-[4/5] h-full w-full object-cover sm:aspect-auto"
-              sizes="(max-width: 640px) 100vw, 40vw"
-            />
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, scale: 0.97 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.16, ease: [0.22, 1, 0.36, 1] }}
-            className="col-span-12 overflow-hidden rounded-[24px] bg-lino shadow-soft sm:col-span-7"
-          >
-            <Image
-              src={TEAM_PHOTOS[1].src}
-              alt={TEAM_PHOTOS[1].alt}
-              width={1280}
-              height={960}
-              draggable={false}
-              className="aspect-[4/3] h-full w-full object-cover"
-              sizes="(max-width: 640px) 100vw, 58vw"
+              className="aspect-[4/5] h-full w-full object-cover"
+              sizes="(max-width: 1024px) 100vw, 40vw"
             />
           </motion.div>
         </div>
@@ -324,6 +312,24 @@ export function NosotrosContent() {
           — especialistas que sumamos al equipo manteniendo siempre la dirección,
           los estándares y el accountability de Antuario.
         </p>
+
+        <motion.div
+          initial={{ opacity: 0, scale: 0.98 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          className="mt-10 overflow-hidden rounded-[24px] bg-lino shadow-soft"
+        >
+          <Image
+            src={TEAM_PHOTOS[1].src}
+            alt={TEAM_PHOTOS[1].alt}
+            width={1600}
+            height={900}
+            draggable={false}
+            className="aspect-[16/7] h-full w-full object-cover"
+            sizes="100vw"
+          />
+        </motion.div>
       </ShellWrap>
 
       <ShellWrap data="dark" variant="dark">
@@ -331,58 +337,51 @@ export function NosotrosContent() {
         <div className="grid-pattern-dark pointer-events-none absolute inset-0 opacity-12" />
 
         <div className="relative z-10">
-          <ChapterTag roman="IV" label="Metodología" sub="Cómo entregamos" dark />
-          <h2
-            className="hero-type mt-5 max-w-[24ch] text-[28px] text-papel sm:text-[40px] lg:text-[46px]"
-            style={{ fontWeight: 300 }}
-          >
-            Cuatro fases que repetimos{' '}
-            <span className="multi-grad-bright">en cada proyecto.</span>
-          </h2>
-
-          <div className="mt-10 grid gap-y-8 lg:grid-cols-2 lg:gap-x-12">
-            {methodologySteps.map((s, i) => (
-              <motion.div
-                key={s.t}
-                custom={i}
-                initial="hidden"
-                whileInView="show"
-                viewport={{ once: true }}
-                variants={rise}
-                className="grid grid-cols-[auto_1fr] gap-4 border-t border-papel/10 pt-6 sm:gap-6"
-              >
-                <span
-                  className="font-mono text-[36px] font-light tabular-nums text-papel/25 sm:text-[44px]"
-                  style={{ letterSpacing: '-0.04em', lineHeight: 1 }}
+          {/* Cultura / valores */}
+          <div>
+            <ChapterTag roman="IV" label="Cultura" sub="Cómo elegimos con quién trabajar" dark />
+            <h2
+              className="hero-type mt-5 max-w-[26ch] text-[26px] text-papel sm:text-[36px] lg:text-[40px]"
+              style={{ fontWeight: 300 }}
+            >
+              Hacemos las cosas bien — y{' '}
+              <span className="multi-grad-bright">esperamos lo mismo de los clientes con los que trabajamos.</span>
+            </h2>
+            <div className="mt-10 grid gap-y-8 lg:grid-cols-2 lg:gap-x-12">
+              {culturePrinciples.map((c, i) => (
+                <motion.div
+                  key={c.t}
+                  custom={i}
+                  initial="hidden"
+                  whileInView="show"
+                  viewport={{ once: true }}
+                  variants={rise}
+                  className="border-t border-papel/10 pt-6"
                 >
-                  {s.n}
-                </span>
-                <div>
                   <h3
                     className="text-[17px] font-medium tracking-tight text-papel sm:text-[19px]"
                     style={{ letterSpacing: '-0.018em' }}
                   >
-                    {s.t}
+                    {c.t}
                   </h3>
                   <p className="mt-2.5 text-[13.5px] leading-[1.55] text-papel/65 sm:text-[14.5px]">
-                    {s.d}
+                    {c.d}
                   </p>
-                </div>
-              </motion.div>
-            ))}
+                </motion.div>
+              ))}
+            </div>
           </div>
         </div>
       </ShellWrap>
 
-      {/* Shared sections — Diferenciadores · Medición · Cobertura */}
-      <SharedDifferentiators />
+      {/* Shared sections — Medición · Cobertura */}
       <SharedData />
       <SharedCoverage />
 
       <CTASection
         title="¿Quieres conocer al equipo"
         highlight="que va a llevar tu proyecto?"
-        description="Agendamos una llamada inicial sin costo. Te presentamos a las personas que estarían en el proyecto y te entregamos un diagnóstico inicial."
+        description="Agendamos una reunión inicial. Te presentamos a las personas que estarían en el proyecto y vemos juntos cómo trabajarlo."
         secondary={{ label: 'Ver casos de éxito', href: '/casos' }}
       />
     </SiteFrame>

@@ -377,9 +377,9 @@ function FinalCTASection() {
             rel="noopener noreferrer"
             className="btn-shine inline-flex items-center gap-2 rounded-full bg-emerald-500 px-8 py-3 font-semibold text-white transition-all hover:bg-emerald-600 active:scale-95"
           >
-            Agendar mi diagnóstico gratuito →
+            Cuéntanos tu proyecto →
           </Link>
-          <p className="text-sm font-medium text-slate-400">Sin costo. Sin compromiso.</p>
+          <p className="text-sm font-medium text-slate-400">Te respondemos en menos de 24 h.</p>
         </motion.div>
       </div>
     </section>

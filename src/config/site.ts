@@ -24,6 +24,7 @@ export const siteConfig = {
     { label: 'Desarrollo Web', href: '/servicios/desarrollo-web', short: 'Sitios, landings, ecommerce' },
     { label: 'Software a la medida', href: '/servicios/software', short: 'CRM, integraciones, automatización' },
     { label: 'Inteligencia Artificial', href: '/servicios/inteligencia-artificial', short: 'Agentes, LLMs, IA generativa' },
+    { label: 'Consultoría', href: '/servicios/consultoria', short: 'Estrategia y desarrollo de proyecto' },
   ],
 
   // Main navigation (header)
@@ -44,6 +45,6 @@ export const siteConfig = {
     { label: 'Casos', href: '/casos' },
     { label: 'Blog', href: '/blog' },
     { label: 'Contacto', href: '/contacto' },
-    { label: 'Diagnóstico Gratuito', href: '/diagnostico' },
+    { label: 'Cuéntanos tu proyecto', href: '/contacto' },
   ],
 } as const

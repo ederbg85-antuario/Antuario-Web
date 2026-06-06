@@ -111,7 +111,7 @@ export const SERVICES: Record<string, ServiceData> = {
     ctaTitle: '¿Buscas una agencia SEO',
     ctaHighlight: 'en CDMX o México?',
     ctaDescription:
-      'Hagamos un diagnóstico SEO inicial sin costo. Te entregamos un mapa claro de oportunidades concretas para los próximos 90 días.',
+      'Cuéntanos tu proyecto de SEO y te preparamos una propuesta con un mapa claro de oportunidades concretas para los próximos 90 días.',
   },
 
   'performance-ads': {
@@ -184,7 +184,7 @@ export const SERVICES: Record<string, ServiceData> = {
     ctaTitle: '¿Buscas una agencia de Google Ads',
     ctaHighlight: 'en CDMX?',
     ctaDescription:
-      'Te ofrecemos una auditoría inicial sin costo de tu cuenta de Ads. Detectamos en concreto qué está sangrando presupuesto y qué se puede optimizar en los primeros 30 días.',
+      'Cuéntanos sobre tu cuenta de Ads y tus objetivos y te preparamos una propuesta: detectamos en concreto qué está sangrando presupuesto y qué se puede optimizar en los primeros 30 días.',
   },
 
   'desarrollo-web': {
@@ -277,7 +277,7 @@ export const SERVICES: Record<string, ServiceData> = {
       'Operamos redes sociales para empresas que necesitan presencia consistente y resultados medibles. Estrategia editorial, producción audiovisual profesional, community management y reportes que conectan engagement con negocio.',
     problem: {
       headline: 'Por qué las redes corporativas no funcionan.',
-      sub: 'Tres síntomas que diagnosticamos cada semana.',
+      sub: 'Tres síntomas que vemos cada semana.',
       points: [
         {
           t: 'Sin estrategia editorial',
@@ -476,7 +476,7 @@ export const SERVICES: Record<string, ServiceData> = {
     ctaTitle: '¿Necesitas software a la medida',
     ctaHighlight: 'para tu empresa?',
     ctaDescription:
-      'Cuéntanos qué proceso te está estorbando. Te entregamos un diagnóstico técnico y propuesta de arquitectura sin costo.',
+      'Cuéntanos qué proceso te está estorbando. Te preparamos una propuesta técnica y de arquitectura a la medida.',
   },
 
   'inteligencia-artificial': {
@@ -550,6 +550,79 @@ export const SERVICES: Record<string, ServiceData> = {
     ctaHighlight: 'en tu negocio?',
     ctaDescription:
       'Cuéntanos qué proceso quieres acelerar. Diseñamos un piloto con caso de uso claro y ROI estimado en menos de dos semanas.',
+  },
+
+  consultoria: {
+    slug: 'consultoria',
+    href: '/servicios/consultoria',
+    iconKey: 'target',
+    accent: 'var(--cobalto-b)',
+    eyebrow: 'Consultoría · CDMX · México',
+    title: 'Consultoría de marketing y desarrollo de proyecto —',
+    highlight: 'antes de cotizar, hay que definir.',
+    metaTitle: 'Consultoría de marketing y desarrollo de proyecto (brief)',
+    metaDescription:
+      'Consultoría de marketing en CDMX: aterrizamos objetivos, estrategia, canales y alcance, y te entregamos un brief profesional listo para cotizar — con nosotros o con quien quieras.',
+    keyword: 'consultoría de marketing',
+    tagline: 'Un proyecto bien definido vale más que diez cotizaciones a ciegas.',
+    description:
+      'No se puede cotizar bien lo que no está definido. En nuestra Consultoría trabajamos contigo para aterrizar objetivos, estrategia, canales, entregables y alcance de tu proyecto de marketing. El resultado es un brief profesional que puedes usar para cotizar con cualquier agencia — incluida la nuestra. Es un servicio pagado: el trabajo de definición y estrategia es trabajo real, y lo hacemos bien.',
+    problem: {
+      headline: 'Por qué la mayoría de los proyectos nacen mal.',
+      sub: 'Pedir una cotización sin un proyecto definido es la receta del caos.',
+      points: [
+        {
+          t: 'Cotizar a ciegas',
+          d: 'Sin objetivos, canales ni alcance claros, cualquier número es un invento. Terminas comparando propuestas que ni siquiera hablan del mismo proyecto.',
+        },
+        {
+          t: 'Sin estrategia, solo maquila',
+          d: 'Producir contenido o pauta sin una estrategia detrás quema presupuesto. Primero el qué y el para qué; después el cómo y el cuánto.',
+        },
+        {
+          t: 'Expectativas mal puestas',
+          d: 'Sin KPIs ni alcance acordados, el proyecto se vuelve un malentendido permanente entre cliente y agencia. La definición previa evita el conflicto.',
+        },
+      ],
+    },
+    process: {
+      headline: 'Cómo trabajamos la Consultoría en Antuario.',
+      steps: [
+        { n: '01', t: 'Sesiones de descubrimiento', d: 'Entendemos tu negocio, tu mercado, tus objetivos reales y tu situación actual. Aquí distinguimos lo que crees que necesitas de lo que de verdad mueve la aguja.' },
+        { n: '02', t: 'Estrategia y canales', d: 'Definimos objetivos medibles, audiencias, canales (ads, SEO, redes, web, contenido), mensajes y KPIs. La parte estratégica que casi nadie tiene clara.' },
+        { n: '03', t: 'Alcance y entregables', d: 'Aterrizamos el alcance concreto: qué se hace, cuánto, en qué formatos y con qué responsables. Lo necesario para poder cotizar de verdad.' },
+        { n: '04', t: 'Entrega del brief', d: 'Te entregamos un documento profesional con todo definido. Es tuyo: cotiza con nosotros o con quien quieras, en igualdad de condiciones.' },
+      ],
+    },
+    deliverables: {
+      headline: 'Qué incluye nuestra Consultoría.',
+      items: [
+        'Sesiones de consultoría con tu equipo',
+        'Objetivos de negocio y KPIs medibles',
+        'Estrategia y mix de canales recomendado',
+        'Definición de audiencias y mensajes clave',
+        'Alcance y entregables del proyecto',
+        'Estructura de medición y reportes',
+        'Brief profesional listo para cotizar (documento entregable)',
+        'Recomendación de siguientes pasos',
+      ],
+    },
+    cases: [
+      { name: 'Reserva 27', slug: 'reserva-27-desarrollo-web-agente-ia' },
+      { name: 'Somos Unno', slug: 'somos-unno-redes-sociales-meta-ads' },
+      { name: 'Métrica BTL', slug: 'metrica-btl-desarrollo-web-seo' },
+    ],
+    faqs: [
+      { q: '¿Por qué cobran por la consultoría si otras agencias "asesoran" gratis?', a: 'Porque definir estrategia, objetivos y alcance es trabajo real y especializado — no un favor. Cobrarlo nos permite hacerlo bien y a fondo; y a ti te garantiza un entregable serio que puedes usar para cotizar donde quieras.' },
+      { q: '¿Para quién es la Consultoría?', a: 'Para quien sabe que quiere crecer pero aún no tiene un proyecto definido (objetivos, canales, alcance, presupuesto). Si ya tienes un brief claro, no la necesitas: pasamos directo a propuesta.' },
+      { q: '¿El brief me sirve solo con ustedes?', a: 'No. El documento es tuyo y puedes usarlo para pedir propuestas a varias agencias en igualdad de condiciones. Confiamos en nuestro trabajo; no amarramos clientes reteniendo información.' },
+      { q: '¿Cuánto cuesta y cuánto dura?', a: 'Depende del tamaño y la complejidad del proyecto. Lo cotizamos a la medida tras una primera conversación. Típicamente son unas cuantas sesiones a lo largo de 2 a 4 semanas.' },
+      { q: '¿Y si después contrato la ejecución con ustedes?', a: 'Perfecto. La consultoría deja todo listo para arrancar sin fricción. Si decides ejecutar con nosotros, el proyecto ya nace bien definido.' },
+    ],
+    ctaTitle: '¿Aún no tienes tu proyecto',
+    ctaHighlight: 'bien definido?',
+    ctaDescription:
+      'Cuéntanos qué quieres lograr. Te proponemos una consultoría a la medida para aterrizar tu proyecto y entregarte un brief listo para cotizar.',
   },
 }
 

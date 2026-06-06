@@ -251,7 +251,7 @@ export default function ResultadosPage() {
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-bold text-lg hover:shadow-lg transition-all duration-300 btn-shine group"
             >
-              Agendar mi diagnóstico gratuito
+              Agendar una reunión
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </a>
 
