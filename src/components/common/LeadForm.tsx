@@ -22,12 +22,12 @@ export default function LeadForm() {
   } = useForm<LeadFormData>({
     resolver: zodResolver(leadSchema),
     defaultValues: {
-      nombre: '',
-      empresa: '',
+      name: '',
+      company: '',
       email: '',
-      telefono: '',
-      servicio_interes: undefined,
-      mensaje: '',
+      phone: '',
+      interest: '',
+      message: '',
     },
   })
 
@@ -63,7 +63,7 @@ export default function LeadForm() {
         ;(window as any).dataLayer.push({
           event: 'lead_submit',
           form_id: 'lead_form',
-          interest: data.servicio_interes,
+          interest: data.interest,
         })
       }
     } catch {
@@ -95,44 +95,44 @@ export default function LeadForm() {
 
       <div className="grid gap-5 sm:grid-cols-2">
         <div className="space-y-1.5">
-          <label htmlFor="nombre" className="block text-sm font-medium text-slate-500">
+          <label htmlFor="name" className="block text-sm font-medium text-slate-500">
             Nombre *
           </label>
           <input
-            id="nombre"
+            id="name"
             type="text"
             placeholder="Tu nombre"
-            aria-describedby={errors.nombre ? 'nombre-error' : undefined}
+            aria-describedby={errors.name ? 'name-error' : undefined}
             className={cn(
               'w-full rounded-xl border bg-white px-4 py-3 text-slate-900 placeholder:text-slate-400 outline-none transition-all',
               'focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10',
-              errors.nombre ? 'border-accent-red/50' : 'border-slate-200/60'
+              errors.name ? 'border-accent-red/50' : 'border-slate-200/60'
             )}
-            {...register('nombre')}
+            {...register('name')}
           />
-          {errors.nombre && (
-            <p id="nombre-error" className="text-xs text-accent-red">{errors.nombre.message}</p>
+          {errors.name && (
+            <p id="name-error" className="text-xs text-accent-red">{errors.name.message}</p>
           )}
         </div>
 
         <div className="space-y-1.5">
-          <label htmlFor="empresa" className="block text-sm font-medium text-slate-500">
-            Empresa *
+          <label htmlFor="company" className="block text-sm font-medium text-slate-500">
+            Empresa
           </label>
           <input
-            id="empresa"
+            id="company"
             type="text"
             placeholder="Nombre de tu empresa"
-            aria-describedby={errors.empresa ? 'empresa-error' : undefined}
+            aria-describedby={errors.company ? 'company-error' : undefined}
             className={cn(
               'w-full rounded-xl border bg-white px-4 py-3 text-slate-900 placeholder:text-slate-400 outline-none transition-all',
               'focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10',
-              errors.empresa ? 'border-accent-red/50' : 'border-slate-200/60'
+              errors.company ? 'border-accent-red/50' : 'border-slate-200/60'
             )}
-            {...register('empresa')}
+            {...register('company')}
           />
-          {errors.empresa && (
-            <p id="empresa-error" className="text-xs text-accent-red">{errors.empresa.message}</p>
+          {errors.company && (
+            <p id="company-error" className="text-xs text-accent-red">{errors.company.message}</p>
           )}
         </div>
       </div>
@@ -160,70 +160,70 @@ export default function LeadForm() {
         </div>
 
         <div className="space-y-1.5">
-          <label htmlFor="telefono" className="block text-sm font-medium text-slate-500">
+          <label htmlFor="phone" className="block text-sm font-medium text-slate-500">
             Teléfono
           </label>
           <input
-            id="telefono"
+            id="phone"
             type="tel"
             placeholder="+52 55 1234 5678"
-            aria-describedby={errors.telefono ? 'telefono-error' : undefined}
+            aria-describedby={errors.phone ? 'phone-error' : undefined}
             className={cn(
               'w-full rounded-xl border bg-white px-4 py-3 text-slate-900 placeholder:text-slate-400 outline-none transition-all',
               'focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10',
-              errors.telefono ? 'border-accent-red/50' : 'border-slate-200/60'
+              errors.phone ? 'border-accent-red/50' : 'border-slate-200/60'
             )}
-            {...register('telefono')}
+            {...register('phone')}
           />
-          {errors.telefono && (
-            <p id="telefono-error" className="text-xs text-accent-red">{errors.telefono.message}</p>
+          {errors.phone && (
+            <p id="phone-error" className="text-xs text-accent-red">{errors.phone.message}</p>
           )}
         </div>
       </div>
 
       <div className="space-y-1.5">
-        <label htmlFor="servicio_interes" className="block text-sm font-medium text-slate-500">
+        <label htmlFor="interest" className="block text-sm font-medium text-slate-500">
           Servicio de interés *
         </label>
         <select
-          id="servicio_interes"
-          aria-describedby={errors.servicio_interes ? 'servicio-error' : undefined}
+          id="interest"
+          aria-describedby={errors.interest ? 'interest-error' : undefined}
           className={cn(
             'w-full rounded-xl border bg-white px-4 py-3 text-slate-900 outline-none transition-all',
             'focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10',
-            errors.servicio_interes ? 'border-accent-red/50' : 'border-slate-200/60'
+            errors.interest ? 'border-accent-red/50' : 'border-slate-200/60'
           )}
           defaultValue=""
-          {...register('servicio_interes')}
+          {...register('interest')}
         >
           <option value="" disabled>Selecciona un servicio</option>
           {servicioInteresOptions.map((opt) => (
             <option key={opt.value} value={opt.value}>{opt.label}</option>
           ))}
         </select>
-        {errors.servicio_interes && (
-          <p id="servicio-error" className="text-xs text-accent-red">{errors.servicio_interes.message}</p>
+        {errors.interest && (
+          <p id="interest-error" className="text-xs text-accent-red">{errors.interest.message}</p>
         )}
       </div>
 
       <div className="space-y-1.5">
-        <label htmlFor="mensaje" className="block text-sm font-medium text-slate-500">
+        <label htmlFor="message" className="block text-sm font-medium text-slate-500">
           Mensaje
         </label>
         <textarea
-          id="mensaje"
+          id="message"
           rows={4}
           placeholder="Cuéntanos brevemente sobre tu negocio y qué necesitas..."
-          aria-describedby={errors.mensaje ? 'mensaje-error' : undefined}
+          aria-describedby={errors.message ? 'message-error' : undefined}
           className={cn(
             'w-full resize-none rounded-xl border bg-white px-4 py-3 text-slate-900 placeholder:text-slate-400 outline-none transition-all',
             'focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10',
-            errors.mensaje ? 'border-accent-red/50' : 'border-slate-200/60'
+            errors.message ? 'border-accent-red/50' : 'border-slate-200/60'
           )}
-          {...register('mensaje')}
+          {...register('message')}
         />
-        {errors.mensaje && (
-          <p id="mensaje-error" className="text-xs text-accent-red">{errors.mensaje.message}</p>
+        {errors.message && (
+          <p id="message-error" className="text-xs text-accent-red">{errors.message.message}</p>
         )}
       </div>
 

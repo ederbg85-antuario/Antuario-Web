@@ -33,7 +33,10 @@ export function ContactoContent() {
       const r = await fetch('/api/leads', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+        body: JSON.stringify({
+          ...form,
+          source_url: typeof window !== 'undefined' ? window.location.href : '',
+        }),
       })
       if (!r.ok) throw new Error('failed')
       setState('sent')

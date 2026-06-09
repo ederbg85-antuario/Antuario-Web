@@ -1,39 +1,39 @@
 import { z } from 'zod'
 
+// Servicios que ofrece Antuario — fuente única de verdad para los formularios
+// (página /contacto y LeadForm) y para las etiquetas que guarda la API.
 export const servicioInteresOptions = [
-  { value: 'generacion-leads', label: 'Generación de Leads' },
-  { value: 'plataforma', label: 'Plataforma / Dashboard' },
-  { value: 'ia', label: 'Automatización con IA' },
-  { value: 'consultoria', label: 'Consultoría Estratégica' },
-  { value: 'otro', label: 'Otro' },
+  { value: 'marketing', label: 'Marketing digital integral' },
+  { value: 'seo', label: 'SEO' },
+  { value: 'performance', label: 'Performance Ads' },
+  { value: 'web', label: 'Desarrollo web' },
+  { value: 'redes', label: 'Redes sociales' },
+  { value: 'branding', label: 'Branding y diseño' },
+  { value: 'software', label: 'Software a la medida' },
+  { value: 'ia', label: 'Inteligencia Artificial' },
+  { value: 'otro', label: 'Otro / no estoy seguro' },
 ] as const
 
-const phoneRegex = /^(\+52\s?)?\d{10}$/
-
 export const leadSchema = z.object({
-  nombre: z
+  name: z
     .string()
     .min(2, 'El nombre debe tener al menos 2 caracteres')
-    .max(50, 'El nombre no puede exceder 50 caracteres'),
-  empresa: z
+    .max(80, 'El nombre no puede exceder 80 caracteres'),
+  email: z.string().email('Ingresa un correo electrónico válido'),
+  company: z
     .string()
-    .min(2, 'El nombre de la empresa debe tener al menos 2 caracteres')
-    .max(100, 'El nombre de la empresa no puede exceder 100 caracteres'),
-  email: z
-    .string()
-    .email('Ingresa un correo electrónico válido'),
-  telefono: z
-    .string()
-    .regex(phoneRegex, 'Formato: +52 seguido de 10 dígitos o solo 10 dígitos')
+    .max(100, 'El nombre de la empresa no puede exceder 100 caracteres')
     .optional()
     .or(z.literal('')),
-  servicio_interes: z.enum(
-    ['generacion-leads', 'plataforma', 'ia', 'consultoria', 'otro'],
-    { errorMap: () => ({ message: 'Selecciona un servicio de interés' }) }
-  ),
-  mensaje: z
+  phone: z
     .string()
-    .max(500, 'El mensaje no puede exceder 500 caracteres')
+    .max(30, 'El teléfono no puede exceder 30 caracteres')
+    .optional()
+    .or(z.literal('')),
+  interest: z.string().min(1, 'Selecciona un servicio de interés'),
+  message: z
+    .string()
+    .max(2000, 'El mensaje no puede exceder 2000 caracteres')
     .optional()
     .or(z.literal('')),
   source_url: z.string().optional(),
