@@ -912,7 +912,7 @@ function AgencySection() {
                 style={{ fontWeight: 300 }}
               >
                 Una agencia de marketing digital{' '}
-                <span className="multi-grad">para empresas con proyectos serios.</span>
+                <span className="multi-grad">enfocada en estrategia, datos y resultados.</span>
               </motion.h2>
 
               <motion.p
@@ -923,7 +923,7 @@ function AgencySection() {
                 variants={rise}
                 className="lead-type mt-6 max-w-[48ch] text-[15px] sm:text-[16.5px]"
               >
-                Antuario opera como un equipo de marketing digital integrado:
+                Operamos como un equipo de marketing digital integrado:
                 estrategia, performance, posicionamiento orgánico, desarrollo
                 web e inteligencia artificial bajo una sola dirección.{' '}
                 <strong className="font-medium text-onyx">

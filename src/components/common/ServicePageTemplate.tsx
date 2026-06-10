@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion'
 import Link from 'next/link'
-import { ArrowUpRight, Check } from 'lucide-react'
+import { Check } from 'lucide-react'
 import { siteConfig } from '@/config/site'
 import { SiteFrame } from '@/components/layout/SiteFrame'
 import { ServiceIcon } from '@/components/common/ServiceIcon'
@@ -40,7 +40,7 @@ export function ServicePageTemplate({ slug }: { slug: string }) {
         highlight={data.highlight}
         description={data.description}
         keyword={data.keyword}
-        ctaSecondary={{ label: 'Ver casos relacionados', href: '/casos' }}
+        ctaSecondary={{ label: 'Ver casos de éxito', href: '/casos' }}
       />
 
       <SharedCases />
@@ -189,75 +189,10 @@ export function ServicePageTemplate({ slug }: { slug: string }) {
         </ul>
       </ShellWrap>
 
-      <ShellWrap data="light" variant="papel">
-        <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
-          <div>
-            <ChapterTag roman="IV" label="Casos relacionados" sub="Trabajo" />
-            <h2
-              className="hero-type mt-5 max-w-[28ch] text-[26px] text-onyx sm:text-[34px] lg:text-[40px]"
-              style={{ fontWeight: 300 }}
-            >
-              Casos donde aplicamos {data.metaTitle.split(' — ')[0].toLowerCase().replace('agencia ', '').replace('agencia de ', '')}.
-            </h2>
-          </div>
-          <Link
-            href="/casos"
-            className="inline-flex items-center gap-2 text-[12.5px] font-medium text-onyx hover:text-grafito"
-          >
-            Ver todos los casos
-            <ArrowUpRight className="h-4 w-4" />
-          </Link>
-        </div>
-
-        <div className="grid gap-4 sm:grid-cols-3">
-          {data.cases.map((c, i) => (
-            <motion.div
-              key={c.slug}
-              custom={i}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true }}
-              variants={rise}
-            >
-              <Link
-                href={`/casos/${c.slug}`}
-                className="group flex h-full flex-col rounded-[24px] bg-papel p-6 transition-all duration-500 hover:-translate-y-1 sm:p-7"
-                style={{
-                  boxShadow:
-                    '0 1px 2px rgba(15,15,30,0.06), 0 6px 18px rgba(15,15,30,0.08)',
-                }}
-              >
-                <span className="font-mono text-[10.5px] uppercase tracking-[0.22em] text-plomo">
-                  Caso · {String(i + 1).padStart(2, '0')}
-                </span>
-                <h3
-                  className="mt-3 text-[20px] font-medium tracking-tight text-onyx sm:text-[22px]"
-                  style={{ letterSpacing: '-0.018em' }}
-                >
-                  {c.name}
-                </h3>
-                <p className="mt-2 flex-1 text-[13px] text-grafito sm:text-[13.5px]">
-                  Lee cómo aplicamos {data.keyword.split(' ').slice(-2).join(' ')} en este proyecto.
-                </p>
-                <div className="mt-5 flex items-center justify-between">
-                  <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-plomo">
-                    Caso de éxito
-                  </span>
-                  <ArrowUpRight
-                    className="h-4 w-4 transition-all duration-300 group-hover:translate-x-0.5"
-                    style={{ color: data.accent }}
-                  />
-                </div>
-              </Link>
-            </motion.div>
-          ))}
-        </div>
-      </ShellWrap>
-
       <ShellWrap data="light" variant="marfil">
         <div className="grid gap-10 lg:grid-cols-12">
           <div className="lg:col-span-5">
-            <ChapterTag roman="V" label="FAQ" sub="Preguntas frecuentes" />
+            <ChapterTag roman="IV" label="FAQ" sub="Preguntas frecuentes" />
             <h2
               className="hero-type mt-5 max-w-[20ch] text-[26px] text-onyx sm:text-[36px] lg:text-[40px]"
               style={{ fontWeight: 300 }}
@@ -278,7 +213,7 @@ export function ServicePageTemplate({ slug }: { slug: string }) {
 
       <ShellWrap data="light" variant="papel">
         <div className="mb-8">
-          <ChapterTag roman="VI" label="Otros servicios" sub="Más capacidades" />
+          <ChapterTag roman="V" label="Otros servicios" sub="Más capacidades" />
           <h2
             className="hero-type mt-5 max-w-[24ch] text-[24px] text-onyx sm:text-[32px] lg:text-[38px]"
             style={{ fontWeight: 300 }}
