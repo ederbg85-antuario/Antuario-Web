@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { leadSchema, type LeadFormData, servicioInteresOptions } from '@/lib/validations/lead'
+import { submitLead } from '@/lib/leads'
 import { getUtmParams, cn } from '@/lib/utils'
 import { Send, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react'
 import type { FormState } from '@/types'
@@ -43,15 +44,7 @@ export default function LeadForm() {
         utm_campaign: utmParams.utm_campaign,
       }
 
-      const response = await fetch('/api/leads', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      })
-
-      if (!response.ok) {
-        throw new Error('Error al enviar')
-      }
+      await submitLead(payload)
 
       setFormState({
         status: 'success',

@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { ArrowRight, Mail, Phone, MapPin, Clock, Loader2 } from 'lucide-react'
 import { siteConfig } from '@/config/site'
+import { submitLead } from '@/lib/leads'
 import { SiteFrame, AntuarioMark } from '@/components/layout/SiteFrame'
 import {
   ShellWrap,
@@ -30,15 +31,10 @@ export function ContactoContent() {
     e.preventDefault()
     setState('sending')
     try {
-      const r = await fetch('/api/leads', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...form,
-          source_url: typeof window !== 'undefined' ? window.location.href : '',
-        }),
+      await submitLead({
+        ...form,
+        source_url: typeof window !== 'undefined' ? window.location.href : '',
       })
-      if (!r.ok) throw new Error('failed')
       setState('sent')
       if (typeof window !== 'undefined') {
         ;(window as any).dataLayer = (window as any).dataLayer || []
