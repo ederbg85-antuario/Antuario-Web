@@ -52,6 +52,7 @@ function AntuarioLogotype({
       className={className}
       style={{
         ...style,
+        maxWidth: style?.maxWidth ?? '192px',
         filter: dark ? 'invert(1) brightness(2)' : 'none',
       }}
       draggable={false}
@@ -101,7 +102,7 @@ function FloatingHeader({
             aria-label="Antuario · Ir al inicio"
           >
             <AntuarioLogotype
-              className="absolute left-0 top-1/2 h-[22px] w-auto -translate-y-1/2 sm:h-[26px]"
+              className="absolute left-0 top-1/2 h-[22px] w-[160px] -translate-y-1/2 object-contain object-left sm:h-[26px] sm:w-[192px]"
               dark={isDark}
               style={{
                 opacity: showLogotype ? 1 : 0,
@@ -111,7 +112,7 @@ function FloatingHeader({
               }}
             />
             <AntuarioMark
-              className="absolute left-0 top-1/2 h-[26px] w-auto -translate-y-1/2 sm:h-[30px]"
+              className="absolute left-0 top-1/2 h-[26px] w-[40px] -translate-y-1/2 sm:h-[30px] sm:w-[46px]"
               style={{
                 color: isDark ? 'var(--papel)' : 'var(--onyx)',
                 opacity: showLogotype ? 0 : 1,
@@ -191,7 +192,7 @@ function NavOverlay({ open, onClose }: { open: boolean; onClose: () => void }) {
             className="relative mx-auto flex h-full max-w-6xl flex-col px-6 py-7 sm:px-10 sm:py-10"
           >
             <div className="flex items-center justify-between">
-              <AntuarioLogotype className="h-[24px] w-auto" dark />
+              <AntuarioLogotype className="h-[24px] w-[172px] object-contain object-left" dark />
               <button
                 onClick={onClose}
                 aria-label="Cerrar menú"
@@ -306,7 +307,7 @@ export function FloatingFooter() {
       <div className="relative mx-auto w-full max-w-[1440px] px-[clamp(16px,3vw,40px)] pb-10 pt-16 sm:pt-20">
         <div className="grid gap-10 lg:grid-cols-12">
           <div className="lg:col-span-5">
-            <AntuarioLogotype className="h-[28px] w-auto" dark />
+            <AntuarioLogotype className="h-[28px] w-[192px] object-contain object-left" dark />
             <p className="mt-5 max-w-[34ch] text-[13.5px] text-papel/55">
               Agencia de marketing digital en CDMX. Soluciones de marketing
               digital a la medida — bajo una sola dirección, con
@@ -323,7 +324,7 @@ export function FloatingFooter() {
             <span className="eyebrow-light">Páginas</span>
             <ul className="mt-4 space-y-2 text-[13px] text-papel/65">
               {siteConfig.footerNav.map((n) => (
-                <li key={n.href}>
+                <li key={`${n.label}-${n.href}`}>
                   <Link href={n.href} className="transition-colors hover:text-papel">
                     {n.label}
                   </Link>

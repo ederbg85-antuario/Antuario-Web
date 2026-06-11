@@ -2,6 +2,7 @@ import type { MetadataRoute } from 'next'
 import { siteConfig } from '@/config/site'
 import { SERVICE_LIST } from '@/lib/services-data'
 import { DETAILED_CASES } from '@/lib/cases-data'
+import { BLOG_POSTS } from '@/lib/blog-data'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date()
@@ -31,6 +32,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency: 'monthly' as const,
       priority: 0.75,
+    })),
+
+    // Tier 2 — Artículos de blog
+    ...BLOG_POSTS.map((post) => ({
+      url: `${siteConfig.url}/blog/${post.slug}`,
+      lastModified: new Date(post.date),
+      changeFrequency: 'monthly' as const,
+      priority: 0.70,
     })),
 
     // Soporte / legacy

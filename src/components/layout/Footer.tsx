@@ -98,7 +98,7 @@ export default function Footer() {
             <nav className="flex flex-col gap-2.5">
               {siteConfig.footerNav.map((item) => (
                 <a
-                  key={item.href}
+                  key={`${item.label}-${item.href}`}
                   href={item.href}
                   className="group flex items-center gap-1 text-[13px] text-slate-400/60 transition-colors duration-200 hover:text-emerald-400"
                 >

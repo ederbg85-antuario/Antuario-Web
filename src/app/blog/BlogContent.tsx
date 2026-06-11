@@ -1,7 +1,8 @@
 'use client'
 
+import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { Compass, BarChart3, Sparkles } from 'lucide-react'
+import { ArrowUpRight, Compass, BarChart3, Sparkles } from 'lucide-react'
 import { SiteFrame } from '@/components/layout/SiteFrame'
 import {
   PageHero,
@@ -12,6 +13,7 @@ import {
   rise,
 } from '@/components/common/PageBuildingBlocks'
 import { SharedCases } from '@/components/common/PageSharedSections'
+import { BLOG_POSTS } from '@/lib/blog-data'
 
 const clusters = [
   {
@@ -56,13 +58,15 @@ const clusters = [
 ]
 
 export function BlogContent() {
+  const featured = BLOG_POSTS[0]
+
   return (
     <SiteFrame>
       <PageHero
         eyebrow="Blog · Antuario · MMXXVI"
         title="Análisis, estrategia y"
         highlight="aprendizajes operativos."
-        description="El blog de Antuario está terminando de armarse — los primeros artículos llegan en las próximas semanas. Mientras tanto, aquí están los tres clusters editoriales que vamos a publicar."
+        description="Ideas, datos y aprendizajes operativos para empresas que quieren hacer marketing digital con estrategia, sistemas, IA y accountability real."
         keyword="blog · marketing digital · estrategia"
         ctaSecondary={{ label: 'Ver casos de éxito', href: '/casos' }}
       />
@@ -73,7 +77,71 @@ export function BlogContent() {
         <Breadcrumbs trail={[{ label: 'Inicio', href: '/' }, { label: 'Blog' }]} />
 
         <div className="mt-10 max-w-3xl">
-          <ChapterTag roman="I" label="Próximamente" sub="Roadmap editorial" />
+          <ChapterTag roman="I" label="Primer artículo" sub="Estrategia + medición" />
+          <h2
+            className="hero-type mt-5 text-[28px] text-onyx sm:text-[40px] lg:text-[44px]"
+            style={{ fontWeight: 300 }}
+          >
+            Empezamos con una pregunta incómoda:{' '}
+            <span className="multi-grad">¿tu agencia dirige crecimiento o solo entrega contenido?</span>
+          </h2>
+          <p className="lead-type mt-5 text-[14.5px] sm:text-[15.5px]">
+            El primer artículo cruza datos de mercado, presión presupuestal,
+            KPIs, sistemas de información y accountability para explicar cómo
+            distinguir una agencia seria de una operación desordenada.
+          </p>
+        </div>
+
+        <motion.article
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          variants={rise}
+          className="mt-12 overflow-hidden rounded-[30px] bg-onyx text-papel"
+        >
+          <Link href={`/blog/${featured.slug}`} className="group grid gap-0 lg:grid-cols-[1.15fr_0.85fr]">
+            <div className="relative min-h-[360px] p-7 sm:p-10 lg:p-12">
+              <div className="aurora aurora-deep absolute inset-0 opacity-55" aria-hidden />
+              <div className="grid-pattern-dark pointer-events-none absolute inset-0 opacity-15" />
+              <div className="relative z-10 flex h-full flex-col justify-between gap-12">
+                <div>
+                  <div className="flex flex-wrap items-center gap-3 text-[11.5px] text-papel/45">
+                    <span className="font-mono uppercase tracking-[0.22em]">{featured.category}</span>
+                    <span className="h-px w-8 bg-papel/15" />
+                    <span>{featured.readingTime}</span>
+                  </div>
+                  <h3 className="mt-6 max-w-[16ch] text-[32px] font-light leading-tight tracking-tight text-papel sm:text-[46px]">
+                    {featured.title}{' '}
+                    <span className="multi-grad-bright">{featured.highlight}</span>
+                  </h3>
+                  <p className="mt-6 max-w-[54ch] text-[15px] leading-[1.65] text-papel/65 sm:text-[16px]">
+                    {featured.excerpt}
+                  </p>
+                </div>
+                <div className="flex items-center gap-2 text-[13px] text-papel">
+                  Leer artículo
+                  <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </div>
+              </div>
+            </div>
+            <div className="grid gap-3 bg-papel/[0.04] p-5 sm:grid-cols-2 lg:grid-cols-1 lg:p-7">
+              {[
+                ['110 M', 'usuarios de internet en México'],
+                ['7.7%', 'presupuesto promedio de marketing vs. ingresos'],
+                ['$941B', 'MXN de eCommerce retail en México'],
+                ['5', 'preguntas para evaluar una agencia'],
+              ].map(([value, label]) => (
+                <div key={label} className="rounded-[22px] border border-papel/10 bg-papel/[0.055] p-5">
+                  <p className="text-[34px] font-light tracking-tight text-papel">{value}</p>
+                  <p className="mt-1.5 text-[12.5px] leading-snug text-papel/55">{label}</p>
+                </div>
+              ))}
+            </div>
+          </Link>
+        </motion.article>
+
+        <div className="mt-16 max-w-3xl">
+          <ChapterTag roman="II" label="Roadmap" sub="Clusters editoriales" />
           <h2
             className="hero-type mt-5 text-[28px] text-onyx sm:text-[40px] lg:text-[44px]"
             style={{ fontWeight: 300 }}
@@ -156,12 +224,8 @@ export function BlogContent() {
         </div>
 
         <p className="mt-10 max-w-[60ch] text-[12.5px] text-plomo">
-          Si quieres que te avisemos cuando publiquemos el primer post,
-          escríbenos un correo a{' '}
-          <a href="mailto:hola@antuario.mx" className="text-onyx underline">
-            hola@antuario.mx
-          </a>{' '}
-          con el asunto &ldquo;Blog Antuario&rdquo;.
+          Publicaremos un artículo nuevo cada semana y convertiremos cada tema
+          en carruseles, publicaciones y videos cortos para redes.
         </p>
       </ShellWrap>
 

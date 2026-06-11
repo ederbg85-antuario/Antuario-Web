@@ -2191,7 +2191,7 @@ function FloatingFooter() {
             <span className="eyebrow-light">Páginas</span>
             <ul className="mt-4 space-y-2 text-[13px] text-papel/65">
               {siteConfig.footerNav.map((n) => (
-                <li key={n.href}>
+                <li key={`${n.label}-${n.href}`}>
                   <Link href={n.href} className="transition-colors hover:text-papel">
                     {n.label}
                   </Link>

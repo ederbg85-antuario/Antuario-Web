@@ -435,6 +435,7 @@ export function SharedCases({ heading, sub }: { heading?: string; sub?: string }
                   width={1200}
                   height={1500}
                   className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                  style={{ width: '100%', height: '100%' }}
                   sizes="(max-width: 640px) 240px, (max-width: 1024px) 280px, 320px"
                   draggable={false}
                 />
