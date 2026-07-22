@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation'
 import Script from 'next/script'
 import { generatePageMetadata } from '@/config/metadata'
 import { siteConfig } from '@/config/site'
-import { CASES, DETAILED_CASES } from '@/lib/cases-data'
+import { CASES, DETAILED_CASES, isCaseHidden } from '@/lib/cases-data'
 import { CaseDetailContent } from './CaseDetailContent'
 
 export function generateStaticParams() {
@@ -12,7 +12,7 @@ export function generateStaticParams() {
 
 export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
   const c = CASES[params.slug]
-  if (!c || !c.detail) return generatePageMetadata({ title: 'Caso no encontrado' })
+  if (!c || !c.detail || isCaseHidden(params.slug)) return generatePageMetadata({ title: 'Caso no encontrado' })
   return generatePageMetadata({
     title: c.metaTitle,
     description: c.metaDescription,
@@ -23,7 +23,7 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
 
 export default function Page({ params }: { params: { slug: string } }) {
   const c = CASES[params.slug]
-  if (!c || !c.detail) notFound()
+  if (!c || !c.detail || isCaseHidden(params.slug)) notFound()
 
   const articleSchema = {
     '@context': 'https://schema.org',

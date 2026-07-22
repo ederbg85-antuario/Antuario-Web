@@ -343,5 +343,16 @@ const CASE_ORDER = [
   'magia-travel',
 ]
 
-export const CASE_LIST = CASE_ORDER.map((slug) => CASES[slug]).filter(Boolean)
+// ── Casos ocultos temporalmente ──────────────────────────────────────────────
+// Los slugs listados aquí NO se muestran en ningún lado de la web (listado /casos,
+// home, marquee, casos relacionados, sitemap) y su página de detalle responde 404,
+// pero SUS DATOS SE CONSERVAN intactos arriba en `CASES`.
+// Para volver a mostrar un caso, quítalo de este arreglo (déjalo vacío para no ocultar nada).
+export const HIDDEN_CASE_SLUGS: string[] = ['metrica-btl-desarrollo-web-seo']
+export const isCaseHidden = (slug: string) => HIDDEN_CASE_SLUGS.includes(slug)
+
+export const CASE_LIST = CASE_ORDER
+  .filter((slug) => !HIDDEN_CASE_SLUGS.includes(slug))
+  .map((slug) => CASES[slug])
+  .filter(Boolean)
 export const DETAILED_CASES = CASE_LIST.filter((c) => c.detail)
