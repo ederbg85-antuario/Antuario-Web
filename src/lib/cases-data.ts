@@ -348,7 +348,7 @@ const CASE_ORDER = [
 // home, marquee, casos relacionados, sitemap) y su página de detalle responde 404,
 // pero SUS DATOS SE CONSERVAN intactos arriba en `CASES`.
 // Para volver a mostrar un caso, quítalo de este arreglo (déjalo vacío para no ocultar nada).
-export const HIDDEN_CASE_SLUGS: string[] = ['metrica-btl-desarrollo-web-seo']
+export const HIDDEN_CASE_SLUGS: string[] = []
 export const isCaseHidden = (slug: string) => HIDDEN_CASE_SLUGS.includes(slug)
 
 export const CASE_LIST = CASE_ORDER
