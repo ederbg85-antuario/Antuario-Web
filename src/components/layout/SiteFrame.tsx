@@ -81,7 +81,7 @@ function FloatingHeader({
   const useSolidOnyx = atTop && isDark
 
   return (
-    <header className="pointer-events-none fixed inset-x-0 top-3 z-50 sm:top-4">
+    <header className="site-float-header pointer-events-none fixed inset-x-0 z-50">
       <div className="pointer-events-auto mx-auto w-full max-w-[1440px] px-[clamp(10px,2.4vw,24px)]">
         <div
           className={`flex items-center justify-between rounded-full px-4 py-2 transition-all duration-700 ease-out sm:px-5 sm:py-2.5 ${

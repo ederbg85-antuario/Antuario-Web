@@ -438,6 +438,16 @@
   .tilt-soft  { transform: perspective(1200px) rotateY(-2deg) rotateX(1deg); }
   .tilt-soft-r { transform: perspective(1200px) rotateY(2deg) rotateX(1deg); }
 
+  /* Offset the floating header when the Independence Day strip is visible */
+  .site-float-header {
+    top: calc(var(--independence-banner-h, 0px) + 0.75rem);
+  }
+  @media (min-width: 640px) {
+    .site-float-header {
+      top: calc(var(--independence-banner-h, 0px) + 1rem);
+    }
+  }
+
   /* Header flotante (capsule adaptativa) */
   .float-bar-dark {
     background: rgba(18, 18, 18, 0.50);
