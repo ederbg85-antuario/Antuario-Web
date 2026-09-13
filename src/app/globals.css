@@ -448,12 +448,12 @@
     }
   }
 
-  /* Mobile: the stacked banner lowers the nav over the hero H1. Shift
-     page content by the same measured height so the title clears the pill. */
-  @media (max-width: 639px) {
-    main {
-      padding-top: var(--independence-banner-h, 0px);
-    }
+  /* Home + SiteFrame heroes use fixed padding-top sized for the floating
+     pill alone. When the banner is up, shift main by the measured height
+     so the header keeps its original gap above the H1 / rounded shell.
+     Variable is 0 when dismissed — no leftover empty space. */
+  main {
+    padding-top: var(--independence-banner-h, 0px);
   }
 
   /* Independence Day — editorial masthead (discreet, agency-grade) */
