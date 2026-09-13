@@ -448,6 +448,14 @@
     }
   }
 
+  /* Mobile: the stacked banner lowers the nav over the hero H1. Shift
+     page content by the same measured height so the title clears the pill. */
+  @media (max-width: 639px) {
+    main {
+      padding-top: var(--independence-banner-h, 0px);
+    }
+  }
+
   /* Independence Day — editorial masthead (discreet, agency-grade) */
   .independence-banner {
     position: fixed;
