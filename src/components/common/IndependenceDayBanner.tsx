@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { X } from 'lucide-react'
 
-const DISMISS_KEY = 'antuario-independence-day-banner-dismissed'
+const DISMISS_KEY = 'antuario-independence-day-banner-2026-editorial'
 const BANNER_HEIGHT_VAR = '--independence-banner-h'
 const TIME_ZONE = 'America/Mexico_City'
 
@@ -88,34 +88,39 @@ export default function IndependenceDayBanner() {
       ref={bannerRef}
       role="region"
       aria-label="Celebración del 15 de septiembre"
-      className="fixed inset-x-0 top-0 z-[60] bg-onyx text-papel"
+      className="independence-banner"
     >
-      <div
-        className="h-px w-full bg-gradient-to-r from-[#006847] via-[#c4a35a] to-[#ce1126]"
-        aria-hidden="true"
-      />
-      <div className="relative mx-auto flex min-h-[36px] max-w-[1440px] items-center justify-center gap-2.5 px-10 py-1.5 sm:px-12">
-        <span className="hidden shrink-0 items-center gap-1 sm:flex" aria-hidden="true">
-          <span className="h-1.5 w-1.5 rounded-full bg-[#006847]" />
-          <span className="h-1.5 w-1.5 rounded-full bg-[#c4a35a]" />
-          <span className="h-1.5 w-1.5 rounded-full bg-[#ce1126]" />
-        </span>
-        <p className="text-center text-[11.5px] font-medium leading-snug tracking-[-0.01em] text-papel/88 sm:text-[12.5px]">
-          Feliz 15 de septiembre
-          <span className="mx-1.5 text-[#c4a35a]" aria-hidden="true">
-            —
+      <div className="independence-banner__aurora" aria-hidden="true" />
+      <div className="independence-banner__rule" aria-hidden="true" />
+
+      <div className="relative mx-auto flex max-w-[1440px] items-center gap-3 px-10 py-3 sm:gap-4 sm:px-12 sm:py-[13px]">
+        <p className="independence-banner__date hidden sm:block">15 · IX · MMXXVI</p>
+        <span className="independence-banner__divider hidden sm:block" aria-hidden="true" />
+
+        <p className="min-w-0 flex-1 text-center sm:text-left lg:text-center">
+          <span className="independence-banner__date mb-1.5 block sm:hidden">
+            15 · IX · MMXXVI
           </span>
-          orgullosos de ser mexicanos
+          <span className="independence-banner__lead block sm:inline">
+            Feliz 15 de septiembre
+          </span>
+          <span className="independence-banner__dot hidden sm:inline-block" aria-hidden="true" />
+          <span className="independence-banner__aside mt-0.5 block sm:mt-0 sm:inline">
+            orgullosos de ser mexicanos
+          </span>
         </p>
+
         <button
           type="button"
           onClick={dismiss}
           aria-label="Cerrar mensaje del 15 de septiembre"
-          className="absolute right-2 top-1/2 flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full text-papel/45 transition-colors hover:bg-papel/8 hover:text-papel focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-papel/60 sm:right-3"
+          className="absolute right-2 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full text-papel/40 transition-colors hover:bg-papel/8 hover:text-papel focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-papel/55 sm:right-3"
         >
-          <X className="h-3.5 w-3.5" strokeWidth={2} aria-hidden="true" />
+          <X className="h-3.5 w-3.5" strokeWidth={1.75} aria-hidden="true" />
         </button>
       </div>
+
+      <div className="independence-banner__rule independence-banner__rule--floor" aria-hidden="true" />
     </aside>
   )
 }
